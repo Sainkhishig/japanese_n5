@@ -24,10 +24,14 @@ class _$VerbFormModelTearOff {
   _VerbFormModel call(
       {String title = "",
       int selectedCardIndex = 1,
+      bool isTestMode = false,
+      String currentVerb = "",
       List<dynamic> lstVerbForms = const []}) {
     return _VerbFormModel(
       title: title,
       selectedCardIndex: selectedCardIndex,
+      isTestMode: isTestMode,
+      currentVerb: currentVerb,
       lstVerbForms: lstVerbForms,
     );
   }
@@ -44,6 +48,8 @@ const $VerbFormModel = _$VerbFormModelTearOff();
 mixin _$VerbFormModel {
   String get title => throw _privateConstructorUsedError;
   int get selectedCardIndex => throw _privateConstructorUsedError;
+  bool get isTestMode => throw _privateConstructorUsedError;
+  String get currentVerb => throw _privateConstructorUsedError;
   List<dynamic> get lstVerbForms => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -57,7 +63,12 @@ abstract class $VerbFormModelCopyWith<$Res> {
   factory $VerbFormModelCopyWith(
           VerbFormModel value, $Res Function(VerbFormModel) then) =
       _$VerbFormModelCopyWithImpl<$Res>;
-  $Res call({String title, int selectedCardIndex, List<dynamic> lstVerbForms});
+  $Res call(
+      {String title,
+      int selectedCardIndex,
+      bool isTestMode,
+      String currentVerb,
+      List<dynamic> lstVerbForms});
 }
 
 /// @nodoc
@@ -73,6 +84,8 @@ class _$VerbFormModelCopyWithImpl<$Res>
   $Res call({
     Object? title = freezed,
     Object? selectedCardIndex = freezed,
+    Object? isTestMode = freezed,
+    Object? currentVerb = freezed,
     Object? lstVerbForms = freezed,
   }) {
     return _then(_value.copyWith(
@@ -84,6 +97,14 @@ class _$VerbFormModelCopyWithImpl<$Res>
           ? _value.selectedCardIndex
           : selectedCardIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      isTestMode: isTestMode == freezed
+          ? _value.isTestMode
+          : isTestMode // ignore: cast_nullable_to_non_nullable
+              as bool,
+      currentVerb: currentVerb == freezed
+          ? _value.currentVerb
+          : currentVerb // ignore: cast_nullable_to_non_nullable
+              as String,
       lstVerbForms: lstVerbForms == freezed
           ? _value.lstVerbForms
           : lstVerbForms // ignore: cast_nullable_to_non_nullable
@@ -99,7 +120,12 @@ abstract class _$VerbFormModelCopyWith<$Res>
           _VerbFormModel value, $Res Function(_VerbFormModel) then) =
       __$VerbFormModelCopyWithImpl<$Res>;
   @override
-  $Res call({String title, int selectedCardIndex, List<dynamic> lstVerbForms});
+  $Res call(
+      {String title,
+      int selectedCardIndex,
+      bool isTestMode,
+      String currentVerb,
+      List<dynamic> lstVerbForms});
 }
 
 /// @nodoc
@@ -117,6 +143,8 @@ class __$VerbFormModelCopyWithImpl<$Res>
   $Res call({
     Object? title = freezed,
     Object? selectedCardIndex = freezed,
+    Object? isTestMode = freezed,
+    Object? currentVerb = freezed,
     Object? lstVerbForms = freezed,
   }) {
     return _then(_VerbFormModel(
@@ -128,6 +156,14 @@ class __$VerbFormModelCopyWithImpl<$Res>
           ? _value.selectedCardIndex
           : selectedCardIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      isTestMode: isTestMode == freezed
+          ? _value.isTestMode
+          : isTestMode // ignore: cast_nullable_to_non_nullable
+              as bool,
+      currentVerb: currentVerb == freezed
+          ? _value.currentVerb
+          : currentVerb // ignore: cast_nullable_to_non_nullable
+              as String,
       lstVerbForms: lstVerbForms == freezed
           ? _value.lstVerbForms
           : lstVerbForms // ignore: cast_nullable_to_non_nullable
@@ -142,6 +178,8 @@ class _$_VerbFormModel implements _VerbFormModel {
   const _$_VerbFormModel(
       {this.title = "",
       this.selectedCardIndex = 1,
+      this.isTestMode = false,
+      this.currentVerb = "",
       this.lstVerbForms = const []});
 
   factory _$_VerbFormModel.fromJson(Map<String, dynamic> json) =>
@@ -153,13 +191,19 @@ class _$_VerbFormModel implements _VerbFormModel {
   @JsonKey(defaultValue: 1)
   @override
   final int selectedCardIndex;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isTestMode;
+  @JsonKey(defaultValue: "")
+  @override
+  final String currentVerb;
   @JsonKey(defaultValue: const [])
   @override
   final List<dynamic> lstVerbForms;
 
   @override
   String toString() {
-    return 'VerbFormModel(title: $title, selectedCardIndex: $selectedCardIndex, lstVerbForms: $lstVerbForms)';
+    return 'VerbFormModel(title: $title, selectedCardIndex: $selectedCardIndex, isTestMode: $isTestMode, currentVerb: $currentVerb, lstVerbForms: $lstVerbForms)';
   }
 
   @override
@@ -171,6 +215,12 @@ class _$_VerbFormModel implements _VerbFormModel {
             (identical(other.selectedCardIndex, selectedCardIndex) ||
                 const DeepCollectionEquality()
                     .equals(other.selectedCardIndex, selectedCardIndex)) &&
+            (identical(other.isTestMode, isTestMode) ||
+                const DeepCollectionEquality()
+                    .equals(other.isTestMode, isTestMode)) &&
+            (identical(other.currentVerb, currentVerb) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentVerb, currentVerb)) &&
             (identical(other.lstVerbForms, lstVerbForms) ||
                 const DeepCollectionEquality()
                     .equals(other.lstVerbForms, lstVerbForms)));
@@ -181,6 +231,8 @@ class _$_VerbFormModel implements _VerbFormModel {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(selectedCardIndex) ^
+      const DeepCollectionEquality().hash(isTestMode) ^
+      const DeepCollectionEquality().hash(currentVerb) ^
       const DeepCollectionEquality().hash(lstVerbForms);
 
   @JsonKey(ignore: true)
@@ -198,6 +250,8 @@ abstract class _VerbFormModel implements VerbFormModel {
   const factory _VerbFormModel(
       {String title,
       int selectedCardIndex,
+      bool isTestMode,
+      String currentVerb,
       List<dynamic> lstVerbForms}) = _$_VerbFormModel;
 
   factory _VerbFormModel.fromJson(Map<String, dynamic> json) =
@@ -207,6 +261,10 @@ abstract class _VerbFormModel implements VerbFormModel {
   String get title => throw _privateConstructorUsedError;
   @override
   int get selectedCardIndex => throw _privateConstructorUsedError;
+  @override
+  bool get isTestMode => throw _privateConstructorUsedError;
+  @override
+  String get currentVerb => throw _privateConstructorUsedError;
   @override
   List<dynamic> get lstVerbForms => throw _privateConstructorUsedError;
   @override

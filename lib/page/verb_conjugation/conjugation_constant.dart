@@ -1,5 +1,114 @@
-import 'conjugation_practice.dart';
+// Ru-verbs	る　 → 　て   : 	食べる → 食べて
+// Irregular: する　→　 して 、くる → きて
+// ta V1	う,つ,る　 →  った to the verb stem	笑う → 笑った
+//           む, ぶ, ぬ  → 　んだ	  ：読む → 読んだ
+//           く,ぐ　 → いた,いだ     :	働く→ 働いた, 泳ぐ → 泳いだ
+//           す → した 	  :　おす→ おした
+//           *** 行く→行った(irregular)
+// te U-verbs	う,つ,る　 →  って    :吸う → 吸って
+//         む, ぶ, ぬ  → 　んで  :読む → 読んで
+//         く,ぐ　 → いて,いで  	書く→ 書いて , 泳ぐ → 泳いで
+//         す → して	  :　おす→ おして
 
+//         *** 行く(to go) → 行って（irregular*）
+
+import 'package:kana_kit/kana_kit.dart';
+
+List<ConjugationFormula> taFormGodan = [
+  ConjugationFormula(
+      type: Conjugation.taForm,
+      name: "う,つ,る",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "った",
+      description: "う,つ,る　 →  った",
+      example: "笑う → 笑った",
+      exception: "※　行く→ 行った"),
+  ConjugationFormula(
+      type: Conjugation.taForm,
+      name: "む, ぶ, ぬ",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "んだ",
+      description: "む, ぶ, ぬ  → 　んだ",
+      example: "読む → 読んだ",
+      exception: ""),
+  ConjugationFormula(
+      type: Conjugation.taForm,
+      name: "く",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "いた",
+      description: "く  → いて ",
+      example: "書く→ 書いて",
+      exception: ""),
+  ConjugationFormula(
+      type: Conjugation.taForm,
+      name: "ぐ",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "いだ",
+      description: "ぐ　→ いだ ",
+      example: "泳ぐ → 泳いだ",
+      exception: ""),
+  ConjugationFormula(
+      type: Conjugation.taForm,
+      name: "す",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "した",
+      description: "す → した",
+      example: "おす→ おした",
+      exception: "")
+];
+
+List<ConjugationFormula> teFormGodan = [
+  ConjugationFormula(
+      type: Conjugation.teForm,
+      name: "う,つ,る",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "って",
+      description: "う,つ,る　 →  って",
+      example: "笑う → 笑って",
+      exception: "※　行く→行って"),
+  ConjugationFormula(
+      type: Conjugation.teForm,
+      name: "む, ぶ, ぬ",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "んで",
+      description: "む, ぶ, ぬ  → 　んで",
+      example: "読む → 読んで",
+      exception: ""),
+  ConjugationFormula(
+      type: Conjugation.teForm,
+      name: "く",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "いて",
+      description: "く  → いて ",
+      example: "書く→ 書いて",
+      exception: ""),
+  ConjugationFormula(
+      type: Conjugation.teForm,
+      name: "ぐ",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "いで",
+      description: "ぐ　→ いで ",
+      example: "泳ぐ → 泳いで",
+      exception: ""),
+  ConjugationFormula(
+      type: Conjugation.teForm,
+      name: "す",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "して",
+      description: "す → して",
+      example: "おす→ おして",
+      exception: "")
+];
 List<ConjugationFormula> verbGodan = [
   ConjugationFormula(
       type: Conjugation.present,
@@ -257,8 +366,25 @@ List<ConjugationFormula> verbIchidan = [
       description: "る → させられる",
       example: "見せる → 昔の写真を見させられる",
       exception: ""),
+  ConjugationFormula(
+      type: Conjugation.teForm,
+      name: "て хэлбэр: -аад4",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "て",
+      description: "る → て",
+      example: "食べる → 食べて",
+      exception: ""),
+  ConjugationFormula(
+      type: Conjugation.teForm,
+      name: "た хэлбэр: -аад4",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "た",
+      description: "る → た",
+      example: "食べる → 食べた",
+      exception: ""),
 ];
-
 /**GROUP3 */
 List<ConjugationFormula> verbIrregular = [
   ConjugationFormula(
@@ -272,7 +398,7 @@ List<ConjugationFormula> verbIrregular = [
       exception: ""),
   ConjugationFormula(
       type: Conjugation.negative,
-            name: "Үгүйсгэл",
+      name: "Үгүйсгэл",
       rowChanging: RowName.a,
       isRemove: true,
       suffix: "しない,こない",
@@ -290,7 +416,7 @@ List<ConjugationFormula> verbIrregular = [
       exception: ""),
   ConjugationFormula(
       type: Conjugation.pastNegative,
-            name: "Өнгөрсөн үгүйсгэл(эелдэг)",
+      name: "Өнгөрсөн үгүйсгэл(эелдэг)",
       rowChanging: RowName.i,
       isRemove: true,
       suffix: "しませんでした, きませんでした",
@@ -299,7 +425,7 @@ List<ConjugationFormula> verbIrregular = [
       exception: ""),
   ConjugationFormula(
       type: Conjugation.presentNegative,
-            name: " үгүйсгэл(эелдэг)",
+      name: " үгүйсгэл(эелдэг)",
       rowChanging: RowName.i,
       isRemove: true,
       suffix: "しません, きません",
@@ -342,13 +468,6 @@ List<ConjugationFormula> verbIrregular = [
       description: "する → しましょう, くる → 来ましょう",
       example: "",
       exception: ""),
-
-/*
-GROUP 3
-
-
-
-*/
   ConjugationFormula(
       type: Conjugation.potential,
       name: "Чадамж заах",
@@ -385,8 +504,136 @@ GROUP 3
       description: "する → させられる, くる  → 来させられる",
       example: "",
       exception: ""),
+  ConjugationFormula(
+      type: Conjugation.teForm,
+      name: "て хэлбэр: -аад4",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "して, きて",
+      description: "する　→　 して 、くる → きて",
+      example: "",
+      exception: ""),
+  ConjugationFormula(
+      type: Conjugation.taForm,
+      name: "た хэлбэр: -аад4",
+      rowChanging: RowName.u,
+      isRemove: true,
+      suffix: "した, きた",
+      description: "する　→　した, くる → 来た",
+      example: "",
+      exception: ""),
 ];
-
+List<String> lstVerb = [
+  'あう',
+  'あく',
+  'あける',
+  'あげる',
+  'あそぶ',
+  'あびる',
+  'あらう',
+  'ある',
+  'ある',
+  'あるく',
+  'いう',
+  'いく',
+  'いる',
+  'いる',
+  'いれる',
+  'うたう',
+  'うまれる',
+  'うる',
+  'おきる',
+  'おく',
+  'おくる',
+  'おす',
+  'おぼえる',
+  'およぐ',
+  'おりる',
+  'おわる',
+  'かう',
+  'かえす',
+  'かえる',
+  'かかる',
+  'かく',
+  'かける',
+  'かける',
+  'かす',
+  'かぶる',
+  'かりる',
+  'きえる',
+  'きく',
+  'きる',
+  'きる',
+  'くる',
+  'けす',
+  'こたえる',
+  'こまる',
+  'さく',
+  'さす',
+  'しぬ',
+  'しまる',
+  'しめる',
+  'しめる',
+  'しる',
+  'すう',
+  'すむ',
+  'する',
+  'すわる',
+  'だす',
+  'たつ',
+  'たのむ',
+  'たべる',
+  'ちがう',
+  'つかう',
+  'つかれる',
+  'つく',
+  'つくる',
+  'つける',
+  'つとめる',
+  'でかける',
+  'できる',
+  'でる',
+  'とぶ',
+  'とまる',
+  'とる',
+  'とる',
+  'なく',
+  'ならぶ',
+  'ならべる',
+  'なる',
+  'ぬぐ',
+  'ねる',
+  'のぼる',
+  'のむ',
+  'のる',
+  'はいる',
+  'はく',
+  'はじまる',
+  'はしる',
+  'はたらく',
+  'はなす',
+  'はる',
+  'はれる',
+  'ひく',
+  'ひく',
+  'ふく',
+  'ふる',
+  'まがる',
+  'まつ',
+  'みがく',
+  'みせる',
+  'みる',
+  'もつ',
+  'やすむ',
+  'やる',
+  'よぶ',
+  'よむ',
+  'わかる',
+  'わすれる',
+  'わたす',
+  'わたる'
+];
+// Irregular: する　→　 して 、くる → きて
 enum VerbGroup { godan, ichidan, irregular }
 
 enum RowName { a, i, u, e, o }
@@ -420,7 +667,8 @@ class ConjugationResult {
   ConjugationResult({
     required this.conjugation,
     required this.conjugatedVerb,
-    required this.desctiprion, required this.conjName,
+    required this.desctiprion,
+    required this.conjName,
   });
 }
 
@@ -464,4 +712,87 @@ class ConjugationFormula {
     required this.example,
     required this.exception,
   });
+}
+
+var kanakit = KanaKit();
+// べんきょうする
+List<ConjugationResult> conjugate(
+    VerbGroup group, verbKana, String verbEnding) {
+  VerbGroupConjugation verbConjugation =
+      lstVerbGroupConjugation.firstWhere((element) => element.group == group);
+  List<ConjugationFormula> conjugationFormulas =
+      verbConjugation.lstConjugationForms;
+  List<ConjugationResult> result = [];
+
+  conjugationFormulas.forEach((formula) =>
+      {result.add(conjugateByOne(group, formula, verbKana, verbEnding))});
+  if (group == VerbGroup.godan) {
+    var teFormula = teFormGodan
+        .where(
+            (element) => element.name.contains(kanakit.toHiragana(verbEnding)))
+        .toList();
+    result.add(conjugateByOne(group, teFormula[0], verbKana, verbEnding));
+
+    var taFormula = taFormGodan
+        .where(
+            (element) => element.name.contains(kanakit.toHiragana(verbEnding)))
+        .toList();
+    result.add(conjugateByOne(group, taFormula[0], verbKana, verbEnding));
+  }
+  return result;
+}
+
+List<ConjugationResult> getTeFormExamples() {
+  List<ConjugationResult> result = [];
+  result.add(conjugateByOne(VerbGroup.godan, teFormGodan[0], "uta", "u"));
+  result.add(conjugateByOne(VerbGroup.godan, teFormGodan[1], "yo", "mu"));
+  result.add(conjugateByOne(VerbGroup.godan, teFormGodan[2], "hatara", "ku"));
+  result.add(conjugateByOne(VerbGroup.godan, teFormGodan[3], "oyo", "gu"));
+  result.add(conjugateByOne(VerbGroup.godan, teFormGodan[4], "o", "su"));
+  return result;
+}
+
+List<ConjugationResult> getTaFormExamples() {
+  List<ConjugationResult> result = [];
+  result.add(conjugateByOne(VerbGroup.godan, taFormGodan[0], "uta", "u"));
+  result.add(conjugateByOne(VerbGroup.godan, taFormGodan[1], "yo", "mu"));
+  result.add(conjugateByOne(VerbGroup.godan, taFormGodan[2], "hatara", "ku"));
+  result.add(conjugateByOne(VerbGroup.godan, taFormGodan[3], "oyo", "gu"));
+  result.add(conjugateByOne(VerbGroup.godan, taFormGodan[4], "o", "su"));
+  return result;
+}
+
+ConjugationResult conjugateByOne(VerbGroup group, ConjugationFormula formula,
+    String verbKana, String verbEnding) {
+  var conjugatedVerb = "";
+  if (group == VerbGroup.irregular) {
+    var suffixes = kanakit.toRomaji(formula.suffix).split(",");
+    var currentSuffix = verbEnding == "suru" ? suffixes[0] : suffixes[1];
+
+    conjugatedVerb = verbKana + currentSuffix;
+  } else if (formula.isRemove) {
+    conjugatedVerb = verbKana + kanakit.toRomaji(formula.suffix);
+  } else {
+    conjugatedVerb = verbKana +
+        changeEndRow(verbEnding, formula.rowChanging) +
+        kanakit.toRomaji(formula.suffix);
+  }
+  var hiraganaCOnjugated = kanakit.toHiragana(conjugatedVerb);
+  var conjugationName = formula.type == Conjugation.teForm
+      ? "て хэлбэр"
+      : formula.type == Conjugation.taForm
+          ? "た хэлбэр"
+          : formula.name;
+  return ConjugationResult(
+      conjugation: formula.type,
+      conjugatedVerb: "$hiraganaCOnjugated",
+      desctiprion: formula.description,
+      conjName: conjugationName);
+}
+
+String changeEndRow(String verbEnd, RowName changeRow) {
+  var changing = changeRow.toString().split(".")[1];
+  var newEnd = verbEnd.replaceAll("u", changing);
+
+  return newEnd;
 }

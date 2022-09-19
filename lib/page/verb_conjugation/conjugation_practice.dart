@@ -31,6 +31,7 @@ import 'package:kana_kit/kana_kit.dart';
 
 import 'conjugation_constant.dart';
 import 'conjugation_practice_controller.dart';
+
 // ignore: must_be_immutable
 class ConjugationPractise extends HookConsumerWidget {
   ConjugationPractise({Key? key}) : super(key: key);
@@ -147,16 +148,17 @@ class ConjugationPractise extends HookConsumerWidget {
 
 
 
-
-ta V1	う,つ,る　⇒ った to the verb stem	笑う → 笑った
-          む, ぶ, ぬ ⇒　んだ	  ：読む → 読んだ
-          く,ぐ　 ⇒ いた,いだ     :	働く→ 働いた, 泳ぐ → 泳いだ
-          す ⇒ した 	  :　おす→ おした
+Ru-verbs	る　 → 　て   : 	食べる → 食べて
+Irregular: する　→　 して 、くる → きて
+ta V1	う,つ,る　 →  った to the verb stem	笑う → 笑った
+          む, ぶ, ぬ  → 　んだ	  ：読む → 読んだ
+          く,ぐ　 → いた,いだ     :	働く→ 働いた, 泳ぐ → 泳いだ
+          す → した 	  :　おす→ おした
           *** 行く→行った(irregular)
-te U-verbs	う,つ,る　⇒ って    :吸う → 吸って 
-        む, ぶ, ぬ ⇒　んで  :読む → 読んで 
-        く,ぐ　 ⇒ いて,いで  	書く→ 書いて , 泳ぐ → 泳いで 
-        す ⇒ して	  :　おす→ おして
+te U-verbs	う,つ,る　 →  って    :吸う → 吸って 
+        む, ぶ, ぬ  → 　んで  :読む → 読んで 
+        く,ぐ　 → いて,いで  	書く→ 書いて , 泳ぐ → 泳いで 
+        す → して	  :　おす→ おして
         
         *** 行く(to go) → 行って（irregular*） 
 
@@ -168,7 +170,7 @@ te U-verbs	う,つ,る　⇒ って    :吸う → 吸って
 //       rowChanging: RowName.i,
 //       isRemove: false,
 //       suffix: "ます",
-//       description: "う мөр　⇒　い мөр + ます",
+//       description: "う мөр　 → 　い мөр + ます",
 //       example: "話す → 話します	",
 //       exception: ""),
 //   ConjugationFormula(
@@ -177,7 +179,7 @@ te U-verbs	う,つ,る　⇒ って    :吸う → 吸って
 //       rowChanging: RowName.a,
 //       isRemove: false,
 //       suffix: "ない",
-//       description: "う мөр　⇒　あ мөр　+　ない",
+//       description: "う мөр　 → 　あ мөр　+　ない",
 //       example: "",
 //       exception: "う төгсгөл わ	болно."),
 //   ConjugationFormula(
@@ -186,7 +188,7 @@ te U-verbs	う,つ,る　⇒ って    :吸う → 吸って
 //       rowChanging: RowName.i,
 //       isRemove: false,
 //       suffix: "ました",
-//       description: "う мөр　⇒　い мөр + ました",
+//       description: "う мөр　 → 　い мөр + ました",
 //       example: "話す → 話しました	",
 //       exception: ""),
 //   ConjugationFormula(
@@ -195,7 +197,7 @@ te U-verbs	う,つ,る　⇒ って    :吸う → 吸って
 //       rowChanging: RowName.i,
 //       isRemove: false,
 //       suffix: "ませんでした",
-//       description: "う мөр　⇒　い мөр + ませんでした",
+//       description: "う мөр　 → 　い мөр + ませんでした",
 //       example: "",
 //       exception: ""),
 //   ConjugationFormula(
@@ -204,7 +206,7 @@ te U-verbs	う,つ,る　⇒ って    :吸う → 吸って
 //       rowChanging: RowName.i,
 //       isRemove: false,
 //       suffix: "ません",
-//       description: "う мөр　⇒　い мөр + ません",
+//       description: "う мөр　 → 　い мөр + ません",
 //       example: "",
 //       exception: ""),
 
@@ -233,7 +235,7 @@ te U-verbs	う,つ,る　⇒ って    :吸う → 吸って
 //       rowChanging: RowName.u,
 //       isRemove: false,
 //       suffix: "ば",
-//       description: "う мөр　 ⇒　え мөр　+　ば",
+//       description: "う мөр　  → 　え мөр　+　ば",
 //       example: "吸う → 吸えば、読めば ",
 //       exception: ""),
 //   ConjugationFormula(
@@ -242,7 +244,7 @@ te U-verbs	う,つ,る　⇒ って    :吸う → 吸って
 //       rowChanging: RowName.e,
 //       isRemove: false,
 //       suffix: "ば",
-//       description: "う мөр　 ⇒　え мөр　+　ば",
+//       description: "う мөр　  → 　え мөр　+　ば",
 //       example: "吸う → 吸えば、読めば",
 //       exception: ""),
 //   ConjugationFormula(
@@ -251,7 +253,7 @@ te U-verbs	う,つ,る　⇒ って    :吸う → 吸って
 //       rowChanging: RowName.a,
 //       isRemove: false,
 //       suffix: "なさい",
-//       description: "う мөр　⇒　あ мөр　+ なさい",
+//       description: "う мөр　 → 　あ мөр　+ なさい",
 //       example: "",
 //       exception: ""),
 //   ConjugationFormula(
@@ -260,7 +262,7 @@ te U-verbs	う,つ,る　⇒ って    :吸う → 吸って
 //       rowChanging: RowName.o,
 //       isRemove: false,
 //       suffix: "う",
-//       description: "う мөр　 ⇒　お　мөр　+ う",
+//       description: "う мөр　  → 　お　мөр　+ う",
 //       example: "話す→ 話そう",
 //       exception: ""),
 //   ConjugationFormula(
@@ -278,7 +280,7 @@ te U-verbs	う,つ,る　⇒ って    :吸う → 吸って
 //       rowChanging: RowName.e,
 //       isRemove: false,
 //       suffix: "る",
-//       description: "う мөр　 ⇒　えмөр　+ る",
+//       description: "う мөр　  → 　えмөр　+ る",
 //       example: "話す→ 話せる",
 //       exception: ""),
 
@@ -288,7 +290,7 @@ te U-verbs	う,つ,る　⇒ って    :吸う → 吸って
 //       rowChanging: RowName.a,
 //       isRemove: false,
 //       suffix: "れる",
-//       description: "う мөр　⇒　あ мөр　+ れる",
+//       description: "う мөр　 → 　あ мөр　+ れる",
 //       example: "聞く→ 聞かれる",
 //       exception: ""),
 //   ConjugationFormula(
@@ -297,7 +299,7 @@ te U-verbs	う,つ,る　⇒ って    :吸う → 吸って
 //       rowChanging: RowName.u,
 //       isRemove: false,
 //       suffix: "せる",
-//       description: "う мөр　⇒　あ мөр + せる",
+//       description: "う мөр　 → 　あ мөр + せる",
 //       example: "話す→ 話させる",
 //       exception: ""),
 //   ConjugationFormula(
@@ -306,7 +308,7 @@ te U-verbs	う,つ,る　⇒ って    :吸う → 吸って
 //       rowChanging: RowName.a,
 //       isRemove: false,
 //       suffix: "せられる",
-//       description: "う мөр　⇒　あ мөр + せられる",
+//       description: "う мөр　 → 　あ мөр + せられる",
 //       example: "",
 //       exception: ""),
 // ];
@@ -331,7 +333,7 @@ class ConfugationSubmitForm extends HookConsumerWidget {
                 //   Icons.check_circle_outlined,
                 //   // color: LightTheme.primary,
                 // ),
-                
+
                 Text(
                   "${result.conjName}: ${result.conjugatedVerb}",
                   // fontColor: LightTheme.teriary,
@@ -473,30 +475,30 @@ U-verbs / V1	Most verbs ending in a u-kana and everything except V3 and V2	飲�
 /*
 
 masu
-V1	う мөр　⇒　い мөр + ます　 ：	話す → 話します	
-V2	る　⇒　ます 	：食べる→ 食べます
-V3	する　⇒　します、　来る　⇒　きます
+V1	う мөр　 → 　い мөр + ます　 ：	話す → 話します	
+V2	る　 → 　ます 	：食べる→ 食べます
+V3	する　 → 　します、　来る　 → 　きます
 	
 */
 
 /*
   form - nai
-  V1	う мөр　⇒　あ мөр　+　ない	*** うтөгсгөл わ	болно.
+  V1	う мөр　 → 　あ мөр　+　ない	*** うтөгсгөл わ	болно.
   
-  V2	る　⇒　ない	食べる → 食べない	
+  V2	る　 → 　ない	食べる → 食べない	
   V3	する becomes しない	くる→こない
 
  */
 
 /**
  form ta
- V1	う,つ,る　⇒ った to the verb stem	笑う → 笑った
-          む, ぶ, ぬ ⇒　んだ	  ：読む → 読んだ
-          く,ぐ　 ⇒ いた,いだ     :	働く→ 働いた, 泳ぐ → 泳いだ
-          す ⇒ した 	  :　おす→ おした
+ V1	う,つ,る　 →  った to the verb stem	笑う → 笑った
+          む, ぶ, ぬ  → 　んだ	  ：読む → 読んだ
+          く,ぐ　 → いた,いだ     :	働く→ 働いた, 泳ぐ → 泳いだ
+          す → した 	  :　おす→ おした
           *** 行く→行った(irregular)
 
-V2	る　⇒　た     ：食べる → 食べた
+V2	る　 → 　た     ：食べる → 食べた
 Irregular する　→　した, くる → 来た
 
 
@@ -515,14 +517,14 @@ Irregular する　→　した, くる → 来た
 
 /* form te
 
-U-verbs	う,つ,る　⇒ って    :吸う → 吸って 
-        む, ぶ, ぬ ⇒　んで  :読む → 読んで 
-        く,ぐ　 ⇒ いて,いで  	書く→ 書いて , 泳ぐ → 泳いで 
-        す ⇒ して	  :　おす→ おして
+U-verbs	う,つ,る　 →  って    :吸う → 吸って 
+        む, ぶ, ぬ  → 　んで  :読む → 読んで 
+        く,ぐ　 → いて,いで  	書く→ 書いて , 泳ぐ → 泳いで 
+        す → して	  :　おす→ おして
         
         *** 行く(to go) → 行って（irregular*） 
 
-Ru-verbs	る　⇒　て   : 	食べる → 食べて
+Ru-verbs	る　 → 　て   : 	食べる → 食べて
 Irregular: する　→　 して 、くる → きて
 
 negative
@@ -540,8 +542,8 @@ Ru-verbs	Attach ないで to the stem	食べる → 食べないで
 /**
  * 
  * form condition
-U-verbs	 う мөр　 ⇒　え мөр　+　ば    ：	吸う → 吸えば、読めば
-ru-verbs	う мөр　 ⇒　え мөр　+　ば   :食べる → 食べれば
+U-verbs	 う мөр　  → 　え мөр　+　ば    ：	吸う → 吸えば、読めば
+ru-verbs	う мөр　  → 　え мөр　+　ば   :食べる → 食べれば
 Irregular: する → すれば、くる  → これば
 
 
@@ -556,8 +558,8 @@ Irregular: する	Add なければ to the verb stem	勉強する → 勉強し�
 /*
 form tushaah
 
-U-verbs	う мөр　 ⇒　えмөр　  :	話す→ 話せ
-Ru-verbs	う мөр　 ⇒　おмөр　:	食べる → 食べろ
+U-verbs	う мөр　  → 　えмөр　  :	話す→ 話せ
+Ru-verbs	う мөр　  → 　おмөр　:	食べる → 食べろ
 Irregular: する → しろ、くる → こい
 
 
@@ -576,36 +578,36 @@ form - volitional
 
 Verb Group	Rules	Examples
 
-U-verbs	う мөр　 ⇒　お　мөр　+ う	  ：教師と話す→ 教師と話そう
-Ru-verbs	る　⇒　よう     ：食べる →　食べよう
+U-verbs	う мөр　  → 　お　мөр　+ う	  ：教師と話す→ 教師と話そう
+Ru-verbs	る　 → 　よう     ：食べる →　食べよう
 Irregular: する → しよう、くる→ こよう
 
 Verb Group	Rules	Examples
 
 U-verbs	う мөр　＋　い мөр　+　ましょう   ：	話す→教師と話しましょう
-Ru-verbs	る　⇒　ましょう to the verb stem	食べる→一緒に食べましょう
+Ru-verbs	る　 → 　ましょう to the verb stem	食べる→一緒に食べましょう
 Irregular: する → しましょう
           くる　→ 来ましょう
 */
 
 /*form-potential
-U-verbs	う мөр　 ⇒　えмөр　+ る	    ：話す→ 話せる
-Ru-verbs	る　⇒ られる  ：食べる → 食べられる
+U-verbs	う мөр　  → 　えмөр　+ る	    ：話す→ 話せる
+Ru-verbs	る　 →  られる  ：食べる → 食べられる
 Irregular: する→ できる、 くる→ こられる
 */
 
 /* form - passive
 
 
-U-verbs	う мөр　⇒　あ мөр　+ れる	：聞く→ 聞かれる 
-Ru-verbs	る　⇒ られる ：食べる → 食べられた 
+U-verbs	う мөр　 → 　あ мөр　+ れる	：聞く→ 聞かれる 
+Ru-verbs	る　 →  られる ：食べる → 食べられた 
 Irregular: する → される、くる → こられる
 */
 
 /*form - causative
 
-U-verbs	う мөр　⇒　あ мөр + せる  :話す→ 話させる 
-Ru-verbs	る　⇒  させる     :食べる → 食べさせる 
+U-verbs	う мөр　 → 　あ мөр + せる  :話す→ 話させる 
+Ru-verbs	る　 →   させる     :食べる → 食べさせる 
 Irregular: する → 勉強させる , くる → こさせる
 
 Causative Passive Form

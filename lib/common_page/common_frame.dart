@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:adaptive_navigation/adaptive_navigation.dart';
 import 'package:afen_vocabulary/card/grammer/grammer_card_page.dart';
 import 'package:afen_vocabulary/card/vocabulary_card_page.dart';
@@ -9,7 +6,6 @@ import 'package:afen_vocabulary/game/letter_game_page.dart';
 import 'package:afen_vocabulary/game/master_data/master_data_game_page.dart';
 import 'package:afen_vocabulary/game/pronoun_game/pronoun_game_page.dart';
 import 'package:afen_vocabulary/game/verb_form/verb_form_game_page.dart';
-import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:afen_vocabulary/jp_constant/letter/letter_card_page.dart';
 import 'package:afen_vocabulary/page/grammer/grammer_page.dart';
@@ -17,13 +13,8 @@ import 'package:afen_vocabulary/page/master/counter/counter_page.dart';
 import 'package:afen_vocabulary/page/master/number_day/master_data_page.dart';
 import 'package:afen_vocabulary/page/master/verbForm/verb_form_page.dart';
 import 'package:afen_vocabulary/page/pronoun/pronoun_card_page.dart';
-import 'package:afen_vocabulary/page/verb_conjugation/conjugation_constant.dart';
-import 'package:afen_vocabulary/page/verb_conjugation/conjugation_practice.dart';
 import 'package:afen_vocabulary/page/vocabulary/vocabulary_list_page.dart';
-import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'common_page_controller.dart';
@@ -61,14 +52,18 @@ class CommonPage2 extends HookConsumerWidget {
     // }, const []);
     controller.setModelListenable(ref);
 
-var bodyPage =!controller.state.isGameMode
-                    ? lstMenu[controller.state.selectedIndex].mainPage
-                    : lstMenu[controller.state.selectedIndex]
-                        .gamePage;
-      if(controller.state.selectedIndex==1){
-        var selectedMaster =lstMasterMenu.where((element) => element.destination==controller.state.masterDataDestination).first;
-        bodyPage=!controller.state.isGameMode? selectedMaster.mainPage:selectedMaster.gamePage;
-      }
+    var bodyPage = !controller.state.isGameMode
+        ? lstMenu[controller.state.selectedIndex].mainPage
+        : lstMenu[controller.state.selectedIndex].gamePage;
+    if (controller.state.selectedIndex == 1) {
+      var selectedMaster = lstMasterMenu
+          .where((element) =>
+              element.destination == controller.state.masterDataDestination)
+          .first;
+      bodyPage = !controller.state.isGameMode
+          ? selectedMaster.mainPage
+          : selectedMaster.gamePage;
+    }
     return AdaptiveNavigationScaffold(
       appBar: AdaptiveAppBar(
         title: Text(lstMenu[controller.state.selectedIndex].name),
@@ -87,25 +82,26 @@ var bodyPage =!controller.state.isGameMode
               //     icon: const Icon(Icons.download))
             ],
           ),
-          Visibility(visible: controller.state.selectedIndex==1,
-            child:  Padding(
-              padding: const EdgeInsets.all(10),
-              child: DropdownButton(
-                value: controller.state.masterDataDestination,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                ),
-                items: lstMasterMenu
-                    .map((e) => DropdownMenuItem(
-                          value: e.destination,
-                          child: Text(e.name),
-                        ))
-                    .toList(),
-                onChanged: (lvl) async {
-                  controller.setMasterDataDestination(lvl as String);
-                },
-              ))) 
+          Visibility(
+              visible: controller.state.selectedIndex == 1,
+              child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: DropdownButton(
+                    value: controller.state.masterDataDestination,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    items: lstMasterMenu
+                        .map((e) => DropdownMenuItem(
+                              value: e.destination,
+                              child: Text(e.name),
+                            ))
+                        .toList(),
+                    onChanged: (lvl) async {
+                      controller.setMasterDataDestination(lvl as String);
+                    },
+                  )))
         ],
       ),
       // navigationTypeResolver: (context) {
@@ -121,8 +117,7 @@ var bodyPage =!controller.state.isGameMode
           body: Row(
         children: [
           Expanded(
-            child: Center(
-                child: bodyPage
+            child: Center(child: bodyPage
                 // !controller.state.isGameMode
                 //     ? lstMenu[controller.state.selectedIndex].mainPage
                 //     : lstMenu[controller.state.selectedIndex]
@@ -187,7 +182,6 @@ var bodyPage =!controller.state.isGameMode
     );
   }
 
-
   List<AdaptiveScaffoldDestination> _buildDestinations2(
       BuildContext context, CommonPageController controller) {
     return lstMenu
@@ -197,7 +191,6 @@ var bodyPage =!controller.state.isGameMode
             ))
         .toList();
   }
-
 }
 
 class Menu {
@@ -219,7 +212,8 @@ late final lstMenu = <Menu>[
   // Menu("Төлөөний үг", "pronoun", Icons.person_pin_circle_outlined,
   //     PronounCardPage(), PronounGamePage()),
   Menu("Дүрэм", "grammer", Icons.rule, GrammerPage(), GrammarCardPage()),
-  Menu("Мастер дата", "masterData", Icons.format_list_numbered, MasterDataPage(), MasterDataGamePage()),
+  Menu("Мастер дата", "masterData", Icons.format_list_numbered,
+      MasterDataPage(), MasterDataGamePage()),
   Menu("Үйл үг", "verbForm", Icons.ac_unit, VerbFormPage(), VerbFormGamePage()),
   Menu("Шинэ үг", "verbForm", Icons.ac_unit, VocabularyListPage(),
       VocabularyCardPage()),
@@ -230,8 +224,8 @@ late final lstMasterMenu = <Menu>[
       LetterGamePage()),
   Menu("Тоо, Гараг, Сар өдөр", "masterDate", Icons.dashboard_outlined,
       MasterDataPage(), MasterDataGamePage()),
-  Menu("Тоо тоолох нөхцөл", "masterNumber", Icons.format_list_numbered, CounterPage(),
-      CounterGamePage()),
+  Menu("Тоо тоолох нөхцөл", "masterNumber", Icons.format_list_numbered,
+      CounterPage(), CounterGamePage()),
   Menu("Төлөөний үг", "masterPronoun", Icons.person_pin_circle_outlined,
       PronounCardPage(), PronounGamePage()),
 ];

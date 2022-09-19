@@ -1,4 +1,3 @@
-
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:afen_vocabulary/page/verb_conjugation/conjugation_constant.dart';
@@ -26,8 +25,13 @@ class VerbFormPage extends HookConsumerWidget {
 
     // lsttableServings.add(tabCardBody(lstVerbForms, context, controller));
 
-    for (var element in [VerbGroup.godan, VerbGroup.ichidan, VerbGroup.irregular,null]) {
-      lsttableServings.add(tabCardBody(element, context, controller,ref));
+    for (var element in [
+      VerbGroup.godan,
+      VerbGroup.ichidan,
+      VerbGroup.irregular,
+      null
+    ]) {
+      lsttableServings.add(tabCardBody(element, context, controller, ref));
     }
     return Scaffold(
       // appBar: AppBar(
@@ -97,29 +101,44 @@ class VerbFormPage extends HookConsumerWidget {
     );
   }
 
-
-  Widget tabCardBody(VerbGroup? verbGroup, context, controller,WidgetRef ref) {
-    List<ConjugationResult> conjugationResuls =[];
-    String title="";
+  Widget tabCardBody(VerbGroup? verbGroup, context,
+      VerbFormPageController controller, WidgetRef ref) {
+    List<ConjugationResult> conjugationResuls = [];
+    String title = "";
+    String description = "";
+    String exampleWord = "";
     switch (verbGroup) {
       case VerbGroup.godan:
-        title = "Груп 1 (およぐ)";
-        conjugationResuls=   controller.conjugate(VerbGroup.godan, "oyo", "gu");
+        title = "Груп 1 (Godan)";
+        exampleWord = "およぐ";
+        description =
+            "Япон хэлний үндсэн 5 эгшигийн 'Ү' мөрөөр төгссөн('う, つ, る, む, ぶ, ぬ, く, ぐ, す') үйл үгсийг 1-р группийн үг буюу Годан үйл үг гэнэ. \n ※　Мөн 2-р группийн төгсгөлтэй хэдий ч 1-р групт харъяалагдах цөөн тооны үгс: 'はいる, はしる, いる, かえる, かぎる, きる, しゃべる, しる, つくる' ";
+        conjugationResuls =
+            controller.conjugateVerb(VerbGroup.godan, "oyo", "gu");
+
         break;
       case VerbGroup.ichidan:
-        title = "Груп 2 (たべる)";
-        conjugationResuls=   controller.conjugate(VerbGroup.ichidan, "tabe", "ru");
+        exampleWord = "たべる";
+        title = "Груп 2 (ichidan)";
+        description = "～える、～いる төгсгөлтэй бүх үгс 2-р групт харъяалагдана. ";
+        conjugationResuls =
+            controller.conjugateVerb(VerbGroup.ichidan, "tabe", "ru");
         break;
       case VerbGroup.irregular:
-        title = "Груп 3 (べんきょうする)";
-        conjugationResuls=   controller.conjugate(VerbGroup.irregular, "benkyou", "suru");
+        exampleWord = "べんきょうする";
+        title = "Груп 3";
+        description = "～くる、～する төгсгөлтэй бүх үгс 3-р групт харъяалагдана. ";
+        conjugationResuls =
+            controller.conjugateVerb(VerbGroup.irregular, "benkyou", "suru");
         break;
       default:
-        title = "Груп 3 (くる)";
-        conjugationResuls=   controller.conjugate(VerbGroup.irregular, "", "kuru");
+        exampleWord = "くる";
+        title = "Груп 3";
+        description = "～くる、～する төгсгөлтэй бүх үгс 3-р групт харъяалагдана. ";
+        conjugationResuls =
+            controller.conjugateVerb(VerbGroup.irregular, "", "kuru");
     }
-               
-                  
+
     var listDragItem = conjugationResuls
         .map(
           (verbResult) => ConfugationInfoForm(verbResult),
@@ -127,21 +146,35 @@ class VerbFormPage extends HookConsumerWidget {
         .toList();
 
     return Card(
-        child: Column(children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-          Divider(),
-          Expanded (
-          child:ListView.builder(
+        child: Padding(
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        children: [
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          Text(description),
+          const Divider(),
+          Row(
+            children: [
+              const Text("Жишээ: "),
+              Text(exampleWord),
+            ],
+          ),
+          Expanded(
+              child: ListView.builder(
                   scrollDirection: Axis.vertical,
-                    itemCount: listDragItem.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return listDragItem[index].build(context, ref);
-                    }))],),);
+                  shrinkWrap: true,
+                  itemCount: listDragItem.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return listDragItem[index].build(context, ref);
+                  })),
+        ],
+      ),
+    ));
   }
 }
-
 
 class ConfugationInfoForm extends HookConsumerWidget {
   ConfugationInfoForm(this.result, {Key? key}) : super(key: key);
@@ -151,29 +184,55 @@ class ConfugationInfoForm extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    List<ConjugationResult> teFormGodan = [];
+    List<Widget> lstDescriptionWidget = [];
+    List<Widget> lstFormulaWidget = [];
+
+    if (result.conjName == "て хэлбэр") {
+      teFormGodan = getTeFormExamples();
+    } else if (result.conjName == "た хэлбэр") {
+      teFormGodan = getTaFormExamples();
+    } else {
+      lstDescriptionWidget.add(Text(result.desctiprion));
+      lstFormulaWidget.add(Text("${result.conjugatedVerb} "));
+    }
+
+    for (var e in teFormGodan) {
+      lstDescriptionWidget.add(Text(e.desctiprion));
+      lstFormulaWidget.add(Text(e.conjugatedVerb));
+    }
+
     return Row(
       children: [
         Expanded(
           child: ExpansionTile(
-            tilePadding: EdgeInsets.zero,
-            title: Row(
+              tilePadding: EdgeInsets.zero,
+              title: Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Text("${result.conjName}: ",
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: lstDescriptionWidget,
+                    ), //Text("${result.desctiprion} "),
+                  )
+                ],
+              ),
+              childrenPadding: const EdgeInsets.all(8.0),
               children: [
-                
-          Expanded( flex: 2,
-            child: Text(
-                  "${result.conjName}: ", style:TextStyle(fontWeight: FontWeight.bold)),),
-                
-                // const SizedBox(width: 20),
-                Expanded( flex: 4,
-            child:
-                Text(
-                  "${result.desctiprion}: "),)
-              ],
-            ),
-            
-            childrenPadding: const EdgeInsets.all(8.0),
-            children: [Text(result.conjugatedVerb)],
-          ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: lstFormulaWidget,
+                ),
+              ] // [Text(result.conjugatedVerb), lstWidget],
+              ),
         ),
       ],
     );

@@ -28,7 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
-    sdk: flutter
+    sdk: flutter 
   flutter_hooks: ^0.18.0
   hooks_riverpod: ^1.0.0
   build_runner:
@@ -60,6 +60,7 @@ dependencies:
   translit: ^2.0.0
   adaptive_navigation: ^0.0.6
   spreadsheet_decoder: ^2.0.2
+  url_strategy: ^0.2.0
 
 dev_dependencies:
   flutter_test:

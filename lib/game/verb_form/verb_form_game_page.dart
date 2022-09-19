@@ -1,28 +1,23 @@
-import 'package:afen_vocabulary/classes/counter_group.dart';
-import 'package:afen_vocabulary/classes/verb_form.dart';
-import 'package:afen_vocabulary/common/common_widget.dart';
-import 'package:afen_vocabulary/constant_value/common_constants.dart';
+import 'dart:math';
+
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:afen_vocabulary/page/verb_conjugation/conjugation_constant.dart';
 import 'package:afen_vocabulary/page/verb_conjugation/conjugation_practice.dart';
-import 'package:flash_card/flash_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kana_kit/kana_kit.dart';
 import 'package:translit/translit.dart';
 
 import 'verb_form_page_controller.dart';
 
-// import 'letter_card_page_controller.dart';
-// import 'letter_type.dart';
-
 class VerbFormGamePage extends HookConsumerWidget {
   VerbFormGamePage({Key? key}) : super(key: key);
   late N5Box lstN5;
   final trans = Translit();
-  
-    TextEditingController  tcVerb = TextEditingController();
+  Random rnd = Random();
+  KanaKit kanakit2 = const KanaKit();
+
+  TextEditingController tcVerb = TextEditingController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     PageController pageController = PageController(
@@ -33,9 +28,6 @@ class VerbFormGamePage extends HookConsumerWidget {
     final controller = ref.watch(verbFormGamePageProvider.notifier);
     controller.setModelListenable(ref);
     List<Widget> lsttableServings = [];
-    
-  var kanakit = KanaKit();
-    // lsttableServings.add(tabCardBody(lstVerbForms, context, controller));
 
     var listDragItem = controller.state.lstVerbForms
         .map(
@@ -44,77 +36,135 @@ class VerbFormGamePage extends HookConsumerWidget {
         .toList();
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("Юмсыг тоолох нөхцөл"),
-      // ),
-      body: Column(
-        children: [
-          Row(children: [
-          Container(
-            width: 200,
-            padding: EdgeInsets.all(15),
-            child: TextFormField(
-              controller: tcVerb,
-              decoration: const InputDecoration(border: OutlineInputBorder()),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                    width: 200,
+                    child: SwitchListTile(
+                      title: const Text('Дасгал'),
+                      value: controller.state.isTestMode,
+                      onChanged: (value) {
+                        if (value) {
+                          var verb = lstVerb[rnd.nextInt(lstVerb.length)];
+                          controller.setVerb(verb);
+                          conjugateFormula(controller, verb);
+                        }
+                        controller.setTestMode(value);
+                      },
+                      // secondary: const Icon(Icons.lightbulb_outline),
+                    )),
+                Visibility(
+                    visible: !controller.state.isTestMode,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 200,
+                          padding: const EdgeInsets.all(15),
+                          child: TextFormField(
+                            controller: tcVerb,
+                            decoration: const InputDecoration(
+                                labelText: "хувиргах үг",
+                                border: OutlineInputBorder()),
+                          ),
+                        ),
+                        ElevatedButton(
+                          child: const Text("хувиргах"),
+                          onPressed: () async {
+                            var verb = tcVerb.text;
+                            if (verb.trim().isNotEmpty) {
+                              conjugateFormula(controller, verb);
+                            }
+                            // verb.endsWith(other)
+                          },
+                        ),
+                      ],
+                    ))
+              ],
             ),
-          ),
-          ElevatedButton(
-            child: const Text("хувиргах"),
-            onPressed: () async {
-              VerbGroup group;
-              var verb = tcVerb.text;
-              var verbEnding = "";
-
-              var verbKana =
-                  kanakit.isRomaji(verb) ? verb.trim() : kanakit.toRomaji(verb);
-
-              if (verbKana.endsWith("suru") || verbKana.endsWith("kuru")) {
-                if (verbKana.endsWith("suru")) {
-                  verbEnding = "suru";
-                } else {
-                  verbEnding = "kuru";
-                }
-                group = VerbGroup.irregular;
-              } else if ((verbKana.endsWith("eru") ||
-                      verbKana.endsWith("iru")) ||
-                  lstIrregularGodan.contains(verbKana)) {
-                if (verbKana.endsWith("eru")) {
-                  verbEnding = "eru";
-                } else {
-                  verbEnding = "iru";
-                }
-                group = VerbGroup.ichidan;
-              } else {
-                lstGodanEnding.forEach((endGodan) {
-                  if (verbKana.endsWith(kanakit.toRomaji(endGodan))) {
-                    verbEnding = kanakit.toRomaji(endGodan);
-                  }
-                });
-                group = VerbGroup.godan;
-              }
-              var verbRoot = verbKana.split(verbEnding)[0];
-              List<ConjugationResult> conjugationResuls =
-                  controller.conjugate(group, verbRoot, verbEnding);
-              // verb.endsWith(other)
-            },
-          ),
-          ],),
-  //         SingleChildScrollView(
-  // scrollDirection: Axis.vertical,
-  // child: 
-          Container(
-            height: 500,
-            width: 300,
-      child:ListView.builder(
-        scrollDirection: Axis.horizontal,
-                // shrinkWrap: true,   
-              itemCount: listDragItem.length,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                return listDragItem[index].build(context, ref);
-              })),
-              // )
-        ],
+            Visibility(
+              visible: !controller.state.isTestMode,
+              child: Expanded(
+                  child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: listDragItem.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return listDragItem[index].build(context, ref);
+                      })),
+            ),
+            Visibility(
+              visible: controller.state.isTestMode,
+              child: Expanded(
+                child: StatefulBuilder(builder: (context, setState) {
+                  return Column(children: [
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            controller.state.currentVerb,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            "${listDragItem.where((element) => element.result.conjugatedVerb == kanakit2.toHiragana(element.tcTest.text.trim())).toList().length} / ${controller.state.lstVerbForms.length}",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
+                        ]),
+                    const Divider(),
+                    Expanded(
+                        child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: listDragItem.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return listDragItem[index].build(context, ref);
+                            })),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                            child: const Text("шалгах"),
+                            onPressed: () async {
+                              setState(() {
+                                listDragItem.forEach((rowElement) {
+                                  rowElement.isChecked = true;
+                                });
+                              });
+                            }),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        ElevatedButton(
+                            child: const Text("next"),
+                            onPressed: () async {
+                              var verb = lstVerb[rnd.nextInt(lstVerb.length)];
+                              controller.setVerb(verb);
+                              conjugateFormula(controller, verb);
+                              // controller.setVerb(verb)
+                              setState(() {
+                                listDragItem.forEach((rowElement) {
+                                  rowElement.isChecked = true;
+                                });
+                              });
+                            })
+                      ],
+                    )
+                  ]);
+                }),
+              ),
+            )
+            // )
+          ],
+        ),
       ),
       bottomNavigationBar: Container(
         height: 40,
@@ -169,81 +219,106 @@ class VerbFormGamePage extends HookConsumerWidget {
     );
   }
 
+  conjugateFormula(VerbFormGamePageController controller, String verb) {
+    VerbGroup group;
+    var verbEnding = "";
 
-  Widget tabCardBody(VerbGroup? verbGroup, context, controller,WidgetRef ref) {
-    List<ConjugationResult> conjugationResuls =[];
-    String title="";
-    switch (verbGroup) {
-      case VerbGroup.godan:
-        title = "Груп 1 (およぐ)";
-        conjugationResuls=   controller.conjugate(VerbGroup.godan, "oyo", "gu");
-        break;
-      case VerbGroup.ichidan:
-        title = "Груп 2 (たべる)";
-        conjugationResuls=   controller.conjugate(VerbGroup.ichidan, "tabe", "ru");
-        break;
-      case VerbGroup.irregular:
-        title = "Груп 3 (べんきょうする)";
-        conjugationResuls=   controller.conjugate(VerbGroup.irregular, "benkyou", "suru");
-        break;
-      default:
-        title = "Груп 3 (くる)";
-        conjugationResuls=   controller.conjugate(VerbGroup.irregular, "", "kuru");
+    var verbKana =
+        kanakit2.isRomaji(verb) ? verb.trim() : kanakit2.toRomaji(verb);
+
+    if (verbKana.endsWith("suru") || verbKana.endsWith("kuru")) {
+      if (verbKana.endsWith("suru")) {
+        verbEnding = "suru";
+      } else {
+        verbEnding = "kuru";
+      }
+      group = VerbGroup.irregular;
+    } else if ((verbKana.endsWith("eru") || verbKana.endsWith("iru")) ||
+        lstIrregularGodan.contains(verbKana)) {
+      if (verbKana.endsWith("eru")) {
+        verbEnding = "eru";
+      } else {
+        verbEnding = "iru";
+      }
+      group = VerbGroup.ichidan;
+    } else {
+      lstGodanEnding.forEach((endGodan) {
+        if (verbKana.endsWith(kanakit2.toRomaji(endGodan))) {
+          verbEnding = kanakit2.toRomaji(endGodan);
+        }
+      });
+      group = VerbGroup.godan;
     }
-               
-                  
-    var listDragItem = conjugationResuls
-        .map(
-          (verbResult) => ConfugationResultForm(verbResult),
-        )
-        .toList();
-
-    return Card(
-        child: Column(children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-          Divider(),
-          Expanded (
-          child:ListView.builder(
-                  scrollDirection: Axis.vertical,
-                    itemCount: listDragItem.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return listDragItem[index].build(context, ref);
-                    }))],),);
+    var verbRoot = verbKana.split(verbEnding)[0];
+    controller.conjugateVerb(group, verbRoot, verbEnding);
   }
-  
-
 }
 
 class ConfugationResultForm extends HookConsumerWidget {
   ConfugationResultForm(this.result, {Key? key}) : super(key: key);
   final ConjugationResult result;
-
-  final TextEditingController tecStartDay = TextEditingController();
+  bool? isChecked;
+  KanaKit kanakit2 = KanaKit();
+  final TextEditingController tcTest = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //  ($conjugatedVerb)
+    final controller = ref.watch(verbFormGamePageProvider.notifier);
+    var answer = kanakit2.toRomaji(tcTest.text.trim());
+    var testResult = kanakit2.toRomaji(result.conjugatedVerb) == answer;
     return Row(
       children: [
         Expanded(
           child: ExpansionTile(
-            tilePadding: EdgeInsets.zero,
+            // tilePadding: EdgeInsets.zero,
             title: Row(
               children: [
-                
-          Expanded( flex: 2,
-            child: Text(
-                  "${result.conjName}: ", style:const TextStyle(fontWeight: FontWeight.bold)),),
-                
+                Expanded(
+                  flex: 2,
+                  child: Text("${result.conjName}: ",
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                ),
+
                 // const SizedBox(width: 20),
-                Expanded( flex: 4,
-            child:
-                Text(
-                  "${result.conjugatedVerb}: "),)
+                Visibility(
+                    visible:
+                        !controller.state.isTestMode || (isChecked ?? false),
+                    child: Expanded(
+                      flex: 4,
+                      child: Text("${result.conjugatedVerb}: "),
+                    )),
+                Visibility(
+                  visible: controller.state.isTestMode,
+                  child: Expanded(
+                      flex: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: TextFormField(
+                          controller: tcTest,
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder()),
+                        ),
+                      )),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 10),
+                  child: Visibility(
+                    visible:
+                        controller.state.isTestMode && (isChecked ?? false),
+                    child: testResult
+                        ? const Icon(
+                            Icons.mood_outlined,
+                            color: Colors.green,
+                          )
+                        : const Icon(
+                            Icons.mood_bad,
+                            color: Colors.red,
+                          ),
+                  ),
+                ),
               ],
             ),
-            
             childrenPadding: const EdgeInsets.all(8.0),
             children: [Text(result.desctiprion)],
           ),

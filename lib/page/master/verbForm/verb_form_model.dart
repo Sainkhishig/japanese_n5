@@ -8,6 +8,8 @@ abstract class VerbFormModel with _$VerbFormModel {
   const factory VerbFormModel({
     @Default("") String title,
     @Default(1) int selectedCardIndex,
+    @Default(false) bool isTestMode,
+    @Default("") String currentVerb,
     @Default([]) List<dynamic> lstVerbForms,
   }) = _VerbFormModel;
   factory VerbFormModel.fromJson(Map<String, dynamic> json) =>

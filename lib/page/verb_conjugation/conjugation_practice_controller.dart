@@ -63,19 +63,21 @@ class ConjugationPracticeController extends StateNotifier<int> {
     } else if (formula.isRemove) {
       conjugatedVerb = verbKana + kanakit.toRomaji(formula.suffix);
     } else {
-      conjugatedVerb = verbKana + changeEndRow(verbEnding, formula.rowChanging) + kanakit.toRomaji(formula.suffix);
+      conjugatedVerb = verbKana +
+          changeEndRow(verbEnding, formula.rowChanging) +
+          kanakit.toRomaji(formula.suffix);
     }
     var hiraganaCOnjugated = kanakit.toHiragana(conjugatedVerb);
     return ConjugationResult(
         conjugation: formula.type,
-        conjugatedVerb: "$hiraganaCOnjugated ($conjugatedVerb)",
+        conjugatedVerb: "$hiraganaCOnjugated",
         desctiprion: formula.description,
         conjName: formula.name);
   }
 
   String changeEndRow(String verbEnd, RowName changeRow) {
-    var changing =changeRow.toString().split(".")[1];
-    var newEnd = verbEnd.replaceAll("u",changing );
+    var changing = changeRow.toString().split(".")[1];
+    var newEnd = verbEnd.replaceAll("u", changing);
 
     return newEnd;
   }
