@@ -236,9 +236,9 @@ class VerbFormGamePage extends HookConsumerWidget {
     } else if ((verbKana.endsWith("eru") || verbKana.endsWith("iru")) ||
         lstIrregularGodan.contains(verbKana)) {
       if (verbKana.endsWith("eru")) {
-        verbEnding = "eru";
+        verbEnding = "ru";
       } else {
-        verbEnding = "iru";
+        verbEnding = "ru";
       }
       group = VerbGroup.ichidan;
     } else {
@@ -279,27 +279,35 @@ class ConfugationResultForm extends HookConsumerWidget {
                   child: Text("${result.conjName}: ",
                       style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
-
-                // const SizedBox(width: 20),
-                Visibility(
-                    visible:
-                        !controller.state.isTestMode || (isChecked ?? false),
-                    child: Expanded(
-                      flex: 4,
-                      child: Text("${result.conjugatedVerb}: "),
-                    )),
-                Visibility(
-                  visible: controller.state.isTestMode,
-                  child: Expanded(
-                      flex: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: TextFormField(
-                          controller: tcTest,
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder()),
+                Expanded(
+                  flex: 4,
+                  child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Visibility(
+                          visible: !controller.state.isTestMode ||
+                              (isChecked ?? false),
+                          child: Text(
+                            " ${result.conjugatedVerb} ",
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(color: Colors.indigo),
+                          ),
                         ),
-                      )),
+                        Visibility(
+                          visible: controller.state.isTestMode,
+                          child: Container(
+                            // width: 200,
+                            // height: 50,
+                            child: TextFormField(
+                              readOnly: (isChecked ?? false),
+                              controller: tcTest,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder()),
+                            ),
+                          ),
+                        ),
+                      ]),
                 ),
                 Padding(
                   padding: EdgeInsets.only(right: 10),
