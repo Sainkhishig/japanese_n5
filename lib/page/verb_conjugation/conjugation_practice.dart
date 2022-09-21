@@ -112,9 +112,9 @@ class ConjugationPractise extends HookConsumerWidget {
                       verbKana.endsWith("iru")) ||
                   lstIrregularGodan.contains(verbKana)) {
                 if (verbKana.endsWith("eru")) {
-                  verbEnding = "eru";
+                  verbEnding = "ru";
                 } else {
-                  verbEnding = "iru";
+                  verbEnding = "ru";
                 }
                 group = VerbGroup.ichidan;
               } else {
