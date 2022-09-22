@@ -45,7 +45,7 @@ Widget showEmptyDataWidget() {
 showSuccessToastMessage(context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      content: Text("成功： " + message),
+      content: Text("Амжилттай " + message),
       duration: const Duration(seconds: 2),
       backgroundColor: Colors.green,
     ),
@@ -55,7 +55,7 @@ showSuccessToastMessage(context, String message) {
 showErrorToastMessage(context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      content: Text("エラー：" + message),
+      content: Text("Алдаа：" + message),
       duration: const Duration(seconds: 2),
       backgroundColor: Colors.red,
     ),
