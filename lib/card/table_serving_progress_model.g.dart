@@ -13,6 +13,7 @@ _$_TableServingProgressModel _$$_TableServingProgressModelFromJson(
           json['lstTableServingProgress'] as List<dynamic>? ?? [],
       selectedCardIndex: json['selectedCardIndex'] as int? ?? 1,
       jlptLevel: json['jlptLevel'] as int? ?? 1,
+      searchKey: json['searchKey'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$_TableServingProgressModelToJson(
@@ -21,4 +22,5 @@ Map<String, dynamic> _$$_TableServingProgressModelToJson(
       'lstTableServingProgress': instance.lstTableServingProgress,
       'selectedCardIndex': instance.selectedCardIndex,
       'jlptLevel': instance.jlptLevel,
+      'searchKey': instance.searchKey,
     };

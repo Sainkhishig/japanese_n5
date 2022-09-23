@@ -1,8 +1,8 @@
 import 'package:afen_vocabulary/classes/grammar.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
+import 'package:afen_vocabulary/common/search_bar.dart';
 import 'package:afen_vocabulary/constant_value/common_constants.dart';
 
-import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,6 +14,8 @@ class GrammerPage extends HookConsumerWidget {
   GrammerPage({Key? key}) : super(key: key);
 
   final trans = Translit();
+
+  final keywordController = useTextEditingController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     PageController pageController = PageController(
@@ -31,9 +33,9 @@ class GrammerPage extends HookConsumerWidget {
     //   }
     // }, const []);
     controller.setModelListenable(ref);
-    
+
     // // var preferences = ref.read(sharedPreferencesProvider);
-    
+
     // var lstN5db = ref.read(n5BoxDataProvider);
     // var lstVocabul = lstN5db.box.get("N5Grammer") ;
     // // if(lstVocabul==null ||lstVocabul.isEmpty)
@@ -50,22 +52,35 @@ class GrammerPage extends HookConsumerWidget {
     // lstVocabul = lstN5db.box.get("N5Grammer");
     List<Widget> lsttableServings = [];
     // if (lstVocabul.isNotEmpty) {
-      lsttableServings.add(tabCardBody(lstGrammar, context, controller));
+    var filteredGrammar = lstGrammar;
+    if (controller.state.searchKey.trim().isNotEmpty) {
+      filteredGrammar = lstGrammar
+          .where(
+              (element) => element.grammar.contains(controller.state.searchKey))
+          .toList();
+    }
+    lsttableServings.add(tabCardBody(filteredGrammar, context, controller));
     // }
     return Scaffold(
-      body: Scaffold(
-        body: lsttableServings.isEmpty
-            ? showEmptyDataWidget()
-            : //Expanded(child: FlashCardListItem(flashcards: flashCard)),
-
-            PageView(
-                controller: pageController,
-                children: lsttableServings,
-                onPageChanged: (value) {
-                  controller.setSelectedIndex(value);
-                },
-              ),
-      ),
+      body: lsttableServings.isEmpty
+          ? showEmptyDataWidget()
+          : //Expanded(child: FlashCardListItem(flashcards: flashCard)),
+          Column(
+              children: [
+                CustomSearchBar(keywordController, onSearch: () {
+                  controller.setSearchKey(keywordController.text);
+                }),
+                Expanded(
+                  child: PageView(
+                    controller: pageController,
+                    children: lsttableServings,
+                    onPageChanged: (value) {
+                      controller.setSelectedIndex(value);
+                    },
+                  ),
+                )
+              ],
+            ),
       bottomNavigationBar: Container(
         height: 40,
         color: Colors.grey,
@@ -121,68 +136,114 @@ class GrammerPage extends HookConsumerWidget {
 
   Widget tabCardBody(List<Grammar> lst, context, controller) {
     // var currentLetter = lstVoc as List<Dictionary>;
-    return Card(
+    // var ss =
+    return Padding(
+        padding: EdgeInsets.all(15),
         child: Column(
-      children: [
-        Expanded(
-            child: Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30),
-                child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      // childAspectRatio: 3 / 2,
-                      crossAxisSpacing: 2,
-                      mainAxisSpacing: 2,
-                      crossAxisCount: 1,
-                      mainAxisExtent: MediaQuery.of(context).size.height / 12,
-                    ),
-                    itemCount: lst.length,
-                    itemBuilder: (BuildContext ctx, index) {
-                      return Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                  child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: lst.length,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return Container(
+                          height: 50,
+                          padding: EdgeInsets.all(5),
+                          alignment: Alignment.centerLeft,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1,
+                            ),
                           ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  lst[index].grammar,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    lst[index].grammar,
+                                  ),
                                 ),
                               ),
-                            ),
-                            //  Expanded(
-                            //   flex: 1,
-                            //   child: Container(
-                            //     alignment: Alignment.center,
-                            //     child: Text(
-                            //       lst[index].kanji,
-                            //     ),
-                            //   ),
-                            // ),
-                            Expanded(
-                              flex: 2,
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  lst[index].grammarMn,
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    lst[index].grammarMn,
+                                  ),
                                 ),
                               ),
-                            ),
-                            // Text(
-                          ],
-                        ),
-                      );
-                    })))
-      ],
-    ));
+                              // Text(
+                            ],
+                          ),
+                        );
+                      }))
+            ]));
+    // return Card(
+    //     child: Column(
+    //   mainAxisAlignment: MainAxisAlignment.start,
+    //   crossAxisAlignment: CrossAxisAlignment.start,
+    //   children: [
+    //     Expanded(
+    //         child: Padding(
+    //             padding: const EdgeInsets.only(left: 30, right: 30),
+    //             child: GridView.builder(
+    //                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    //                   // childAspectRatio: 3 / 2,
+    //                   crossAxisSpacing: 2,
+    //                   mainAxisSpacing: 2,
+    //                   crossAxisCount: 1,
+    //                   mainAxisExtent: MediaQuery.of(context).size.height / 12,
+    //                 ),
+    //                 itemCount: lst.length,
+    //                 itemBuilder: (BuildContext ctx, index) {
+    //                   return Container(
+    //                     alignment: Alignment.centerLeft,
+    //                     decoration: BoxDecoration(
+    //                       borderRadius: BorderRadius.circular(5),
+    //                       border: Border.all(
+    //                         color: Colors.black,
+    //                         width: 1,
+    //                       ),
+    //                     ),
+    //                     child: Row(
+    //                       mainAxisAlignment: MainAxisAlignment.start,
+    //                       crossAxisAlignment: CrossAxisAlignment.start,
+    //                       children: [
+    //                         Expanded(
+    //                           flex: 1,
+    //                           child: Container(
+    //                             alignment: Alignment.center,
+    //                             child: Text(
+    //                               lst[index].grammar,
+    //                             ),
+    //                           ),
+    //                         ),
+    //                         Expanded(
+    //                           flex: 2,
+    //                           child: Container(
+    //                             alignment: Alignment.center,
+    //                             child: Text(
+    //                               lst[index].grammarMn,
+    //                             ),
+    //                           ),
+    //                         ),
+    //                         // Text(
+    //                       ],
+    //                     ),
+    //                   );
+    //                 })))
+    //   ],
+    // ));
 
     // Center(
     //   child: Card(

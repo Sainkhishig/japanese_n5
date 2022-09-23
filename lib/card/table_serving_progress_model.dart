@@ -9,6 +9,7 @@ abstract class TableServingProgressModel with _$TableServingProgressModel {
     @Default([]) List<dynamic> lstTableServingProgress,
     @Default(1) int selectedCardIndex,
     @Default(1) int jlptLevel,
+    @Default("") String searchKey,
   }) = _TableServingProgressModel;
   factory TableServingProgressModel.fromJson(Map<String, dynamic> json) =>
       _$TableServingProgressModelFromJson(json);

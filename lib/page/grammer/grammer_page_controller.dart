@@ -1,10 +1,8 @@
 import 'dart:io';
 
 import 'package:afen_vocabulary/card/table_serving_progress_model.dart';
-import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:excel/excel.dart';
-import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:state_notifier/state_notifier.dart';
 
@@ -29,28 +27,29 @@ class VocabularyListPageController
     state = state.copyWith(selectedCardIndex: index + 1);
   }
 
+  setSearchKey(String key) async {
+    state = state.copyWith(searchKey: key);
+  }
+
   Future<List> getTableAllocationByDate(selectedLocation) async {
     return [];
   }
 
-  
   Future<List> readExcelFile(String fileName) async {
-  var lstN5 = widgetRef.read(n5BoxDataProvider);
-      await lstN5.box.clear();
-      var lstData = [];
-      var filePath=
-      "assets/xl/Vocabulary_of_JLPT_N5.xlsx";
-      // var byteData = await rootBundle.load(filePath);
-  // var loc = await localPath;
+    var lstN5 = widgetRef.read(n5BoxDataProvider);
+    await lstN5.box.clear();
+    var lstData = [];
+    var filePath = "assets/xl/Vocabulary_of_JLPT_N5.xlsx";
+    // var byteData = await rootBundle.load(filePath);
+    // var loc = await localPath;
 
+    var file = File(filePath);
 
-  var file = File(filePath);
+    // await file.create(recursive: true);
 
-  // await file.create(recursive: true);
-
-  var bytes = file.readAsBytesSync();
-  var excel = Excel.decodeBytes(bytes);
-  List<String> rowdetail = [];
+    var bytes = file.readAsBytesSync();
+    var excel = Excel.decodeBytes(bytes);
+    List<String> rowdetail = [];
 
     for (var table in excel.tables.keys) {
       for (var row in excel.tables[table]!.rows) {
@@ -61,8 +60,6 @@ class VocabularyListPageController
     //     await rootBundle.load("assets/xl/Vocabulary_of_JLPT_N5.xlsx");
     // var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
     // var excel = Excel.decodeBytes(bytes);
-
-
 
     // for (var i = 0; i < excel.tables["tr2"]!.rows.length; i++) {
     //   var row = excel.tables["tr2"]!.rows[i];

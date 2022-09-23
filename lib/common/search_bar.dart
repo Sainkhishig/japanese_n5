@@ -29,7 +29,7 @@ class CustomSearchBar extends HookConsumerWidget {
 
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Expanded(
-        flex: 3,
+        flex: 4,
         child: TextFormField(
             key: Key(widgetKey),
             controller: keywordController,

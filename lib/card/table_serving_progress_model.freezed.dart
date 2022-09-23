@@ -25,11 +25,13 @@ class _$TableServingProgressModelTearOff {
   _TableServingProgressModel call(
       {List<dynamic> lstTableServingProgress = const [],
       int selectedCardIndex = 1,
-      int jlptLevel = 1}) {
+      int jlptLevel = 1,
+      String searchKey = ""}) {
     return _TableServingProgressModel(
       lstTableServingProgress: lstTableServingProgress,
       selectedCardIndex: selectedCardIndex,
       jlptLevel: jlptLevel,
+      searchKey: searchKey,
     );
   }
 
@@ -47,6 +49,7 @@ mixin _$TableServingProgressModel {
       throw _privateConstructorUsedError;
   int get selectedCardIndex => throw _privateConstructorUsedError;
   int get jlptLevel => throw _privateConstructorUsedError;
+  String get searchKey => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -62,7 +65,8 @@ abstract class $TableServingProgressModelCopyWith<$Res> {
   $Res call(
       {List<dynamic> lstTableServingProgress,
       int selectedCardIndex,
-      int jlptLevel});
+      int jlptLevel,
+      String searchKey});
 }
 
 /// @nodoc
@@ -79,6 +83,7 @@ class _$TableServingProgressModelCopyWithImpl<$Res>
     Object? lstTableServingProgress = freezed,
     Object? selectedCardIndex = freezed,
     Object? jlptLevel = freezed,
+    Object? searchKey = freezed,
   }) {
     return _then(_value.copyWith(
       lstTableServingProgress: lstTableServingProgress == freezed
@@ -93,6 +98,10 @@ class _$TableServingProgressModelCopyWithImpl<$Res>
           ? _value.jlptLevel
           : jlptLevel // ignore: cast_nullable_to_non_nullable
               as int,
+      searchKey: searchKey == freezed
+          ? _value.searchKey
+          : searchKey // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -107,7 +116,8 @@ abstract class _$TableServingProgressModelCopyWith<$Res>
   $Res call(
       {List<dynamic> lstTableServingProgress,
       int selectedCardIndex,
-      int jlptLevel});
+      int jlptLevel,
+      String searchKey});
 }
 
 /// @nodoc
@@ -127,6 +137,7 @@ class __$TableServingProgressModelCopyWithImpl<$Res>
     Object? lstTableServingProgress = freezed,
     Object? selectedCardIndex = freezed,
     Object? jlptLevel = freezed,
+    Object? searchKey = freezed,
   }) {
     return _then(_TableServingProgressModel(
       lstTableServingProgress: lstTableServingProgress == freezed
@@ -141,6 +152,10 @@ class __$TableServingProgressModelCopyWithImpl<$Res>
           ? _value.jlptLevel
           : jlptLevel // ignore: cast_nullable_to_non_nullable
               as int,
+      searchKey: searchKey == freezed
+          ? _value.searchKey
+          : searchKey // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -151,7 +166,8 @@ class _$_TableServingProgressModel implements _TableServingProgressModel {
   const _$_TableServingProgressModel(
       {this.lstTableServingProgress = const [],
       this.selectedCardIndex = 1,
-      this.jlptLevel = 1});
+      this.jlptLevel = 1,
+      this.searchKey = ""});
 
   factory _$_TableServingProgressModel.fromJson(Map<String, dynamic> json) =>
       _$$_TableServingProgressModelFromJson(json);
@@ -165,10 +181,13 @@ class _$_TableServingProgressModel implements _TableServingProgressModel {
   @JsonKey(defaultValue: 1)
   @override
   final int jlptLevel;
+  @JsonKey(defaultValue: "")
+  @override
+  final String searchKey;
 
   @override
   String toString() {
-    return 'TableServingProgressModel(lstTableServingProgress: $lstTableServingProgress, selectedCardIndex: $selectedCardIndex, jlptLevel: $jlptLevel)';
+    return 'TableServingProgressModel(lstTableServingProgress: $lstTableServingProgress, selectedCardIndex: $selectedCardIndex, jlptLevel: $jlptLevel, searchKey: $searchKey)';
   }
 
   @override
@@ -184,7 +203,10 @@ class _$_TableServingProgressModel implements _TableServingProgressModel {
                     .equals(other.selectedCardIndex, selectedCardIndex)) &&
             (identical(other.jlptLevel, jlptLevel) ||
                 const DeepCollectionEquality()
-                    .equals(other.jlptLevel, jlptLevel)));
+                    .equals(other.jlptLevel, jlptLevel)) &&
+            (identical(other.searchKey, searchKey) ||
+                const DeepCollectionEquality()
+                    .equals(other.searchKey, searchKey)));
   }
 
   @override
@@ -192,7 +214,8 @@ class _$_TableServingProgressModel implements _TableServingProgressModel {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(lstTableServingProgress) ^
       const DeepCollectionEquality().hash(selectedCardIndex) ^
-      const DeepCollectionEquality().hash(jlptLevel);
+      const DeepCollectionEquality().hash(jlptLevel) ^
+      const DeepCollectionEquality().hash(searchKey);
 
   @JsonKey(ignore: true)
   @override
@@ -211,7 +234,8 @@ abstract class _TableServingProgressModel implements TableServingProgressModel {
   const factory _TableServingProgressModel(
       {List<dynamic> lstTableServingProgress,
       int selectedCardIndex,
-      int jlptLevel}) = _$_TableServingProgressModel;
+      int jlptLevel,
+      String searchKey}) = _$_TableServingProgressModel;
 
   factory _TableServingProgressModel.fromJson(Map<String, dynamic> json) =
       _$_TableServingProgressModel.fromJson;
@@ -223,6 +247,8 @@ abstract class _TableServingProgressModel implements TableServingProgressModel {
   int get selectedCardIndex => throw _privateConstructorUsedError;
   @override
   int get jlptLevel => throw _privateConstructorUsedError;
+  @override
+  String get searchKey => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TableServingProgressModelCopyWith<_TableServingProgressModel>

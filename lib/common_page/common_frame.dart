@@ -117,12 +117,7 @@ class CommonPage2 extends HookConsumerWidget {
           body: Row(
         children: [
           Expanded(
-            child: Center(child: bodyPage
-                // !controller.state.isGameMode
-                //     ? lstMenu[controller.state.selectedIndex].mainPage
-                //     : lstMenu[controller.state.selectedIndex]
-                //         .gamePage //Text('Content of Menu ${controller.state.selectedIndex}'),
-                ),
+            child: Center(child: bodyPage),
           ),
         ],
       )),
@@ -173,11 +168,6 @@ class CommonPage2 extends HookConsumerWidget {
             // )
           ],
         ),
-        // title: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        //   const Text("システム管理サイト", style: TextStyle(color: Colors.white)),
-        //   Text("Ver. ${AppConfig.version}",
-        //       style: const TextStyle(color: Colors.white, fontSize: 12)),
-        // ]),
       ),
     );
   }
