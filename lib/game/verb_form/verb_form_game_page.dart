@@ -37,13 +37,13 @@ class VerbFormGamePage extends HookConsumerWidget {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(5),
         child: Column(
           children: [
             Row(
               children: [
                 SizedBox(
-                    width: 200,
+                    width: 165,
                     child: SwitchListTile(
                       title: const Text('Дасгал'),
                       value: controller.state.isTestMode,
@@ -62,8 +62,8 @@ class VerbFormGamePage extends HookConsumerWidget {
                     child: Row(
                       children: [
                         Container(
-                          width: 200,
-                          padding: const EdgeInsets.all(15),
+                          width: 170,
+                          padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: tcVerb,
                             decoration: const InputDecoration(
@@ -143,19 +143,21 @@ class VerbFormGamePage extends HookConsumerWidget {
                         const SizedBox(
                           width: 15,
                         ),
-                        ElevatedButton(
-                            child: const Text("next"),
-                            onPressed: () async {
-                              var verb = lstVerb[rnd.nextInt(lstVerb.length)];
-                              controller.setVerb(verb);
-                              conjugateFormula(controller, verb);
-                              // controller.setVerb(verb)
-                              setState(() {
-                                listDragItem.forEach((rowElement) {
-                                  rowElement.isChecked = true;
-                                });
+                        ElevatedButton.icon(
+                          icon: Icon(Icons.arrow_forward_sharp),
+                          onPressed: () async {
+                            var verb = lstVerb[rnd.nextInt(lstVerb.length)];
+                            controller.setVerb(verb);
+                            conjugateFormula(controller, verb);
+                            // controller.setVerb(verb)
+                            setState(() {
+                              listDragItem.forEach((rowElement) {
+                                rowElement.isChecked = true;
                               });
-                            })
+                            });
+                          },
+                          label: Text(""),
+                        )
                       ],
                     )
                   ]);
@@ -222,19 +224,20 @@ class VerbFormGamePage extends HookConsumerWidget {
   conjugateFormula(VerbFormGamePageController controller, String verb) {
     VerbGroup group;
     var verbEnding = "";
-
+    var verbHiragana = kanakit2.toHiragana(verb);
     var verbKana =
         kanakit2.isRomaji(verb) ? verb.trim() : kanakit2.toRomaji(verb);
 
-    if (verbKana.endsWith("suru") || verbKana.endsWith("kuru")) {
+    if (!lstIrregularGodan.contains(verbHiragana) &&
+        (verbKana.endsWith("suru") || verbKana.endsWith("kuru"))) {
       if (verbKana.endsWith("suru")) {
         verbEnding = "suru";
       } else {
         verbEnding = "kuru";
       }
       group = VerbGroup.irregular;
-    } else if ((verbKana.endsWith("eru") || verbKana.endsWith("iru")) ||
-        lstIrregularGodan.contains(verbKana)) {
+    } else if ((verbKana.endsWith("eru") || verbKana.endsWith("iru")) &&
+        !lstIrregularGodan.contains(verbHiragana)) {
       if (verbKana.endsWith("eru")) {
         verbEnding = "ru";
       } else {
@@ -249,7 +252,8 @@ class VerbFormGamePage extends HookConsumerWidget {
       });
       group = VerbGroup.godan;
     }
-    var verbRoot = verbKana.split(verbEnding)[0];
+
+    var verbRoot = verbKana.substring(0, verbKana.length - verbEnding.length);
     controller.conjugateVerb(group, verbRoot, verbEnding);
   }
 }

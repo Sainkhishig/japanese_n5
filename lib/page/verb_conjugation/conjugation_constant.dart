@@ -731,13 +731,17 @@ List<ConjugationResult> conjugate(
         .where(
             (element) => element.name.contains(kanakit.toHiragana(verbEnding)))
         .toList();
-    result.add(conjugateByOne(group, teFormula[0], verbKana, verbEnding));
+    var verbTeForm = conjugateByOne(group, teFormula[0], verbKana, verbEnding);
+    if ((verbKana + verbEnding) == "iku") verbTeForm.conjugatedVerb = "いって";
+    result.add(verbTeForm);
 
     var taFormula = taFormGodan
         .where(
             (element) => element.name.contains(kanakit.toHiragana(verbEnding)))
         .toList();
-    result.add(conjugateByOne(group, taFormula[0], verbKana, verbEnding));
+    var verbTaForm = conjugateByOne(group, taFormula[0], verbKana, verbEnding);
+    if ((verbKana + verbEnding) == "iku") verbTaForm.conjugatedVerb = "いった";
+    result.add(verbTaForm);
   }
   return result;
 }
@@ -792,7 +796,13 @@ ConjugationResult conjugateByOne(VerbGroup group, ConjugationFormula formula,
 
 String changeEndRow(String verbEnd, RowName changeRow) {
   var changing = changeRow.toString().split(".")[1];
-  var newEnd = verbEnd.replaceAll("u", changing);
+  var newEnd = "";
+
+  if (verbEnd == "u" && changeRow == RowName.a) {
+    newEnd = "wa";
+  } else {
+    newEnd = verbEnd.replaceAll("u", changing);
+  }
 
   return newEnd;
 }
