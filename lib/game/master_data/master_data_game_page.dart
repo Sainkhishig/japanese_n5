@@ -123,13 +123,13 @@ class MasterDataGamePage extends HookConsumerWidget {
                     itemBuilder: (BuildContext ctx, index) {
                       return Container(
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 1,
-                            ),
-                          ),
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.circular(15),
+                          //   border: Border.all(
+                          //     color: Colors.black,
+                          //     width: 1,
+                          //   ),
+                          // ),
                           child: FlashCard(
                             key: Key(index.toString()),
                             frontWidget: Text(

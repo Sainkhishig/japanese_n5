@@ -30,22 +30,21 @@ class VocabularyListPage extends HookConsumerWidget {
     // if (!snapshot.hasData) {
     //   return const Center(child: CircularProgressIndicator());
     // }
-    
+
     var lstN5db = ref.read(n5BoxDataProvider);
-    var lstVocabul = lstN5db.box.get("N5Words") ;
-    if(lstVocabul==null ||lstVocabul.isEmpty)
-    {
+    var lstVocabul = lstN5db.box.get("N5Words");
+    if (lstVocabul == null || lstVocabul.isEmpty) {
       final future = useMemoized(() => controller.readExcelFile("5"));
       final snapshot = useFuture(future, initialData: null);
       if (snapshot.hasError) {
         return showErrorWidget(context, "Error card", snapshot.error);
       }
-      if (!snapshot.hasData) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
         return const Center(child: CircularProgressIndicator());
       }
     }
     List<Widget> lsttableServings = [];
-    
+    lstVocabul = lstN5db.box.get("N5Words");
     if (lstVocabul.isNotEmpty) {
       lsttableServings.add(tabCardBody(lstVocabul, context, controller));
     }

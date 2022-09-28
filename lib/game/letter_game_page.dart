@@ -144,18 +144,17 @@ class LetterGamePage extends HookConsumerWidget {
                     itemBuilder: (BuildContext ctx, index) {
                       return Container(
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 1,
-                            ),
-                          ),
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.circular(15),
+                          //   border: Border.all(
+                          //     color: Colors.black,
+                          //     width: 1,
+                          //   ),
+                          // ),
                           child: FlashCard(
                             key: Key(index.toString()),
                             frontWidget: Text(
-                              "(${trans.unTranslit(source: kanakit.toRomaji(currentLetter.lstLetter[index]))})"
-                                  .replaceAll('у', 'ү'),
+                              replaceCyrillic(currentLetter.lstLetter[index]),
                               // kanakit.toRomaji(currentLetter.lstLetter[index]),
                               textAlign: TextAlign.center,
                             ),
@@ -169,5 +168,14 @@ class LetterGamePage extends HookConsumerWidget {
                     })))
       ],
     ));
+  }
+
+  String replaceCyrillic(String word) {
+    var letter = trans.unTranslit(source: kanakit.toRomaji(word));
+    letter = letter.replaceAll('у', 'ү');
+    letter = letter.replaceAll('е', 'э');
+    letter = letter.replaceAll('сх', 'ш');
+    letter = letter.replaceAll('й', 'ж');
+    return letter;
   }
 }

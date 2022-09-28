@@ -1,13 +1,8 @@
-import 'package:afen_vocabulary/classes/jlpt_level.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/constant_value/common_constants.dart';
 import 'package:afen_vocabulary/game/letter_game_page.dart';
-import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
-import 'package:afen_vocabulary/import/import_vocabulary_page.dart';
-import 'package:flash_card/flash_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:translit/translit.dart';
 
@@ -135,9 +130,8 @@ class LetterCardPage extends HookConsumerWidget {
                             Text(
                               currentLetter.lstLetter[index],
                             ),
-                            Text(
-                                "(${trans.unTranslit(source: kanakit.toRomaji(currentLetter.lstLetter[index]))})"
-                                    .replaceAll('у', 'ү')),
+                            Text(replaceCyrillic(
+                                currentLetter.lstLetter[index])),
 
                             // trans.unTranslit(source: 'Privet mir');
                             // Text(
@@ -148,45 +142,14 @@ class LetterCardPage extends HookConsumerWidget {
                     })))
       ],
     ));
+  }
 
-    // Center(
-    //   child: Card(
-    //     elevation: 4.0,
-    //     child: Column(
-    //       children: [
-    //         Text(currentLetter.name),
-    //         Expanded(
-    //             flex: 3,
-    //             child: Center(
-    //               child: GridView.builder(
-    //                 itemCount: currentLetter.lstLetter.length,
-    //                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //                   crossAxisCount: 5,
-    //                   mainAxisExtent: MediaQuery.of(context).size.height / 12,
-    //                 ),
-    //                 itemBuilder: (BuildContext context, int index) {
-    //                   return Padding(
-    //                       padding: const EdgeInsets.all(1),
-    //                       child: Row(children: [
-    //                         Container(
-    //                           decoration: BoxDecoration(
-    //                             border: Border.all(
-    //                               color: Colors.black,
-    //                               width: 2,
-    //                             ),
-    //                           ),
-    //                           child: Text(
-    //                             currentLetter.lstLetter[index],
-    //                             style: const TextStyle(color: Colors.black),
-    //                           ),
-    //                         )
-    //                       ]));
-    //                 },
-    //               ),
-    //             )),
-    //       ],
-    //     ),
-    //   ),
-    // );
+  String replaceCyrillic(String word) {
+    var letter = "${trans.unTranslit(source: kanakit.toRomaji(word))}";
+    letter = letter.replaceAll('у', 'ү');
+    letter = letter.replaceAll('е', 'э');
+    letter = letter.replaceAll('сх', 'ш');
+    letter = letter.replaceAll('й', 'ж');
+    return letter;
   }
 }

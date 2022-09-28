@@ -1,13 +1,10 @@
-import 'package:afen_vocabulary/classes/jlpt_level.dart';
 import 'package:afen_vocabulary/classes/word_group.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/constant_value/common_constants.dart';
-import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
+
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
-import 'package:afen_vocabulary/import/import_vocabulary_page.dart';
-import 'package:flash_card/flash_card.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:translit/translit.dart';
 
@@ -25,33 +22,12 @@ class MasterDataPage extends HookConsumerWidget {
     );
 
     final controller = ref.watch(letterCardProvider.notifier);
-    // lstN5 = ref.read(n5BoxDataProvider);
-    // var lstWord = lstN5.box.values.toList();
-
-    // useEffect(() {
-    //   for (var level in [5, 4, 3, 2, 1]) {
-    //     listLevel.add(JLPTLevel(level, "N$level"));
-    //   }
-    // }, const []);
     controller.setModelListenable(ref);
-    // // var preferences = ref.read(sharedPreferencesProvider);
-    // final future = useMemoized(() => controller.getTableAllocationByDate("5"));
-    // final snapshot = useFuture(future, initialData: null);
-    // if (snapshot.hasError) {
-    //   return showErrorWidget(context, "Error card", snapshot.error);
-    // }
-    // if (!snapshot.hasData) {
-    //   return const Center(child: CircularProgressIndicator());
-    // }
-
     List<Widget> lsttableServings = [];
     for (var element in lstMasterNumberAndDay) {
       lsttableServings.add(tabCardBody(element, context, controller));
     }
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("Tоо, Гараг, Сар өдөр"),
-      // ),
       body: Scaffold(
         body: lsttableServings.isEmpty
             ? showEmptyDataWidget()
@@ -205,45 +181,5 @@ class MasterDataPage extends HookConsumerWidget {
                     })))
       ],
     ));
-
-    // Center(
-    //   child: Card(
-    //     elevation: 4.0,
-    //     child: Column(
-    //       children: [
-    //         Text(currentLetter.name),
-    //         Expanded(
-    //             flex: 3,
-    //             child: Center(
-    //               child: GridView.builder(
-    //                 itemCount: currentLetter.lstLetter.length,
-    //                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //                   crossAxisCount: 5,
-    //                   mainAxisExtent: MediaQuery.of(context).size.height / 12,
-    //                 ),
-    //                 itemBuilder: (BuildContext context, int index) {
-    //                   return Padding(
-    //                       padding: const EdgeInsets.all(1),
-    //                       child: Row(children: [
-    //                         Container(
-    //                           decoration: BoxDecoration(
-    //                             border: Border.all(
-    //                               color: Colors.black,
-    //                               width: 2,
-    //                             ),
-    //                           ),
-    //                           child: Text(
-    //                             currentLetter.lstLetter[index],
-    //                             style: const TextStyle(color: Colors.black),
-    //                           ),
-    //                         )
-    //                       ]));
-    //                 },
-    //               ),
-    //             )),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }

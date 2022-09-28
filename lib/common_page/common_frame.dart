@@ -154,6 +154,7 @@ class CommonPage2 extends HookConsumerWidget {
                 fit: BoxFit.fill,
               ),
             ),
+            // const Text("N5"),
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
             //   children: [

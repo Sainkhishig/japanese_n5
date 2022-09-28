@@ -138,7 +138,7 @@ class GrammerPage extends HookConsumerWidget {
     // var currentLetter = lstVoc as List<Dictionary>;
     // var ss =
     return Padding(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,7 +151,7 @@ class GrammerPage extends HookConsumerWidget {
                       itemBuilder: (BuildContext ctx, index) {
                         return Container(
                           height: 50,
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           alignment: Alignment.centerLeft,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
