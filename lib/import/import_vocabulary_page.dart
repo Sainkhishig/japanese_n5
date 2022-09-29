@@ -56,7 +56,7 @@ class ImportVocabularyPage extends HookConsumerWidget {
               context: context,
               builder: (_) => AlertDialog(
                     title: const Text(
-                      "エラー",
+                      "Алдаа",
                       style: TextStyle(fontSize: 14),
                     ),
                     content: const Text(

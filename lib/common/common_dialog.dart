@@ -6,7 +6,7 @@ void showErroMessage(context, String text) {
       context: context,
       builder: (_) => CupertinoAlertDialog(
             title: const Text(
-              "エラー",
+              "Алдаа",
               style: TextStyle(fontSize: 14),
             ),
             content: Text(
