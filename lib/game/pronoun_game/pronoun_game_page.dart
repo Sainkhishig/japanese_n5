@@ -26,24 +26,7 @@ class PronounGamePage extends HookConsumerWidget {
     );
 
     final controller = ref.watch(letterGameProvider.notifier);
-    // lstN5 = ref.read(n5BoxDataProvider);
-    // var lstWord = lstN5.box.values.toList();
-
-    // useEffect(() {
-    //   for (var level in [5, 4, 3, 2, 1]) {
-    //     listLevel.add(JLPTLevel(level, "N$level"));
-    //   }
-    // }, const []);
     controller.setModelListenable(ref);
-    // // var preferences = ref.read(sharedPreferencesProvider);
-    // final future = useMemoized(() => controller.getTableAllocationByDate("5"));
-    // final snapshot = useFuture(future, initialData: null);
-    // if (snapshot.hasError) {
-    //   return showErrorWidget(context, "Error card", snapshot.error);
-    // }
-    // if (!snapshot.hasData) {
-    //   return const Center(child: CircularProgressIndicator());
-    // }
 
     List<Widget> lsttableServings = [];
     for (var element in lstPronoun) {
@@ -142,13 +125,6 @@ class PronounGamePage extends HookConsumerWidget {
                     itemBuilder: (BuildContext ctx, index) {
                       return Container(
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 1,
-                            ),
-                          ),
                           child: FlashCard(
                             key: Key(index.toString()),
                             frontWidget: Text(

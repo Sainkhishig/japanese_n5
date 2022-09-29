@@ -116,20 +116,13 @@ class MasterDataGamePage extends HookConsumerWidget {
                       // childAspectRatio: 3 / 2,
                       crossAxisSpacing: 2,
                       mainAxisSpacing: 2,
-                      crossAxisCount: controller.state.selectedCardIndex,
+                      crossAxisCount: 2,
                       mainAxisExtent: MediaQuery.of(context).size.height / 12,
                     ),
                     itemCount: currentLetter.lstWord.length,
                     itemBuilder: (BuildContext ctx, index) {
                       return Container(
                           alignment: Alignment.center,
-                          // decoration: BoxDecoration(
-                          //   borderRadius: BorderRadius.circular(15),
-                          //   border: Border.all(
-                          //     color: Colors.black,
-                          //     width: 1,
-                          //   ),
-                          // ),
                           child: FlashCard(
                             key: Key(index.toString()),
                             frontWidget: Text(
