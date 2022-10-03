@@ -30,24 +30,26 @@ class CustomSearchBar extends HookConsumerWidget {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Expanded(
         flex: 4,
-        child: TextFormField(
-            key: Key(widgetKey),
-            controller: keywordController,
-            autofocus: true,
-            focusNode: focusNodeForm,
-            textInputAction: TextInputAction.search,
-            decoration: InputDecoration(
-              isDense: true,
-              labelText: hintText ?? "хайх үг",
-              prefixIcon: const Icon(Icons.search),
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.clear),
-                onPressed: () {
-                  keywordController.text = '';
-                },
-              ),
-            ),
-            onFieldSubmitted: (_) async => onSearch?.call()),
+        child: Padding(
+            padding: EdgeInsets.all(8),
+            child: TextFormField(
+                key: Key(widgetKey),
+                controller: keywordController,
+                autofocus: false,
+                focusNode: focusNodeForm,
+                textInputAction: TextInputAction.search,
+                decoration: InputDecoration(
+                  isDense: true,
+                  labelText: hintText ?? "хайх үг",
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      keywordController.text = '';
+                    },
+                  ),
+                ),
+                onFieldSubmitted: (_) async => onSearch?.call())),
       ),
       Expanded(
           flex: 1,

@@ -24,32 +24,8 @@ class GrammerPage extends HookConsumerWidget {
     );
 
     final controller = ref.watch(grammerPageProvider.notifier);
-    // lstN5 = ref.read(n5BoxDataProvider);
-    // var lstWord = lstN5.box.values.toList();
-
-    // useEffect(() {
-    //   for (var level in [5, 4, 3, 2, 1]) {
-    //     listLevel.add(JLPTLevel(level, "N$level"));
-    //   }
-    // }, const []);
     controller.setModelListenable(ref);
 
-    // // var preferences = ref.read(sharedPreferencesProvider);
-
-    // var lstN5db = ref.read(n5BoxDataProvider);
-    // var lstVocabul = lstN5db.box.get("N5Grammer") ;
-    // // if(lstVocabul==null ||lstVocabul.isEmpty)
-    // // {
-    //   final future = useMemoized(() => controller.readExcelFile("5"));
-    //   final snapshot = useFuture(future, initialData: null);
-    //   if (snapshot.hasError) {
-    //     return showErrorWidget(context, "Error card", snapshot.error);
-    //   }
-    //   if (!snapshot.hasData) {
-    //     return const Center(child: CircularProgressIndicator());
-    //   }
-    // // }
-    // lstVocabul = lstN5db.box.get("N5Grammer");
     List<Widget> lsttableServings = [];
     // if (lstVocabul.isNotEmpty) {
     var filteredGrammar = lstGrammar;

@@ -30,17 +30,15 @@ class VocabularyListPageController
   Future<List> getTableAllocationByDate(selectedLocation) async {
     return [];
   }
-  
-  Future<void> readExcelFile(String fileName) async {
 
-var lstN5 = widgetRef.read(n5BoxDataProvider);
+  Future<void> readExcelFile(String fileName) async {
+    var lstN5 = widgetRef.read(n5BoxDataProvider);
     await lstN5.box.clear();
     var lstData = [];
     ByteData data =
         await rootBundle.load("assets/xl/Vocabulary_of_JLPT_N5.xlsx");
     var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
     var excel = Excel.decodeBytes(bytes);
-
 
     for (var i = 0; i < excel.tables["tr"]!.rows.length; i++) {
       var row = excel.tables["tr"]!.rows[i];
@@ -68,7 +66,8 @@ var lstN5 = widgetRef.read(n5BoxDataProvider);
         ..translate = vocMn
         ..example = exampleSentence
         ..exampleTr = exampleTr;
-      lstData.add(vocabulary);
+      if (!vocabulary.word.contains("null") &&
+          !vocabulary.translate.contains("null")) lstData.add(vocabulary);
       // lstN5.box.add(person2);
     }
     await lstN5.box.put("N5Words", lstData);

@@ -25,24 +25,19 @@ class GrammarCardPage extends HookConsumerWidget {
     final controller = ref.watch(grammerCardProvider.notifier);
     controller.setModelListenable(ref);
 
-    // var lstN5db = ref.read(n5BoxDataProvider);
-    // var lstVocabul = lstN5db.box.get("N5Grammer");
-
-    // lstN5 = ref.read(n5BoxDataProvider);
-    // var lstWord = lstN5.box.values.toList();
     listLevel = [];
 
     List<Widget> lsttableServings = [];
-      var sectionCount = (lstGrammar.length / 10).ceil();
-      for (var i = 1; i <= sectionCount; i++) {
-        listLevel.add(JLPTLevel(i, "x-$i"));
-      }
-      var lstVocDataRange = lstGrammar.getRange(
-          (controller.state.jlptLevel-1)*10, lstGrammar.length - 1);
-      for (var element in lstVocDataRange) {
-        lsttableServings.add(tabCardBody(element, context, controller));
-      }
-    
+    var sectionCount = (lstGrammar.length / 10).ceil();
+    for (var i = 1; i <= sectionCount; i++) {
+      listLevel.add(JLPTLevel(i, "x-$i"));
+    }
+    var lstVocDataRange = lstGrammar.getRange(
+        (controller.state.jlptLevel - 1) * 10, lstGrammar.length - 1);
+    for (var element in lstVocDataRange) {
+      lsttableServings.add(tabCardBody(element, context, controller));
+    }
+
     return Scaffold(
       appBar: AppBar(
         // title: const Text("Vocabulary"),
@@ -148,10 +143,13 @@ class GrammarCardPage extends HookConsumerWidget {
                       currentWord.grammarMn,
                       style: const TextStyle(
                           fontSize: 30, fontWeight: FontWeight.bold),
-                    ))),     
-                     Expanded(flex: 1, child: Text("${currentWord.example}\n (${currentWord.exampleRomaji})\n\n\n${currentWord.exampleTr}")),
+                    ))),
+                Expanded(
+                    flex: 1,
+                    child: Text(
+                        "${currentWord.example}\n (${currentWord.exampleRomaji})\n\n\n${currentWord.exampleTr}")),
                 // Expanded(flex: 1, child: Text(currentWord.exampleRomaji)),
-                
+
                 // Expanded(flex: 1, child: Text(currentWord.exampleTr)),
               ],
             )),
@@ -166,7 +164,6 @@ class GrammarCardPage extends HookConsumerWidget {
                       style: const TextStyle(
                           fontSize: 30, fontWeight: FontWeight.bold),
                     ))),
-              
               ],
             ))));
   }

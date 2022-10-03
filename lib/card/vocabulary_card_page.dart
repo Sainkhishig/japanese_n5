@@ -19,27 +19,24 @@ class VocabularyCardPage extends HookConsumerWidget {
       keepPage: true,
     );
 
-    final controller = ref.watch(vocabularyCardProvider.notifier);
-    controller.setModelListenable(ref);
-
     var lstN5db = ref.read(n5BoxDataProvider);
     var lstVocabul = lstN5db.box.get("N5Words");
+    final controller = ref.watch(vocabularyCardProvider.notifier);
+    controller.setModelListenable(ref);
 
     // lstN5 = ref.read(n5BoxDataProvider);
     // var lstWord = lstN5.box.values.toList();
     // listLevel=[];
-    
 
     List<Widget> lsttableServings = [];
-    if (lstVocabul!=null) {
-      
-    var sectionCount = (lstVocabul.length / 10).ceil();
-    listLevel = [];
-    for (var i = 1; i <= sectionCount; i++) {
+    if (lstVocabul != null) {
+      var sectionCount = (lstVocabul.length / 10).ceil();
+      listLevel = [];
+      for (var i = 1; i <= sectionCount; i++) {
         listLevel.add(JLPTLevel(i, "x - $i"));
       }
       var lstVocDataRange = lstVocabul.getRange(
-          (controller.state.jlptLevel-1), lstVocabul.length - 1);
+          (controller.state.jlptLevel - 1), lstVocabul.length - 1);
       for (var element in lstVocDataRange) {
         lsttableServings.add(tabCardBody(element, context, controller));
       }
@@ -149,8 +146,8 @@ class VocabularyCardPage extends HookConsumerWidget {
                       currentWord.word,
                       style: const TextStyle(
                           fontSize: 30, fontWeight: FontWeight.bold),
-                    ))),     
-                     Expanded(flex: 1, child: Text(currentWord.example)),
+                    ))),
+                Expanded(flex: 1, child: Text(currentWord.example)),
                 Expanded(flex: 1, child: Text(currentWord.exampleTr))
               ],
             )),
@@ -161,11 +158,12 @@ class VocabularyCardPage extends HookConsumerWidget {
                     flex: 3,
                     child: Center(
                         child: Text(
-                      currentWord.translate,
+                      "${currentWord.translate}".contains("null")
+                          ? ""
+                          : currentWord.translate,
                       style: const TextStyle(
                           fontSize: 30, fontWeight: FontWeight.bold),
                     ))),
-              
               ],
             ))));
   }

@@ -21,15 +21,6 @@ class VocabularyListPage extends HookConsumerWidget {
 
     final controller = ref.watch(vocListProvider.notifier);
     controller.setModelListenable(ref);
-    // // var preferences = ref.read(sharedPreferencesProvider);
-    // final future = useMemoized(() => controller.getTableAllocationByDate("5"));
-    // final snapshot = useFuture(future, initialData: null);
-    // if (snapshot.hasError) {
-    //   return showErrorWidget(context, "Error card", snapshot.error);
-    // }
-    // if (!snapshot.hasData) {
-    //   return const Center(child: CircularProgressIndicator());
-    // }
 
     var lstN5db = ref.read(n5BoxDataProvider);
     var lstVocabul = lstN5db.box.get("N5Words");
@@ -168,7 +159,9 @@ class VocabularyListPage extends HookConsumerWidget {
                               child: Container(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  lst[index].translate,
+                                  "${lst[index].translate}".contains("null")
+                                      ? ""
+                                      : lst[index].translate,
                                 ),
                               ),
                             ),
