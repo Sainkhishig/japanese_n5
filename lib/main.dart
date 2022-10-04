@@ -20,7 +20,7 @@ Future<void> main() async {
   List<dynamic> languages = await flutterTts.getLanguages;
 
   await flutterTts.setLanguage("ja-JP");
-  await flutterTts.setSpeechRate(0.5);
+  await flutterTts.setSpeechRate(1);
   await flutterTts.setVolume(1.0);
   await flutterTts.setPitch(0.5);
   await flutterTts.isLanguageAvailable("ja-JP");

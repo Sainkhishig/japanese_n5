@@ -1,11 +1,11 @@
 import 'package:afen_vocabulary/classes/grammar.dart';
 import 'package:afen_vocabulary/classes/jlpt_level.dart';
+import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/constant_value/common_constants.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:flash_card/flash_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'grammer_card_page_controller.dart';
@@ -133,8 +133,9 @@ class GrammarCardPage extends HookConsumerWidget {
         child: FlashCard(
             height: MediaQuery.of(context).size.height - 100,
             width: MediaQuery.of(context).size.width - 100,
-            frontWidget: Container(
-                child: Column(
+            frontWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                     flex: 2,
@@ -144,17 +145,31 @@ class GrammarCardPage extends HookConsumerWidget {
                       style: const TextStyle(
                           fontSize: 30, fontWeight: FontWeight.bold),
                     ))),
-                Expanded(
-                    flex: 1,
-                    child: Text(
-                        "${currentWord.example}\n (${currentWord.exampleRomaji})\n\n\n${currentWord.exampleTr}")),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TextButton.icon(
+                      onPressed: () {
+                        speak(currentWord.example);
+                      },
+                      icon: const Icon(Icons.volume_up),
+                      label: Text(currentWord.example),
+                    ), //テキスト
+
+                    Text("(${currentWord.exampleRomaji})"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(currentWord.exampleTr)
+                  ],
+                )
                 // Expanded(flex: 1, child: Text(currentWord.exampleRomaji)),
 
                 // Expanded(flex: 1, child: Text(currentWord.exampleTr)),
               ],
-            )),
-            backWidget: Container(
-                child: Column(
+            ),
+            backWidget: Column(
               children: [
                 Expanded(
                     flex: 3,
@@ -165,6 +180,6 @@ class GrammarCardPage extends HookConsumerWidget {
                           fontSize: 30, fontWeight: FontWeight.bold),
                     ))),
               ],
-            ))));
+            )));
   }
 }

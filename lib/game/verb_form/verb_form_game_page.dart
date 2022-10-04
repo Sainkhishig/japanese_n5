@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:afen_vocabulary/page/verb_conjugation/conjugation_constant.dart';
 import 'package:afen_vocabulary/page/verb_conjugation/conjugation_practice.dart';
@@ -290,14 +291,26 @@ class ConfugationResultForm extends HookConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Visibility(
-                          visible: !controller.state.isTestMode ||
-                              (isChecked ?? false),
-                          child: Text(
-                            " ${result.conjugatedVerb} ",
-                            textAlign: TextAlign.start,
-                            style: const TextStyle(color: Colors.indigo),
-                          ),
-                        ),
+                            visible: !controller.state.isTestMode ||
+                                (isChecked ?? false),
+                            child: Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    speak(result.conjugatedVerb);
+                                  },
+                                  icon: Icon(Icons.volume_up),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    " ${result.conjugatedVerb} ",
+                                    textAlign: TextAlign.start,
+                                    style:
+                                        const TextStyle(color: Colors.indigo),
+                                  ),
+                                )
+                              ],
+                            )),
                         Visibility(
                           visible: controller.state.isTestMode,
                           child: Container(

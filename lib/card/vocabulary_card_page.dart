@@ -135,17 +135,39 @@ class VocabularyCardPage extends HookConsumerWidget {
             width: MediaQuery.of(context).size.width - 100,
             frontWidget: Container(
                 child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                    flex: 3,
                     child: Center(
                         child: Text(
-                      currentWord.translate,
-                      style: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.bold),
-                    ))),
-                Expanded(flex: 1, child: Text(currentWord.example)),
-                Expanded(flex: 1, child: Text(currentWord.exampleTr))
+                  currentWord.translate,
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
+                ))),
+
+                TextButton.icon(
+                  onPressed: () {
+                    speak(currentWord.exampleTr);
+                  },
+                  icon: const Icon(Icons.volume_up),
+                  label: Text(currentWord.exampleTr),
+                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   children: [
+
+                //     IconButton(
+                //       onPressed: () {
+                //         speak(currentWord.exampleTr);
+                //       },
+                //       icon: Icon(Icons.volume_up),
+                //     ),
+                //     Expanded(child: Text(currentWord.exampleTr))
+                //   ],
+                // ),
+                Expanded(flex: 1, child: Text(currentWord.example))
               ],
             )),
             backWidget: Center(
@@ -155,9 +177,7 @@ class VocabularyCardPage extends HookConsumerWidget {
               children: [
                 Center(
                     child: Text(
-                  "${currentWord.translate}".contains("null")
-                      ? ""
-                      : currentWord.word,
+                  currentWord.word,
                   style: const TextStyle(
                       fontSize: 30, fontWeight: FontWeight.bold),
                 )),

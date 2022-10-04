@@ -125,45 +125,39 @@ class GrammerPage extends HookConsumerWidget {
                       shrinkWrap: true,
                       itemCount: lst.length,
                       itemBuilder: (BuildContext ctx, index) {
-                        return Container(
-                          height: 50,
-                          padding: const EdgeInsets.all(5),
-                          alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 1,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // IconButton(
-                              //   onPressed: () {
-                              //     speak(
-                              //       lst[index].grammar,
-                              //     );
-                              //   },
-                              //   icon: Icon(Icons.volume_up),
-                              // ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  lst[index].grammar,
+                        return Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Container(
+                              height: 50,
+                              padding: const EdgeInsets.all(5),
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
                                 ),
                               ),
-                              Expanded(
-                                flex: 2,
-                                child: Text(
-                                  lst[index].grammarMn,
-                                ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      lst[index].grammar,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      lst[index].grammarMn,
+                                    ),
+                                  ),
+                                  // Text(
+                                ],
                               ),
-                              // Text(
-                            ],
-                          ),
-                        );
+                            ));
                       }))
             ]));
   }
