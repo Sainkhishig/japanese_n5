@@ -4,7 +4,6 @@ import 'package:afen_vocabulary/common/search_bar.dart';
 import 'package:afen_vocabulary/constant_value/common_constants.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:translit/translit.dart';
 
@@ -15,7 +14,7 @@ class GrammerPage extends HookConsumerWidget {
 
   final trans = Translit();
 
-  final keywordController = useTextEditingController();
+  final keywordController = TextEditingController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     PageController pageController = PageController(
@@ -43,7 +42,7 @@ class GrammerPage extends HookConsumerWidget {
           : //Expanded(child: FlashCardListItem(flashcards: flashCard)),
           Column(
               children: [
-                CustomSearchBar(keywordController, onSearch: () {
+                CustomSearchBar(onSearch: () {
                   controller.setSearchKey(keywordController.text);
                 }),
                 Expanded(
@@ -142,20 +141,14 @@ class GrammerPage extends HookConsumerWidget {
                             children: [
                               Expanded(
                                 flex: 1,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    lst[index].grammar,
-                                  ),
+                                child: Text(
+                                  lst[index].grammar,
                                 ),
                               ),
                               Expanded(
                                 flex: 2,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    lst[index].grammarMn,
-                                  ),
+                                child: Text(
+                                  lst[index].grammarMn,
                                 ),
                               ),
                               // Text(

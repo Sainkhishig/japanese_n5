@@ -24,10 +24,6 @@ class VocabularyCardPage extends HookConsumerWidget {
     final controller = ref.watch(vocabularyCardProvider.notifier);
     controller.setModelListenable(ref);
 
-    // lstN5 = ref.read(n5BoxDataProvider);
-    // var lstWord = lstN5.box.values.toList();
-    // listLevel=[];
-
     List<Widget> lsttableServings = [];
     if (lstVocabul != null) {
       var sectionCount = (lstVocabul.length / 10).ceil();
@@ -143,7 +139,7 @@ class VocabularyCardPage extends HookConsumerWidget {
                     flex: 3,
                     child: Center(
                         child: Text(
-                      currentWord.word,
+                      currentWord.translate,
                       style: const TextStyle(
                           fontSize: 30, fontWeight: FontWeight.bold),
                     ))),
@@ -160,7 +156,7 @@ class VocabularyCardPage extends HookConsumerWidget {
                         child: Text(
                       "${currentWord.translate}".contains("null")
                           ? ""
-                          : currentWord.translate,
+                          : currentWord.word,
                       style: const TextStyle(
                           fontSize: 30, fontWeight: FontWeight.bold),
                     ))),

@@ -1,6 +1,7 @@
 import 'package:afen_vocabulary/card/table_serving_progress_model.dart';
 import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
+import 'package:csv/csv.dart';
 import 'package:excel/excel.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,7 +32,41 @@ class VocabularyListPageController
     return [];
   }
 
+  Future<void> loadCSV() async {
+    var lstN5 = widgetRef.read(n5BoxDataProvider);
+    await lstN5.box.clear();
+    var lstData = [];
+
+    final _rawData = await rootBundle.loadString("assets/xl/wordN5.csv");
+    List<List<dynamic>> _listData =
+        const CsvToListConverter().convert(_rawData);
+
+    for (var i = 1; i < _listData.length; i++) {
+      var row = _listData[i];
+      var voc = row[0];
+      var vocMn = row[1]; //!.value.toString();
+      var example = row[2];
+      var exampleTr = row[4]; // == null ? "" : row[4]!.value.toString();
+
+      var vocabulary = Dictionary()
+        ..level = 5
+        ..word = voc
+        ..kanji = "kanji"
+        ..translate = vocMn
+        ..example = example
+        ..exampleTr = exampleTr;
+      if (!vocabulary.word.contains("null") &&
+          !vocabulary.translate.contains("null")) lstData.add(vocabulary);
+      // lstN5.box.add(person2);
+    }
+    await lstN5.box.put("N5Words", lstData);
+    // setState(() {
+    //   _data = _listData;
+    // });
+  }
+
   Future<void> readExcelFile(String fileName) async {
+    // await _loadCSV();
     var lstN5 = widgetRef.read(n5BoxDataProvider);
     await lstN5.box.clear();
     var lstData = [];

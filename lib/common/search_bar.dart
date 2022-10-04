@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CustomSearchBar extends HookConsumerWidget {
-  const CustomSearchBar(
-    this.keywordController, {
+  CustomSearchBar({
     Key? key,
     required this.onSearch,
     this.hintText,
     this.widgetKey = "",
   }) : super(key: key);
-  final TextEditingController keywordController;
+  final TextEditingController keywordController = TextEditingController();
 
   /// widget key
   final String widgetKey;

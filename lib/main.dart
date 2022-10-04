@@ -1,23 +1,12 @@
-import 'package:afen_vocabulary/game/counter/counter_game_page.dart';
-import 'package:afen_vocabulary/game/master_data/master_data_game_page.dart';
-import 'package:afen_vocabulary/game/pronoun_game/pronoun_game_page.dart';
 import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
-// import 'package:afen_vocabulary/hive_db/object/vocabulary.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
-import 'package:afen_vocabulary/page/master/counter/counter_page.dart';
-import 'package:afen_vocabulary/page/master/number_day/master_data_page.dart';
-import 'package:afen_vocabulary/page/pronoun/pronoun_card_page.dart';
-import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'common_page/common_frame.dart';
 import 'common_providers/shared_preferences_provider.dart';
-import 'game/letter_game_page.dart';
-import 'jp_constant/letter/letter_card_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -21,19 +21,19 @@ class VocabularyListPage extends HookConsumerWidget {
 
     final controller = ref.watch(vocListProvider.notifier);
     controller.setModelListenable(ref);
-
+    // controller.loadCSV();
     var lstN5db = ref.read(n5BoxDataProvider);
     var lstVocabul = lstN5db.box.get("N5Words");
-    if (lstVocabul == null || lstVocabul.isEmpty) {
-      final future = useMemoized(() => controller.readExcelFile("5"));
-      final snapshot = useFuture(future, initialData: null);
-      if (snapshot.hasError) {
-        return showErrorWidget(context, "Error card", snapshot.error);
-      }
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return const Center(child: CircularProgressIndicator());
-      }
+    // if (lstVocabul == null || lstVocabul.isEmpty) {
+    final future = useMemoized(() => controller.loadCSV());
+    final snapshot = useFuture(future, initialData: null);
+    if (snapshot.hasError) {
+      return showErrorWidget(context, "Error card", snapshot.error);
     }
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    // }
     List<Widget> lsttableServings = [];
     lstVocabul = lstN5db.box.get("N5Words");
     if (lstVocabul.isNotEmpty) {
@@ -112,105 +112,45 @@ class VocabularyListPage extends HookConsumerWidget {
         child: Column(
       children: [
         Expanded(
-            child: Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30),
-                child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      // childAspectRatio: 3 / 2,
-                      crossAxisSpacing: 2,
-                      mainAxisSpacing: 2,
-                      crossAxisCount: 1,
-                      mainAxisExtent: MediaQuery.of(context).size.height / 12,
+            child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: lst.length,
+                itemBuilder: (BuildContext ctx, index) {
+                  return Container(
+                    padding: const EdgeInsets.all(15),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1,
+                      ),
                     ),
-                    itemCount: lst.length,
-                    itemBuilder: (BuildContext ctx, index) {
-                      return Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Text(
+                            lst[index].word,
                           ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  lst[index].word,
-                                ),
-                              ),
-                            ),
-                            //  Expanded(
-                            //   flex: 1,
-                            //   child: Container(
-                            //     alignment: Alignment.center,
-                            //     child: Text(
-                            //       lst[index].kanji,
-                            //     ),
-                            //   ),
-                            // ),
-                            Expanded(
-                              flex: 2,
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "${lst[index].translate}".contains("null")
-                                      ? ""
-                                      : lst[index].translate,
-                                ),
-                              ),
-                            ),
-                            // Text(
-                          ],
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            "${lst[index].translate}".contains("null")
+                                ? ""
+                                : lst[index].translate,
+                          ),
                         ),
-                      );
-                    })))
+                        // Text(
+                      ],
+                    ),
+                  );
+                }))
       ],
     ));
-
-    // Center(
-    //   child: Card(
-    //     elevation: 4.0,
-    //     child: Column(
-    //       children: [
-    //         Text(currentLetter.name),
-    //         Expanded(
-    //             flex: 3,
-    //             child: Center(
-    //               child: GridView.builder(
-    //                 itemCount: currentLetter.lstLetter.length,
-    //                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //                   crossAxisCount: 5,
-    //                   mainAxisExtent: MediaQuery.of(context).size.height / 12,
-    //                 ),
-    //                 itemBuilder: (BuildContext context, int index) {
-    //                   return Padding(
-    //                       padding: const EdgeInsets.all(1),
-    //                       child: Row(children: [
-    //                         Container(
-    //                           decoration: BoxDecoration(
-    //                             border: Border.all(
-    //                               color: Colors.black,
-    //                               width: 2,
-    //                             ),
-    //                           ),
-    //                           child: Text(
-    //                             currentLetter.lstLetter[index],
-    //                             style: const TextStyle(color: Colors.black),
-    //                           ),
-    //                         )
-    //                       ]));
-    //                 },
-    //               ),
-    //             )),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
