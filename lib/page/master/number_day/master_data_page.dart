@@ -1,4 +1,5 @@
 import 'package:afen_vocabulary/classes/word_group.dart';
+import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/constant_value/common_constants.dart';
 
@@ -127,6 +128,14 @@ class MasterDataPage extends HookConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            IconButton(
+                              onPressed: () {
+                                speak(
+                                  currentLetter.lstWord[index].reading,
+                                );
+                              },
+                              icon: Icon(Icons.volume_up),
+                            ),
                             Expanded(
                               flex: 1,
                               child: Container(

@@ -1,4 +1,5 @@
 import 'package:afen_vocabulary/classes/jlpt_level.dart';
+import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:flash_card/flash_card.dart';
@@ -147,19 +148,26 @@ class VocabularyCardPage extends HookConsumerWidget {
                 Expanded(flex: 1, child: Text(currentWord.exampleTr))
               ],
             )),
-            backWidget: Container(
+            backWidget: Center(
                 child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(
-                    flex: 3,
-                    child: Center(
-                        child: Text(
-                      "${currentWord.translate}".contains("null")
-                          ? ""
-                          : currentWord.word,
-                      style: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.bold),
-                    ))),
+                Center(
+                    child: Text(
+                  "${currentWord.translate}".contains("null")
+                      ? ""
+                      : currentWord.word,
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
+                )),
+                IconButton(
+                  onPressed: () {
+                    speak(currentWord.word);
+                  },
+                  iconSize: 50,
+                  icon: Icon(Icons.volume_up),
+                ),
               ],
             ))));
   }

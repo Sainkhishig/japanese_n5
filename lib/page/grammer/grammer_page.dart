@@ -1,4 +1,5 @@
 import 'package:afen_vocabulary/classes/grammar.dart';
+import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/common/search_bar.dart';
 import 'package:afen_vocabulary/constant_value/common_constants.dart';
@@ -139,6 +140,14 @@ class GrammerPage extends HookConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              // IconButton(
+                              //   onPressed: () {
+                              //     speak(
+                              //       lst[index].grammar,
+                              //     );
+                              //   },
+                              //   icon: Icon(Icons.volume_up),
+                              // ),
                               Expanded(
                                 flex: 1,
                                 child: Text(
@@ -157,101 +166,5 @@ class GrammerPage extends HookConsumerWidget {
                         );
                       }))
             ]));
-    // return Card(
-    //     child: Column(
-    //   mainAxisAlignment: MainAxisAlignment.start,
-    //   crossAxisAlignment: CrossAxisAlignment.start,
-    //   children: [
-    //     Expanded(
-    //         child: Padding(
-    //             padding: const EdgeInsets.only(left: 30, right: 30),
-    //             child: GridView.builder(
-    //                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //                   // childAspectRatio: 3 / 2,
-    //                   crossAxisSpacing: 2,
-    //                   mainAxisSpacing: 2,
-    //                   crossAxisCount: 1,
-    //                   mainAxisExtent: MediaQuery.of(context).size.height / 12,
-    //                 ),
-    //                 itemCount: lst.length,
-    //                 itemBuilder: (BuildContext ctx, index) {
-    //                   return Container(
-    //                     alignment: Alignment.centerLeft,
-    //                     decoration: BoxDecoration(
-    //                       borderRadius: BorderRadius.circular(5),
-    //                       border: Border.all(
-    //                         color: Colors.black,
-    //                         width: 1,
-    //                       ),
-    //                     ),
-    //                     child: Row(
-    //                       mainAxisAlignment: MainAxisAlignment.start,
-    //                       crossAxisAlignment: CrossAxisAlignment.start,
-    //                       children: [
-    //                         Expanded(
-    //                           flex: 1,
-    //                           child: Container(
-    //                             alignment: Alignment.center,
-    //                             child: Text(
-    //                               lst[index].grammar,
-    //                             ),
-    //                           ),
-    //                         ),
-    //                         Expanded(
-    //                           flex: 2,
-    //                           child: Container(
-    //                             alignment: Alignment.center,
-    //                             child: Text(
-    //                               lst[index].grammarMn,
-    //                             ),
-    //                           ),
-    //                         ),
-    //                         // Text(
-    //                       ],
-    //                     ),
-    //                   );
-    //                 })))
-    //   ],
-    // ));
-
-    // Center(
-    //   child: Card(
-    //     elevation: 4.0,
-    //     child: Column(
-    //       children: [
-    //         Text(currentLetter.name),
-    //         Expanded(
-    //             flex: 3,
-    //             child: Center(
-    //               child: GridView.builder(
-    //                 itemCount: currentLetter.lstLetter.length,
-    //                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //                   crossAxisCount: 5,
-    //                   mainAxisExtent: MediaQuery.of(context).size.height / 12,
-    //                 ),
-    //                 itemBuilder: (BuildContext context, int index) {
-    //                   return Padding(
-    //                       padding: const EdgeInsets.all(1),
-    //                       child: Row(children: [
-    //                         Container(
-    //                           decoration: BoxDecoration(
-    //                             border: Border.all(
-    //                               color: Colors.black,
-    //                               width: 2,
-    //                             ),
-    //                           ),
-    //                           child: Text(
-    //                             currentLetter.lstLetter[index],
-    //                             style: const TextStyle(color: Colors.black),
-    //                           ),
-    //                         )
-    //                       ]));
-    //                 },
-    //               ),
-    //             )),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }

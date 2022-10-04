@@ -1,4 +1,5 @@
 import 'package:afen_vocabulary/classes/pronoun_type.dart';
+import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/constant_value/common_constants.dart';
 
@@ -127,10 +128,22 @@ class PronounGamePage extends HookConsumerWidget {
                           alignment: Alignment.center,
                           child: FlashCard(
                             key: Key(index.toString()),
-                            frontWidget: Text(
-                              currentLetter.lstLetter[index].reading,
-                              // kanakit.toRomaji(currentLetter.lstLetter[index]),
-                              textAlign: TextAlign.center,
+                            frontWidget: Column(
+                              children: [
+                                Text(
+                                  currentLetter.lstLetter[index].reading,
+                                  // kanakit.toRomaji(currentLetter.lstLetter[index]),
+                                  textAlign: TextAlign.center,
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    speak(
+                                      currentLetter.lstLetter[index].reading,
+                                    );
+                                  },
+                                  icon: Icon(Icons.volume_up),
+                                ),
+                              ],
                             ),
                             backWidget: Text(
                               currentLetter.lstLetter[index].meaning,
