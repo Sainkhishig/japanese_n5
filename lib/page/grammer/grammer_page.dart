@@ -1,5 +1,4 @@
 import 'package:afen_vocabulary/classes/grammar.dart';
-import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/common/search_bar.dart';
 import 'package:afen_vocabulary/constant_value/common_constants.dart';

@@ -1,24 +1,23 @@
 import 'dart:io';
 
-import 'package:afen_vocabulary/card/table_serving_progress_model.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
+import 'package:afen_vocabulary/page/flash_card/vocabulary/vocabulary_model.dart';
 import 'package:excel/excel.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-final grammerPageProvider = StateNotifierProvider<VocabularyListPageController,
-    TableServingProgressModel>((ref) {
+final grammerPageProvider =
+    StateNotifierProvider<VocabularyListPageController, VocabularyModel>((ref) {
   return VocabularyListPageController(widgetRef: ref);
 });
 
-class VocabularyListPageController
-    extends StateNotifier<TableServingProgressModel> {
+class VocabularyListPageController extends StateNotifier<VocabularyModel> {
   VocabularyListPageController({required this.widgetRef})
-      : super(const TableServingProgressModel());
+      : super(const VocabularyModel());
 
   final StateNotifierProviderRef widgetRef;
   @override
-  TableServingProgressModel get state;
+  VocabularyModel get state;
   void setModelListenable(WidgetRef ref) {
     ref.watch(grammerPageProvider);
   }

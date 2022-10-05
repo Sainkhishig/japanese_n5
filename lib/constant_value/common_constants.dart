@@ -9,7 +9,7 @@ import 'package:afen_vocabulary/constant_value/constant_monthday.dart';
 import 'package:afen_vocabulary/constant_value/constant_number.dart';
 import 'package:afen_vocabulary/constant_value/constants_katakana.dart';
 import 'package:afen_vocabulary/constant_value/constants_weekday.dart';
-import 'package:afen_vocabulary/jp_constant/letter/letter_type.dart';
+import 'package:afen_vocabulary/page/letter/letter_type.dart';
 
 import 'constant_pronoun.dart';
 import 'constant_verb_forms.dart';

@@ -1,4 +1,3 @@
-import 'package:afen_vocabulary/card/vocabulary_card_page.dart';
 import 'package:afen_vocabulary/hive_db/boxes/hive_box_class.dart';
 import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
 
