@@ -14,6 +14,7 @@ import 'package:afen_vocabulary/page/master/counter/counter_page.dart';
 import 'package:afen_vocabulary/page/master/number_day/master_data_page.dart';
 import 'package:afen_vocabulary/page/master/verbForm/verb_form_page.dart';
 import 'package:afen_vocabulary/page/pronoun/pronoun_card_page.dart';
+import 'package:afen_vocabulary/page/vocabulary/adjective/adjective_list_page.dart';
 import 'package:afen_vocabulary/page/vocabulary/vocabulary_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -77,6 +78,15 @@ class CommonPage2 extends HookConsumerWidget {
           ? selectedMaster.mainPage
           : selectedMaster.gamePage;
     }
+    // if (controller.state.selectedIndex == 3) {
+    //   var selectedMaster = lstWordMenu
+    //       .where((element) =>
+    //           element.destination == controller.state.masterDataDestination)
+    //       .first;
+    //   bodyPage = !controller.state.isGameMode
+    //       ? selectedMaster.mainPage
+    //       : selectedMaster.gamePage;
+    // }
 
     return AdaptiveNavigationScaffold(
       appBar: AdaptiveAppBar(
@@ -96,41 +106,6 @@ class CommonPage2 extends HookConsumerWidget {
               //     icon: const Icon(Icons.download))
             ],
           ),
-          // Row(
-          //   children: <Widget>[
-          //     const Text('Language'),
-          //     const SizedBox(
-          //       width: 20,
-          //     ),
-          //     DropdownButton<String>(
-          //       value: language,
-          //       icon: const Icon(Icons.arrow_downward),
-          //       iconSize: 24,
-          //       elevation: 16,
-          //       style: const TextStyle(color: Colors.deepPurple),
-          //       underline: Container(
-          //         height: 2,
-          //         color: Colors.deepPurpleAccent,
-          //       ),
-          //       onChanged: (String? newValue) async {
-          //         languageCode =
-          //             await flutterTts.getLanguageCodeByName(newValue!);
-          //         flutterTts.setLanguage(newValue);
-          //         // voice = await getVoiceByLang(languageCode!);
-          //         // setState(() {
-          //         //   language = newValue;
-          //         // });
-          //       },
-          //       items:
-          //           lstLanguages.map<DropdownMenuItem<String>>((String value) {
-          //         return DropdownMenuItem<String>(
-          //           value: value,
-          //           child: Text(value),
-          //         );
-          //       }).toList(),
-          //     ),
-          //   ],
-          // ),
           Visibility(
               visible: controller.state.selectedIndex == 1,
               child: Padding(
@@ -150,7 +125,27 @@ class CommonPage2 extends HookConsumerWidget {
                     onChanged: (lvl) async {
                       controller.setMasterDataDestination(lvl as String);
                     },
-                  )))
+                  ))),
+          // Visibility(
+          //     visible: controller.state.selectedIndex == 3,
+          //     child: Padding(
+          //         padding: const EdgeInsets.all(10),
+          //         child: DropdownButton(
+          //           value: controller.state.masterDataDestination,
+          //           style: const TextStyle(
+          //             fontSize: 14,
+          //             color: Colors.black,
+          //           ),
+          //           items: lstWordMenu
+          //               .map((e) => DropdownMenuItem(
+          //                     value: e.destination,
+          //                     child: Text(e.name),
+          //                   ))
+          //               .toList(),
+          //           onChanged: (lvl) async {
+          //             controller.setMasterDataDestination(lvl as String);
+          //           },
+          //         )))
         ],
       ),
       // navigationTypeResolver: (context) {
@@ -268,3 +263,10 @@ late final lstMasterMenu = <Menu>[
   Menu("Төлөөний үг", "masterPronoun", Icons.person_pin_circle_outlined,
       PronounCardPage(), PronounGamePage()),
 ];
+
+// late final lstWordMenu = <Menu>[
+//   Menu("Бүх үг", "allVocabulary", Icons.ac_unit, VocabularyListPage(),
+//       VocabularyCardPage()),
+//   Menu("Тэмдэг нэр", "adjectives", Icons.dashboard_outlined,
+//       AdjectiveListPage(), VocabularyCardPage()),
+// ];

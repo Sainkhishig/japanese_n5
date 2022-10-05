@@ -22,13 +22,14 @@ class DictionaryAdapter extends TypeAdapter<Dictionary> {
       ..translate = fields[2] as String
       ..kanji = fields[3] as String
       ..example = fields[4] as String
-      ..exampleTr = fields[5] as String;
+      ..exampleTr = fields[5] as String
+      ..wordType = fields[6] as String;
   }
 
   @override
   void write(BinaryWriter writer, Dictionary obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.level)
       ..writeByte(1)
@@ -40,7 +41,9 @@ class DictionaryAdapter extends TypeAdapter<Dictionary> {
       ..writeByte(4)
       ..write(obj.example)
       ..writeByte(5)
-      ..write(obj.exampleTr);
+      ..write(obj.exampleTr)
+      ..writeByte(6)
+      ..write(obj.wordType);
   }
 
   @override

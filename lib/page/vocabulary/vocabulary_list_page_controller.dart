@@ -54,10 +54,44 @@ class VocabularyListPageController extends StateNotifier<VocabularyModel> {
       var vocabulary = Dictionary()
         ..level = 5
         ..word = voc
-        ..kanji = "kanji"
+        ..kanji = ""
         ..translate = vocMn
         ..example = example
-        ..exampleTr = exampleTr;
+        ..exampleTr = exampleTr
+        ..wordType = "all";
+      if (!vocabulary.word.contains("null") &&
+          !vocabulary.translate.contains("null")) lstData.add(vocabulary);
+      // lstN5.box.add(person2);
+    }
+    await lstN5.box.put("N5Words", lstData);
+    // setState(() {
+    //   _data = _listData;
+    // });
+  }
+
+  Future<void> loadAdjectiveCSV() async {
+    var lstN5 = widgetRef.read(n5BoxDataProvider);
+    await lstN5.box.clear();
+    var lstData = [];
+
+    final _rawData = await rootBundle.loadString("assets/xl/adjectives.csv");
+    List<List<dynamic>> _listData =
+        const CsvToListConverter().convert(_rawData);
+
+    for (var i = 1; i < _listData.length; i++) {
+      var row = _listData[i];
+      var kanji = row[0];
+      var translate = row[1]; //!.value.toString();
+      var hiragana = row[2];
+
+      var vocabulary = Dictionary()
+        ..level = 5
+        ..word = hiragana
+        ..kanji = kanji
+        ..translate = translate
+        ..example = ""
+        ..exampleTr = ""
+        ..wordType = "adjective";
       if (!vocabulary.word.contains("null") &&
           !vocabulary.translate.contains("null")) lstData.add(vocabulary);
       // lstN5.box.add(person2);

@@ -15,4 +15,6 @@ class Dictionary extends HiveObject {
   late String example;
   @HiveField(5)
   late String exampleTr;
+  @HiveField(6)
+  late String wordType;
 }
