@@ -27,6 +27,10 @@ class VocabularyListPageController extends StateNotifier<VocabularyModel> {
     state = state.copyWith(selectedCardIndex: index + 1);
   }
 
+  setSearchKey(String key) async {
+    state = state.copyWith(searchKey: key);
+  }
+
   Future<List> getTableAllocationByDate(selectedLocation) async {
     return [];
   }

@@ -36,16 +36,17 @@ class GrammerPage extends HookConsumerWidget {
     }
     lsttableServings.add(tabCardBody(filteredGrammar, context, controller));
     // }
+
     return Scaffold(
-      body: lsttableServings.isEmpty
-          ? showEmptyDataWidget()
-          : //Expanded(child: FlashCardListItem(flashcards: flashCard)),
+      body: //Expanded(child: FlashCardListItem(flashcards: flashCard)),
           Column(
-              children: [
-                CustomSearchBar(onSearch: () {
-                  controller.setSearchKey(keywordController.text);
-                }),
-                Expanded(
+        children: [
+          CustomSearchBar(onSearch: (searchKey) {
+            controller.setSearchKey(keywordController.text);
+          }),
+          lsttableServings.isEmpty
+              ? showEmptyDataWidget()
+              : Expanded(
                   child: PageView(
                     controller: pageController,
                     children: lsttableServings,
@@ -54,8 +55,8 @@ class GrammerPage extends HookConsumerWidget {
                     },
                   ),
                 )
-              ],
-            ),
+        ],
+      ),
       bottomNavigationBar: Container(
         height: 40,
         color: Colors.grey,

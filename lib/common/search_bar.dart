@@ -15,7 +15,8 @@ class CustomSearchBar extends HookConsumerWidget {
   final String widgetKey;
 
   /// 検索機能
-  final VoidCallback? onSearch;
+  // final String Function() onSearch;
+  late Function(String searchKey)? onSearch;
 
   /// hint
   final String? hintText;
@@ -48,7 +49,8 @@ class CustomSearchBar extends HookConsumerWidget {
                     },
                   ),
                 ),
-                onFieldSubmitted: (_) async => onSearch?.call())),
+                onFieldSubmitted: (_) async =>
+                    onSearch?.call(keywordController.text))),
       ),
       Expanded(
           flex: 1,
@@ -56,7 +58,7 @@ class CustomSearchBar extends HookConsumerWidget {
             padding: const EdgeInsets.all(8.0),
             width: 105,
             child: ElevatedButton(
-              onPressed: () => onSearch?.call(),
+              onPressed: () => onSearch?.call(keywordController.text),
               child: const Text("хайх"),
             ),
           ))

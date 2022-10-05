@@ -17,10 +17,10 @@ Future<void> main() async {
   // Hive.resetAdapters();
   Hive.registerAdapter(DictionaryAdapter());
   setPathUrlStrategy();
-  await flutterTts.setLanguage("ja-JP");
-  await flutterTts.setRate(1);
-  await flutterTts.setVolume(1.0);
-  await flutterTts.setPitch(0.5);
+  // await flutterTts.setLanguage("ja-JP");
+  // await flutterTts.setRate(1);
+  // await flutterTts.setVolume(1.0);
+  // await flutterTts.setPitch(0.5);
 
   // runApp(const ProviderScope(child: MyApp()));
   runApp(ProviderScope(

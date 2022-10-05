@@ -1,5 +1,6 @@
 import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
+import 'package:afen_vocabulary/common/search_bar.dart';
 
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class VocabularyListPage extends HookConsumerWidget {
   VocabularyListPage({Key? key}) : super(key: key);
 
   final trans = Translit();
-
+  final keywordController = TextEditingController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     PageController pageController = PageController(
@@ -40,23 +41,37 @@ class VocabularyListPage extends HookConsumerWidget {
     // }
     List<Widget> lsttableServings = [];
     lstVocabul = lstN5db.box.get("N5Words");
-    if (lstVocabul.isNotEmpty) {
-      lsttableServings.add(tabCardBody(lstVocabul, context, controller));
+    var filteredGrammar = lstVocabul;
+    if (controller.state.searchKey.trim().isNotEmpty) {
+      filteredGrammar = lstVocabul
+          .where((element) =>
+              element.word.contains(controller.state.searchKey) ||
+              element.translate.contains(controller.state.searchKey))
+          .toList();
+    }
+
+    if (filteredGrammar.isNotEmpty) {
+      lsttableServings.add(tabCardBody(filteredGrammar, context, controller));
     }
     return Scaffold(
       body: Scaffold(
-        body: lsttableServings.isEmpty
+          body: //Expanded(child: FlashCardListItem(flashcards: flashCard)),
+              Column(children: [
+        CustomSearchBar(onSearch: (searchKey) {
+          controller.setSearchKey(searchKey);
+        }),
+        lsttableServings.isEmpty
             ? showEmptyDataWidget()
-            : //Expanded(child: FlashCardListItem(flashcards: flashCard)),
-
-            PageView(
-                controller: pageController,
-                children: lsttableServings,
-                onPageChanged: (value) {
-                  controller.setSelectedIndex(value);
-                },
-              ),
-      ),
+            : Expanded(
+                child: PageView(
+                  controller: pageController,
+                  children: lsttableServings,
+                  onPageChanged: (value) {
+                    controller.setSelectedIndex(value);
+                  },
+                ),
+              )
+      ])),
       bottomNavigationBar: Container(
         height: 40,
         color: Colors.grey,
