@@ -137,7 +137,8 @@ class VocabularyListPageController extends StateNotifier<VocabularyModel> {
         ..kanji = kanji
         ..translate = vocMn
         ..example = exampleSentence
-        ..exampleTr = exampleTr;
+        ..exampleTr = exampleTr
+        ..wordType = "allVocabulary";
       if (!vocabulary.word.contains("null") &&
           !vocabulary.translate.contains("null")) lstData.add(vocabulary);
       // lstN5.box.add(person2);

@@ -16,5 +16,5 @@ class Dictionary extends HiveObject {
   @HiveField(5)
   late String exampleTr;
   @HiveField(6)
-  late String wordType;
+  String wordType = "";
 }

@@ -270,11 +270,11 @@ final lstGrammar = <Grammar>[
     'juu o tsukau na.',
   ),
   Grammar(
-    'ないでください (naide kudasai)',
+    'ないでください',
     'битгий ～　ээрэй.',
     '宿題をするのを忘れないでください。',
     'Гэрийн даалгавраа хийхээ битгий мартаарай.',
-    'Please don\'t forget to do your homework.',
+    'Please dont forget to do your homework.',
   ),
   Grammar(
     'なる (naru)',

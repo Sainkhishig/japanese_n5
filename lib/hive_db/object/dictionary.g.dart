@@ -23,7 +23,7 @@ class DictionaryAdapter extends TypeAdapter<Dictionary> {
       ..kanji = fields[3] as String
       ..example = fields[4] as String
       ..exampleTr = fields[5] as String
-      ..wordType = fields[6] as String;
+      ..wordType = fields[6] == null ? "" : fields[6] as String;
   }
 
   @override

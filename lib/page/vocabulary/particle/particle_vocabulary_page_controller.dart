@@ -7,12 +7,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 final vocListProvider =
-    StateNotifierProvider<AdjectiveListPageController, VocabularyModel>((ref) {
-  return AdjectiveListPageController(widgetRef: ref);
+    StateNotifierProvider<ParticleVocabularyPageController, VocabularyModel>(
+        (ref) {
+  return ParticleVocabularyPageController(widgetRef: ref);
 });
 
-class AdjectiveListPageController extends StateNotifier<VocabularyModel> {
-  AdjectiveListPageController({required this.widgetRef})
+class ParticleVocabularyPageController extends StateNotifier<VocabularyModel> {
+  ParticleVocabularyPageController({required this.widgetRef})
       : super(const VocabularyModel());
 
   final StateNotifierProviderRef widgetRef;
@@ -39,7 +40,7 @@ class AdjectiveListPageController extends StateNotifier<VocabularyModel> {
     await lstN5.box.clear();
     var lstData = [];
 
-    final _rawData = await rootBundle.loadString("assets/xl/adjectives.csv");
+    final _rawData = await rootBundle.loadString("assets/xl/csvparticle.csv");
     List<List<dynamic>> _listData =
         const CsvToListConverter().convert(_rawData);
 

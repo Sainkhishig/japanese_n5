@@ -25,12 +25,14 @@ class _$CommonPageModelTearOff {
       {String title = "",
       int selectedIndex = 0,
       bool isGameMode = false,
-      String masterDataDestination = "masterDate"}) {
+      String masterDataDestination = "masterDate",
+      String vocabularyMenuDestination = "allVocabulary"}) {
     return _CommonPageModel(
       title: title,
       selectedIndex: selectedIndex,
       isGameMode: isGameMode,
       masterDataDestination: masterDataDestination,
+      vocabularyMenuDestination: vocabularyMenuDestination,
     );
   }
 
@@ -48,6 +50,7 @@ mixin _$CommonPageModel {
   int get selectedIndex => throw _privateConstructorUsedError;
   bool get isGameMode => throw _privateConstructorUsedError;
   String get masterDataDestination => throw _privateConstructorUsedError;
+  String get vocabularyMenuDestination => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -64,7 +67,8 @@ abstract class $CommonPageModelCopyWith<$Res> {
       {String title,
       int selectedIndex,
       bool isGameMode,
-      String masterDataDestination});
+      String masterDataDestination,
+      String vocabularyMenuDestination});
 }
 
 /// @nodoc
@@ -82,6 +86,7 @@ class _$CommonPageModelCopyWithImpl<$Res>
     Object? selectedIndex = freezed,
     Object? isGameMode = freezed,
     Object? masterDataDestination = freezed,
+    Object? vocabularyMenuDestination = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed
@@ -100,6 +105,10 @@ class _$CommonPageModelCopyWithImpl<$Res>
           ? _value.masterDataDestination
           : masterDataDestination // ignore: cast_nullable_to_non_nullable
               as String,
+      vocabularyMenuDestination: vocabularyMenuDestination == freezed
+          ? _value.vocabularyMenuDestination
+          : vocabularyMenuDestination // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -115,7 +124,8 @@ abstract class _$CommonPageModelCopyWith<$Res>
       {String title,
       int selectedIndex,
       bool isGameMode,
-      String masterDataDestination});
+      String masterDataDestination,
+      String vocabularyMenuDestination});
 }
 
 /// @nodoc
@@ -135,6 +145,7 @@ class __$CommonPageModelCopyWithImpl<$Res>
     Object? selectedIndex = freezed,
     Object? isGameMode = freezed,
     Object? masterDataDestination = freezed,
+    Object? vocabularyMenuDestination = freezed,
   }) {
     return _then(_CommonPageModel(
       title: title == freezed
@@ -153,6 +164,10 @@ class __$CommonPageModelCopyWithImpl<$Res>
           ? _value.masterDataDestination
           : masterDataDestination // ignore: cast_nullable_to_non_nullable
               as String,
+      vocabularyMenuDestination: vocabularyMenuDestination == freezed
+          ? _value.vocabularyMenuDestination
+          : vocabularyMenuDestination // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -164,7 +179,8 @@ class _$_CommonPageModel implements _CommonPageModel {
       {this.title = "",
       this.selectedIndex = 0,
       this.isGameMode = false,
-      this.masterDataDestination = "masterDate"});
+      this.masterDataDestination = "masterDate",
+      this.vocabularyMenuDestination = "allVocabulary"});
 
   factory _$_CommonPageModel.fromJson(Map<String, dynamic> json) =>
       _$$_CommonPageModelFromJson(json);
@@ -181,10 +197,13 @@ class _$_CommonPageModel implements _CommonPageModel {
   @JsonKey(defaultValue: "masterDate")
   @override
   final String masterDataDestination;
+  @JsonKey(defaultValue: "allVocabulary")
+  @override
+  final String vocabularyMenuDestination;
 
   @override
   String toString() {
-    return 'CommonPageModel(title: $title, selectedIndex: $selectedIndex, isGameMode: $isGameMode, masterDataDestination: $masterDataDestination)';
+    return 'CommonPageModel(title: $title, selectedIndex: $selectedIndex, isGameMode: $isGameMode, masterDataDestination: $masterDataDestination, vocabularyMenuDestination: $vocabularyMenuDestination)';
   }
 
   @override
@@ -201,7 +220,12 @@ class _$_CommonPageModel implements _CommonPageModel {
                     .equals(other.isGameMode, isGameMode)) &&
             (identical(other.masterDataDestination, masterDataDestination) ||
                 const DeepCollectionEquality().equals(
-                    other.masterDataDestination, masterDataDestination)));
+                    other.masterDataDestination, masterDataDestination)) &&
+            (identical(other.vocabularyMenuDestination,
+                    vocabularyMenuDestination) ||
+                const DeepCollectionEquality().equals(
+                    other.vocabularyMenuDestination,
+                    vocabularyMenuDestination)));
   }
 
   @override
@@ -210,7 +234,8 @@ class _$_CommonPageModel implements _CommonPageModel {
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(selectedIndex) ^
       const DeepCollectionEquality().hash(isGameMode) ^
-      const DeepCollectionEquality().hash(masterDataDestination);
+      const DeepCollectionEquality().hash(masterDataDestination) ^
+      const DeepCollectionEquality().hash(vocabularyMenuDestination);
 
   @JsonKey(ignore: true)
   @override
@@ -228,7 +253,8 @@ abstract class _CommonPageModel implements CommonPageModel {
       {String title,
       int selectedIndex,
       bool isGameMode,
-      String masterDataDestination}) = _$_CommonPageModel;
+      String masterDataDestination,
+      String vocabularyMenuDestination}) = _$_CommonPageModel;
 
   factory _CommonPageModel.fromJson(Map<String, dynamic> json) =
       _$_CommonPageModel.fromJson;
@@ -241,6 +267,8 @@ abstract class _CommonPageModel implements CommonPageModel {
   bool get isGameMode => throw _privateConstructorUsedError;
   @override
   String get masterDataDestination => throw _privateConstructorUsedError;
+  @override
+  String get vocabularyMenuDestination => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CommonPageModelCopyWith<_CommonPageModel> get copyWith =>

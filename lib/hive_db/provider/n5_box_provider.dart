@@ -8,22 +8,22 @@ final n5BoxDataProvider = Provider<N5Box>((ref) => throw UnimplementedError());
 
 class N5Box extends HiveBoxClass {
   N5Box(Box box) : super(box) {
-    var person = Dictionary()
-      ..level = 5
-      ..word = "くるま"
-      ..kanji = "車"
-      ..translate = "машин"
-      ..example = "くるまをうんてんするのがすき。"
-      ..exampleTr = "Жолоо барих дуртай.";
-    var person2 = Dictionary()
-      ..level = 5
-      ..word = "たまご"
-      ..kanji = "卵"
-      ..translate = "ӨНДӨГ"
-      ..example = "たまごはれいぞこにあります。"
-      ..exampleTr = "Өндөг хөргөгчинд байгаа.";
-    box.add(person);
-    box.add(person2);
+    // var person = Dictionary()
+    //   ..level = 5
+    //   ..word = "くるま"
+    //   ..kanji = "車"
+    //   ..translate = "машин"
+    //   ..example = "くるまをうんてんするのがすき。"
+    //   ..exampleTr = "Жолоо барих дуртай.";
+    // var person2 = Dictionary()
+    //   ..level = 5
+    //   ..word = "たまご"
+    //   ..kanji = "卵"
+    //   ..translate = "ӨНДӨГ"
+    //   ..example = "たまごはれいぞこにあります。"
+    //   ..exampleTr = "Өндөг хөргөгчинд байгаа.";
+    // box.add(person);
+    // box.add(person2);
 
     // box.put("n5", Vocabulary(5, "くるま", "машин", "車", "くるまをうんてんするのがすき。"));
     // box.put("n5", Vocabulary(5, "りんご", "алим", "", "りんごをたべたい。"));

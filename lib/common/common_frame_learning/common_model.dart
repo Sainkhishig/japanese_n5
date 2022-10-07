@@ -10,6 +10,7 @@ abstract class CommonPageModel with _$CommonPageModel {
     @Default(0) int selectedIndex,
     @Default(false) bool isGameMode,
     @Default("masterDate") String masterDataDestination,
+    @Default("allVocabulary") String vocabularyMenuDestination,
   }) = _CommonPageModel;
   factory CommonPageModel.fromJson(Map<String, dynamic> json) =>
       _$CommonPageModelFromJson(json);

@@ -15,6 +15,8 @@ import 'package:afen_vocabulary/page/master/number_day/master_data_page.dart';
 import 'package:afen_vocabulary/page/master/verbForm/verb_form_page.dart';
 import 'package:afen_vocabulary/page/pronoun/pronoun_card_page.dart';
 import 'package:afen_vocabulary/page/vocabulary/adjective/adjective_list_page.dart';
+import 'package:afen_vocabulary/page/vocabulary/adverb/adverb_vocabulary_page.dart';
+import 'package:afen_vocabulary/page/vocabulary/particle/particle_vocabulary_page.dart';
 import 'package:afen_vocabulary/page/vocabulary/vocabulary_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -78,15 +80,15 @@ class CommonPage2 extends HookConsumerWidget {
           ? selectedMaster.mainPage
           : selectedMaster.gamePage;
     }
-    // if (controller.state.selectedIndex == 3) {
-    //   var selectedMaster = lstWordMenu
-    //       .where((element) =>
-    //           element.destination == controller.state.masterDataDestination)
-    //       .first;
-    //   bodyPage = !controller.state.isGameMode
-    //       ? selectedMaster.mainPage
-    //       : selectedMaster.gamePage;
-    // }
+    if (controller.state.selectedIndex == 3) {
+      var selectedMaster = lstWordMenu
+          .where((element) =>
+              element.destination == controller.state.vocabularyMenuDestination)
+          .first;
+      bodyPage = !controller.state.isGameMode
+          ? selectedMaster.mainPage
+          : selectedMaster.gamePage;
+    }
 
     return AdaptiveNavigationScaffold(
       appBar: AdaptiveAppBar(
@@ -99,11 +101,6 @@ class CommonPage2 extends HookConsumerWidget {
                     controller.setGameMode(!controller.state.isGameMode);
                   },
                   icon: const Icon(Icons.flip)),
-              // IconButton(
-              //     onPressed: () {
-              //       readExcelFile("");
-              //     },
-              //     icon: const Icon(Icons.download))
             ],
           ),
           Visibility(
@@ -124,6 +121,26 @@ class CommonPage2 extends HookConsumerWidget {
                         .toList(),
                     onChanged: (lvl) async {
                       controller.setMasterDataDestination(lvl as String);
+                    },
+                  ))),
+          Visibility(
+              visible: controller.state.selectedIndex == 3,
+              child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: DropdownButton(
+                    value: controller.state.vocabularyMenuDestination,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    items: lstWordMenu
+                        .map((e) => DropdownMenuItem(
+                              value: e.destination,
+                              child: Text(e.name),
+                            ))
+                        .toList(),
+                    onChanged: (lvl) async {
+                      controller.setVocabularyDestination(lvl as String);
                     },
                   ))),
           // Visibility(
@@ -247,10 +264,10 @@ late final lstMenu = <Menu>[
   // Menu("Төлөөний үг", "pronoun", Icons.person_pin_circle_outlined,
   //     PronounCardPage(), PronounGamePage()),
   Menu("Дүрэм", "grammer", Icons.rule, GrammerPage(), GrammarCardPage()),
-  Menu("Мастер дата", "masterData", Icons.format_list_numbered,
-      MasterDataPage(), MasterDataGamePage()),
+  Menu("Мастер дата", "masterData", Icons.format_list_numbered, LetterPage(),
+      LetterCardPage()),
   Menu("Үйл үг", "verbForm", Icons.ac_unit, VerbFormPage(), VerbFormGamePage()),
-  Menu("Шинэ үг", "verbForm", Icons.ac_unit, VocabularyListPage(),
+  Menu("Шинэ үг", "vocabulary", Icons.ac_unit, VocabularyListPage(),
       VocabularyCardPage()),
 ];
 
@@ -264,9 +281,13 @@ late final lstMasterMenu = <Menu>[
       PronounCardPage(), PronounGamePage()),
 ];
 
-// late final lstWordMenu = <Menu>[
-//   Menu("Бүх үг", "allVocabulary", Icons.ac_unit, VocabularyListPage(),
-//       VocabularyCardPage()),
-//   Menu("Тэмдэг нэр", "adjectives", Icons.dashboard_outlined,
-//       AdjectiveListPage(), VocabularyCardPage()),
-// ];
+late final lstWordMenu = <Menu>[
+  Menu("Бүх үг", "allVocabulary", Icons.ac_unit, VocabularyListPage(),
+      VocabularyCardPage()),
+  Menu("Тэмдэг нэр", "adjectives", Icons.dashboard_outlined,
+      AdjectiveListPage(), VocabularyCardPage()),
+  Menu("Дайвар үг", "adverb", Icons.dashboard_outlined, AdverbVocabularyPage(),
+      VocabularyCardPage()),
+  Menu("Холбоос үг", "particle", Icons.dashboard_outlined,
+      ParticleVocabularyPage(), VocabularyCardPage()),
+];

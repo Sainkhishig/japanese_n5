@@ -27,9 +27,15 @@ class CommonPageController extends StateNotifier<CommonPageModel> {
   setSelectedIndex(int index) async {
     state = state.copyWith(selectedIndex: index);
   }
-setMasterDataDestination(String masterDest) async {
+
+  setVocabularyDestination(String destination) async {
+    state = state.copyWith(vocabularyMenuDestination: destination);
+  }
+
+  setMasterDataDestination(String masterDest) async {
     state = state.copyWith(masterDataDestination: masterDest);
   }
+
   setGameMode(bool isGameMode) async {
     state = state.copyWith(isGameMode: isGameMode);
   }
