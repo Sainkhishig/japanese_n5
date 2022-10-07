@@ -27,7 +27,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  flutter:
+  
+  flutter_localizations:
     sdk: flutter 
   flutter_hooks: ^0.18.0
   hooks_riverpod: ^1.0.0
@@ -63,7 +64,8 @@ dependencies:
   url_strategy: ^0.2.0
   just_audio: ^0.9.29
   csv: ^5.0.1
-  flutter_tts: ^3.5.3
+  text_to_speech: ^0.2.3
+  # flutter_tts: ^3.5.3
 
 dev_dependencies:
   flutter_test:
