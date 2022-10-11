@@ -1,6 +1,7 @@
 import 'package:adaptive_navigation/adaptive_navigation.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/listening/player/sample/player_page.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/reading/detail/reading_detail.dart';
+import 'package:afen_vocabulary/common/common_frame_practice/reading/list/reading_list.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -202,12 +203,12 @@ late final lstMenu = <Menu>[
     "Уншлага",
     "verbForm",
     Icons.menu_book,
-    ReadingDetail(),
+    ReadingList(),
   ),
   Menu(
     "Ханз",
     "verbForm",
     CupertinoIcons.pencil_outline,
-    Text("hanz"),
+    ReadingDetail(),
   ),
 ];

@@ -17,7 +17,7 @@ class AfenRichTextField extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return StatefulBuilder(builder: (context, setState) {
       return SizedBox(
-          width: 400,
+          width: 500,
           // height: 50,
           child: Column(
             children: [

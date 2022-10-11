@@ -1,3 +1,4 @@
+import 'package:afen_vocabulary/common/common_frame_practice/common_widget/afen_rich_text_field.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/common_widget/afen_text_field.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/common_widget/save_button.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/common_widget/text_list.dart';
@@ -9,7 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // pyfm061 : キャンセル規定編集
 class ReadingDetail extends HookConsumerWidget {
   ReadingDetail({Key? key}) : super(key: key);
-  AfenTextField txtContent = AfenTextField("эх");
+  AfenRichTextField txtContent = AfenRichTextField("эх");
   AfenTextField txtQuestion = AfenTextField("асуулт");
   AfenTextField txtAnswer = AfenTextField("хариу");
   TextAddList answerController = TextAddList(

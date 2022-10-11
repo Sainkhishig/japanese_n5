@@ -22,6 +22,10 @@ class ReadingListController extends StateNotifier<ReadingState> {
   // late List<SiteModel> masterSite;
   // late List<RoomTypeModel> masterRoomType;
 
+  setSelectedIndex(int index) async {
+    state = state.copyWith(selectedCardIndex: index + 1);
+  }
+
   Future<void> setMasterData() async {
     // final api = ref.read(facilityApiProvider);
     // masterSite = await api.getSiteMaster("");
