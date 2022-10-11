@@ -28,6 +28,7 @@ class ReadingDetail extends HookConsumerWidget {
         txtContent,
         txtQuestion,
         txtAnswer,
+        answerController,
         SaveButton(
           onSave: () {
             save(controller);
