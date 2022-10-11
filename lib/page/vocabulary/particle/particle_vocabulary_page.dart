@@ -155,7 +155,7 @@ class ParticleVocabularyPage extends HookConsumerWidget {
                               onPressed: () {
                                 speak(lst[index].word);
                               },
-                              icon: Icon(Icons.volume_up),
+                              icon: const Icon(Icons.volume_up),
                             ),
                             Expanded(
                               flex: 1,

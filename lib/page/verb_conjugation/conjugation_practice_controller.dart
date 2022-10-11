@@ -42,8 +42,11 @@ class ConjugationPracticeController extends StateNotifier<int> {
         verbConjugation.lstConjugationForms;
     List<ConjugationResult> result = [];
 
-    conjugationFormulas.forEach((formula) =>
-        {result.add(conjugateByOne(group, formula, verbKana, verbEnding))});
+    for (var formula in conjugationFormulas) {
+      {
+        result.add(conjugateByOne(group, formula, verbKana, verbEnding));
+      }
+    }
 
     if (result.length > 0) {
       state = state++;

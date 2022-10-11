@@ -59,7 +59,7 @@ class ConjugationPractise extends HookConsumerWidget {
       tcAttention,
       tcNote,
       tcIdiom;
-  var kanakit = KanaKit();
+  var kanakit = const KanaKit();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(conjugationPractiseController.notifier);
@@ -118,11 +118,11 @@ class ConjugationPractise extends HookConsumerWidget {
                 }
                 group = VerbGroup.ichidan;
               } else {
-                lstGodanEnding.forEach((endGodan) {
+                for (var endGodan in lstGodanEnding) {
                   if (verbKana.endsWith(kanakit.toRomaji(endGodan))) {
                     verbEnding = kanakit.toRomaji(endGodan);
                   }
-                });
+                }
                 group = VerbGroup.godan;
               }
               var verbRoot = verbKana.split(verbEnding)[0];
