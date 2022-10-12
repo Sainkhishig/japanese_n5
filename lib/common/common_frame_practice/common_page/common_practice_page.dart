@@ -58,20 +58,20 @@ class CommonPage2 extends HookConsumerWidget {
       appBar: AdaptiveAppBar(
         title: Text(lstMenu[controller.state.selectedIndex].name),
         actions: [
-          ButtonBar(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    controller.setGameMode(!controller.state.isGameMode);
-                  },
-                  icon: const Icon(Icons.flip)),
-              // IconButton(
-              //     onPressed: () {
-              //       readExcelFile("");
-              //     },
-              //     icon: const Icon(Icons.download))
-            ],
-          ),
+          // ButtonBar(
+          //   children: [
+          //     // IconButton(
+          //     //     onPressed: () {
+          //     //       controller.setGameMode(!controller.state.isGameMode);
+          //     //     },
+          //     //     icon: const Icon(Icons.flip)),
+          //     // IconButton(
+          //     //     onPressed: () {
+          //     //       readExcelFile("");
+          //     //     },
+          //     //     icon: const Icon(Icons.download))
+          //   ],
+          // ),
           // Visibility(
           //     visible: controller.state.selectedIndex == 1,
           //     child: Padding(

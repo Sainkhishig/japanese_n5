@@ -1,4 +1,3 @@
-import 'package:afen_vocabulary/common/common_frame_practice/common_widget/afen_text_field.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_reorderable_list/flutter_reorderable_list.dart' as lib;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,36 +7,36 @@ enum DraggingMode {
   android,
 }
 
-class TextAddList extends HookConsumerWidget {
-  TextAddList({
+class WidgetAddList extends HookConsumerWidget {
+  WidgetAddList({
     Key? key,
     required this.onClickAdd,
-    required this.lstDragItems,
+    required this.widgetItems,
     this.isRemovable = true,
     this.isCreatable = true,
     this.onItemRemoved,
   }) : super(key: key);
-  final List<ImageItem> lstDragItems;
+  final List<WidgetGroupItem> widgetItems;
 
   final bool isRemovable;
   final bool isCreatable;
 
   /// 検索機能
 
-  final ImageItem Function() onClickAdd;
-  late Function(ImageItem removedItem)? onItemRemoved;
+  final WidgetGroupItem Function() onClickAdd;
+  late Function(WidgetGroupItem removedItem)? onItemRemoved;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //  CustomDraggableCards(List<ImageItem> lstDragItems) {
+    //  CustomDraggableCards(List<ImageItem> widgetItems) {
     // Returns index of item with given key
     int _indexOfKey(Key key) {
-      return lstDragItems.indexWhere((ImageItem d) => d.key == key);
+      return widgetItems.indexWhere((WidgetGroupItem d) => d.key == key);
     }
 
     return StatefulBuilder(builder: (context, setState) {
       return ListView.builder(
-          itemCount: lstDragItems.length,
+          itemCount: widgetItems.length,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
@@ -47,7 +46,7 @@ class TextAddList extends HookConsumerWidget {
                     flex: 5,
                     child: _buildRowItem(
                       setState,
-                      lstDragItems[index],
+                      widgetItems[index],
                     )),
               ]),
             );
@@ -55,7 +54,7 @@ class TextAddList extends HookConsumerWidget {
     });
   }
 
-  Widget _buildRowItem(StateSetter setState, ImageItem rowItem) {
+  Widget _buildRowItem(StateSetter setState, WidgetGroupItem rowItem) {
     Widget content = SafeArea(
       top: false,
       bottom: false,
@@ -74,14 +73,9 @@ class TextAddList extends HookConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(
-                    flex: 5,
-                    child: Row(
-                      children: [rowItem.field],
-                    ),
-                  ),
+                  Expanded(flex: 5, child: rowItem.widget),
                   Visibility(
-                    visible: lstDragItems.length != 1 && isRemovable,
+                    visible: widgetItems.length != 1 && isRemovable,
                     child: IconButton(
                       icon: const Icon(
                         Icons.indeterminate_check_box,
@@ -92,7 +86,7 @@ class TextAddList extends HookConsumerWidget {
                       onPressed: () {
                         setState(
                           () {
-                            lstDragItems.remove(rowItem);
+                            widgetItems.remove(rowItem);
                             // onItemRemoved!.call(rowItem);
                           },
                         );
@@ -117,7 +111,7 @@ class TextAddList extends HookConsumerWidget {
 
                         setState(
                           () {
-                            lstDragItems.add(newItem);
+                            widgetItems.add(newItem);
                           },
                         );
                       },
@@ -135,14 +129,14 @@ class TextAddList extends HookConsumerWidget {
   }
 }
 
-class ImageItem {
-  ImageItem(this.field, this.key);
-  final AfenTextField field;
-  // final Widget widget;
+class WidgetGroupItem {
+  WidgetGroupItem(this.widget, this.key);
+
+  final Widget widget;
 
   // Each item in reorderable list needs stable and unique key
   final Key key;
 
-  ImageItem.clone(ImageItem randomObject)
-      : this(randomObject.field, randomObject.key);
+  WidgetGroupItem.clone(WidgetGroupItem randomObject)
+      : this(randomObject.widget, randomObject.key);
 }

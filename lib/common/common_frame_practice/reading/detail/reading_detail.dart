@@ -1,53 +1,118 @@
 import 'package:afen_vocabulary/common/common_frame_practice/common_widget/afen_rich_text_field.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/common_widget/afen_text_field.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/common_widget/save_button.dart';
-import 'package:afen_vocabulary/common/common_frame_practice/common_widget/text_list.dart';
+import 'package:afen_vocabulary/common/common_frame_practice/common_widget/text_add_list.dart';
+import 'package:afen_vocabulary/common/common_frame_practice/common_widget/widget_add_list.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/reading/detail/reading_detail_controller.dart';
-import 'package:afen_vocabulary/common/common_frame_practice/reading/model/reading_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // pyfm061 : キャンセル規定編集
 class ReadingDetail extends HookConsumerWidget {
   ReadingDetail({Key? key}) : super(key: key);
-  AfenRichTextField txtContent = AfenRichTextField("эх");
-  AfenTextField txtQuestion = AfenTextField("асуулт");
-  AfenTextField txtAnswer = AfenTextField("хариу");
-  TextAddList answerController = TextAddList(
-      onClickAdd: () {
-        return ImageItem(AfenTextField("Хариулт"), Key("1"));
-      },
-      lstDragItems: [ImageItem(AfenTextField("Хариулт"), Key("2"))]);
+  List<WidgetGroupItem> listReadingWidget = [];
+  AfenTextField txtExerciseName = AfenTextField("Дасгалын дугаар");
+  late WidgetAddList listReadingExercise;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(readingDetailController.notifier);
     controller.setModelListenable(ref);
+    if (listReadingWidget.isEmpty) {
+      listReadingWidget.add(getReadingTemplate());
+    }
+
+    listReadingExercise = WidgetAddList(
+        onClickAdd: () {
+          return getReadingTemplate();
+        },
+        widgetItems: listReadingWidget);
 
     return Scaffold(
-      body: //Expanded(child: FlashCardListItem(flashcards: flashCard)),
-          Column(children: [
-        txtContent,
-        txtQuestion,
-        txtAnswer,
-        answerController,
-        SaveButton(
-          onSave: () {
-            save(controller);
-          },
-        )
-      ]),
+      body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            txtExerciseName,
+            listReadingExercise,
+            SaveButton(
+              onSave: () {
+                save(controller);
+              },
+            )
+          ])),
     );
   }
 
   save(ReadingDetailController controller) {
-    var content = txtContent.controller.text;
-    var question = txtQuestion.controller.text;
-    var answer = txtAnswer.controller.text;
-    var answers = answerController.lstDragItems
-        .map((e) => e.field.controller.text)
+    var items = listReadingExercise.widgetItems
+        .map((e) => e.widget as ReadingDetailItem)
         .toList();
-    ReadingModel reading =
-        ReadingModel(content, question, answers, answer, DateTime.now());
-    controller.write(reading);
+    controller.writeNew(txtExerciseName.controller.text.trim(), items);
+  }
+
+  WidgetGroupItem getReadingTemplate() {
+    AfenTextField txtName = AfenTextField("Дасгал");
+    AfenRichTextField txtContent = AfenRichTextField("эх");
+    AfenTextField txtQuestion = AfenTextField("асуулт");
+    AfenTextField txtAnswer = AfenTextField("хариу");
+    TextAddList answerController = TextAddList(
+        onClickAdd: () {
+          return ReadingAsnwerItem(AfenTextField("Хариулт"), Key("1"));
+        },
+        lstAnswer: [ReadingAsnwerItem(AfenTextField("Хариулт"), Key("2"))]);
+
+    return WidgetGroupItem(
+        ReadingDetailItem(
+          txtName,
+          txtContent,
+          txtQuestion,
+          txtAnswer,
+          answerController,
+        ),
+        ValueKey("fee.id"));
+  }
+}
+
+class ReadingDetailItem extends HookConsumerWidget {
+  ReadingDetailItem(
+    this.txtName,
+    this.txtContent,
+    this.txtQuestion,
+    this.txtAnswer,
+    this.lstAnswerChoiceWidget, {
+    Key? key,
+  }) : super(key: key);
+  final AfenTextField txtName;
+  final AfenRichTextField txtContent;
+  final AfenTextField txtQuestion;
+  final AfenTextField txtAnswer;
+  final TextAddList lstAnswerChoiceWidget;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ListTile(
+        contentPadding: const EdgeInsets.all(0),
+        title: const Padding(
+          padding: EdgeInsets.only(bottom: 8.0),
+          child: Text(
+            "Уншлага",
+            style: TextStyle(fontSize: 12),
+          ),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            txtName,
+            txtContent,
+            txtQuestion,
+            txtAnswer,
+            SizedBox(
+              height: 330,
+              width: 500,
+              child: lstAnswerChoiceWidget,
+            )
+          ],
+        ));
   }
 }

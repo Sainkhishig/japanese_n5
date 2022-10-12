@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:afen_vocabulary/common/common_frame_practice/reading/detail/reading_detail.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/reading/list/reading_state.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/reading/model/reading_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -78,10 +79,48 @@ class ReadingDetailController extends StateNotifier<ReadingState> {
     });
   }
 
-  // void updateCounter(int count) {
-  //   var _todoQuery = _database.child("/counter");
-  //   _todoQuery.set(count++);
-  // }
+  void writeNew(String exerciseName, List<ReadingDetailItem> lstExercises) {
+    List<ReadingModel> lstReadingExercises = [];
+    for (var readingEx in lstExercises) {
+      var name = readingEx.txtName.controller.text;
+      var content = readingEx.txtContent.controller.text;
+      var question = readingEx.txtQuestion.controller.text;
+      var answer = readingEx.txtAnswer.controller.text;
+      List<String> answers = readingEx.lstAnswerChoiceWidget.lstAnswer
+          .map((e) => e.field.controller.text)
+          .toList();
+
+      ReadingModel reading = ReadingModel(
+          name, content, question, answers, answer, DateTime.now());
+      lstReadingExercises.add(reading);
+    }
+
+    List<Map<String, dynamic>> lstSendItem = [];
+    lstReadingExercises.map((e) {
+      lstSendItem.add({
+        'content': e.content,
+        'question': e.question,
+        'answer': e.answer,
+        'answers': e.answers.map((e) => {"name": e}).toList(),
+      });
+    }).toList();
+
+    final newData = <String, dynamic>{
+      'name': exerciseName,
+      'exercises': lstSendItem,
+      'time': DateTime.now().microsecondsSinceEpoch
+    };
+    _database
+        .child('ReadingExercises')
+        .push()
+        .set(newData)
+        .then((value) => {
+              print('new data written'),
+            })
+        .catchError((onError) {
+      print('could not saved data');
+    });
+  }
 
   void write(ReadingModel detail) {
     // var _todoQuery = _database.child("/rReading");
