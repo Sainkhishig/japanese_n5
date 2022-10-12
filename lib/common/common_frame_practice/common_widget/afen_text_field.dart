@@ -16,8 +16,9 @@ class AfenTextField extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return StatefulBuilder(builder: (context, setState) {
-      return SizedBox(
+      return Container(
           width: 400,
+          padding: EdgeInsets.all(8),
           // height: 50,
           child: Column(
             children: [
@@ -28,8 +29,8 @@ class AfenTextField extends HookConsumerWidget {
                     child: TextFormField(
                       controller: controller,
                       autofocus: true,
-                      // textInputAction: TextInputAction.search,
                       decoration: InputDecoration(
+                        border: OutlineInputBorder(),
                         isDense: true,
                         labelText: lablel,
                         suffixIcon: IconButton(
