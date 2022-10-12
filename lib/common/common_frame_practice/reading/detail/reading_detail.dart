@@ -14,6 +14,11 @@ class ReadingDetail extends HookConsumerWidget {
   AfenTextField txtExerciseName = AfenTextField("Дасгалын дугаар");
   late WidgetAddList listReadingExercise;
 
+  TextAddList vocabularyController = TextAddList(
+      onClickAdd: () {
+        return ReadingAsnwerItem(AfenTextField("Шинэ үг"), Key("1"));
+      },
+      lstAnswer: [ReadingAsnwerItem(AfenTextField("Шинэ үг"), Key("2"))]);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(readingDetailController.notifier);
@@ -35,6 +40,7 @@ class ReadingDetail extends HookConsumerWidget {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             txtExerciseName,
             listReadingExercise,
+            vocabularyController,
             SaveButton(
               onSave: () {
                 save(controller);
@@ -48,7 +54,12 @@ class ReadingDetail extends HookConsumerWidget {
     var items = listReadingExercise.widgetItems
         .map((e) => e.widget as ReadingDetailItem)
         .toList();
-    controller.writeNew(txtExerciseName.controller.text.trim(), items);
+
+    var vocabularies = vocabularyController.lstAnswer
+        .map((e) => e.field.controller.text)
+        .toList();
+    controller.writeNew(
+        txtExerciseName.controller.text.trim(), items, vocabularies);
   }
 
   WidgetGroupItem getReadingTemplate() {

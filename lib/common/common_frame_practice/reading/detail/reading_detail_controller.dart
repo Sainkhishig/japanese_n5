@@ -79,7 +79,8 @@ class ReadingDetailController extends StateNotifier<ReadingState> {
     });
   }
 
-  void writeNew(String exerciseName, List<ReadingDetailItem> lstExercises) {
+  void writeNew(String exerciseName, List<ReadingDetailItem> lstExercises,
+      List<String> vocabularies) {
     List<ReadingModel> lstReadingExercises = [];
     for (var readingEx in lstExercises) {
       var name = readingEx.txtName.controller.text;
@@ -108,6 +109,7 @@ class ReadingDetailController extends StateNotifier<ReadingState> {
     final newData = <String, dynamic>{
       'name': exerciseName,
       'exercises': lstSendItem,
+      'vocabularies': vocabularies.map((e) => {"word": e}).toList(),
       'time': DateTime.now().microsecondsSinceEpoch
     };
     _database

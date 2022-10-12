@@ -31,6 +31,7 @@ class AfenRichTextField extends HookConsumerWidget {
                       autofocus: true,
                       // textInputAction: TextInputAction.search,
                       decoration: InputDecoration(
+                        border: OutlineInputBorder(),
                         isDense: true,
                         labelText: lablel,
                         suffixIcon: IconButton(

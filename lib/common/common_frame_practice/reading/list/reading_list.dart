@@ -41,7 +41,7 @@ class ReadingList extends HookConsumerWidget {
         children: [
           Text("this is list"),
           StreamBuilder(
-            stream: _database.child('rReading').orderByKey().onValue,
+            stream: _database.child('ReadingExercises').orderByKey().onValue,
             builder: (context, snapshot) {
               final tilesList = <Widget>[];
 
@@ -50,50 +50,53 @@ class ReadingList extends HookConsumerWidget {
                 // print("myUserKeydatas:$datas");
                 final myUsers = Map<String, dynamic>.from(
                     (snapshot.data! as Event).snapshot.value);
+
                 myUsers.forEach((keyUser, value) {
                   print("userkey$keyUser");
-                  final nextUser =
-                      ReadingModel.fromRTDB(Map<String, dynamic>.from(value));
-                  print("gram*${nextUser.content}");
-                  final userTile = tabCardBody(nextUser);
+                  ReadingHeader hdr = ReadingHeader();
+
+                  hdr.exerciseName = value["name"];
+                  // hdr.vocabularies = value["vocabularies"];
+                  // hdr.passages = value["exercises"];
+                  // final nextUser =
+                  //     CategoryModel.fromRTDB(Map<String, dynamic>.from(value));
+                  // print("gram*${nextUser.code}");
+                  final userTile = Container(
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(width: 1.0, color: Colors.grey))),
+                    child: ListTile(
+                      leading: const Icon(Icons.verified_user),
+                      title: Column(
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(hdr.exerciseName),
+                                ),
+                              ])
+                        ],
+                      ),
+                      onTap: () {
+                        controller.update(keyUser);
+                      },
+                    ),
+                  );
                   tilesList.add(userTile);
                 });
-                //## without key
-                // tilesList.addAll(
-                //     Map<String, dynamic>.from(myUsers).values.map((e) {
-                //   final nextUser =
-                //       User.fromRTDB(Map<String, dynamic>.from(e));
-                //   return ListTile(
-                //       leading: Icon(Icons.verified_user),
-                //       title: Text(nextUser.name),
-                //       subtitle: Column(children: [
-                //         Text(nextUser.mobile),
-                //         Text(nextUser.email)
-                //       ]));
-                // }));
               }
-              return Scaffold(
-                body: tilesList.isEmpty
-                    ? showEmptyDataWidget()
-                    : //Expanded(child: FlashCardListItem(flashcards: flashCard)),
-
-                    PageView(
-                        controller: pageController,
-                        children: tilesList,
-                        onPageChanged: (value) {
-                          controller.setSelectedIndex(value);
-                        },
-                      ),
-              );
-              // Expanded(child: ListView(children: tilesList));
+              return Expanded(child: ListView(children: [...tilesList]));
             },
-          )
+          ),
         ],
       ),
     );
   }
 
-  Widget tabCardBody(ReadingModel nextUser) {
+  Widget tabCardBody(ReadingHeader nextUser) {
     return Card(
         child: Column(
       children: [
@@ -107,10 +110,10 @@ class ReadingList extends HookConsumerWidget {
                   Border(bottom: BorderSide(width: 1.0, color: Colors.grey))),
           child: ListTile(
             leading: Icon(Icons.verified_user),
-            title: Text(nextUser.question),
+            title: Text(nextUser.exerciseName),
             subtitle: Column(children: [
-              Text(nextUser.answer),
-              Text(nextUser.writeDate.toString())
+              // Text(nextUser.answer),
+              // Text(nextUser.writeDate.toString())
             ]),
             onTap: () {
               // controller.update(keyUser);
@@ -120,4 +123,10 @@ class ReadingList extends HookConsumerWidget {
       ],
     ));
   }
+}
+
+class ReadingHeader {
+  late String exerciseName;
+  late List<String> vocabularies;
+  late List passages;
 }
