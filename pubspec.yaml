@@ -67,13 +67,14 @@ dependencies:
   spreadsheet_decoder: ^2.0.2
   url_strategy: ^0.2.0
   csv: ^5.0.1
-  text_to_speech: ^0.2.3
+  # text_to_speech: ^0.2.3
   
-  # flutter_tts: ^3.5.3
+  flutter_tts: ^3.5.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # flutter_launcher_icons: ^0.8.3
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -81,13 +82,29 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
-  flutter_launcher_icons: ^0.10.0
+  flutter_launcher_icons: ^0.10.0 #flutter pub pub run flutter_launcher_icons:main
+# flutter_icons:
+#   android: "launcher_icon"
+#   ios: true
+#   image_path: "assets/icons/afen-logo.png"
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
 flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/icons/afen-logo.png"
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/icons/afen-logo.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/icons/afen-logo.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    image_path: "assets/icons/afen-logo.png"
 
 # The following section is specific to Flutter.
 flutter:
