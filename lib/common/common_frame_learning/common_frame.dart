@@ -21,6 +21,7 @@ import 'package:afen_vocabulary/page/vocabulary/vocabulary_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'common_page_controller.dart';
 
@@ -58,14 +59,6 @@ class CommonPage2 extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(commonPageProvider.notifier);
     lstN5 = ref.read(n5BoxDataProvider);
-
-    // var lstWord = lstN5.box.values.toList();
-
-    // useEffect(() {
-    //   for (var level in [5, 4, 3, 2, 1]) {
-    //     listLevel.add(JLPTLevel(level, "N$level"));
-    //   }
-    // }, const []);
     controller.setModelListenable(ref);
 
     var bodyPage = !controller.state.isGameMode
@@ -100,7 +93,12 @@ class CommonPage2 extends HookConsumerWidget {
                   onPressed: () {
                     controller.setGameMode(!controller.state.isGameMode);
                   },
-                  icon: const Icon(Icons.flip)),
+                  icon: Icon(
+                    controller.state.isGameMode
+                        ? CupertinoIcons.book_circle
+                        : CupertinoIcons
+                            .rectangle_fill_on_rectangle_angled_fill,
+                  )),
             ],
           ),
           Visibility(

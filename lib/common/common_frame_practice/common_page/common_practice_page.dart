@@ -3,6 +3,7 @@ import 'package:afen_vocabulary/common/common_frame_practice/listening/player/sa
 import 'package:afen_vocabulary/common/common_frame_practice/reading/detail/reading_detail.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/reading/list/reading_list.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
+import 'package:afen_vocabulary/page/sample/tts_sample.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -194,7 +195,7 @@ late final lstMenu = <Menu>[
     "Дүрэм",
     "grammar",
     Icons.rule,
-    Text("durem"),
+    TtsSample(),
   ),
   Menu("Сонсгол", "verbForm", CupertinoIcons.ear, PlayerPage()
       // ListeningPage(),

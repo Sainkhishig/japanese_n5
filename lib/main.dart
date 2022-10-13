@@ -4,15 +4,14 @@ import 'package:afen_vocabulary/common/common_frame_practice/listening/player/se
 import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:text_to_speech/text_to_speech.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'common_providers/shared_preferences_provider.dart';
 
-final flutterTts = TextToSpeech();
+final flutterTts = FlutterTts();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

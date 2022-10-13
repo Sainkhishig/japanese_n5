@@ -4,7 +4,7 @@ import '../main.dart';
 
 Future speak(String speechText) async {
   await flutterTts.setVolume(0.5);
-  await flutterTts.setRate(0.5);
+  await flutterTts.setSpeechRate(0.5);
   flutterTts.setLanguage('ja-JP');
   await flutterTts.setPitch(1);
 
