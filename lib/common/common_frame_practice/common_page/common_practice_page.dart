@@ -1,9 +1,9 @@
 import 'package:adaptive_navigation/adaptive_navigation.dart';
-import 'package:afen_vocabulary/common/common_frame_practice/listening/player/sample/player_page.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/reading/detail/reading_detail.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/reading/list/reading_list.dart';
+import 'package:afen_vocabulary/common_frame_learning/page/sample/text_to_speech_sample.dart';
+import 'package:afen_vocabulary/common_frame_learning/page/sample/tts_sample.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
-import 'package:afen_vocabulary/page/sample/tts_sample.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -37,73 +37,12 @@ class CommonPage2 extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(commonPageProvider.notifier);
     lstN5 = ref.read(n5BoxDataProvider);
-    // var lstWord = lstN5.box.values.toList();
-
-    // useEffect(() {
-    //   for (var level in [5, 4, 3, 2, 1]) {
-    //     listLevel.add(JLPTLevel(level, "N$level"));
-    //   }
-    // }, const []);
     controller.setModelListenable(ref);
-
-    // if (controller.state.selectedIndex == 1) {
-    //   var selectedMaster = lstMasterMenu
-    //       .where((element) =>
-    //           element.destination == controller.state.masterDataDestination)
-    //       .first;
-    //   bodyPage = !controller.state.isGameMode
-    //       ? selectedMaster.mainPage
-    //       : selectedMaster.gamePage;
-    // }
     return AdaptiveNavigationScaffold(
       appBar: AdaptiveAppBar(
         title: Text(lstMenu[controller.state.selectedIndex].name),
-        actions: [
-          // ButtonBar(
-          //   children: [
-          //     // IconButton(
-          //     //     onPressed: () {
-          //     //       controller.setGameMode(!controller.state.isGameMode);
-          //     //     },
-          //     //     icon: const Icon(Icons.flip)),
-          //     // IconButton(
-          //     //     onPressed: () {
-          //     //       readExcelFile("");
-          //     //     },
-          //     //     icon: const Icon(Icons.download))
-          //   ],
-          // ),
-          // Visibility(
-          //     visible: controller.state.selectedIndex == 1,
-          //     child: Padding(
-          //         padding: const EdgeInsets.all(10),
-          //         child: DropdownButton(
-          //           value: controller.state.masterDataDestination,
-          //           style: const TextStyle(
-          //             fontSize: 14,
-          //             color: Colors.black,
-          //           ),
-          //           items: lstMasterMenu
-          //               .map((e) => DropdownMenuItem(
-          //                     value: e.destination,
-          //                     child: Text(e.name),
-          //                   ))
-          //               .toList(),
-          //           onChanged: (lvl) async {
-          //             controller.setMasterDataDestination(lvl as String);
-          //           },
-          //         )))
-        ],
+        actions: [],
       ),
-      // navigationTypeResolver: (context) {
-      //   if (MediaQuery.of(context).size.width > 1000) {
-      //     return NavigationType.permanentDrawer;
-      //   } else {
-      //     return NavigationType.drawer;
-      //   }
-      // },
-
-      // appBar: commonAppBar(context, ref, destination),
       body: Scaffold(
           body: Row(
         children: [
@@ -113,7 +52,6 @@ class CommonPage2 extends HookConsumerWidget {
           ),
         ],
       )),
-
       selectedIndex: controller.state.selectedIndex,
       onDestinationSelected: (value) {
         if (value == (lstMenu.length - 1)) {
@@ -146,19 +84,6 @@ class CommonPage2 extends HookConsumerWidget {
                 fit: BoxFit.fill,
               ),
             ),
-            // const Text("N5"),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     const Text(" Флип горим:"),
-            //     Switch(
-            //       value: controller.state.isGameMode,
-            //       onChanged: (value) {
-            //         controller.setGameMode(!controller.state.isGameMode);
-            //       },
-            //     ),
-            //   ],
-            // )
           ],
         ),
       ),
@@ -197,9 +122,8 @@ late final lstMenu = <Menu>[
     Icons.rule,
     TtsSample(),
   ),
-  Menu("Сонсгол", "verbForm", CupertinoIcons.ear, PlayerPage()
-      // ListeningPage(),
-      ),
+  // Menu("Сонсгол", "verbForm", CupertinoIcons.ear, PlayerPage()),
+  Menu("Сонсгол", "verbForm", CupertinoIcons.ear, TextToSpeechSample()),
   Menu(
     "Уншлага",
     "verbForm",
