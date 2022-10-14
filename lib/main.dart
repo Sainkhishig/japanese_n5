@@ -1,6 +1,7 @@
 import 'package:afen_vocabulary/common/common_frame_practice/common_page/common_practice_page.dart';
 import 'package:afen_vocabulary/common/common_frame_practice/listening/player/services/service_locator.dart';
-import 'package:afen_vocabulary/common_frame_learning/common_frame.dart';
+import 'package:afen_vocabulary/common_frame_learning/common_page/common_frame.dart';
+
 import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:flutter/material.dart';
@@ -22,16 +23,6 @@ Future<void> main() async {
   Hive.registerAdapter(DictionaryAdapter());
   setPathUrlStrategy();
 
-  // await flutterTts.setIosAudioCategory(
-  //     IosTextToSpeechAudioCategory.playAndRecord,
-  //     [IosTextToSpeechAudioCategoryOptions.mixWithOthers]);
-
-  // await flutterTts.setLanguage("ja-JP");
-  // await flutterTts.setRate(1);
-  // await flutterTts.setVolume(1.0);
-  // await flutterTts.setPitch(0.5);
-
-  // runApp(const ProviderScope(child: MyApp()));
   runApp(ProviderScope(
     overrides: [
       n5BoxDataProvider
@@ -42,22 +33,7 @@ Future<void> main() async {
     ],
     child: MyApp(),
   ));
-  // runApp(const MyApp());
 }
-
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   // await Firebase.initializeApp();
-
-//   setPathUrlStrategy();
-
-//   // runApp(const ProviderScope(child: MyApp()));
-//   runApp(ProviderScope(overrides: [
-//     sharedPreferencesProvider.overrideWithValue(
-//       await SharedPreferences.getInstance(),
-//     ),
-//   ], child: MyApp()));
-// }
 
 class MyApp extends StatelessWidget {
   @override
