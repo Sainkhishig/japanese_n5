@@ -6,7 +6,7 @@ part 'vocabulary_model.g.dart';
 @freezed
 abstract class VocabularyModel with _$VocabularyModel {
   const factory VocabularyModel({
-    @Default([]) List<dynamic> lstTableServingProgress,
+    @Default([]) List<dynamic> lstVocabulary,
     @Default(1) int selectedCardIndex,
     @Default(1) int jlptLevel,
     @Default("") String searchKey,

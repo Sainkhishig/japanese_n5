@@ -22,12 +22,12 @@ class _$VocabularyModelTearOff {
   const _$VocabularyModelTearOff();
 
   _VocabularyModel call(
-      {List<dynamic> lstTableServingProgress = const [],
+      {List<dynamic> lstVocabulary = const [],
       int selectedCardIndex = 1,
       int jlptLevel = 1,
       String searchKey = ""}) {
     return _VocabularyModel(
-      lstTableServingProgress: lstTableServingProgress,
+      lstVocabulary: lstVocabulary,
       selectedCardIndex: selectedCardIndex,
       jlptLevel: jlptLevel,
       searchKey: searchKey,
@@ -44,8 +44,7 @@ const $VocabularyModel = _$VocabularyModelTearOff();
 
 /// @nodoc
 mixin _$VocabularyModel {
-  List<dynamic> get lstTableServingProgress =>
-      throw _privateConstructorUsedError;
+  List<dynamic> get lstVocabulary => throw _privateConstructorUsedError;
   int get selectedCardIndex => throw _privateConstructorUsedError;
   int get jlptLevel => throw _privateConstructorUsedError;
   String get searchKey => throw _privateConstructorUsedError;
@@ -62,7 +61,7 @@ abstract class $VocabularyModelCopyWith<$Res> {
           VocabularyModel value, $Res Function(VocabularyModel) then) =
       _$VocabularyModelCopyWithImpl<$Res>;
   $Res call(
-      {List<dynamic> lstTableServingProgress,
+      {List<dynamic> lstVocabulary,
       int selectedCardIndex,
       int jlptLevel,
       String searchKey});
@@ -79,15 +78,15 @@ class _$VocabularyModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? lstTableServingProgress = freezed,
+    Object? lstVocabulary = freezed,
     Object? selectedCardIndex = freezed,
     Object? jlptLevel = freezed,
     Object? searchKey = freezed,
   }) {
     return _then(_value.copyWith(
-      lstTableServingProgress: lstTableServingProgress == freezed
-          ? _value.lstTableServingProgress
-          : lstTableServingProgress // ignore: cast_nullable_to_non_nullable
+      lstVocabulary: lstVocabulary == freezed
+          ? _value.lstVocabulary
+          : lstVocabulary // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
       selectedCardIndex: selectedCardIndex == freezed
           ? _value.selectedCardIndex
@@ -113,7 +112,7 @@ abstract class _$VocabularyModelCopyWith<$Res>
       __$VocabularyModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<dynamic> lstTableServingProgress,
+      {List<dynamic> lstVocabulary,
       int selectedCardIndex,
       int jlptLevel,
       String searchKey});
@@ -132,15 +131,15 @@ class __$VocabularyModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? lstTableServingProgress = freezed,
+    Object? lstVocabulary = freezed,
     Object? selectedCardIndex = freezed,
     Object? jlptLevel = freezed,
     Object? searchKey = freezed,
   }) {
     return _then(_VocabularyModel(
-      lstTableServingProgress: lstTableServingProgress == freezed
-          ? _value.lstTableServingProgress
-          : lstTableServingProgress // ignore: cast_nullable_to_non_nullable
+      lstVocabulary: lstVocabulary == freezed
+          ? _value.lstVocabulary
+          : lstVocabulary // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
       selectedCardIndex: selectedCardIndex == freezed
           ? _value.selectedCardIndex
@@ -162,7 +161,7 @@ class __$VocabularyModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_VocabularyModel implements _VocabularyModel {
   const _$_VocabularyModel(
-      {this.lstTableServingProgress = const [],
+      {this.lstVocabulary = const [],
       this.selectedCardIndex = 1,
       this.jlptLevel = 1,
       this.searchKey = ""});
@@ -172,7 +171,7 @@ class _$_VocabularyModel implements _VocabularyModel {
 
   @JsonKey(defaultValue: const [])
   @override
-  final List<dynamic> lstTableServingProgress;
+  final List<dynamic> lstVocabulary;
   @JsonKey(defaultValue: 1)
   @override
   final int selectedCardIndex;
@@ -185,17 +184,16 @@ class _$_VocabularyModel implements _VocabularyModel {
 
   @override
   String toString() {
-    return 'VocabularyModel(lstTableServingProgress: $lstTableServingProgress, selectedCardIndex: $selectedCardIndex, jlptLevel: $jlptLevel, searchKey: $searchKey)';
+    return 'VocabularyModel(lstVocabulary: $lstVocabulary, selectedCardIndex: $selectedCardIndex, jlptLevel: $jlptLevel, searchKey: $searchKey)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _VocabularyModel &&
-            (identical(
-                    other.lstTableServingProgress, lstTableServingProgress) ||
-                const DeepCollectionEquality().equals(
-                    other.lstTableServingProgress, lstTableServingProgress)) &&
+            (identical(other.lstVocabulary, lstVocabulary) ||
+                const DeepCollectionEquality()
+                    .equals(other.lstVocabulary, lstVocabulary)) &&
             (identical(other.selectedCardIndex, selectedCardIndex) ||
                 const DeepCollectionEquality()
                     .equals(other.selectedCardIndex, selectedCardIndex)) &&
@@ -210,7 +208,7 @@ class _$_VocabularyModel implements _VocabularyModel {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(lstTableServingProgress) ^
+      const DeepCollectionEquality().hash(lstVocabulary) ^
       const DeepCollectionEquality().hash(selectedCardIndex) ^
       const DeepCollectionEquality().hash(jlptLevel) ^
       const DeepCollectionEquality().hash(searchKey);
@@ -228,7 +226,7 @@ class _$_VocabularyModel implements _VocabularyModel {
 
 abstract class _VocabularyModel implements VocabularyModel {
   const factory _VocabularyModel(
-      {List<dynamic> lstTableServingProgress,
+      {List<dynamic> lstVocabulary,
       int selectedCardIndex,
       int jlptLevel,
       String searchKey}) = _$_VocabularyModel;
@@ -237,8 +235,7 @@ abstract class _VocabularyModel implements VocabularyModel {
       _$_VocabularyModel.fromJson;
 
   @override
-  List<dynamic> get lstTableServingProgress =>
-      throw _privateConstructorUsedError;
+  List<dynamic> get lstVocabulary => throw _privateConstructorUsedError;
   @override
   int get selectedCardIndex => throw _privateConstructorUsedError;
   @override

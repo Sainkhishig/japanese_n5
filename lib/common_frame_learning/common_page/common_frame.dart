@@ -5,7 +5,10 @@ import 'package:afen_vocabulary/common_frame_learning/page/flash_card/letter/let
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/master_data/master_data_game_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/pronoun_game/pronoun_game_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/verb_form/verb_form_game_page.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/vocabulary_card_page.dart';
+import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/adjective/adjective_card_page.dart';
+import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/adverb/adverb_card_page.dart';
+import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/all/vocabulary_card_page.dart';
+import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/particle/particle_card_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/grammer/grammer_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/letter/letter_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/master/counter/counter_page.dart';
@@ -252,14 +255,6 @@ class Menu {
 }
 
 late final lstMenu = <Menu>[
-  // Menu("Үсэг", "letter", Icons.sort_by_alpha, LetterCardPage(),
-  //     LetterCardPage()),
-  // Menu("Тоо, Гараг, Сар өдөр", "masterData", Icons.dashboard_outlined,
-  //     MasterDataPage(), MasterDataGamePage()),
-  // Menu("Тоо тоолох нөхцөл", "number", Icons.format_list_numbered, CounterPage(),
-  //     CounterGamePage()),
-  // Menu("Төлөөний үг", "pronoun", Icons.person_pin_circle_outlined,
-  //     PronounCardPage(), PronounGamePage()),
   Menu("Дүрэм", "grammer", Icons.rule, GrammerPage(), GrammarCardPage()),
   Menu("Мастер дата", "masterData", Icons.format_list_numbered, LetterPage(),
       LetterCardPage()),
@@ -282,9 +277,9 @@ late final lstWordMenu = <Menu>[
   Menu("Бүх үг", "allVocabulary", Icons.ac_unit, VocabularyListPage(),
       VocabularyCardPage()),
   Menu("Тэмдэг нэр", "adjectives", Icons.dashboard_outlined,
-      AdjectiveListPage(), VocabularyCardPage()),
+      AdjectiveListPage(), AdjectiveCardPage()),
   Menu("Дайвар үг", "adverb", Icons.dashboard_outlined, AdverbVocabularyPage(),
-      VocabularyCardPage()),
+      AdverbCardPage()),
   Menu("Холбоос үг", "particle", Icons.dashboard_outlined,
-      ParticleVocabularyPage(), VocabularyCardPage()),
+      ParticleVocabularyPage(), ParticleCardPage()),
 ];

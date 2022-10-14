@@ -145,7 +145,6 @@ class VocabularyCardPage extends HookConsumerWidget {
                   style: const TextStyle(
                       fontSize: 30, fontWeight: FontWeight.bold),
                 ))),
-
                 TextButton.icon(
                   onPressed: () {
                     speak(currentWord.exampleTr);
@@ -153,20 +152,6 @@ class VocabularyCardPage extends HookConsumerWidget {
                   icon: const Icon(Icons.volume_up),
                   label: Text(currentWord.exampleTr),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   children: [
-
-                //     IconButton(
-                //       onPressed: () {
-                //         speak(currentWord.exampleTr);
-                //       },
-                //       icon: Icon(Icons.volume_up),
-                //     ),
-                //     Expanded(child: Text(currentWord.exampleTr))
-                //   ],
-                // ),
                 Expanded(flex: 1, child: Text(currentWord.example))
               ],
             )),

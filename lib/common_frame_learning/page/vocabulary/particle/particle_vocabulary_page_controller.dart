@@ -57,13 +57,13 @@ class ParticleVocabularyPageController extends StateNotifier<VocabularyModel> {
         ..translate = translate
         ..example = ""
         ..exampleTr = ""
-        ..wordType = "adjective";
+        ..wordType = "particle";
       if (!vocabulary.word.contains("null") &&
           !vocabulary.translate.contains("null")) lstData.add(vocabulary);
       // lstN5.box.add(person2);
     }
-    state = state.copyWith(lstTableServingProgress: lstData);
-    // await lstN5.box.put("N5Words", lstData);
+    state = state.copyWith(lstVocabulary: lstData);
+    await lstN5.box.put("N5Particle", lstData);
     // setState(() {
     //   _data = _listData;
     // });

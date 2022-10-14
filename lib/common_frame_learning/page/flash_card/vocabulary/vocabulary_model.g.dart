@@ -8,8 +8,7 @@ part of 'vocabulary_model.dart';
 
 _$_VocabularyModel _$$_VocabularyModelFromJson(Map<String, dynamic> json) =>
     _$_VocabularyModel(
-      lstTableServingProgress:
-          json['lstTableServingProgress'] as List<dynamic>? ?? [],
+      lstVocabulary: json['lstVocabulary'] as List<dynamic>? ?? [],
       selectedCardIndex: json['selectedCardIndex'] as int? ?? 1,
       jlptLevel: json['jlptLevel'] as int? ?? 1,
       searchKey: json['searchKey'] as String? ?? '',
@@ -17,7 +16,7 @@ _$_VocabularyModel _$$_VocabularyModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_VocabularyModelToJson(_$_VocabularyModel instance) =>
     <String, dynamic>{
-      'lstTableServingProgress': instance.lstTableServingProgress,
+      'lstVocabulary': instance.lstVocabulary,
       'selectedCardIndex': instance.selectedCardIndex,
       'jlptLevel': instance.jlptLevel,
       'searchKey': instance.searchKey,

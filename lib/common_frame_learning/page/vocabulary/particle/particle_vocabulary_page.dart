@@ -40,9 +40,9 @@ class ParticleVocabularyPage extends HookConsumerWidget {
     // }
     List<Widget> lsttableServings = [];
     // lstVocabul = lstN5db.box.get("N5Words");
-    var filteredGrammar = controller.state.lstTableServingProgress;
+    var filteredGrammar = controller.state.lstVocabulary;
     if (controller.state.searchKey.trim().isNotEmpty) {
-      filteredGrammar = controller.state.lstTableServingProgress
+      filteredGrammar = controller.state.lstVocabulary
           .where((element) =>
               element.word.contains(controller.state.searchKey) ||
               element.translate.contains(controller.state.searchKey))

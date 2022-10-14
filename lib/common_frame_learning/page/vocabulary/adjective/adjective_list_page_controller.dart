@@ -61,8 +61,8 @@ class AdjectiveListPageController extends StateNotifier<VocabularyModel> {
           !vocabulary.translate.contains("null")) lstData.add(vocabulary);
       // lstN5.box.add(person2);
     }
-    state = state.copyWith(lstTableServingProgress: lstData);
-    // await lstN5.box.put("N5Words", lstData);
+    state = state.copyWith(lstVocabulary: lstData);
+    await lstN5.box.put("N5Adjective", lstData);
     // setState(() {
     //   _data = _listData;
     // });

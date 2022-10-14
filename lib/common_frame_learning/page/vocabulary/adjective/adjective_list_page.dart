@@ -25,10 +25,6 @@ class AdjectiveListPage extends HookConsumerWidget {
 
     final controller = ref.watch(vocListProvider.notifier);
     controller.setModelListenable(ref);
-    // controller.loadCSV();
-    // var lstN5db = ref.read(n5BoxDataProvider);
-    // var lstVocabul = lstN5db.box.get("N5Words");
-    // if (lstVocabul == null || lstVocabul.isEmpty) {
     final future = useMemoized(() => controller.loadCSV());
     final snapshot = useFuture(future, initialData: null);
     if (snapshot.hasError) {
@@ -40,9 +36,9 @@ class AdjectiveListPage extends HookConsumerWidget {
     // }
     List<Widget> lsttableServings = [];
     // lstVocabul = lstN5db.box.get("N5Words");
-    var filteredGrammar = controller.state.lstTableServingProgress;
+    var filteredGrammar = controller.state.lstVocabulary;
     if (controller.state.searchKey.trim().isNotEmpty) {
-      filteredGrammar = controller.state.lstTableServingProgress
+      filteredGrammar = controller.state.lstVocabulary
           .where((element) =>
               element.word.contains(controller.state.searchKey) ||
               element.translate.contains(controller.state.searchKey))
