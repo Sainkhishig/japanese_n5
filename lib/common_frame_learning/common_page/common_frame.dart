@@ -1,6 +1,7 @@
 import 'package:adaptive_navigation/adaptive_navigation.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/counter/counter_game_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/grammer/grammer_card_page.dart';
+import 'package:afen_vocabulary/common_frame_learning/page/flash_card/kanji/kanji_card_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/letter/letter_game_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/master_data/master_data_game_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/pronoun_game/pronoun_game_page.dart';
@@ -278,5 +279,5 @@ late final lstWordMenu = <Menu>[
   Menu("Ханз", "kanji", Icons.ac_unit, VocabularyListPage(),
       VocabularyCardPage()),
   Menu("Шинэ үг", "allVocabulary", Icons.dashboard_outlined, KanjiListPage(),
-      KanjiListPage()),
+      KanjiCardPage()),
 ];
