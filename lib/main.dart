@@ -1,6 +1,6 @@
-import 'package:afen_vocabulary/common/common_frame_practice/common_page/common_practice_page.dart';
-import 'package:afen_vocabulary/common/common_frame_practice/listening/player/services/service_locator.dart';
 import 'package:afen_vocabulary/common_frame_learning/common_page/common_frame.dart';
+import 'package:afen_vocabulary/common_frame_practice/common_page/common_practice_page.dart';
+import 'package:afen_vocabulary/common_frame_practice/listening/player/services/service_locator.dart';
 
 import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';

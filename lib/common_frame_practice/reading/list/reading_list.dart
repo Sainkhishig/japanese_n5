@@ -1,6 +1,4 @@
-import 'package:afen_vocabulary/common/common_frame_practice/reading/list/reading_list_controller.dart';
-import 'package:afen_vocabulary/common/common_frame_practice/reading/model/reading_model.dart';
-import 'package:afen_vocabulary/common/common_widget.dart';
+import 'package:afen_vocabulary/common_frame_practice/reading/list/reading_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -16,25 +14,7 @@ class ReadingList extends HookConsumerWidget {
       keepPage: true,
     );
     final controller = ref.watch(readingListController.notifier);
-    // controller.setModelListenable(ref);
-    // List<Widget> lsttableServings = [];
-    // for (var element in lstLetters) {
-    //   lsttableServings.add(tabCardBody(element, context, controller));
-    // }
     return Scaffold(
-      // body: Scaffold(
-      //   body: lsttableServings.isEmpty
-      //       ? showEmptyDataWidget()
-      //       : //Expanded(child: FlashCardListItem(flashcards: flashCard)),
-
-      //       PageView(
-      //           controller: pageController,
-      //           children: lsttableServings,
-      //           onPageChanged: (value) {
-      //             controller.setSelectedIndex(value);
-      //           },
-      //         ),
-      // ),
       body:
           //Expanded(child: FlashCardListItem(flashcards: flashCard)),
           Column(

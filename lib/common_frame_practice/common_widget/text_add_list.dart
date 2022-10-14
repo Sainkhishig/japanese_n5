@@ -1,6 +1,5 @@
-import 'package:afen_vocabulary/common/common_frame_practice/common_widget/afen_text_field.dart';
+import 'package:afen_vocabulary/common_frame_practice/common_widget/afen_text_field.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_reorderable_list/flutter_reorderable_list.dart' as lib;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 enum DraggingMode {

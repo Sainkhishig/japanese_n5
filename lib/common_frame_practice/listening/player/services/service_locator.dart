@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/common/common_frame_practice/listening/player/page_manager.dart';
+import 'package:afen_vocabulary/common_frame_practice/listening/player/page_manager.dart';
 import 'package:audio_service/audio_service.dart';
 
 import 'audio_handler.dart';
