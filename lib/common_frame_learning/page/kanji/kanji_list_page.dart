@@ -1,7 +1,6 @@
 import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/common/search_bar.dart';
-import 'package:afen_vocabulary/hive_db/object/kanji_dictionary.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -127,13 +126,50 @@ class KanjiListPage extends HookConsumerWidget {
         child: Column(
       children: [
         Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    speak("");
+                  },
+                  icon: const Icon(Icons.volume_up),
+                ),
+                const Expanded(
+                  flex: 1,
+                  child: Text("Ханз"),
+                ),
+                const Expanded(
+                  flex: 2,
+                  child: Text("Утга"),
+                ),
+                const Expanded(
+                  flex: 2,
+                  child: Text("Он дуудлага"),
+                ),
+                const Expanded(
+                  flex: 2,
+                  child: Text("Кун дуудлага"),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
             child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 itemCount: lst.length,
                 itemBuilder: (BuildContext ctx, index) {
                   print("lst[index]");
-                  print(lst[index]);
+                  print(lst[index].kanji);
+                  print(lst[index].translate);
+                  print(lst[index].onReading);
+                  print(lst[index].kunReading);
+
                   // var kanji = lst[index] as KanjiDictionary;
                   return Padding(
                       padding: const EdgeInsets.all(2),
@@ -165,16 +201,24 @@ class KanjiListPage extends HookConsumerWidget {
                             ),
                             Expanded(
                               flex: 2,
-                              child: Text(lst[index].translate),
+                              child: Text("${lst[index].translate}"),
                             ),
                             Expanded(
                               flex: 2,
-                              child: Text(lst[index].onReading),
+                              child: Text("${lst[index].onReading}"),
                             ),
                             Expanded(
                               flex: 2,
-                              child: Text(lst[index].kunReading),
+                              child: Text("${lst[index].kunReading}"),
                             ),
+                            // Expanded(
+                            //   flex: 2,
+                            //   child: Text(lst[index].onReading),
+                            // ),
+                            // Expanded(
+                            //   flex: 2,
+                            //   child: Text(lst[index].kunReading),
+                            // ),
 
                             // Text(
                           ],
