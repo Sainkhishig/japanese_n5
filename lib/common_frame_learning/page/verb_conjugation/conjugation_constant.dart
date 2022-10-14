@@ -376,7 +376,7 @@ List<ConjugationFormula> verbIchidan = [
       example: "食べる → 食べて",
       exception: ""),
   ConjugationFormula(
-      type: Conjugation.teForm,
+      type: Conjugation.taForm,
       name: "た хэлбэр: -аад4",
       rowChanging: RowName.u,
       isRemove: true,

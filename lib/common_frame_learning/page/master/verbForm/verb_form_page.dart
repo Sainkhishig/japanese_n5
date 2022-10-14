@@ -107,6 +107,7 @@ class VerbFormPage extends HookConsumerWidget {
     String title = "";
     String description = "";
     String exampleWord = "";
+
     switch (verbGroup) {
       case VerbGroup.godan:
         title = "Груп 1 (Godan)";
@@ -141,7 +142,7 @@ class VerbFormPage extends HookConsumerWidget {
 
     var listDragItem = conjugationResuls
         .map(
-          (verbResult) => ConfugationInfoForm(verbResult),
+          (verbResult) => ConfugationInfoForm(verbResult, verbGroup),
         )
         .toList();
 
@@ -177,9 +178,11 @@ class VerbFormPage extends HookConsumerWidget {
 }
 
 class ConfugationInfoForm extends HookConsumerWidget {
-  ConfugationInfoForm(this.result, {Key? key}) : super(key: key);
+  ConfugationInfoForm(this.result, this.verbGroup, {Key? key})
+      : super(key: key);
   final ConjugationResult result;
 
+  final VerbGroup? verbGroup;
   final TextEditingController tecStartDay = TextEditingController();
 
   @override
@@ -188,20 +191,20 @@ class ConfugationInfoForm extends HookConsumerWidget {
     List<Widget> lstDescriptionWidget = [];
     List<Widget> lstFormulaWidget = [];
 
-    if (result.conjName == "て хэлбэр") {
-      teFormGodan = getTeFormExamples();
-    } else if (result.conjName == "た хэлбэр") {
-      teFormGodan = getTaFormExamples();
+    if (verbGroup != VerbGroup.ichidan) {
+      if (result.conjName == "て хэлбэр") {
+        teFormGodan = getTeFormExamples();
+      } else if (result.conjName == "た хэлбэр") {
+        teFormGodan = getTaFormExamples();
+      }
+      for (var e in teFormGodan) {
+        lstDescriptionWidget.add(Text(e.desctiprion));
+        lstFormulaWidget.add(Text(e.conjugatedVerb));
+      }
     } else {
       lstDescriptionWidget.add(Text(result.desctiprion));
       lstFormulaWidget.add(Text("${result.conjugatedVerb} "));
     }
-
-    for (var e in teFormGodan) {
-      lstDescriptionWidget.add(Text(e.desctiprion));
-      lstFormulaWidget.add(Text(e.conjugatedVerb));
-    }
-
     return Row(
       children: [
         Expanded(
