@@ -33,7 +33,7 @@ class AdjectiveCardPage extends HookConsumerWidget {
         listLevel.add(JLPTLevel(i, "x - $i"));
       }
       var lstVocDataRange = lstVocabul.getRange(
-          (controller.state.jlptLevel - 1), lstVocabul.length - 1);
+          (controller.state.pageIndex - 1), lstVocabul.length - 1);
       for (var element in lstVocDataRange) {
         lstVocabularyWidget.add(tabCardBody(element, context, controller));
       }
@@ -44,7 +44,7 @@ class AdjectiveCardPage extends HookConsumerWidget {
           Padding(
               padding: const EdgeInsets.all(10),
               child: DropdownButton(
-                value: controller.state.jlptLevel,
+                value: controller.state.pageIndex,
                 style: const TextStyle(
                   fontSize: 14,
                   color: Colors.black,

@@ -35,6 +35,13 @@ var lstMasterNumberAndDay = <WordGroup>[
   WordGroup("Өдөр", lstMonthDay, "Хэдний өдөр? Хэдэн өдөр"),
 ];
 
+var lstVocabulary = <WordGroup>[
+  WordGroup("Бүгд", lstNumber, "Хэд?"),
+  WordGroup("Тэмдэг нэр", lstWeekDay, "Хэд дэх өдөр вэ?"),
+  WordGroup("Дайвар үг", lstMonth, "Хэдэн сар вэ?"),
+  WordGroup("Холбоос үг", lstMonthDay, "Хэдний өдөр? Хэдэн өдөр"),
+];
+
 var lstCounter = <CounterGroup>[
   CounterGroup('person', '人', 'にん/り', 'хүн', personCounter),
   CounterGroup('book', '本', 'ぼん', 'урт зүйл', longObjectCounter),
@@ -437,4 +444,18 @@ final lstGrammar = <Grammar>[
     'Эрэгтэйчүүд эмэгтэйчүүдээс илүү амархан уйддаг.',
     'onna yori otoko no hou ga akiyasui mono da.',
   ),
+];
+
+class CsvInfo {
+  late String name;
+  late String csvName;
+  late String dbName;
+  CsvInfo(this.name, this.csvName, this.dbName);
+}
+
+final lstCsvDBName = <CsvInfo>[
+  CsvInfo("Бүх", "wordN5", "N5Words"),
+  CsvInfo("Тэмдэг нэр", "adjectives", "N5Adjective"),
+  CsvInfo("Үйлт нэр", "csvadverb", "N5Adverb"),
+  CsvInfo("Холбоос үг", "csvparticle", "N5Particle"),
 ];

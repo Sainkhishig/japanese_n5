@@ -19,7 +19,7 @@ class GrammerCardPageController extends StateNotifier<VocabularyModel> {
   }
 
   void setLevel(int level) {
-    state = state.copyWith(jlptLevel: level);
+    state = state.copyWith(pageIndex: level);
   }
 
   setTableServingLocation(int selectedPlaceId) async {

@@ -67,8 +67,7 @@ dependencies:
   spreadsheet_decoder: ^2.0.2
   url_strategy: ^0.2.0
   csv: ^5.0.1
-  # text_to_speech: ^0.2.3
-  
+  text_to_speech: ^0.2.3  
   flutter_tts: ^3.5.3
 
 dev_dependencies:

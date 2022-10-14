@@ -24,12 +24,16 @@ class _$VocabularyModelTearOff {
   _VocabularyModel call(
       {List<dynamic> lstVocabulary = const [],
       int selectedCardIndex = 1,
-      int jlptLevel = 1,
+      int pageIndex = 1,
+      String dbName = "N5Words",
+      int dbNameIndex = 0,
       String searchKey = ""}) {
     return _VocabularyModel(
       lstVocabulary: lstVocabulary,
       selectedCardIndex: selectedCardIndex,
-      jlptLevel: jlptLevel,
+      pageIndex: pageIndex,
+      dbName: dbName,
+      dbNameIndex: dbNameIndex,
       searchKey: searchKey,
     );
   }
@@ -46,7 +50,9 @@ const $VocabularyModel = _$VocabularyModelTearOff();
 mixin _$VocabularyModel {
   List<dynamic> get lstVocabulary => throw _privateConstructorUsedError;
   int get selectedCardIndex => throw _privateConstructorUsedError;
-  int get jlptLevel => throw _privateConstructorUsedError;
+  int get pageIndex => throw _privateConstructorUsedError;
+  String get dbName => throw _privateConstructorUsedError;
+  int get dbNameIndex => throw _privateConstructorUsedError;
   String get searchKey => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -63,7 +69,9 @@ abstract class $VocabularyModelCopyWith<$Res> {
   $Res call(
       {List<dynamic> lstVocabulary,
       int selectedCardIndex,
-      int jlptLevel,
+      int pageIndex,
+      String dbName,
+      int dbNameIndex,
       String searchKey});
 }
 
@@ -80,7 +88,9 @@ class _$VocabularyModelCopyWithImpl<$Res>
   $Res call({
     Object? lstVocabulary = freezed,
     Object? selectedCardIndex = freezed,
-    Object? jlptLevel = freezed,
+    Object? pageIndex = freezed,
+    Object? dbName = freezed,
+    Object? dbNameIndex = freezed,
     Object? searchKey = freezed,
   }) {
     return _then(_value.copyWith(
@@ -92,9 +102,17 @@ class _$VocabularyModelCopyWithImpl<$Res>
           ? _value.selectedCardIndex
           : selectedCardIndex // ignore: cast_nullable_to_non_nullable
               as int,
-      jlptLevel: jlptLevel == freezed
-          ? _value.jlptLevel
-          : jlptLevel // ignore: cast_nullable_to_non_nullable
+      pageIndex: pageIndex == freezed
+          ? _value.pageIndex
+          : pageIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      dbName: dbName == freezed
+          ? _value.dbName
+          : dbName // ignore: cast_nullable_to_non_nullable
+              as String,
+      dbNameIndex: dbNameIndex == freezed
+          ? _value.dbNameIndex
+          : dbNameIndex // ignore: cast_nullable_to_non_nullable
               as int,
       searchKey: searchKey == freezed
           ? _value.searchKey
@@ -114,7 +132,9 @@ abstract class _$VocabularyModelCopyWith<$Res>
   $Res call(
       {List<dynamic> lstVocabulary,
       int selectedCardIndex,
-      int jlptLevel,
+      int pageIndex,
+      String dbName,
+      int dbNameIndex,
       String searchKey});
 }
 
@@ -133,7 +153,9 @@ class __$VocabularyModelCopyWithImpl<$Res>
   $Res call({
     Object? lstVocabulary = freezed,
     Object? selectedCardIndex = freezed,
-    Object? jlptLevel = freezed,
+    Object? pageIndex = freezed,
+    Object? dbName = freezed,
+    Object? dbNameIndex = freezed,
     Object? searchKey = freezed,
   }) {
     return _then(_VocabularyModel(
@@ -145,9 +167,17 @@ class __$VocabularyModelCopyWithImpl<$Res>
           ? _value.selectedCardIndex
           : selectedCardIndex // ignore: cast_nullable_to_non_nullable
               as int,
-      jlptLevel: jlptLevel == freezed
-          ? _value.jlptLevel
-          : jlptLevel // ignore: cast_nullable_to_non_nullable
+      pageIndex: pageIndex == freezed
+          ? _value.pageIndex
+          : pageIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      dbName: dbName == freezed
+          ? _value.dbName
+          : dbName // ignore: cast_nullable_to_non_nullable
+              as String,
+      dbNameIndex: dbNameIndex == freezed
+          ? _value.dbNameIndex
+          : dbNameIndex // ignore: cast_nullable_to_non_nullable
               as int,
       searchKey: searchKey == freezed
           ? _value.searchKey
@@ -163,7 +193,9 @@ class _$_VocabularyModel implements _VocabularyModel {
   const _$_VocabularyModel(
       {this.lstVocabulary = const [],
       this.selectedCardIndex = 1,
-      this.jlptLevel = 1,
+      this.pageIndex = 1,
+      this.dbName = "N5Words",
+      this.dbNameIndex = 0,
       this.searchKey = ""});
 
   factory _$_VocabularyModel.fromJson(Map<String, dynamic> json) =>
@@ -177,14 +209,20 @@ class _$_VocabularyModel implements _VocabularyModel {
   final int selectedCardIndex;
   @JsonKey(defaultValue: 1)
   @override
-  final int jlptLevel;
+  final int pageIndex;
+  @JsonKey(defaultValue: "N5Words")
+  @override
+  final String dbName;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int dbNameIndex;
   @JsonKey(defaultValue: "")
   @override
   final String searchKey;
 
   @override
   String toString() {
-    return 'VocabularyModel(lstVocabulary: $lstVocabulary, selectedCardIndex: $selectedCardIndex, jlptLevel: $jlptLevel, searchKey: $searchKey)';
+    return 'VocabularyModel(lstVocabulary: $lstVocabulary, selectedCardIndex: $selectedCardIndex, pageIndex: $pageIndex, dbName: $dbName, dbNameIndex: $dbNameIndex, searchKey: $searchKey)';
   }
 
   @override
@@ -197,9 +235,14 @@ class _$_VocabularyModel implements _VocabularyModel {
             (identical(other.selectedCardIndex, selectedCardIndex) ||
                 const DeepCollectionEquality()
                     .equals(other.selectedCardIndex, selectedCardIndex)) &&
-            (identical(other.jlptLevel, jlptLevel) ||
+            (identical(other.pageIndex, pageIndex) ||
                 const DeepCollectionEquality()
-                    .equals(other.jlptLevel, jlptLevel)) &&
+                    .equals(other.pageIndex, pageIndex)) &&
+            (identical(other.dbName, dbName) ||
+                const DeepCollectionEquality().equals(other.dbName, dbName)) &&
+            (identical(other.dbNameIndex, dbNameIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.dbNameIndex, dbNameIndex)) &&
             (identical(other.searchKey, searchKey) ||
                 const DeepCollectionEquality()
                     .equals(other.searchKey, searchKey)));
@@ -210,7 +253,9 @@ class _$_VocabularyModel implements _VocabularyModel {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(lstVocabulary) ^
       const DeepCollectionEquality().hash(selectedCardIndex) ^
-      const DeepCollectionEquality().hash(jlptLevel) ^
+      const DeepCollectionEquality().hash(pageIndex) ^
+      const DeepCollectionEquality().hash(dbName) ^
+      const DeepCollectionEquality().hash(dbNameIndex) ^
       const DeepCollectionEquality().hash(searchKey);
 
   @JsonKey(ignore: true)
@@ -228,7 +273,9 @@ abstract class _VocabularyModel implements VocabularyModel {
   const factory _VocabularyModel(
       {List<dynamic> lstVocabulary,
       int selectedCardIndex,
-      int jlptLevel,
+      int pageIndex,
+      String dbName,
+      int dbNameIndex,
       String searchKey}) = _$_VocabularyModel;
 
   factory _VocabularyModel.fromJson(Map<String, dynamic> json) =
@@ -239,7 +286,11 @@ abstract class _VocabularyModel implements VocabularyModel {
   @override
   int get selectedCardIndex => throw _privateConstructorUsedError;
   @override
-  int get jlptLevel => throw _privateConstructorUsedError;
+  int get pageIndex => throw _privateConstructorUsedError;
+  @override
+  String get dbName => throw _privateConstructorUsedError;
+  @override
+  int get dbNameIndex => throw _privateConstructorUsedError;
   @override
   String get searchKey => throw _privateConstructorUsedError;
   @override

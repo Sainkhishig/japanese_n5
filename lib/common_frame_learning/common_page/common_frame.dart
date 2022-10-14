@@ -10,6 +10,7 @@ import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/all/vocabulary_card_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/particle/particle_card_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/grammer/grammer_page.dart';
+import 'package:afen_vocabulary/common_frame_learning/page/kanji/kanji_list_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/letter/letter_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/master/counter/counter_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/master/number_day/master_data_page.dart';
@@ -259,7 +260,7 @@ late final lstMenu = <Menu>[
   Menu("Мастер дата", "masterData", Icons.format_list_numbered, LetterPage(),
       LetterCardPage()),
   Menu("Үйл үг", "verbForm", Icons.ac_unit, VerbFormPage(), VerbFormGamePage()),
-  Menu("Шинэ үг", "vocabulary", Icons.ac_unit, VocabularyListPage(),
+  Menu("Ханз, Шинэ үг", "vocabulary", Icons.ac_unit, VocabularyListPage(),
       VocabularyCardPage()),
 ];
 
@@ -274,12 +275,8 @@ late final lstMasterMenu = <Menu>[
 ];
 
 late final lstWordMenu = <Menu>[
-  Menu("Бүх үг", "allVocabulary", Icons.ac_unit, VocabularyListPage(),
+  Menu("Ханз", "kanji", Icons.ac_unit, VocabularyListPage(),
       VocabularyCardPage()),
-  Menu("Тэмдэг нэр", "adjectives", Icons.dashboard_outlined,
-      AdjectiveListPage(), AdjectiveCardPage()),
-  Menu("Дайвар үг", "adverb", Icons.dashboard_outlined, AdverbVocabularyPage(),
-      AdverbCardPage()),
-  Menu("Холбоос үг", "particle", Icons.dashboard_outlined,
-      ParticleVocabularyPage(), ParticleCardPage()),
+  Menu("Шинэ үг", "allVocabulary", Icons.dashboard_outlined, KanjiListPage(),
+      KanjiListPage()),
 ];

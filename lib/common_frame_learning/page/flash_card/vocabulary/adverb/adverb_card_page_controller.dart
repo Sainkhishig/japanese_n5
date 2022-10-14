@@ -19,7 +19,7 @@ class AdverbCardPageController extends StateNotifier<VocabularyModel> {
   }
 
   void setLevel(int level) {
-    state = state.copyWith(jlptLevel: level);
+    state = state.copyWith(pageIndex: level);
   }
 
   setSelectedIndex(int index) async {

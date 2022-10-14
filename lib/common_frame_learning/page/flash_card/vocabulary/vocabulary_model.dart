@@ -8,7 +8,9 @@ abstract class VocabularyModel with _$VocabularyModel {
   const factory VocabularyModel({
     @Default([]) List<dynamic> lstVocabulary,
     @Default(1) int selectedCardIndex,
-    @Default(1) int jlptLevel,
+    @Default(1) int pageIndex,
+    @Default("N5Words") String dbName,
+    @Default(0) int dbNameIndex,
     @Default("") String searchKey,
   }) = _VocabularyModel;
   factory VocabularyModel.fromJson(Map<String, dynamic> json) =>

@@ -3,6 +3,7 @@ import 'package:afen_vocabulary/common_frame_practice/common_page/common_practic
 import 'package:afen_vocabulary/common_frame_practice/listening/player/services/service_locator.dart';
 
 import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
+import 'package:afen_vocabulary/hive_db/object/kanji_dictionary.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -21,6 +22,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   // Hive.resetAdapters();
   Hive.registerAdapter(DictionaryAdapter());
+  Hive.registerAdapter(KanjiDictionaryAdapter());
   setPathUrlStrategy();
 
   runApp(ProviderScope(

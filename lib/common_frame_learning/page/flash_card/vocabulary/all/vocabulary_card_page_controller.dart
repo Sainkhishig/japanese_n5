@@ -19,7 +19,11 @@ class VocabularyCardPageController extends StateNotifier<VocabularyModel> {
   }
 
   void setLevel(int level) {
-    state = state.copyWith(jlptLevel: level);
+    state = state.copyWith(pageIndex: level);
+  }
+
+  void setDb(int dbIndexh) {
+    state = state.copyWith(dbNameIndex: dbIndexh);
   }
 
   setSelectedIndex(int index) async {

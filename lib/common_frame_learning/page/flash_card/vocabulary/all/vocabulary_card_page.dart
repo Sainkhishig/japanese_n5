@@ -1,6 +1,7 @@
 import 'package:afen_vocabulary/classes/jlpt_level.dart';
 import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
+import 'package:afen_vocabulary/common_frame_learning/constant_value/common_constants.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:flash_card/flash_card.dart';
 import 'package:flutter/material.dart';
@@ -12,18 +13,20 @@ class VocabularyCardPage extends HookConsumerWidget {
   VocabularyCardPage({Key? key}) : super(key: key);
   late List<JLPTLevel> listLevel = [];
   late List<String> listInterval = [];
+
   late N5Box lstN5;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(vocabularyCardProvider.notifier);
+    controller.setModelListenable(ref);
     PageController pageController = PageController(
       initialPage: 0,
       keepPage: true,
     );
 
     var lstN5db = ref.read(n5BoxDataProvider);
-    var lstVocabul = lstN5db.box.get("N5Words");
-    final controller = ref.watch(vocabularyCardProvider.notifier);
-    controller.setModelListenable(ref);
+    var lstVocabul =
+        lstN5db.box.get("vocabularyDB")[controller.state.dbNameIndex];
 
     List<Widget> lsttableServings = [];
     if (lstVocabul != null) {
@@ -33,7 +36,7 @@ class VocabularyCardPage extends HookConsumerWidget {
         listLevel.add(JLPTLevel(i, "x - $i"));
       }
       var lstVocDataRange = lstVocabul.getRange(
-          (controller.state.jlptLevel - 1), lstVocabul.length - 1);
+          (controller.state.pageIndex - 1), lstVocabul.length - 1);
       for (var element in lstVocDataRange) {
         lsttableServings.add(tabCardBody(element, context, controller));
       }
@@ -43,23 +46,43 @@ class VocabularyCardPage extends HookConsumerWidget {
         // title: const Text("Vocabulary"),
         actions: <Widget>[
           Padding(
-              padding: const EdgeInsets.all(10),
-              child: DropdownButton(
-                value: controller.state.jlptLevel,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                ),
-                items: listLevel
-                    .map((e) => DropdownMenuItem(
-                          value: e.id,
-                          child: Text(e.name),
-                        ))
-                    .toList(),
-                onChanged: (lvl) async {
-                  controller.setLevel(lvl as int);
-                },
-              ))
+            padding: const EdgeInsets.all(10),
+            child: DropdownButton(
+              value: controller.state.pageIndex,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.black,
+              ),
+              items: listLevel
+                  .map((e) => DropdownMenuItem(
+                        value: e.id,
+                        child: Text(e.name),
+                      ))
+                  .toList(),
+              onChanged: (lvl) async {
+                controller.setLevel(lvl as int);
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: DropdownButton(
+              value: controller.state.dbNameIndex,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.black,
+              ),
+              items: lstCsvDBName.asMap().entries.map((entry) {
+                return DropdownMenuItem(
+                  value: entry.key,
+                  child: Text(entry.value.name),
+                );
+              }).toList(),
+              onChanged: (lvl) async {
+                controller.setDb(lvl as int);
+              },
+            ),
+          )
         ],
       ),
       body: Scaffold(

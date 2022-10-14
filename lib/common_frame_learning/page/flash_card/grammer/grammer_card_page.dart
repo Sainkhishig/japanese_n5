@@ -34,7 +34,7 @@ class GrammarCardPage extends HookConsumerWidget {
       listLevel.add(JLPTLevel(i, "x-$i"));
     }
     var lstVocDataRange = lstGrammar.getRange(
-        (controller.state.jlptLevel - 1) * 10, lstGrammar.length - 1);
+        (controller.state.pageIndex - 1) * 10, lstGrammar.length - 1);
     for (var element in lstVocDataRange) {
       lsttableServings.add(tabCardBody(element, context, controller));
     }
@@ -46,7 +46,7 @@ class GrammarCardPage extends HookConsumerWidget {
           Padding(
               padding: const EdgeInsets.all(10),
               child: DropdownButton(
-                value: controller.state.jlptLevel,
+                value: controller.state.pageIndex,
                 style: const TextStyle(
                   fontSize: 14,
                   color: Colors.black,

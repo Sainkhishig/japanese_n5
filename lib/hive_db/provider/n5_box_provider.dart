@@ -32,8 +32,15 @@ class N5Box extends HiveBoxClass {
     //   box.put("branchMaster", []);
     // }
   }
+// lstCsvDBName = <CsvInfo>[
+//   CsvInfo("Бүх", "wordN5", "N5Words"),
+//   CsvInfo("Тэмдэг нэр", "adjectives", "N5Adjective"),
+//   CsvInfo("Үйлт нэр", "csvadverb", "N5Adverb"),
+//   CsvInfo("Холбоос үг", "csvparticle", "N5Particle"),
+// ];
+  dynamic get lstN5VocAll => box.get("wordN5");
+  dynamic get lstN5VocAdjective => box.get("adjectives");
 
-  // dynamic get lstN5Vocabulary => box.get("n5");
-  // int get adminListColumnCount => box.get("adminListColumnCount");
-  // set adminListColumnCount(int cnt) => box.put("adminListColumnCount", cnt);
+  dynamic get lstN5VocAdverb => box.get("csvadverb");
+  dynamic get lstN5VocParticle => box.get("csvparticle");
 }

@@ -1,38 +1,32 @@
 import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/common/search_bar.dart';
-import 'package:afen_vocabulary/common_frame_learning/constant_value/common_constants.dart';
+import 'package:afen_vocabulary/hive_db/object/kanji_dictionary.dart';
 
-import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:translit/translit.dart';
 
-import 'vocabulary_list_page_controller.dart';
+import 'kanji_list_page_controller.dart';
 
-class VocabularyListPage extends HookConsumerWidget {
-  VocabularyListPage({Key? key}) : super(key: key);
+class KanjiListPage extends HookConsumerWidget {
+  KanjiListPage({Key? key}) : super(key: key);
 
   final trans = Translit();
   final keywordController = TextEditingController();
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var lstN5db = ref.read(n5BoxDataProvider);
-
     PageController pageController = PageController(
       initialPage: 0,
       keepPage: true,
     );
-    final controller = ref.watch(vocListProvider.notifier);
-    controller.setModelListenable(ref);
 
     useEffect(() {}, const []);
 
-    // var lstVocabul = lstN5db.box.get("N5Words");
-    // if (lstVocabul == null || lstVocabul.isEmpty) {
-    final future = useMemoized(() => controller.prepareVocabulary());
+    final controller = ref.watch(kanjiListProvider.notifier);
+    controller.setModelListenable(ref);
+    final future = useMemoized(() => controller.loadCSV());
     final snapshot = useFuture(future, initialData: null);
     if (snapshot.hasError) {
       return showErrorWidget(context, "Error card", snapshot.error);
@@ -40,19 +34,21 @@ class VocabularyListPage extends HookConsumerWidget {
     if (snapshot.connectionState == ConnectionState.waiting) {
       return const Center(child: CircularProgressIndicator());
     }
-
     // }
     List<Widget> lsttableServings = [];
-    var db = lstN5db.box.get("vocabularyDB");
-    print("dbdb:");
-    print(db.length);
+    // lstVocabul = lstN5db.box.get("N5Words");
+    var filteredGrammar = controller.state.lstVocabulary;
+    // if (controller.state.searchKey.trim().isNotEmpty) {
+    //   filteredGrammar = controller.state.lstVocabulary
+    //       .where((element) =>
+    //           element.word.contains(controller.state.searchKey) ||
+    //           element.translate.contains(controller.state.searchKey))
+    //       .toList();
+    // }
 
-    for (var data in db) {
-      // var lstVocabul = lstN5db.lstN5VocAll;
-      print("lsength*${data.length}"); //
-      lsttableServings.add(tabCardBody(data, context, controller));
+    if (filteredGrammar.isNotEmpty) {
+      lsttableServings.add(tabCardBody(filteredGrammar, context, controller));
     }
-
     return Scaffold(
       body: Scaffold(
           body: //Expanded(child: FlashCardListItem(flashcards: flashCard)),
@@ -136,6 +132,9 @@ class VocabularyListPage extends HookConsumerWidget {
                 shrinkWrap: true,
                 itemCount: lst.length,
                 itemBuilder: (BuildContext ctx, index) {
+                  print("lst[index]");
+                  print(lst[index]);
+                  // var kanji = lst[index] as KanjiDictionary;
                   return Padding(
                       padding: const EdgeInsets.all(2),
                       child: Container(
@@ -154,24 +153,29 @@ class VocabularyListPage extends HookConsumerWidget {
                           children: [
                             IconButton(
                               onPressed: () {
-                                speak(lst[index].word);
+                                speak(lst[index].kunReading);
                               },
-                              icon: Icon(Icons.volume_up),
+                              icon: const Icon(Icons.volume_up),
                             ),
                             Expanded(
                               flex: 1,
                               child: Text(
-                                lst[index].word,
+                                lst[index].kanji,
                               ),
                             ),
                             Expanded(
                               flex: 2,
-                              child: Text(
-                                "${lst[index].translate}".contains("null")
-                                    ? ""
-                                    : lst[index].translate,
-                              ),
+                              child: Text(lst[index].translate),
                             ),
+                            Expanded(
+                              flex: 2,
+                              child: Text(lst[index].onReading),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Text(lst[index].kunReading),
+                            ),
+
                             // Text(
                           ],
                         ),
