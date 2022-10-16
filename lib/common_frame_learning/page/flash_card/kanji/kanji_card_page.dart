@@ -145,13 +145,20 @@ class KanjiCardPage extends HookConsumerWidget {
                 ))),
                 TextButton.icon(
                   onPressed: () {
-                    speak(currentWord.exampleTr);
+                    speak(currentWord.example);
                   },
                   icon: const Icon(Icons.volume_up),
-                  label: Text(currentWord.exampleTr),
+                  label: Text(
+                      "${currentWord.example} (${currentWord.exampleReading})"),
                 ),
-                Expanded(flex: 1, child: Text(currentWord.example)),
-                Expanded(flex: 1, child: Text(currentWord.exampleReading))
+                Expanded(flex: 1, child: Text(currentWord.exampleTr)),
+                Expanded(
+                    flex: 1,
+                    child: Text(
+                        "он дуудлага: ${currentWord.onReading}\nкүн дуудлага: ${currentWord.kunReading}")),
+                // Expanded(
+                //     flex: 1,
+                //     child: Text("күн дуудлага: ${currentWord.kunReading}")),
               ],
             )),
             backWidget: Center(
@@ -168,7 +175,7 @@ class KanjiCardPage extends HookConsumerWidget {
                 Text(
                   "жишээ: ${currentWord.example}",
                   style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold),
+                      fontSize: 15, fontWeight: FontWeight.bold),
                 )
                 // IconButton(
                 //   onPressed: () {

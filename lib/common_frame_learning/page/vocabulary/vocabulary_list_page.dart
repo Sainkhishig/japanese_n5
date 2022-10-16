@@ -46,7 +46,7 @@ class VocabularyListPage extends HookConsumerWidget {
     var db = lstN5db.box.get("vocabularyDB");
     print("dbdb:");
     print(db.length);
-
+    // lsttableServings.add(tabCardBody(db, context, controller));
     for (var data in db) {
       // var lstVocabul = lstN5db.lstN5VocAll;
       print("lsength*${data.length}"); //

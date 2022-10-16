@@ -25,7 +25,7 @@ class KanjiListPage extends HookConsumerWidget {
 
     final controller = ref.watch(kanjiListProvider.notifier);
     controller.setModelListenable(ref);
-    final future = useMemoized(() => controller.loadCSV());
+    final future = useMemoized(() => controller.loadExcel());
     final snapshot = useFuture(future, initialData: null);
     if (snapshot.hasError) {
       return showErrorWidget(context, "Error card", snapshot.error);
@@ -125,37 +125,35 @@ class KanjiListPage extends HookConsumerWidget {
     return Card(
         child: Column(
       children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(2),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    speak("");
-                  },
-                  icon: const Icon(Icons.volume_up),
-                ),
-                const Expanded(
-                  flex: 1,
-                  child: Text("Ханз"),
-                ),
-                const Expanded(
-                  flex: 2,
-                  child: Text("Утга"),
-                ),
-                const Expanded(
-                  flex: 2,
-                  child: Text("Он дуудлага"),
-                ),
-                const Expanded(
-                  flex: 2,
-                  child: Text("Кун дуудлага"),
-                ),
-              ],
-            ),
+        Padding(
+          padding: const EdgeInsets.all(2),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IconButton(
+                onPressed: () {
+                  speak("");
+                },
+                icon: const Icon(Icons.volume_up),
+              ),
+              const Expanded(
+                flex: 1,
+                child: Text("Ханз"),
+              ),
+              const Expanded(
+                flex: 2,
+                child: Text("Утга"),
+              ),
+              const Expanded(
+                flex: 2,
+                child: Text("Он дуудлага"),
+              ),
+              const Expanded(
+                flex: 2,
+                child: Text("Кун дуудлага"),
+              ),
+            ],
           ),
         ),
         Expanded(

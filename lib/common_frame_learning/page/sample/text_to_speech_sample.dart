@@ -274,6 +274,7 @@ class TextToSpeechSampleState extends State<TextToSpeechSample> {
     if (languageCode != null) {
       tts.setLanguage(languageCode!);
     }
+
     tts.setPitch(pitch);
     tts.speak(text);
   }

@@ -276,8 +276,8 @@ late final lstMasterMenu = <Menu>[
 ];
 
 late final lstWordMenu = <Menu>[
-  Menu("Ханз", "kanji", Icons.ac_unit, VocabularyListPage(),
+  Menu("Шинэ үг", "allVocabulary", Icons.ac_unit, VocabularyListPage(),
       VocabularyCardPage()),
-  Menu("Шинэ үг", "allVocabulary", Icons.dashboard_outlined, KanjiListPage(),
+  Menu("Ханз", "kanji", Icons.dashboard_outlined, KanjiListPage(),
       KanjiCardPage()),
 ];

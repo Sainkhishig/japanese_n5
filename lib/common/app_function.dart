@@ -3,8 +3,8 @@ import 'package:afen_vocabulary/common/common_dialog.dart';
 import '../main.dart';
 
 Future speak(String speechText) async {
-  await flutterTts.setVolume(0.5);
-  await flutterTts.setSpeechRate(0.5);
+  await flutterTts.setVolume(1.0);
+  await flutterTts.setSpeechRate(1);
   flutterTts.setLanguage('ja-JP');
   await flutterTts.setPitch(1);
 

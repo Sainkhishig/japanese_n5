@@ -17,12 +17,14 @@ final flutterTts = FlutterTts();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await setupServiceLocator();
-  // await Firebase.initializeApp();
   await Hive.initFlutter();
-  // Hive.resetAdapters();
+  Hive.resetAdapters();
   Hive.registerAdapter(DictionaryAdapter());
   Hive.registerAdapter(KanjiDictionaryAdapter());
+  await setupServiceLocator();
+  await flutterTts.setVoice({'name': 'Kyoko', 'locale': 'ja-JP'});
+  // await Firebase.initializeApp();
+
   setPathUrlStrategy();
 
   runApp(ProviderScope(

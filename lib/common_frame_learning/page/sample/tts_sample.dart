@@ -118,6 +118,7 @@ class TtsSampleState extends State<TtsSample> {
     await flutterTts.setVolume(volume);
     await flutterTts.setSpeechRate(rate);
     await flutterTts.setPitch(pitch);
+    await flutterTts.setVoice({'name': 'Kyoko', 'locale': 'ja-JP'});
 
     if (_newVoiceText != null) {
       if (_newVoiceText!.isNotEmpty) {
