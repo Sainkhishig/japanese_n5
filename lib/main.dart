@@ -18,7 +18,6 @@ final flutterTts = FlutterTts();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.resetAdapters();
   Hive.registerAdapter(DictionaryAdapter());
   Hive.registerAdapter(KanjiDictionaryAdapter());
   await setupServiceLocator();

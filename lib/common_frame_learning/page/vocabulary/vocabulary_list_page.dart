@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/common/search_bar.dart';
@@ -43,14 +45,12 @@ class VocabularyListPage extends HookConsumerWidget {
 
     // }
     List<Widget> lsttableServings = [];
-    var db = lstN5db.box.get("vocabularyDB");
-    print("dbdb:");
-    print(db.length);
-    // lsttableServings.add(tabCardBody(db, context, controller));
-    for (var data in db) {
-      // var lstVocabul = lstN5db.lstN5VocAll;
-      print("lsength*${data.length}"); //
-      lsttableServings.add(tabCardBody(data, context, controller));
+
+    for (var data in lstCsvDBName) {
+      var lstVocabul = lstN5db.box.get("${data.dbName}");
+      print("len:${lstVocabul.length}");
+      lsttableServings
+          .add(tabCardBody(lstVocabul, context, controller, data.name));
     }
 
     return Scaffold(
@@ -125,11 +125,18 @@ class VocabularyListPage extends HookConsumerWidget {
     );
   }
 
-  Widget tabCardBody(List lst, context, controller) {
+  Widget tabCardBody(List lst, context, controller, String title) {
     // var currentLetter = lstVoc as List<Dictionary>;
     return Card(
         child: Column(
       children: [
+        Padding(
+          padding: EdgeInsets.all(5),
+          child: Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+        ),
         Expanded(
             child: ListView.builder(
                 scrollDirection: Axis.vertical,

@@ -450,12 +450,13 @@ class CsvInfo {
   late String name;
   late String csvName;
   late String dbName;
-  CsvInfo(this.name, this.csvName, this.dbName);
+  late String vocType;
+  CsvInfo(this.name, this.csvName, this.dbName, this.vocType);
 }
 
 final lstCsvDBName = <CsvInfo>[
-  CsvInfo("Бүх", "wordN5", "N5Words"),
-  // CsvInfo("Тэмдэг нэр", "adjectives", "N5Adjective"),
-  // CsvInfo("Үйлт нэр", "csvadverb", "N5Adverb"),
-  // CsvInfo("Холбоос үг", "csvparticle", "N5Particle"),
+  CsvInfo("Нэр үг", "wordN5", "N5Words", "noun"),
+  CsvInfo("Тэмдэг нэр", "adjectives", "N5Adjective", "adjective"),
+  CsvInfo("Үйлт нэр", "csvadverb", "N5Adverb", "adjective"),
+  CsvInfo("Холбоос үг", "csvparticle", "N5Particle", "adjective"),
 ];

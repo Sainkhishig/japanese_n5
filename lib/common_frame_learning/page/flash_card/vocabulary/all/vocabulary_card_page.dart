@@ -25,8 +25,10 @@ class VocabularyCardPage extends HookConsumerWidget {
     );
 
     var lstN5db = ref.read(n5BoxDataProvider);
+    // var lstVocabul =
+    //     lstN5db.box.get("vocabularyDB")[controller.state.dbNameIndex];
     var lstVocabul =
-        lstN5db.box.get("vocabularyDB")[controller.state.dbNameIndex];
+        lstN5db.box.get(lstCsvDBName[controller.state.dbNameIndex].dbName);
 
     List<Widget> lsttableServings = [];
     if (lstVocabul != null) {
