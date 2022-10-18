@@ -718,14 +718,13 @@ var kanakit = KanaKit();
 // べんきょうする
 List<ConjugationResult> conjugate(
     VerbGroup group, verbKana, String verbEnding) {
+  List<ConjugationResult> result = [];
   VerbGroupConjugation verbConjugation =
       lstVerbGroupConjugation.firstWhere((element) => element.group == group);
-  List<ConjugationFormula> conjugationFormulas =
-      verbConjugation.lstConjugationForms;
-  List<ConjugationResult> result = [];
 
-  conjugationFormulas.forEach((formula) =>
+  verbConjugation.lstConjugationForms.forEach((formula) =>
       {result.add(conjugateByOne(group, formula, verbKana, verbEnding))});
+
   if (group == VerbGroup.godan) {
     var teFormula = teFormGodan
         .where(
@@ -781,7 +780,7 @@ ConjugationResult conjugateByOne(VerbGroup group, ConjugationFormula formula,
         changeEndRow(verbEnding, formula.rowChanging) +
         kanakit.toRomaji(formula.suffix);
   }
-  var hiraganaCOnjugated = kanakit.toHiragana(conjugatedVerb);
+  var hiraganaConjugated = kanakit.toHiragana(conjugatedVerb);
   var conjugationName = formula.type == Conjugation.teForm
       ? "て хэлбэр"
       : formula.type == Conjugation.taForm
@@ -789,7 +788,7 @@ ConjugationResult conjugateByOne(VerbGroup group, ConjugationFormula formula,
           : formula.name;
   return ConjugationResult(
       conjugation: formula.type,
-      conjugatedVerb: "$hiraganaCOnjugated",
+      conjugatedVerb: hiraganaConjugated,
       desctiprion: formula.description,
       conjName: conjugationName);
 }

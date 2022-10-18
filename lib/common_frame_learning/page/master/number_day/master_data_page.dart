@@ -105,7 +105,7 @@ class MasterDataPage extends HookConsumerWidget {
         ),
         Expanded(
             child: Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30),
+                padding: const EdgeInsets.only(left: 10, right: 30),
                 child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       // childAspectRatio: 3 / 2,
@@ -118,13 +118,13 @@ class MasterDataPage extends HookConsumerWidget {
                     itemBuilder: (BuildContext ctx, index) {
                       return Container(
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                        ),
+                        // decoration: BoxDecoration(
+                        //   borderRadius: BorderRadius.circular(5),
+                        //   border: Border.all(
+                        //     color: Colors.black,
+                        //     width: 1,
+                        //   ),
+                        // ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -141,7 +141,7 @@ class MasterDataPage extends HookConsumerWidget {
                               child: Container(
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
+                                  // borderRadius: BorderRadius.circular(5),
                                   border: Border.all(
                                     color: Colors.black,
                                     width: 1,
@@ -157,7 +157,7 @@ class MasterDataPage extends HookConsumerWidget {
                                 child: Container(
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
+                                    // borderRadius: BorderRadius.circular(5),
                                     border: Border.all(
                                       color: Colors.black,
                                       width: 1,
@@ -172,7 +172,7 @@ class MasterDataPage extends HookConsumerWidget {
                               child: Container(
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
+                                  // borderRadius: BorderRadius.circular(5),
                                   border: Border.all(
                                     color: Colors.black,
                                     width: 1,

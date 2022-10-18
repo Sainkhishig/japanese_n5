@@ -33,7 +33,6 @@ class VerbFormPageController extends StateNotifier<VerbFormModel> {
     return [];
   }
 
-// べんきょうする
   List<ConjugationResult> conjugateVerb(
       VerbGroup group, verbKana, String verbEnding) {
     return conjugate(group, verbKana, verbEnding);

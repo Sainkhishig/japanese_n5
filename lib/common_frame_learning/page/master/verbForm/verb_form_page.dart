@@ -201,10 +201,9 @@ class ConfugationInfoForm extends HookConsumerWidget {
         lstDescriptionWidget.add(Text(e.desctiprion));
         lstFormulaWidget.add(Text(e.conjugatedVerb));
       }
-    } else {
-      lstDescriptionWidget.add(Text(result.desctiprion));
-      lstFormulaWidget.add(Text("${result.conjugatedVerb} "));
     }
+    lstDescriptionWidget.add(Text(result.desctiprion));
+    lstFormulaWidget.add(Text("${result.conjugatedVerb} "));
     return Row(
       children: [
         Expanded(

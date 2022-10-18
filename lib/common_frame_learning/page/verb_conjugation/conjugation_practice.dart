@@ -1,28 +1,3 @@
-// 書きます
-// 書きまして"
-// 書きました"
-// 書きません"
-// 書きませんでした"
-// 書かれます"
-// 書かせます"
-// 書かされます"
-// 書けます"
-// 書きましょう"
-
-//　書く
-// "書いて
-// "書いた
-// "書かない
-// "書かなかった
-// "書かれる
-// "書かせる
-// "書かされる
-// "書ける
-// "書こう
-
-// 書け
-// 書けば
-//
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -35,21 +10,6 @@ import 'conjugation_practice_controller.dart';
 // ignore: must_be_immutable
 class ConjugationPractise extends HookConsumerWidget {
   ConjugationPractise({Key? key}) : super(key: key);
-  // List<TagModel> _tags = [];
-  // final List<TagModel> _tagsToSelect = [
-  //   TagModel(id: '1', title: 'JavaScript'),
-  //   TagModel(id: '2', title: 'Python'),
-  //   TagModel(id: '3', title: 'Java'),
-  //   TagModel(id: '4', title: 'PHP'),
-  //   TagModel(id: '5', title: 'C#'),
-  //   TagModel(id: '6', title: 'C++'),
-  //   TagModel(id: '7', title: 'Dart'),
-  //   TagModel(id: '8', title: 'DataFlex'),
-  //   TagModel(id: '9', title: 'Flutter'),
-  //   TagModel(id: '10', title: 'Flutter Selectable Tags'),
-  //   TagModel(id: '11', title: 'Android Studio developer'),
-  // ];
-
   late TextEditingController tcVerb,
       tcLevel,
       tcGrammer,
@@ -126,8 +86,7 @@ class ConjugationPractise extends HookConsumerWidget {
                 group = VerbGroup.godan;
               }
               var verbRoot = verbKana.split(verbEnding)[0];
-              List<ConjugationResult> conjugationResuls =
-                  controller.conjugate(group, verbRoot, verbEnding);
+              controller.conjugate(group, verbRoot, verbEnding);
               // verb.endsWith(other)
             },
           ),
@@ -143,176 +102,6 @@ class ConjugationPractise extends HookConsumerWidget {
     );
   }
 }
-
-/*
-
-
-
-Ru-verbs	る　 → 　て   : 	食べる → 食べて
-Irregular: する　→　 して 、くる → きて
-ta V1	う,つ,る　 →  った to the verb stem	笑う → 笑った
-          む, ぶ, ぬ  → 　んだ	  ：読む → 読んだ
-          く,ぐ　 → いた,いだ     :	働く→ 働いた, 泳ぐ → 泳いだ
-          す → した 	  :　おす→ おした
-          *** 行く→行った(irregular)
-te U-verbs	う,つ,る　 →  って    :吸う → 吸って 
-        む, ぶ, ぬ  → 　んで  :読む → 読んで 
-        く,ぐ　 → いて,いで  	書く→ 書いて , 泳ぐ → 泳いで 
-        す → して	  :　おす→ おして
-        
-        *** 行く(to go) → 行って（irregular*） 
-
- */
-// List<ConjugationFormula> verbGodanPolite = [
-//   ConjugationFormula(
-//       type: Conjugation.present,
-//       name: "Эелдэг",
-//       rowChanging: RowName.i,
-//       isRemove: false,
-//       suffix: "ます",
-//       description: "う мөр　 → 　い мөр + ます",
-//       example: "話す → 話します	",
-//       exception: ""),
-//   ConjugationFormula(
-//       type: Conjugation.negative,
-//       name: "",
-//       rowChanging: RowName.a,
-//       isRemove: false,
-//       suffix: "ない",
-//       description: "う мөр　 → 　あ мөр　+　ない",
-//       example: "",
-//       exception: "う төгсгөл わ	болно."),
-//   ConjugationFormula(
-//       type: Conjugation.past,
-//       name: "Эелдэг өнгөрсөн",
-//       rowChanging: RowName.i,
-//       isRemove: false,
-//       suffix: "ました",
-//       description: "う мөр　 → 　い мөр + ました",
-//       example: "話す → 話しました	",
-//       exception: ""),
-//   ConjugationFormula(
-//       type: Conjugation.pastNegative,
-//       name: "",
-//       rowChanging: RowName.i,
-//       isRemove: false,
-//       suffix: "ませんでした",
-//       description: "う мөр　 → 　い мөр + ませんでした",
-//       example: "",
-//       exception: ""),
-//   ConjugationFormula(
-//       type: Conjugation.presentNegative,
-//       name: "",
-//       rowChanging: RowName.i,
-//       isRemove: false,
-//       suffix: "ません",
-//       description: "う мөр　 → 　い мөр + ません",
-//       example: "",
-//       exception: ""),
-
-//   // ConjugationFormula(
-//   //     type: Conjugation.teForm,
-//   //     name: "",
-//   //     rowChanging: RowName.u,
-//   //     isRemove: false,
-//   //     suffix: "ます",
-//   //     description: "",
-//   //     example: "",
-//   //     exception: ""),
-//   // ConjugationFormula(
-//   //     type: Conjugation.taForm,
-//   //     name: "",
-//   //     rowChanging: RowName.u,
-//   //     isRemove: false,
-//   //     suffix: "ます",
-//   //     description: "",
-//   //     example: "",
-//   //     exception: ""),
-
-//   ConjugationFormula(
-//       type: Conjugation.conditionalFormm,
-//       name: "Болзолт",
-//       rowChanging: RowName.u,
-//       isRemove: false,
-//       suffix: "ば",
-//       description: "う мөр　  → 　え мөр　+　ば",
-//       example: "吸う → 吸えば、読めば ",
-//       exception: ""),
-//   ConjugationFormula(
-//       type: Conjugation.imperative,
-//       name: "Захирах, тушаах",
-//       rowChanging: RowName.e,
-//       isRemove: false,
-//       suffix: "ば",
-//       description: "う мөр　  → 　え мөр　+　ば",
-//       example: "吸う → 吸えば、読めば",
-//       exception: ""),
-//   ConjugationFormula(
-//       type: Conjugation.imperative2,
-//       name: "Захирах, тушаах 2",
-//       rowChanging: RowName.a,
-//       isRemove: false,
-//       suffix: "なさい",
-//       description: "う мөр　 → 　あ мөр　+ なさい",
-//       example: "",
-//       exception: ""),
-//   ConjugationFormula(
-//       type: Conjugation.volitional,
-//       name: "Хамтрах, уриалах",
-//       rowChanging: RowName.o,
-//       isRemove: false,
-//       suffix: "う",
-//       description: "う мөр　  → 　お　мөр　+ う",
-//       example: "話す→ 話そう",
-//       exception: ""),
-//   ConjugationFormula(
-//       type: Conjugation.volitional2,
-//       name: "Хамтрах, уриалах 2",
-//       rowChanging: RowName.o,
-//       isRemove: false,
-//       suffix: "ましょう",
-//       description: "う мөр　＋　い мөр　+　ましょう",
-//       example: "",
-//       exception: ""),
-//   ConjugationFormula(
-//       type: Conjugation.potential,
-//       name: "Чадамж заах",
-//       rowChanging: RowName.e,
-//       isRemove: false,
-//       suffix: "る",
-//       description: "う мөр　  → 　えмөр　+ る",
-//       example: "話す→ 話せる",
-//       exception: ""),
-
-//   ConjugationFormula(
-//       type: Conjugation.passive,
-//       name: "Үйлдэгдэх",
-//       rowChanging: RowName.a,
-//       isRemove: false,
-//       suffix: "れる",
-//       description: "う мөр　 → 　あ мөр　+ れる",
-//       example: "聞く→ 聞かれる",
-//       exception: ""),
-//   ConjugationFormula(
-//       type: Conjugation.causative,
-//       name: "Үйлдүүлэх",
-//       rowChanging: RowName.u,
-//       isRemove: false,
-//       suffix: "せる",
-//       description: "う мөр　 → 　あ мөр + せる",
-//       example: "話す→ 話させる",
-//       exception: ""),
-//   ConjugationFormula(
-//       type: Conjugation.causativePassive,
-//       name: "Үйлдүүлэгдэх",
-//       rowChanging: RowName.a,
-//       isRemove: false,
-//       suffix: "せられる",
-//       description: "う мөр　 → 　あ мөр + せられる",
-//       example: "",
-//       exception: ""),
-// ];
-//べんきょうする
 
 class ConfugationSubmitForm extends HookConsumerWidget {
   ConfugationSubmitForm(this.result, {Key? key}) : super(key: key);
