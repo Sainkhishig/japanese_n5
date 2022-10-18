@@ -41,20 +41,30 @@ var lstVocabulary = <WordGroup>[
   WordGroup("Дайвар үг", lstMonth, "Хэдэн сар вэ?"),
   WordGroup("Холбоос үг", lstMonthDay, "Хэдний өдөр? Хэдэн өдөр"),
 ];
-
-var lstCounter = <CounterGroup>[
+var allCounter = [lstCounter1, lstCounter2, lstCounter3];
+var mnCounter = CounterGroup('mn', 'ханз', 'дуудлага', 'утга', counterMn);
+var lstCounter1 = <CounterGroup>[
+  CounterGroup('mn', 'ханз', 'дуудлага', 'утга', counterMn),
+  CounterGroup('all object', 'つ', 'つ', 'бүх юмс', allObjectCounter),
   CounterGroup('person', '人', 'にん/り', 'хүн', personCounter),
-  CounterGroup('book', '本', 'ぼん', 'урт зүйл', longObjectCounter),
-  CounterGroup('slim thing', '枚', 'まい', 'нимгэн зүйл(цаас)', slimCounter),
-  CounterGroup('book', '冊', 'さつ', 'ном', bookCounter),
   CounterGroup('animal', '匹', 'ひき', 'жижиг амьтан', animalCounter),
+  CounterGroup('slim thing', '枚', 'まい', 'нимгэн зүйл(цаас)', slimCounter),
   CounterGroup('age', '歳', 'さい', 'нас', ageCounter),
+  CounterGroup('floor', '階', 'かい', 'давхар', floorCounter),
+];
+
+var lstCounter2 = <CounterGroup>[
+  CounterGroup('mn', 'ханз', 'дуудлага', 'утга', counterMn),
   CounterGroup('small thing', '個', 'こ', 'жижиг зүйл', smallObjectCounter),
   CounterGroup('time', '回', 'かい', 'давтамж', davtamjCounter),
-  CounterGroup('place', 'ヶ所（箇所）', 'かしょ', 'газар, байршил', placeCounter),
+  CounterGroup('long', '本', 'ぼん', 'урт зүйл', longObjectCounter),
+  CounterGroup('book', '冊', 'さつ', 'ном', bookCounter),
   CounterGroup('big object', '台', 'だい', 'том эд зүйл', bigObjectounter),
-  CounterGroup('floor', '階', 'かい', 'давхар', floorCounter),
-  CounterGroup('all object', 'つ', 'つ', 'бүх юмс', allObjectCounter),
+  CounterGroup('place', 'ヶ所（箇所）', 'かしょ', 'газар, байршил', placeCounter),
+];
+
+var lstCounter3 = <CounterGroup>[
+  CounterGroup('mn', 'ханз', 'дуудлага', 'утга', counterMn),
   CounterGroup('hour', '時', 'じ', 'цаг', hourCounter),
   CounterGroup('minut', '分', 'ふん', 'минут', minutCounter),
   CounterGroup('second', '秒', 'びょう', 'секунд', secondCounter),

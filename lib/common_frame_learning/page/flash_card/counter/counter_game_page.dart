@@ -28,8 +28,12 @@ class CounterGamePage extends HookConsumerWidget {
     controller.setModelListenable(ref);
     List<Widget> lsttableServings = [];
 
+    // lsttableServings.add(tabCardBody(lstCounter, context, controller));
+    List<CounterGroup> lstCounter = [];
+    for (var counters in allCounter) {
+      lstCounter.addAll(counters);
+    }
     lsttableServings.add(tabCardBody(lstCounter, context, controller));
-
     return Scaffold(
       // appBar: AppBar(
       //   title: const Text("Юмсыг тоолох нөхцөл"),

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:afen_vocabulary/classes/counter_group.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/common_frame_learning/constant_value/common_constants.dart';
@@ -23,12 +25,11 @@ class CounterPage extends HookConsumerWidget {
     controller.setModelListenable(ref);
 
     List<Widget> lsttableServings = [];
+    for (var counters in allCounter) {
+      lsttableServings.add(tabCardBody(counters, context, controller));
+    }
 
-    lsttableServings.add(tabCardBody(lstCounter, context, controller));
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("Тоо тоолох нөхцөл"),
-      // ),
       body: Scaffold(
         body: lsttableServings.isEmpty
             ? showEmptyDataWidget()
@@ -97,466 +98,56 @@ class CounterPage extends HookConsumerWidget {
     return Card(
         child: Column(
       children: [
-        Container(
-          padding: const EdgeInsets.only(left: 30, right: 30),
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                  ),
-                  child: const Text(
-                    "Нөхцөл",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-              Expanded(
-                  flex: 1,
-                  child: Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1,
-                      ),
-                    ),
-                    child: const Text(
-                      "Дуудлага",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  )),
-              //tr
-              Expanded(
-                  flex: 1,
-                  child: Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1,
-                      ),
-                    ),
-                    child: const Text(
-                      "Орчуулга",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  )),
-              //one
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                  ),
-                  child: const Text(
-                    "1",
-                  ),
-                ),
-              ),
-//two
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                  ),
-                  child: const Text("2"),
-                ),
-              ),
-              //three
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                  ),
-                  child: const Text("3"),
-                ),
-              ),
-              // four
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                  ),
-                  child: const Text("4"),
-                ),
-              ),
-              //five
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                  ),
-                  child: const Text("5"),
-                ),
-              ),
-              //six
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                  ),
-                  child: const Text("6"),
-                ),
-              ),
-              //seven
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                  ),
-                  child: const Text("7"),
-                ),
-              ),
-              //eight
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                  ),
-                  child: const Text("8"),
-                ),
-              ),
-              //nine
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                  ),
-                  child: const Text("9"),
-                ),
-              ),
-              //ten
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                  ),
-                  child: const Text("10"),
-                ),
-              ),
-              // Text(
-            ],
-          ),
-        ),
         Expanded(
             child: Padding(
                 padding: const EdgeInsets.only(left: 10, right: 30),
                 child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      // childAspectRatio: 3 / 2,
-                      crossAxisSpacing: 2,
-                      mainAxisSpacing: 2,
-                      crossAxisCount: 1,
-                      mainAxisExtent: MediaQuery.of(context).size.height / 12,
-                    ),
+                        // childAspectRatio: 3 / 2,
+                        crossAxisSpacing: 2,
+                        mainAxisSpacing: 0,
+                        crossAxisCount: lstCounter.length,
+                        mainAxisExtent: MediaQuery.of(context).size.height /
+                            lstCounter.length),
                     itemCount: lstCounter.length,
                     itemBuilder: (BuildContext ctx, index) {
+                      CounterGroup counter = lstCounter[index];
                       return Container(
-                        alignment: Alignment.center,
-                        // decoration: BoxDecoration(
-                        //   borderRadius: BorderRadius.circular(5),
-                        //   border: Border.all(
-                        //     color: Colors.black,
-                        //     width: 1,
-                        //   ),
-                        // ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  // borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Text(
-                                  lstCounter[index].kanji,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    // borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                      color: Colors.black,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    lstCounter[index].reading,
-                                  ),
-                                )),
-                            //tr
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    // borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                      color: Colors.black,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    lstCounter[index].wordMn,
-                                  ),
-                                )),
-                            //one
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Text(
-                                  lstCounter[index].sampleCounter.one,
-                                ),
-                              ),
-                            ),
-//two
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  // borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Text(
-                                  lstCounter[index].sampleCounter.two,
-                                ),
-                              ),
-                            ),
-                            //three
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  // borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Text(
-                                  lstCounter[index].sampleCounter.three,
-                                ),
-                              ),
-                            ),
-                            // four
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  // borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Text(
-                                  lstCounter[index].sampleCounter.four,
-                                ),
-                              ),
-                            ),
-                            //five
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  // borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Text(
-                                  lstCounter[index].sampleCounter.five,
-                                ),
-                              ),
-                            ),
-                            //six
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  // borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Text(
-                                  lstCounter[index].sampleCounter.six,
-                                ),
-                              ),
-                            ),
-                            //seven
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  // borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Text(
-                                  lstCounter[index].sampleCounter.seven,
-                                ),
-                              ),
-                            ),
-                            //eight
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  // borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Text(
-                                  lstCounter[index].sampleCounter.eight,
-                                ),
-                              ),
-                            ),
-                            //nine
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  // borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Text(
-                                  lstCounter[index].sampleCounter.nine,
-                                ),
-                              ),
-                            ),
-                            //ten
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  // borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Text(
-                                  lstCounter[index].sampleCounter.ten,
-                                ),
-                              ),
-                            ),
-                            // Text(
-                          ],
-                        ),
-                      );
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: [
+                              borderWidget(counter.wordMn),
+                              borderWidget(counter.kanji),
+                              borderWidget(counter.kanji),
+                              borderWidget(counter.reading),
+                              borderWidget(counter.sampleCounter.one),
+                              borderWidget(counter.sampleCounter.two),
+                              borderWidget(counter.sampleCounter.three),
+                              borderWidget(counter.sampleCounter.four),
+                              borderWidget(counter.sampleCounter.five),
+                              borderWidget(counter.sampleCounter.six),
+                              borderWidget(counter.sampleCounter.seven),
+                              borderWidget(counter.sampleCounter.eight),
+                              borderWidget(counter.sampleCounter.nine),
+                              borderWidget(counter.sampleCounter.ten),
+                            ],
+                          ));
                     })))
       ],
     ));
+  }
+
+  Widget borderWidget(String text) {
+    return Container(
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        // borderRadius: BorderRadius.circular(5),
+        border: Border.all(
+          color: Colors.black,
+          width: 1,
+        ),
+      ),
+      child: Text(text),
+    );
   }
 }
