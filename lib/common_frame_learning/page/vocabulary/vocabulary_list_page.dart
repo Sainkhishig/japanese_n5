@@ -168,7 +168,9 @@ class VocabularyListPage extends HookConsumerWidget {
                             Expanded(
                               flex: 1,
                               child: Text(
-                                lst[index].word,
+                                lst[index].word.isNotEmpty
+                                    ? lst[index].word
+                                    : lst[index].kanji,
                               ),
                             ),
                             Expanded(

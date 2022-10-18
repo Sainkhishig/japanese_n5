@@ -25,7 +25,7 @@ class _$CommonPageModelTearOff {
       {String title = "",
       int selectedIndex = 0,
       bool isGameMode = false,
-      String masterDataDestination = "masterDate",
+      String masterDataDestination = "letter",
       String vocabularyMenuDestination = "allVocabulary"}) {
     return _CommonPageModel(
       title: title,
@@ -179,7 +179,7 @@ class _$_CommonPageModel implements _CommonPageModel {
       {this.title = "",
       this.selectedIndex = 0,
       this.isGameMode = false,
-      this.masterDataDestination = "masterDate",
+      this.masterDataDestination = "letter",
       this.vocabularyMenuDestination = "allVocabulary"});
 
   factory _$_CommonPageModel.fromJson(Map<String, dynamic> json) =>
@@ -194,7 +194,7 @@ class _$_CommonPageModel implements _CommonPageModel {
   @JsonKey(defaultValue: false)
   @override
   final bool isGameMode;
-  @JsonKey(defaultValue: "masterDate")
+  @JsonKey(defaultValue: "letter")
   @override
   final String masterDataDestination;
   @JsonKey(defaultValue: "allVocabulary")

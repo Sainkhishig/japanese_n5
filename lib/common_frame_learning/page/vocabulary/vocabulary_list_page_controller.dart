@@ -141,19 +141,17 @@ class VocabularyListPageController extends StateNotifier<VocabularyModel> {
     var excel = Excel.decodeBytes(bytes);
     for (var i = 0; i < excel.tables["Worksheet"]!.rows.length; i++) {
       var row = excel.tables["Worksheet"]!.rows[i];
-
-      var voc = row[0];
-      var vocMn = row[1]; //!.value.toString();
-      var example = row[2];
-      var exampleTr = row[4];
+      var kanji = row[0];
+      var translate = row[1]; //!.value.toString();
+      var hiragana = row[2];
 
       var vocabulary = Dictionary()
         ..level = 5
-        ..word = voc == null ? "" : voc.value
-        ..kanji = ""
-        ..translate = vocMn == null ? "" : vocMn.value
-        ..example = example == null ? "" : example.value
-        ..exampleTr = exampleTr == null ? "" : exampleTr.value
+        ..word = hiragana == null ? "" : hiragana.value
+        ..kanji = kanji == null ? "" : kanji.value
+        ..translate = translate == null ? "" : translate.value
+        ..example = ""
+        ..exampleTr = ""
         ..wordType = "adverb";
       lstData.add(vocabulary);
     }
@@ -173,19 +171,17 @@ class VocabularyListPageController extends StateNotifier<VocabularyModel> {
     var excel = Excel.decodeBytes(bytes);
     for (var i = 0; i < excel.tables["Worksheet"]!.rows.length; i++) {
       var row = excel.tables["Worksheet"]!.rows[i];
-
-      var voc = row[0];
-      var vocMn = row[1]; //!.value.toString();
-      var example = row[2];
-      var exampleTr = row[4];
+      var kanji = row[0];
+      var translate = row[1]; //!.value.toString();
+      var hiragana = row[2];
 
       var vocabulary = Dictionary()
         ..level = 5
-        ..word = voc == null ? "" : voc.value
-        ..kanji = ""
-        ..translate = vocMn == null ? "" : vocMn.value
-        ..example = example == null ? "" : example.value
-        ..exampleTr = exampleTr == null ? "" : exampleTr.value
+        ..word = hiragana == null ? "" : hiragana.value
+        ..kanji = kanji == null ? "" : kanji.value
+        ..translate = translate == null ? "" : translate.value
+        ..example = ""
+        ..exampleTr = ""
         ..wordType = "particle";
       lstData.add(vocabulary);
     }

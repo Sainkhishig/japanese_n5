@@ -2,6 +2,7 @@ import 'package:afen_vocabulary/classes/jlpt_level.dart';
 import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/common_frame_learning/constant_value/common_constants.dart';
+import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:flash_card/flash_card.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,6 @@ class VocabularyCardPage extends HookConsumerWidget {
     );
 
     var lstN5db = ref.read(n5BoxDataProvider);
-    // var lstVocabul =
-    //     lstN5db.box.get("vocabularyDB")[controller.state.dbNameIndex];
     var lstVocabul =
         lstN5db.box.get(lstCsvDBName[controller.state.dbNameIndex].dbName);
 
@@ -187,16 +186,22 @@ class VocabularyCardPage extends HookConsumerWidget {
               children: [
                 Center(
                     child: Text(
-                  currentWord.word,
+                  currentWord.word.isNotEmpty
+                      ? currentWord.word
+                      : currentWord.kanji,
                   style: const TextStyle(
                       fontSize: 30, fontWeight: FontWeight.bold),
                 )),
                 IconButton(
                   onPressed: () {
-                    speak(currentWord.word);
+                    if (currentWord.word.isNotEmpty) {
+                      speak(currentWord.word);
+                    } else {
+                      speak(currentWord.kanji);
+                    }
                   },
                   iconSize: 50,
-                  icon: Icon(Icons.volume_up),
+                  icon: const Icon(Icons.volume_up),
                 ),
               ],
             ))));

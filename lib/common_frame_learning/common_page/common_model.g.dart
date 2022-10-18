@@ -12,7 +12,7 @@ _$_CommonPageModel _$$_CommonPageModelFromJson(Map<String, dynamic> json) =>
       selectedIndex: json['selectedIndex'] as int? ?? 0,
       isGameMode: json['isGameMode'] as bool? ?? false,
       masterDataDestination:
-          json['masterDataDestination'] as String? ?? 'masterDate',
+          json['masterDataDestination'] as String? ?? 'letter',
       vocabularyMenuDestination:
           json['vocabularyMenuDestination'] as String? ?? 'allVocabulary',
     );

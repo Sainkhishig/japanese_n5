@@ -1,3 +1,4 @@
+import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/common_frame_learning/constant_value/common_constants.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/verb_conjugation/conjugation_constant.dart';
@@ -113,29 +114,45 @@ class LetterPage extends HookConsumerWidget {
                     itemCount: currentLetter.lstLetter.length,
                     itemBuilder: (BuildContext ctx, index) {
                       return Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              currentLetter.lstLetter[index],
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1,
                             ),
-                            Text(replaceCyrillic(
-                                currentLetter.lstLetter[index])),
+                          ),
+                          child: Row(children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    speak(
+                                      currentLetter.lstLetter[index],
+                                    );
+                                  },
+                                  // iconSize: 30,
+                                  icon: const Icon(Icons.volume_up),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  currentLetter.lstLetter[index],
+                                ),
+                                Text(replaceCyrillic(
+                                    currentLetter.lstLetter[index])),
 
-                            // trans.unTranslit(source: 'Privet mir');
-                            // Text(
-                            //     "(${kanakit.toRomaji(currentLetter.lstLetter[index])})")
-                          ],
-                        ),
-                      );
+                                // trans.unTranslit(source: 'Privet mir');
+                                // Text(
+                                //     "(${kanakit.toRomaji(currentLetter.lstLetter[index])})")
+                              ],
+                            ),
+                          ]));
                     })))
       ],
     ));

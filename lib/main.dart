@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Хишиг эрдэм: Япон хэл - N5"),
+        title: const Text("Хишиг эрдэм: Япон хэл - N5"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CommonFrameLearning()));
+                          builder: (context) => const CommonFrameLearning()));
                 },
                 child: const Text(
                   "Хичээл",
@@ -78,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CommonPracticePage()));
+                          builder: (context) => const CommonPracticePage()));
                 },
                 child: const Text(
                   "Дасгал",
