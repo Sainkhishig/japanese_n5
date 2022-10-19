@@ -41,10 +41,17 @@ var lstVocabulary = <WordGroup>[
   WordGroup("Дайвар үг", lstMonth, "Хэдэн сар вэ?"),
   WordGroup("Холбоос үг", lstMonthDay, "Хэдний өдөр? Хэдэн өдөр"),
 ];
-var allCounter = [lstCounter1, lstCounter2, lstCounter3];
-var mnCounter = CounterGroup('mn', 'ханз', 'дуудлага', '', counterMn);
+var allCounter = [
+  lstCounter1,
+  lstCounter11,
+  lstCounter2,
+  lstCounter22,
+  lstCounter3,
+  lstCounter33
+];
+var mnCounter = CounterGroup('mn', 'ханз', '', '', counterMn);
 var lstCounter1 = <CounterGroup>[
-  CounterGroup('mn', 'ханз', 'дуудлага', '', counterMn),
+  CounterGroup('mn', 'ханз', '', '', counterMn),
   CounterGroup('all object', '', 'つ', 'бүх юмс', allObjectCounter),
   CounterGroup('person', '人', 'にん/り', 'хүн', personCounter),
   CounterGroup('animal', '匹', 'ひき', 'жижиг амьтан', animalCounter),

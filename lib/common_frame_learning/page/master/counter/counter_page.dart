@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:ui';
 
 import 'package:afen_vocabulary/classes/counter_group.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
@@ -119,7 +119,7 @@ class CounterPage extends HookConsumerWidget {
                               borderWidget(counter.wordMn),
                               borderWidget(
                                   "${counter.kanji}\n[${counter.reading}]",
-                                  heightRow: 50),
+                                  fontWight: FontWeight.bold),
                               // borderWidget(counter.reading),
                               borderWidget(counter.sampleCounter.one),
                               borderWidget(counter.sampleCounter.two),
@@ -138,7 +138,8 @@ class CounterPage extends HookConsumerWidget {
     ));
   }
 
-  Widget borderWidget(String text, {double heightRow = 25}) {
+  Widget borderWidget(String text,
+      {double heightRow = 50, FontWeight fontWight = FontWeight.normal}) {
     return Container(
       height: heightRow,
       alignment: Alignment.center,
@@ -152,6 +153,7 @@ class CounterPage extends HookConsumerWidget {
       child: Text(
         text,
         textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: fontWight),
       ),
     );
   }
