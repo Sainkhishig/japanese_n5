@@ -257,12 +257,14 @@ class Menu {
 }
 
 late final lstMenu = <Menu>[
-  Menu("Дүрэм", "grammer", Icons.rule, GrammerPage(), GrammarCardPage()),
   Menu("Үсэг, тоо, ТҮ", "masterData", Icons.format_list_numbered, LetterPage(),
       LetterCardPage()),
-  Menu("Үйл үг", "verbForm", Icons.ac_unit, VerbFormPage(), VerbFormGamePage()),
-  Menu("Ханз, Шинэ үг", "vocabulary", Icons.ac_unit, VocabularyListPage(),
+  Menu("Ханз, Шинэ үг", "vocabulary", Icons.rule, VocabularyListPage(),
       VocabularyCardPage()),
+  Menu("Дүрэм", "verbForm", Icons.border_color, VerbFormPage(),
+      VerbFormGamePage()),
+  Menu("Өгүүлбэр зүй", "grammer", Icons.school_rounded, GrammerPage(),
+      GrammarCardPage()),
 ];
 
 late final lstMasterMenu = <Menu>[
