@@ -486,6 +486,7 @@ class CsvInfo {
 
 final lstCsvDBName = <CsvInfo>[
   CsvInfo("Нэр үг", "wordN5", "N5Words", "noun"),
+  CsvInfo("Үйл үг", "verb", "N5Verb", "verb"),
   CsvInfo("Тэмдэг нэр", "adjectives", "N5Adjective", "adjective"),
   CsvInfo("Үйлт нэр", "csvadverb", "N5Adverb", "adjective"),
   CsvInfo("Холбоос үг", "csvparticle", "N5Particle", "adjective"),

@@ -43,6 +43,7 @@ class VocabularyListPageController extends StateNotifier<VocabularyModel> {
     allWords.addAll(await loadWordAdjective());
     allWords.addAll(await loadAdverb());
     allWords.addAll(await loadParticle());
+    allWords.addAll(await loadWordVerb());
     await lstN5.box.put("vocabularyDB", allWords);
   }
 
@@ -65,6 +66,34 @@ class VocabularyListPageController extends StateNotifier<VocabularyModel> {
         ..wordType = "allVoc";
       lstData.add(vocabulary);
     }
+    return lstData;
+  }
+
+  Future<List<Dictionary>> loadWordVerb() async {
+    List<Dictionary> lstData = [];
+    var lstN5 = widgetRef.read(n5BoxDataProvider);
+    ByteData data = await rootBundle.load("assets/xl/verb.xlsx");
+    var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    var excel = Excel.decodeBytes(bytes);
+    print("loadWordN52");
+    for (var i = 0; i < excel.tables["Worksheet"]!.rows.length; i++) {
+      var row = excel.tables["Worksheet"]!.rows[i];
+      var kanji = row[0];
+      var translate = row[1]; //!.value.toString();
+      var hiragana = row[2];
+
+      var vocabulary = Dictionary()
+        ..level = 5
+        ..word = hiragana == null ? "" : hiragana.value
+        ..kanji = kanji == null ? "" : kanji.value
+        ..translate = translate == null ? "" : translate.value
+        ..example = ""
+        ..exampleTr = ""
+        ..wordType = "verb";
+      lstData.add(vocabulary);
+    }
+
+    await lstN5.box.put("N5Verb", lstData);
     return lstData;
   }
 
