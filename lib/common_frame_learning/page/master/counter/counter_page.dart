@@ -117,9 +117,10 @@ class CounterPage extends HookConsumerWidget {
                           child: Column(
                             children: [
                               borderWidget(counter.wordMn),
-                              borderWidget(counter.kanji),
-                              borderWidget(counter.kanji),
-                              borderWidget(counter.reading),
+                              borderWidget(
+                                  "${counter.kanji}\n[${counter.reading}]",
+                                  heightRow: 50),
+                              // borderWidget(counter.reading),
                               borderWidget(counter.sampleCounter.one),
                               borderWidget(counter.sampleCounter.two),
                               borderWidget(counter.sampleCounter.three),
@@ -137,8 +138,9 @@ class CounterPage extends HookConsumerWidget {
     ));
   }
 
-  Widget borderWidget(String text) {
+  Widget borderWidget(String text, {double heightRow = 25}) {
     return Container(
+      height: heightRow,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         // borderRadius: BorderRadius.circular(5),
@@ -147,7 +149,10 @@ class CounterPage extends HookConsumerWidget {
           width: 1,
         ),
       ),
-      child: Text(text),
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }

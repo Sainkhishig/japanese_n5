@@ -42,32 +42,40 @@ var lstVocabulary = <WordGroup>[
   WordGroup("Холбоос үг", lstMonthDay, "Хэдний өдөр? Хэдэн өдөр"),
 ];
 var allCounter = [lstCounter1, lstCounter2, lstCounter3];
-var mnCounter = CounterGroup('mn', 'ханз', 'дуудлага', 'утга', counterMn);
+var mnCounter = CounterGroup('mn', 'ханз', 'дуудлага', '', counterMn);
 var lstCounter1 = <CounterGroup>[
-  CounterGroup('mn', 'ханз', 'дуудлага', 'утга', counterMn),
-  CounterGroup('all object', 'つ', 'つ', 'бүх юмс', allObjectCounter),
+  CounterGroup('mn', 'ханз', 'дуудлага', '', counterMn),
+  CounterGroup('all object', '', 'つ', 'бүх юмс', allObjectCounter),
   CounterGroup('person', '人', 'にん/り', 'хүн', personCounter),
   CounterGroup('animal', '匹', 'ひき', 'жижиг амьтан', animalCounter),
+];
+var lstCounter11 = <CounterGroup>[
+  CounterGroup('mn', 'ханз', '', '', counterMn),
   CounterGroup('slim thing', '枚', 'まい', 'нимгэн зүйл(цаас)', slimCounter),
   CounterGroup('age', '歳', 'さい', 'нас', ageCounter),
   CounterGroup('floor', '階', 'かい', 'давхар', floorCounter),
 ];
-
 var lstCounter2 = <CounterGroup>[
-  CounterGroup('mn', 'ханз', 'дуудлага', 'утга', counterMn),
+  CounterGroup('mn', 'ханз', '', '', counterMn),
   CounterGroup('small thing', '個', 'こ', 'жижиг зүйл', smallObjectCounter),
   CounterGroup('time', '回', 'かい', 'давтамж', davtamjCounter),
   CounterGroup('long', '本', 'ぼん', 'урт зүйл', longObjectCounter),
+];
+var lstCounter22 = <CounterGroup>[
+  CounterGroup('mn', 'ханз', '', '', counterMn),
   CounterGroup('book', '冊', 'さつ', 'ном', bookCounter),
   CounterGroup('big object', '台', 'だい', 'том эд зүйл', bigObjectounter),
   CounterGroup('place', 'ヶ所（箇所）', 'かしょ', 'газар, байршил', placeCounter),
 ];
 
 var lstCounter3 = <CounterGroup>[
-  CounterGroup('mn', 'ханз', 'дуудлага', 'утга', counterMn),
+  CounterGroup('mn', 'ханз', '', '', counterMn),
   CounterGroup('hour', '時', 'じ', 'цаг', hourCounter),
   CounterGroup('minut', '分', 'ふん', 'минут', minutCounter),
   CounterGroup('second', '秒', 'びょう', 'секунд', secondCounter),
+];
+var lstCounter33 = <CounterGroup>[
+  CounterGroup('mn', 'ханз', '', '', counterMn),
   CounterGroup('year', '年', 'ねん', 'жил', yearCounter),
   CounterGroup(
       'month duration', '箇月', 'かげつ', 'сарын хугацаа хэлэх', monthDuration),
