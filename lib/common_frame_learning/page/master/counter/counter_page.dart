@@ -103,7 +103,6 @@ class CounterPage extends HookConsumerWidget {
                 padding: const EdgeInsets.only(left: 10, right: 30),
                 child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        // childAspectRatio: 3 / 2,
                         crossAxisSpacing: 2,
                         mainAxisSpacing: 0,
                         crossAxisCount: lstCounter.length,
@@ -116,18 +115,20 @@ class CounterPage extends HookConsumerWidget {
                           alignment: Alignment.center,
                           child: Column(
                             children: [
-                              borderWidget(counter.wordMn, heightRow: 25),
+                              borderWidget(counter.wordMn,
+                                  fontWight: FontWeight.bold),
                               borderWidget(
                                   "${counter.kanji}\n[${counter.reading}]",
                                   fontWight: FontWeight.bold),
-                              // borderWidget(counter.reading),
                               borderWidget(counter.sampleCounter.one,
                                   heightRow: 25),
                               borderWidget(counter.sampleCounter.two),
                               borderWidget(counter.sampleCounter.three),
                               borderWidget(counter.sampleCounter.four),
-                              borderWidget(counter.sampleCounter.five),
-                              borderWidget(counter.sampleCounter.six),
+                              borderWidget(counter.sampleCounter.five,
+                                  heightRow: 25),
+                              borderWidget(counter.sampleCounter.six,
+                                  heightRow: 25),
                               borderWidget(counter.sampleCounter.seven),
                               borderWidget(counter.sampleCounter.eight),
                               borderWidget(counter.sampleCounter.nine),

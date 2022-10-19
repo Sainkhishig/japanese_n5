@@ -51,38 +51,38 @@ var allCounter = [
 ];
 var mnCounter = CounterGroup('mn', 'ханз', '', '', counterMn);
 var lstCounter1 = <CounterGroup>[
-  CounterGroup('mn', 'ханз', '', '', counterMn),
+  CounterGroup('mn', 'ханз', 'дууд.', '', counterMn),
   CounterGroup('all object', '', 'つ', 'бүх юмс', allObjectCounter),
   CounterGroup('person', '人', 'にん/り', 'хүн', personCounter),
   CounterGroup('animal', '匹', 'ひき', 'жижиг амьтан', animalCounter),
 ];
 var lstCounter11 = <CounterGroup>[
-  CounterGroup('mn', 'ханз', '', '', counterMn),
+  CounterGroup('mn', 'ханз', 'дууд.', '', counterMn),
   CounterGroup('slim thing', '枚', 'まい', 'нимгэн зүйл(цаас)', slimCounter),
   CounterGroup('age', '歳', 'さい', 'нас', ageCounter),
   CounterGroup('floor', '階', 'かい', 'давхар', floorCounter),
 ];
 var lstCounter2 = <CounterGroup>[
-  CounterGroup('mn', 'ханз', '', '', counterMn),
+  CounterGroup('mn', 'ханз', 'дууд.', '', counterMn),
   CounterGroup('small thing', '個', 'こ', 'жижиг зүйл', smallObjectCounter),
   CounterGroup('time', '回', 'かい', 'давтамж', davtamjCounter),
   CounterGroup('long', '本', 'ぼん', 'урт зүйл', longObjectCounter),
 ];
 var lstCounter22 = <CounterGroup>[
-  CounterGroup('mn', 'ханз', '', '', counterMn),
+  CounterGroup('mn', 'ханз', 'дууд.', '', counterMn),
   CounterGroup('book', '冊', 'さつ', 'ном', bookCounter),
   CounterGroup('big object', '台', 'だい', 'том эд зүйл', bigObjectounter),
   CounterGroup('place', 'ヶ所（箇所）', 'かしょ', 'газар, байршил', placeCounter),
 ];
 
 var lstCounter3 = <CounterGroup>[
-  CounterGroup('mn', 'ханз', '', '', counterMn),
+  CounterGroup('mn', 'ханз', 'дууд.', '', counterMn),
   CounterGroup('hour', '時', 'じ', 'цаг', hourCounter),
   CounterGroup('minut', '分', 'ふん', 'минут', minutCounter),
   CounterGroup('second', '秒', 'びょう', 'секунд', secondCounter),
 ];
 var lstCounter33 = <CounterGroup>[
-  CounterGroup('mn', 'ханз', '', '', counterMn),
+  CounterGroup('mn', 'ханз', 'дууд.', '', counterMn),
   CounterGroup('year', '年', 'ねん', 'жил', yearCounter),
   CounterGroup(
       'month duration', '箇月', 'かげつ', 'сарын хугацаа хэлэх', monthDuration),
@@ -271,8 +271,13 @@ final lstGrammar = <Grammar>[
     'Хоол идэхээсээ өмнө гараа угаана уу.',
     'shokuji no mae ni te o aratte kudasai.',
   ),
-  Grammar('ませんか (masen ka)', '私のパーティーに参加しませんか？', 'Миний үдэшлэгт оролцох уу.',
-      'watashi no paatii ni sanka shimasen ka.', ""),
+  Grammar(
+    'ませんか (masen ka)',
+    '私のパーティーに参加しませんか？',
+    'Миний үдэшлэгт оролцох уу.',
+    'watashi no paatii ni sanka shimasen ka.',
+    "",
+  ),
   Grammar(
     'ましょう (mashou)',
     '-цгаая/4/',
@@ -306,7 +311,7 @@ final lstGrammar = <Grammar>[
     'битгий ～　ээрэй.',
     '宿題をするのを忘れないでください。',
     'Гэрийн даалгавраа хийхээ битгий мартаарай.',
-    'Please dont forget to do your homework.',
+    'Shukudai o suru no o wasurenaide kudasai.',
   ),
   Grammar(
     'なる (naru)',
