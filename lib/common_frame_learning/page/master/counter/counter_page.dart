@@ -116,12 +116,13 @@ class CounterPage extends HookConsumerWidget {
                           alignment: Alignment.center,
                           child: Column(
                             children: [
-                              borderWidget(counter.wordMn),
+                              borderWidget(counter.wordMn, heightRow: 25),
                               borderWidget(
                                   "${counter.kanji}\n[${counter.reading}]",
                                   fontWight: FontWeight.bold),
                               // borderWidget(counter.reading),
-                              borderWidget(counter.sampleCounter.one),
+                              borderWidget(counter.sampleCounter.one,
+                                  heightRow: 25),
                               borderWidget(counter.sampleCounter.two),
                               borderWidget(counter.sampleCounter.three),
                               borderWidget(counter.sampleCounter.four),
