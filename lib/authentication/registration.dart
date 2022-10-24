@@ -1,0 +1,257 @@
+import 'package:afen_vocabulary/authentication/email_check.dart';
+import 'package:afen_vocabulary/authentication/home.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'authentication_error.dart';
+
+// // アカウント登録ページ
+// class Registration extends StatefulWidget {
+//   @override
+//   _RegistrationState createState() => _RegistrationState();
+// }
+
+// class _RegistrationState extends State<Registration> {
+//   String newEmail = ""; // 入力されたメールアドレス
+//   String newPassword = ""; // 入力されたパスワード
+//   String infoText = ""; // 登録に関する情報を表示
+//   late bool pswd_OK; // パスワードが有効な文字数を満たしているかどうか
+
+//   // Firebase Authenticationを利用するためのインスタンス
+//   final FirebaseAuth auth = FirebaseAuth.instance;
+//   late UserCredential result;
+//   late User user;
+
+//   // エラーメッセージを日本語化するためのクラス
+//   final auth_error = Authentication_error();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: Column(
+//           mainAxisSize: MainAxisSize.min,
+//           children: <Widget>[
+//             const Padding(
+//                 padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 30.0),
+//                 child: Text('新規アカウントの作成',
+//                     style:
+//                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
+
+//             // メールアドレスの入力フォーム
+//             Padding(
+//                 padding: const EdgeInsets.fromLTRB(25.0, 0, 25.0, 0),
+//                 child: TextFormField(
+//                   decoration: const InputDecoration(labelText: "メールアドレス"),
+//                   onChanged: (String value) {
+//                     newEmail = value;
+//                   },
+//                 )),
+
+//             // パスワードの入力フォーム
+//             Padding(
+//               padding: const EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
+//               child: TextFormField(
+//                   decoration: const InputDecoration(labelText: "パスワード（8～20文字）"),
+//                   obscureText: true, // パスワードが見えないようRにする
+//                   maxLength: 20, // 入力可能な文字数
+//                   maxLengthEnforced: false, // 入力可能な文字数の制限を超える場合の挙動の制御
+//                   onChanged: (String value) {
+//                     if (value.length >= 8) {
+//                       newPassword = value;
+//                       pswd_OK = true;
+//                     } else {
+//                       pswd_OK = false;
+//                     }
+//                   }),
+//             ),
+
+//             // 登録失敗時のエラーメッセージ
+//             Padding(
+//               padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 5.0),
+//               child: Text(
+//                 infoText,
+//                 style: TextStyle(color: Colors.red),
+//               ),
+//             ),
+
+//             ButtonTheme(
+//               minWidth: 350.0,
+//               // height: 100.0,
+//               child: RaisedButton(
+//                 child: const Text(
+//                   '登録',
+//                   style: TextStyle(fontWeight: FontWeight.bold),
+//                 ),
+//                 textColor: Colors.white,
+//                 color: Colors.blue,
+//                 shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(10),
+//                 ),
+//                 onPressed: () async {
+//                   if (pswd_OK) {
+//                     try {
+//                       // メール/パスワードでユーザー登録
+//                       result = await auth.createUserWithEmailAndPassword(
+//                         email: newEmail,
+//                         password: newPassword,
+//                       );
+
+//                       // 登録成功
+//                       // 登録したユーザー情報
+//                       user = result.user!;
+//                       Navigator.push(
+//                           context,
+//                           MaterialPageRoute(
+//                             builder: (context) => Home(user_id: user.uid),
+//                           ));
+//                     } catch (e) {
+//                       // 登録に失敗した場合
+//                       setState(() {
+//                         infoText = auth_error.register_error_msg("e.code$e");
+//                       });
+//                     }
+//                   } else {
+//                     setState(() {
+//                       infoText = 'パスワードは8文字以上です.';
+//                     });
+//                   }
+//                 },
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// import 'dart:html';
+
+// import 'package:flutter/material.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'authentication_error.dart';
+// import 'email_check.dart';
+
+// アカウント登録ページ
+class Registration extends StatefulWidget {
+  @override
+  _RegistrationState createState() => _RegistrationState();
+}
+
+class _RegistrationState extends State<Registration> {
+  // Firebase Authenticationを利用するためのインスタンス
+  final _auth = FirebaseAuth.instance;
+  late UserCredential result;
+  late User user;
+
+  String _newEmail = ""; // 入力されたメールアドレス
+  String _newPassword = ""; // 入力されたパスワード
+  String _infoText = ""; // 登録に関する情報を表示
+  bool _pswd_OK = false; // パスワードが有効な文字数を満たしているかどうか
+
+  // エラーメッセージを日本語化するためのクラス
+  final auth_error = Authentication_error();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const Padding(
+                padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 30.0),
+                child: Text('Шинэ хэрэглэгчийн бүртгэл',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
+
+            // メールアドレスの入力フォーム
+            Padding(
+                padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 0),
+                child: TextFormField(
+                  decoration: InputDecoration(labelText: "Цахим хаяг"),
+                  onChanged: (String value) {
+                    _newEmail = value;
+                  },
+                )),
+
+            // パスワードの入力フォーム
+            Padding(
+              padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
+              child: TextFormField(
+                  decoration:
+                      InputDecoration(labelText: "Нууц үг（8～20тэмдэгт）"),
+                  obscureText: true, // パスワードが見えないようRにする
+                  maxLength: 20, // 入力可能な文字数
+                  maxLengthEnforced: false, // 入力可能な文字数の制限を超える場合の挙動の制御
+                  onChanged: (String value) {
+                    if (value.length >= 8) {
+                      _newPassword = value;
+                      _pswd_OK = true;
+                    } else {
+                      _pswd_OK = false;
+                    }
+                  }),
+            ),
+
+            // 登録失敗時のエラーメッセージ
+            Padding(
+              padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 5.0),
+              child: Text(
+                _infoText,
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+
+            // アカウント作成のボタン配置
+            ButtonTheme(
+              minWidth: 350.0,
+              // height: 100.0,
+              child: RaisedButton(
+                child: Text(
+                  '登録',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                textColor: Colors.white,
+                color: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                onPressed: () async {
+                  if (_pswd_OK) {
+                    try {
+                      // メール/パスワードでユーザー登録
+                      result = await _auth.createUserWithEmailAndPassword(
+                        email: _newEmail,
+                        password: _newPassword,
+                      );
+
+                      // 登録成功
+                      user = result.user!; // 登録したユーザー情報
+                      user.sendEmailVerification(); // Email確認のメールを送信
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Emailcheck(
+                                email: _newEmail, pswd: _newPassword, from: 1),
+                          ));
+                    } catch (e) {
+                      // 登録に失敗した場合
+                      setState(() {
+                        _infoText = auth_error.register_error_msg("$e");
+                      });
+                    }
+                  } else {
+                    setState(() {
+                      _infoText = 'Нууц үг багадаа 8 тэмдэгт байна.';
+                    });
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

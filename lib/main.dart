@@ -1,3 +1,4 @@
+import 'package:afen_vocabulary/authentication/login.dart';
 import 'package:afen_vocabulary/common_frame_learning/common_page/common_frame.dart';
 import 'package:afen_vocabulary/common_frame_practice/common_page/common_practice_page.dart';
 import 'package:afen_vocabulary/common_frame_practice/listening/player/services/service_locator.dart';
@@ -41,7 +42,12 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: HomeScreen());
+    return MaterialApp(
+      home: Login(),
+      routes: <String, WidgetBuilder>{
+        '/login': (_) => new Login(),
+      },
+    );
   }
 }
 
