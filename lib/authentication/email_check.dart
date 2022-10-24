@@ -1,4 +1,5 @@
-import 'package:afen_vocabulary/authentication/home.dart';
+// import 'package:afen_vocabulary/authentication/home.dart';
+import 'package:afen_vocabulary/main_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -112,8 +113,12 @@ class _Emailcheck extends State<Emailcheck> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              Home(user_id: _result!.user!.uid, auth: _auth),
+                          builder: (context) => HomeScreen(
+                              user_id: _result!.user!.uid, auth: _auth),
+
+                          // MaterialPageRoute(
+                          //   builder: (context) =>
+                          //       Home(user_id: _result!.user!.uid, auth: _auth),
                         ));
                   } else {
                     // print('NG');
@@ -127,7 +132,7 @@ class _Emailcheck extends State<Emailcheck> {
 
                 // ボタン内の文字や書式
                 child: const Text(
-                  'Цахим хаягийн баталгаажуулалт амжилттай хийгдлээ',
+                  'Цахим хаягийн баталгаажуулалт хийсэн',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 textColor: Colors.white,

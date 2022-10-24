@@ -1,11 +1,11 @@
 import 'package:afen_vocabulary/authentication/login.dart';
-import 'package:afen_vocabulary/common_frame_learning/common_page/common_frame.dart';
-import 'package:afen_vocabulary/common_frame_practice/common_page/common_practice_page.dart';
 import 'package:afen_vocabulary/common_frame_practice/listening/player/services/service_locator.dart';
 
 import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
 import 'package:afen_vocabulary/hive_db/object/kanji_dictionary.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
+import 'package:afen_vocabulary/login_state.dart';
+import 'package:afen_vocabulary/main_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -26,6 +26,7 @@ Future<void> main() async {
   // await Firebase.initializeApp();
 
   setPathUrlStrategy();
+  // final state = LoginState();
 
   runApp(ProviderScope(
     overrides: [
@@ -34,65 +35,95 @@ Future<void> main() async {
       sharedPreferencesProvider.overrideWithValue(
         await SharedPreferences.getInstance(),
       ),
+      // loginStateNotifierProvider.overrideWithValue(state),
     ],
     child: MyApp(),
   ));
 }
 
-class MyApp extends StatelessWidget {
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: HomeScreen(),
+//       routes: <String, WidgetBuilder>{
+//         '/login': (_) => Login(),
+//       },
+//     );
+//   }
+// }
+
+class MyApp extends HookConsumerWidget {
+  const MyApp({Key? key}) : super(key: key);
+  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Login(),
-      routes: <String, WidgetBuilder>{
-        '/login': (_) => new Login(),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginState = ref.watch(loginStateNotifierProvider);
+    // final keycloak = ref.read(keycloakProvider);
+
+    // final future = useMemoized(() => setInitValue(notifier));
+    // final snapshot = useFuture(future, initialData: null);
+    // var location = window.location.pathname;
+    // if (snapshot.hasError) return ErrorWidget(snapshot.error!);
+    // if (!snapshot.hasData) {
+    //   return MaterialApp(
+    //     debugShowCheckedModeBanner: false,
+    //     builder: (context, _) =>
+    //         const Scaffold(body: Text("")), // Application Loading
+    //   );
+    // }
+    // var isLoggedIn = snapshot.data ?? false;
+    print("loginState${loginState}");
+    return
+        // notifier.logoutClicked
+        //     ? MaterialApp(
+        //         home: HomeScreen(),
+        //         // routes: <String, WidgetBuilder>{
+        //         //   '/login': (_) => Login(),
+        //         // },
+        //       )
+        //     :
+        MaterialApp(
+      initialRoute: '/',
+      home: loginState ? HomeScreen() : Login(),
+      routes: {
+        '/login': (context) => Login(),
       },
     );
-  }
-}
 
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Хишиг эрдэм: Япон хэл - N5"),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CommonFrameLearning()));
-                },
-                child: const Text(
-                  "Хичээл",
-                  style: TextStyle(fontSize: 30),
-                )),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CommonPracticePage()));
-                },
-                child: const Text(
-                  "Дасгал",
-                  style: TextStyle(fontSize: 30),
-                )),
-          )
-        ],
-      ),
-    );
+    // ? HomeScreen()
+    // // MaterialApp(
+    // //     debugShowCheckedModeBanner: false,
+    // //     builder: (context, _) => Scaffold(body: HomeScreen()))
+    // : MaterialApp(
+    //     initialRoute: '/',
+    //     routes: {
+    //       '/login': (context) => Login(),
+    //     },
+    //   );
   }
+
+  // Future<bool?> setInitValue(LoginState notifier) async {
+  //   KeycloakProfile? profile;
+  //   var isLoggedIn = await keycloakService.isLoggedIn();
+  //   notifier.loggedIn = isLoggedIn;
+  //   if (isLoggedIn) {
+  //     final token = await keycloakService.getToken();
+  //     Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+  //     // NOTE: KeyCloakのrolesは role と permission を含めているため、authorities と呼称する
+  //     notifier.authorities =
+  //         decodedToken['realm_access']['roles'].cast<String>();
+
+  //     profile = await keycloakService.loadUserProfile();
+  //     notifier.userName = profile!.username;
+  //     notifier.fullname = "${profile.lastName}${profile.firstName}";
+  //   } else {
+  //     notifier.userName = "";
+  //     notifier.fullname = "";
+  //     notifier.authorities = [];
+  //   }
+
+  //   return isLoggedIn;
+  // }
 }

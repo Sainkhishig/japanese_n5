@@ -6,10 +6,7 @@ import 'package:afen_vocabulary/common_frame_learning/page/flash_card/letter/let
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/master_data/master_data_game_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/pronoun_game/pronoun_game_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/verb_form/verb_form_game_page.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/adjective/adjective_card_page.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/adverb/adverb_card_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/all/vocabulary_card_page.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/particle/particle_card_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/grammer/grammer_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/kanji/kanji_list_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/letter/letter_page.dart';
@@ -17,11 +14,10 @@ import 'package:afen_vocabulary/common_frame_learning/page/master/counter/counte
 import 'package:afen_vocabulary/common_frame_learning/page/master/number_day/master_data_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/master/verbForm/verb_form_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/pronoun/pronoun_card_page.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/vocabulary/adjective/adjective_list_page.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/vocabulary/adverb/adverb_vocabulary_page.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/vocabulary/particle/particle_vocabulary_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/vocabulary/vocabulary_list_page.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
+import 'package:afen_vocabulary/login_state.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -30,7 +26,12 @@ import 'package:flutter/cupertino.dart';
 import 'common_page_controller.dart';
 
 class CommonFrameLearning extends StatelessWidget {
-  const CommonFrameLearning({Key? key}) : super(key: key);
+  final String? user_id;
+  final FirebaseAuth? auth;
+
+  CommonFrameLearning({Key? key, this.user_id, this.auth}) : super(key: key);
+
+  // const CommonFrameLearning({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -49,19 +50,30 @@ class CommonFrameLearning extends StatelessWidget {
         primarySwatch: Colors.amber,
         // primarySwatch: Colors.blue,
       ),
-      home: CommonPage2(),
+      home: CommonPage2(
+        user_id: user_id,
+        auth: auth,
+      ),
     );
   }
 }
 
 class CommonPage2 extends HookConsumerWidget {
-  CommonPage2({Key? key}) : super(key: key);
+  CommonPage2({Key? key, this.user_id, this.auth}) : super(key: key);
+  final String? user_id;
+  final FirebaseAuth? auth;
   late N5Box lstN5;
   String? language = 'en-US';
   String? languageCode;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(commonPageProvider.notifier);
+    var loginNotifier = ref.read(loginStateNotifierProvider);
+    final List<String> _popmenu_list = [
+      "Хэрэглэгчийн мэдээлэл",
+      user_id == null ? "Нэвтрэх" : "Гарах"
+    ];
     lstN5 = ref.read(n5BoxDataProvider);
     controller.setModelListenable(ref);
 
@@ -145,6 +157,40 @@ class CommonPage2 extends HookConsumerWidget {
                       controller.setVocabularyDestination(lvl as String);
                     },
                   ))),
+          PopupMenuButton<String>(
+            icon: Icon(Icons.menu),
+            onSelected: (String s) async {
+              if (s == 'Гарах') {
+                await auth!.signOut();
+                loginNotifier = false;
+                // loginNotifier.auth = ;
+                // loginNotifier(false);
+                // Navigator.of(context).pushNamed("/login");
+              } else {
+                loginNotifier = false;
+                // Navigator.of(context).pushNamed("/login");
+              }
+              // loginNotifier.notifyListeners();
+            },
+            itemBuilder: (BuildContext context) {
+              return _popmenu_list.map((String s) {
+                return PopupMenuItem(
+                  child: Text(s),
+                  value: s,
+                );
+              }).toList();
+            },
+          ),
+          // IconButton(
+          //   padding: const EdgeInsets.only(bottom: 4),
+          //   iconSize: 40,
+          //   disabledColor: Colors.grey,
+          //   color: Colors.white,
+          //   icon: const Icon(Icons.chevron_right),
+          //   onPressed: () {
+
+          //   },
+          // )
           // Visibility(
           //     visible: controller.state.selectedIndex == 3,
           //     child: Padding(

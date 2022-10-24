@@ -1,4 +1,5 @@
-import 'package:afen_vocabulary/authentication/home.dart';
+// import 'package:afen_vocabulary/authentication/home.dart';
+import 'package:afen_vocabulary/main_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'authentication_error.dart';
@@ -73,7 +74,11 @@ class _Login extends State<Login> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-
+// ボタン内の文字や書式
+                child: const Text(
+                  'Нэвтрэх',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 onPressed: () async {
                   try {
                     // メール/パスワードでログイン
@@ -88,11 +93,12 @@ class _Login extends State<Login> {
                     // Email確認が済んでいる場合のみHome画面へ
                     if (_user!.emailVerified) {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                Home(user_id: _user!.uid, auth: _auth),
-                          ));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              HomeScreen(user_id: _user!.uid, auth: _auth),
+                        ),
+                      );
                     } else {
                       Navigator.push(
                         context,
@@ -111,11 +117,6 @@ class _Login extends State<Login> {
                   }
                 },
 
-                // ボタン内の文字や書式
-                child: const Text(
-                  'ログイン',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
                 textColor: Colors.white,
                 color: Colors.blue,
               ),
@@ -123,8 +124,7 @@ class _Login extends State<Login> {
 
             // ログイン失敗時のエラーメッセージ
             TextButton(
-              child:
-                  const Text('Имэйл хаяг руу нууц үг шинэчлэх хүсэлт илгээх'),
+              child: const Text('Нуур үг сэргээх'),
               onPressed: () =>
                   _auth.sendPasswordResetEmail(email: _login_Email),
             ),

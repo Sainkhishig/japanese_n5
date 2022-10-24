@@ -10,13 +10,13 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const List<String> _popmenu_list = ["テスト", "ログアウト"];
+    const List<String> _popmenu_list = ["テスト", "Гарах"];
 
     return Scaffold(
       // Header部分
       appBar: AppBar(
-        leading: Icon(Icons.home),
-        title: Text('ログイン後の画面'),
+        leading: const Icon(Icons.home),
+        title: const Text('ログイン後の画面'),
         backgroundColor: Colors.black87,
         centerTitle: true,
         elevation: 0.0,
@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
           PopupMenuButton<String>(
             icon: Icon(Icons.menu),
             onSelected: (String s) {
-              if (s == 'ログアウト') {
+              if (s == 'Гарах') {
                 auth!.signOut();
                 Navigator.of(context).pushNamed("/login");
               }
@@ -49,7 +49,7 @@ class Home extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('ようこそ',
+            const Text('ようこそ',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             Text(user_id ?? ""),
           ],
