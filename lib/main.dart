@@ -41,61 +41,13 @@ Future<void> main() async {
   ));
 }
 
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: HomeScreen(),
-//       routes: <String, WidgetBuilder>{
-//         '/login': (_) => Login(),
-//       },
-//     );
-//   }
-// }
-
 class MyApp extends HookConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final loginState = ref.watch(loginStateNotifierProvider);
-    // final keycloak = ref.read(keycloakProvider);
-
-    // final future = useMemoized(() => setInitValue(notifier));
-    // final snapshot = useFuture(future, initialData: null);
-    // var location = window.location.pathname;
-    // if (snapshot.hasError) return ErrorWidget(snapshot.error!);
-    // if (!snapshot.hasData) {
-    //   return MaterialApp(
-    //     debugShowCheckedModeBanner: false,
-    //     builder: (context, _) =>
-    //         const Scaffold(body: Text("")), // Application Loading
-    //   );
-    // }
-    // var isLoggedIn = snapshot.data ?? false;
-    print("loginState${loginState}");
-    return
-        // notifier.logoutClicked
-        //     ? MaterialApp(
-        //         home: HomeScreen(),
-        //         // routes: <String, WidgetBuilder>{
-        //         //   '/login': (_) => Login(),
-        //         // },
-        //       )
-        //     :
-        MaterialApp(
+    return MaterialApp(
       home: HomeScreen(),
     );
-
-    // ? HomeScreen()
-    // // MaterialApp(
-    // //     debugShowCheckedModeBanner: false,
-    // //     builder: (context, _) => Scaffold(body: HomeScreen()))
-    // : MaterialApp(
-    //     initialRoute: '/',
-    //     routes: {
-    //       '/login': (context) => Login(),
-    //     },
-    //   );
   }
 }
