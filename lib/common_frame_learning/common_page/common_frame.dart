@@ -1,3 +1,6 @@
+import 'dart:html';
+import 'dart:ui';
+
 import 'package:adaptive_navigation/adaptive_navigation.dart';
 import 'package:afen_vocabulary/authentication/login.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/counter/counter_game_page.dart';
@@ -232,6 +235,14 @@ class CommonLearningPage extends HookConsumerWidget {
                 fit: BoxFit.fill,
               ),
             ),
+            const Text(
+              "Япон хэлний хичээл",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const Text(
+              "N5 түвшин",
+              style: TextStyle(fontSize: 16),
+            )
           ],
         ),
       ),
