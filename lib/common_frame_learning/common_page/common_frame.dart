@@ -261,8 +261,8 @@ class Menu {
 late final lstMenu = <Menu>[
   Menu("Үсэг, тоо, ТҮ", "masterData", Icons.format_list_numbered, LetterPage(),
       LetterCardPage()),
-  Menu("Ханз, Шинэ үг", "vocabulary", Icons.border_color, VocabularyListPage(),
-      VocabularyCardPage()),
+  Menu("Ханз, Шинэ үг", "allVocabulary", Icons.border_color,
+      VocabularyListPage(), VocabularyCardPage()),
   Menu("Дүрэм", "verbForm", Icons.rule, VerbFormPage(), VerbFormGamePage()),
   Menu("Өгүүлбэр зүй", "grammer", Icons.school_rounded, GrammerPage(),
       GrammarCardPage()),
