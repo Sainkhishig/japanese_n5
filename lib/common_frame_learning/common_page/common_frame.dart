@@ -51,7 +51,7 @@ class CommonFrameLearning extends StatelessWidget {
         primarySwatch: Colors.amber,
         // primarySwatch: Colors.blue,
       ),
-      home: CommonPage2(
+      home: CommonLearningPage(
         user_id: user_id,
         auth: auth,
       ),
@@ -62,8 +62,8 @@ class CommonFrameLearning extends StatelessWidget {
   }
 }
 
-class CommonPage2 extends HookConsumerWidget {
-  CommonPage2({Key? key, this.user_id, this.auth}) : super(key: key);
+class CommonLearningPage extends HookConsumerWidget {
+  CommonLearningPage({Key? key, this.user_id, this.auth}) : super(key: key);
   final String? user_id;
   final FirebaseAuth? auth;
   late N5Box lstN5;
@@ -165,8 +165,8 @@ class CommonPage2 extends HookConsumerWidget {
             icon: Icon(Icons.menu),
             onSelected: (String s) async {
               if (s == 'Гарах') {
-                Navigator.pushNamed(context, "/login");
-                // await auth!.signOut();
+                // Navigator.pushNamed(context, "/login");
+                await auth!.signOut();
                 // loginNotifier = false;
                 // loginNotifier.auth = ;
                 // loginNotifier(false);
@@ -219,15 +219,6 @@ class CommonPage2 extends HookConsumerWidget {
           //         )))
         ],
       ),
-      // navigationTypeResolver: (context) {
-      //   if (MediaQuery.of(context).size.width > 1000) {
-      //     return NavigationType.permanentDrawer;
-      //   } else {
-      //     return NavigationType.drawer;
-      //   }
-      // },
-
-      // appBar: commonAppBar(context, ref, destination),
       body: Scaffold(
           body: Row(
         children: [
@@ -236,7 +227,6 @@ class CommonPage2 extends HookConsumerWidget {
           ),
         ],
       )),
-
       selectedIndex: controller.state.selectedIndex,
       onDestinationSelected: (value) {
         if (value == (lstMenu.length - 1)) {
@@ -269,19 +259,6 @@ class CommonPage2 extends HookConsumerWidget {
                 fit: BoxFit.fill,
               ),
             ),
-            // const Text("N5"),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     const Text(" Флип горим:"),
-            //     Switch(
-            //       value: controller.state.isGameMode,
-            //       onChanged: (value) {
-            //         controller.setGameMode(!controller.state.isGameMode);
-            //       },
-            //     ),
-            //   ],
-            // )
           ],
         ),
       ),
