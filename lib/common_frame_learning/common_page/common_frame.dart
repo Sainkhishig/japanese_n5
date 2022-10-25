@@ -82,7 +82,7 @@ class CommonLearningPage extends HookConsumerWidget {
     var bodyPage = !controller.state.isGameMode
         ? lstMenu[controller.state.selectedIndex].mainPage
         : lstMenu[controller.state.selectedIndex].gamePage;
-    if (controller.state.selectedIndex == 1) {
+    if (controller.state.selectedIndex == 0) {
       var selectedMaster = lstMasterMenu
           .where((element) =>
               element.destination == controller.state.masterDataDestination)
@@ -91,7 +91,7 @@ class CommonLearningPage extends HookConsumerWidget {
           ? selectedMaster.mainPage
           : selectedMaster.gamePage;
     }
-    if (controller.state.selectedIndex == 3) {
+    if (controller.state.selectedIndex == 1) {
       var selectedMaster = lstWordMenu
           .where((element) =>
               element.destination == controller.state.vocabularyMenuDestination)
@@ -120,7 +120,7 @@ class CommonLearningPage extends HookConsumerWidget {
             ],
           ),
           Visibility(
-              visible: controller.state.selectedIndex == 1,
+              visible: controller.state.selectedIndex == 0,
               child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: DropdownButton(
@@ -140,7 +140,7 @@ class CommonLearningPage extends HookConsumerWidget {
                     },
                   ))),
           Visibility(
-              visible: controller.state.selectedIndex == 3,
+              visible: controller.state.selectedIndex == 1,
               child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: DropdownButton(
@@ -261,10 +261,9 @@ class Menu {
 late final lstMenu = <Menu>[
   Menu("Үсэг, тоо, ТҮ", "masterData", Icons.format_list_numbered, LetterPage(),
       LetterCardPage()),
-  Menu("Ханз, Шинэ үг", "vocabulary", Icons.rule, VocabularyListPage(),
+  Menu("Ханз, Шинэ үг", "vocabulary", Icons.border_color, VocabularyListPage(),
       VocabularyCardPage()),
-  Menu("Дүрэм", "verbForm", Icons.border_color, VerbFormPage(),
-      VerbFormGamePage()),
+  Menu("Дүрэм", "verbForm", Icons.rule, VerbFormPage(), VerbFormGamePage()),
   Menu("Өгүүлбэр зүй", "grammer", Icons.school_rounded, GrammerPage(),
       GrammarCardPage()),
 ];
