@@ -30,7 +30,8 @@ class CommonFrameLearning extends StatelessWidget {
   final String? user_id;
   final FirebaseAuth? auth;
 
-  CommonFrameLearning({Key? key, this.user_id, this.auth}) : super(key: key);
+  const CommonFrameLearning({Key? key, this.user_id, this.auth})
+      : super(key: key);
 
   // const CommonFrameLearning({Key? key}) : super(key: key);
 
