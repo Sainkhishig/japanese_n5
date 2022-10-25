@@ -1,10 +1,8 @@
-import 'package:afen_vocabulary/authentication/login.dart';
 import 'package:afen_vocabulary/common_frame_practice/listening/player/services/service_locator.dart';
 
 import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
 import 'package:afen_vocabulary/hive_db/object/kanji_dictionary.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
-import 'package:afen_vocabulary/login_state.dart';
 import 'package:afen_vocabulary/main_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
