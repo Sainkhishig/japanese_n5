@@ -65,7 +65,7 @@ class CommonFrameLearning extends StatelessWidget {
 
 class CommonLearningPage extends HookConsumerWidget {
   CommonLearningPage({Key? key, this.user_id, this.auth}) : super(key: key);
-  final String? user_id;
+  late String? user_id;
   final FirebaseAuth? auth;
   late N5Box lstN5;
   String? language = 'en-US';
@@ -75,10 +75,7 @@ class CommonLearningPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(commonPageProvider.notifier);
     var loginNotifier = ref.read(loginStateNotifierProvider);
-    final List<String> _popmenu_list = [
-      "Хэрэглэгчийн мэдээлэл",
-      user_id == null ? "Нэвтрэх" : "Гарах"
-    ];
+    final List<String> _popmenu_list = ["Хэрэглэгчийн мэдээлэл", "Тохиргоо"];
     lstN5 = ref.read(n5BoxDataProvider);
     controller.setModelListenable(ref);
 
@@ -162,62 +159,36 @@ class CommonLearningPage extends HookConsumerWidget {
                       controller.setVocabularyDestination(lvl as String);
                     },
                   ))),
-          PopupMenuButton<String>(
-            icon: Icon(Icons.menu),
-            onSelected: (String s) async {
-              if (s == 'Гарах') {
-                // Navigator.pushNamed(context, "/login");
-                await auth!.signOut();
-                // loginNotifier = false;
-                // loginNotifier.auth = ;
-                // loginNotifier(false);
-                // Navigator.of(context).pushNamed("/login");
-              } else {
-                Navigator.pushNamed(context, "/login");
-                // loginNotifier = false;
-                // Navigator.of(context).pushNamed("/login");
-              }
-              // loginNotifier.notifyListeners();
-            },
-            itemBuilder: (BuildContext context) {
-              return _popmenu_list.map((String s) {
-                return PopupMenuItem(
-                  child: Text(s),
-                  value: s,
-                );
-              }).toList();
-            },
+          Visibility(
+            visible: user_id != null,
+            child: PopupMenuButton<String>(
+              icon: const Icon(Icons.person),
+              onSelected: (String s) async {},
+              itemBuilder: (BuildContext context) {
+                return _popmenu_list.map((String s) {
+                  return PopupMenuItem(
+                    child: Text(s),
+                    value: s,
+                  );
+                }).toList();
+              },
+            ),
           ),
-          // IconButton(
-          //   padding: const EdgeInsets.only(bottom: 4),
-          //   iconSize: 40,
-          //   disabledColor: Colors.grey,
-          //   color: Colors.white,
-          //   icon: const Icon(Icons.chevron_right),
-          //   onPressed: () {
-
-          //   },
-          // )
-          // Visibility(
-          //     visible: controller.state.selectedIndex == 3,
-          //     child: Padding(
-          //         padding: const EdgeInsets.all(10),
-          //         child: DropdownButton(
-          //           value: controller.state.masterDataDestination,
-          //           style: const TextStyle(
-          //             fontSize: 14,
-          //             color: Colors.black,
-          //           ),
-          //           items: lstWordMenu
-          //               .map((e) => DropdownMenuItem(
-          //                     value: e.destination,
-          //                     child: Text(e.name),
-          //                   ))
-          //               .toList(),
-          //           onChanged: (lvl) async {
-          //             controller.setMasterDataDestination(lvl as String);
-          //           },
-          //         )))
+          IconButton(
+            padding: const EdgeInsets.only(bottom: 4),
+            disabledColor: Colors.grey,
+            // color: Colors.white,
+            icon: Icon(user_id == null ? Icons.logout : Icons.login),
+            onPressed: () async {
+              if (user_id == null) {
+                Navigator.pushNamed(context, "/login");
+              } else {
+                await auth!.signOut();
+                user_id = null;
+                controller.refreshState(user_id);
+              }
+            },
+          )
         ],
       ),
       body: Scaffold(
@@ -313,3 +284,17 @@ late final lstWordMenu = <Menu>[
   Menu("Ханз", "kanji", Icons.dashboard_outlined, KanjiListPage(),
       KanjiCardPage()),
 ];
+
+class AfenUser {
+  late String userName;
+  late String uuid;
+  late String password;
+  late String birthday;
+}
+
+// class AppSetting {
+//   late String userName;
+//   late String uuid;
+//   late String password;
+//   late String birthday;
+// }

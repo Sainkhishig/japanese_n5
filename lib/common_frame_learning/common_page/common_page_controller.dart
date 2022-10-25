@@ -39,4 +39,8 @@ class CommonPageController extends StateNotifier<CommonPageModel> {
   setGameMode(bool isGameMode) async {
     state = state.copyWith(isGameMode: isGameMode);
   }
+
+  refreshState(String? uuid) async {
+    state = state.copyWith(userName: uuid ?? "");
+  }
 }

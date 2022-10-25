@@ -22,12 +22,14 @@ class _$CommonPageModelTearOff {
   const _$CommonPageModelTearOff();
 
   _CommonPageModel call(
-      {String title = "",
+      {String userName = "",
+      String title = "",
       int selectedIndex = 0,
       bool isGameMode = false,
       String masterDataDestination = "letter",
       String vocabularyMenuDestination = "allVocabulary"}) {
     return _CommonPageModel(
+      userName: userName,
       title: title,
       selectedIndex: selectedIndex,
       isGameMode: isGameMode,
@@ -46,6 +48,7 @@ const $CommonPageModel = _$CommonPageModelTearOff();
 
 /// @nodoc
 mixin _$CommonPageModel {
+  String get userName => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   int get selectedIndex => throw _privateConstructorUsedError;
   bool get isGameMode => throw _privateConstructorUsedError;
@@ -64,7 +67,8 @@ abstract class $CommonPageModelCopyWith<$Res> {
           CommonPageModel value, $Res Function(CommonPageModel) then) =
       _$CommonPageModelCopyWithImpl<$Res>;
   $Res call(
-      {String title,
+      {String userName,
+      String title,
       int selectedIndex,
       bool isGameMode,
       String masterDataDestination,
@@ -82,6 +86,7 @@ class _$CommonPageModelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? userName = freezed,
     Object? title = freezed,
     Object? selectedIndex = freezed,
     Object? isGameMode = freezed,
@@ -89,6 +94,10 @@ class _$CommonPageModelCopyWithImpl<$Res>
     Object? vocabularyMenuDestination = freezed,
   }) {
     return _then(_value.copyWith(
+      userName: userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -121,7 +130,8 @@ abstract class _$CommonPageModelCopyWith<$Res>
       __$CommonPageModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String title,
+      {String userName,
+      String title,
       int selectedIndex,
       bool isGameMode,
       String masterDataDestination,
@@ -141,6 +151,7 @@ class __$CommonPageModelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? userName = freezed,
     Object? title = freezed,
     Object? selectedIndex = freezed,
     Object? isGameMode = freezed,
@@ -148,6 +159,10 @@ class __$CommonPageModelCopyWithImpl<$Res>
     Object? vocabularyMenuDestination = freezed,
   }) {
     return _then(_CommonPageModel(
+      userName: userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -176,7 +191,8 @@ class __$CommonPageModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CommonPageModel implements _CommonPageModel {
   const _$_CommonPageModel(
-      {this.title = "",
+      {this.userName = "",
+      this.title = "",
       this.selectedIndex = 0,
       this.isGameMode = false,
       this.masterDataDestination = "letter",
@@ -185,6 +201,9 @@ class _$_CommonPageModel implements _CommonPageModel {
   factory _$_CommonPageModel.fromJson(Map<String, dynamic> json) =>
       _$$_CommonPageModelFromJson(json);
 
+  @JsonKey(defaultValue: "")
+  @override
+  final String userName;
   @JsonKey(defaultValue: "")
   @override
   final String title;
@@ -203,13 +222,16 @@ class _$_CommonPageModel implements _CommonPageModel {
 
   @override
   String toString() {
-    return 'CommonPageModel(title: $title, selectedIndex: $selectedIndex, isGameMode: $isGameMode, masterDataDestination: $masterDataDestination, vocabularyMenuDestination: $vocabularyMenuDestination)';
+    return 'CommonPageModel(userName: $userName, title: $title, selectedIndex: $selectedIndex, isGameMode: $isGameMode, masterDataDestination: $masterDataDestination, vocabularyMenuDestination: $vocabularyMenuDestination)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _CommonPageModel &&
+            (identical(other.userName, userName) ||
+                const DeepCollectionEquality()
+                    .equals(other.userName, userName)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.selectedIndex, selectedIndex) ||
@@ -231,6 +253,7 @@ class _$_CommonPageModel implements _CommonPageModel {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(userName) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(selectedIndex) ^
       const DeepCollectionEquality().hash(isGameMode) ^
@@ -250,7 +273,8 @@ class _$_CommonPageModel implements _CommonPageModel {
 
 abstract class _CommonPageModel implements CommonPageModel {
   const factory _CommonPageModel(
-      {String title,
+      {String userName,
+      String title,
       int selectedIndex,
       bool isGameMode,
       String masterDataDestination,
@@ -259,6 +283,8 @@ abstract class _CommonPageModel implements CommonPageModel {
   factory _CommonPageModel.fromJson(Map<String, dynamic> json) =
       _$_CommonPageModel.fromJson;
 
+  @override
+  String get userName => throw _privateConstructorUsedError;
   @override
   String get title => throw _privateConstructorUsedError;
   @override

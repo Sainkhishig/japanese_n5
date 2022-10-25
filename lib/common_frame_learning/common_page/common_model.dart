@@ -6,6 +6,7 @@ part 'common_model.g.dart';
 @freezed
 abstract class CommonPageModel with _$CommonPageModel {
   const factory CommonPageModel({
+    @Default("") String userName,
     @Default("") String title,
     @Default(0) int selectedIndex,
     @Default(false) bool isGameMode,
