@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:ui';
 
 import 'package:adaptive_navigation/adaptive_navigation.dart';
@@ -204,9 +203,10 @@ class CommonLearningPage extends HookConsumerWidget {
       )),
       selectedIndex: controller.state.selectedIndex,
       onDestinationSelected: (value) {
-        if (value == (lstMenu.length - 1)) {
-          controller.setGameMode(!controller.state.isGameMode);
-        }
+        controller.setGameMode(false);
+        // if (value == (lstMenu.length - 1)) {
+        //   controller.setGameMode(!controller.state.isGameMode);
+        // }
         controller.setSelectedIndex(value);
       },
       destinations: _buildDestinations2(context, controller),
