@@ -216,18 +216,19 @@ class CommonLearningPage extends HookConsumerWidget {
         title: Column(
           children: [
             Container(
-              padding: const EdgeInsets.only(bottom: 5),
-              margin: const EdgeInsets.only(bottom: 20),
-              constraints: const BoxConstraints.expand(height: 150.0),
-              decoration: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(width: 4.0, color: Colors.amber),
-                  bottom: BorderSide(width: 4.0, color: Colors.amber),
-                ),
-                // color: Colors.blue
-              ),
+              // padding: const EdgeInsets.only(bottom: 5),
+              // margin: const EdgeInsets.only(bottom: 20),
+              constraints:
+                  const BoxConstraints.expand(height: 150.0, width: 170),
+              // decoration: const BoxDecoration(
+              //   border: Border(
+              //     top: BorderSide(width: 4.0, color: Colors.amber),
+              //     bottom: BorderSide(width: 4.0, color: Colors.amber),
+              //   ),
+              //   // color: Colors.blue
+              // ),
               child: Image.asset(
-                "assets/images/logo-removebg-preview.png",
+                "assets/images/logo-shadow.png",
                 fit: BoxFit.fill,
               ),
             ),
