@@ -147,11 +147,14 @@ class AdjectiveListPage extends HookConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            IconButton(
-                              onPressed: () {
-                                speak(lst[index].word);
-                              },
-                              icon: Icon(Icons.volume_up),
+                            Visibility(
+                              visible: controller.isShowPreference ?? true,
+                              child: IconButton(
+                                onPressed: () {
+                                  speak(lst[index].word);
+                                },
+                                icon: Icon(Icons.volume_up),
+                              ),
                             ),
                             Expanded(
                               flex: 1,

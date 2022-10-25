@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:afen_vocabulary/common_providers/shared_preferences_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 // import 'package:http/http.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 import 'master_data_model.dart';
@@ -16,10 +18,13 @@ class MasterDataPageController extends StateNotifier<MasterDataModel> {
       : super(const MasterDataModel());
 
   final StateNotifierProviderRef widgetRef;
+  late SharedPreferences preferences;
+  bool? get isShowPreference => preferences.getBool("isShowSpeechIcon");
   @override
   MasterDataModel get state;
   void setModelListenable(WidgetRef ref) {
     ref.watch(letterCardProvider);
+    preferences = ref.read(sharedPreferencesProvider);
   }
 
   // void setLevel(int level) {

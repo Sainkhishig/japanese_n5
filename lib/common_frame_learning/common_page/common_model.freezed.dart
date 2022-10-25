@@ -26,6 +26,7 @@ class _$CommonPageModelTearOff {
       String title = "",
       int selectedIndex = 0,
       bool isGameMode = false,
+      bool isShowSpeech = true,
       String masterDataDestination = "letter",
       String vocabularyMenuDestination = "allVocabulary"}) {
     return _CommonPageModel(
@@ -33,6 +34,7 @@ class _$CommonPageModelTearOff {
       title: title,
       selectedIndex: selectedIndex,
       isGameMode: isGameMode,
+      isShowSpeech: isShowSpeech,
       masterDataDestination: masterDataDestination,
       vocabularyMenuDestination: vocabularyMenuDestination,
     );
@@ -52,6 +54,7 @@ mixin _$CommonPageModel {
   String get title => throw _privateConstructorUsedError;
   int get selectedIndex => throw _privateConstructorUsedError;
   bool get isGameMode => throw _privateConstructorUsedError;
+  bool get isShowSpeech => throw _privateConstructorUsedError;
   String get masterDataDestination => throw _privateConstructorUsedError;
   String get vocabularyMenuDestination => throw _privateConstructorUsedError;
 
@@ -71,6 +74,7 @@ abstract class $CommonPageModelCopyWith<$Res> {
       String title,
       int selectedIndex,
       bool isGameMode,
+      bool isShowSpeech,
       String masterDataDestination,
       String vocabularyMenuDestination});
 }
@@ -90,6 +94,7 @@ class _$CommonPageModelCopyWithImpl<$Res>
     Object? title = freezed,
     Object? selectedIndex = freezed,
     Object? isGameMode = freezed,
+    Object? isShowSpeech = freezed,
     Object? masterDataDestination = freezed,
     Object? vocabularyMenuDestination = freezed,
   }) {
@@ -109,6 +114,10 @@ class _$CommonPageModelCopyWithImpl<$Res>
       isGameMode: isGameMode == freezed
           ? _value.isGameMode
           : isGameMode // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isShowSpeech: isShowSpeech == freezed
+          ? _value.isShowSpeech
+          : isShowSpeech // ignore: cast_nullable_to_non_nullable
               as bool,
       masterDataDestination: masterDataDestination == freezed
           ? _value.masterDataDestination
@@ -134,6 +143,7 @@ abstract class _$CommonPageModelCopyWith<$Res>
       String title,
       int selectedIndex,
       bool isGameMode,
+      bool isShowSpeech,
       String masterDataDestination,
       String vocabularyMenuDestination});
 }
@@ -155,6 +165,7 @@ class __$CommonPageModelCopyWithImpl<$Res>
     Object? title = freezed,
     Object? selectedIndex = freezed,
     Object? isGameMode = freezed,
+    Object? isShowSpeech = freezed,
     Object? masterDataDestination = freezed,
     Object? vocabularyMenuDestination = freezed,
   }) {
@@ -174,6 +185,10 @@ class __$CommonPageModelCopyWithImpl<$Res>
       isGameMode: isGameMode == freezed
           ? _value.isGameMode
           : isGameMode // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isShowSpeech: isShowSpeech == freezed
+          ? _value.isShowSpeech
+          : isShowSpeech // ignore: cast_nullable_to_non_nullable
               as bool,
       masterDataDestination: masterDataDestination == freezed
           ? _value.masterDataDestination
@@ -195,6 +210,7 @@ class _$_CommonPageModel implements _CommonPageModel {
       this.title = "",
       this.selectedIndex = 0,
       this.isGameMode = false,
+      this.isShowSpeech = true,
       this.masterDataDestination = "letter",
       this.vocabularyMenuDestination = "allVocabulary"});
 
@@ -213,6 +229,9 @@ class _$_CommonPageModel implements _CommonPageModel {
   @JsonKey(defaultValue: false)
   @override
   final bool isGameMode;
+  @JsonKey(defaultValue: true)
+  @override
+  final bool isShowSpeech;
   @JsonKey(defaultValue: "letter")
   @override
   final String masterDataDestination;
@@ -222,7 +241,7 @@ class _$_CommonPageModel implements _CommonPageModel {
 
   @override
   String toString() {
-    return 'CommonPageModel(userName: $userName, title: $title, selectedIndex: $selectedIndex, isGameMode: $isGameMode, masterDataDestination: $masterDataDestination, vocabularyMenuDestination: $vocabularyMenuDestination)';
+    return 'CommonPageModel(userName: $userName, title: $title, selectedIndex: $selectedIndex, isGameMode: $isGameMode, isShowSpeech: $isShowSpeech, masterDataDestination: $masterDataDestination, vocabularyMenuDestination: $vocabularyMenuDestination)';
   }
 
   @override
@@ -240,6 +259,9 @@ class _$_CommonPageModel implements _CommonPageModel {
             (identical(other.isGameMode, isGameMode) ||
                 const DeepCollectionEquality()
                     .equals(other.isGameMode, isGameMode)) &&
+            (identical(other.isShowSpeech, isShowSpeech) ||
+                const DeepCollectionEquality()
+                    .equals(other.isShowSpeech, isShowSpeech)) &&
             (identical(other.masterDataDestination, masterDataDestination) ||
                 const DeepCollectionEquality().equals(
                     other.masterDataDestination, masterDataDestination)) &&
@@ -257,6 +279,7 @@ class _$_CommonPageModel implements _CommonPageModel {
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(selectedIndex) ^
       const DeepCollectionEquality().hash(isGameMode) ^
+      const DeepCollectionEquality().hash(isShowSpeech) ^
       const DeepCollectionEquality().hash(masterDataDestination) ^
       const DeepCollectionEquality().hash(vocabularyMenuDestination);
 
@@ -277,6 +300,7 @@ abstract class _CommonPageModel implements CommonPageModel {
       String title,
       int selectedIndex,
       bool isGameMode,
+      bool isShowSpeech,
       String masterDataDestination,
       String vocabularyMenuDestination}) = _$_CommonPageModel;
 
@@ -291,6 +315,8 @@ abstract class _CommonPageModel implements CommonPageModel {
   int get selectedIndex => throw _privateConstructorUsedError;
   @override
   bool get isGameMode => throw _privateConstructorUsedError;
+  @override
+  bool get isShowSpeech => throw _privateConstructorUsedError;
   @override
   String get masterDataDestination => throw _privateConstructorUsedError;
   @override

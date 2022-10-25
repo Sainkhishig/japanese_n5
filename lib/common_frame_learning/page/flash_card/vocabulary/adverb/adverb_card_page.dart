@@ -142,12 +142,15 @@ class AdverbCardPage extends HookConsumerWidget {
                   style: const TextStyle(
                       fontSize: 30, fontWeight: FontWeight.bold),
                 ))),
-                TextButton.icon(
-                  onPressed: () {
-                    speak(currentWord.exampleTr);
-                  },
-                  icon: const Icon(Icons.volume_up),
-                  label: Text(currentWord.exampleTr),
+                Visibility(
+                  visible: controller.isShowPreference ?? true,
+                  child: TextButton.icon(
+                    onPressed: () {
+                      speak(currentWord.exampleTr);
+                    },
+                    icon: const Icon(Icons.volume_up),
+                    label: Text(currentWord.exampleTr),
+                  ),
                 ),
                 Expanded(flex: 1, child: Text(currentWord.example))
               ],
@@ -163,13 +166,16 @@ class AdverbCardPage extends HookConsumerWidget {
                   style: const TextStyle(
                       fontSize: 30, fontWeight: FontWeight.bold),
                 )),
-                IconButton(
-                  onPressed: () {
-                    speak(currentWord.word);
-                  },
-                  iconSize: 50,
-                  icon: Icon(Icons.volume_up),
-                ),
+                Visibility(
+                  visible: controller.isShowPreference ?? true,
+                  child: IconButton(
+                    onPressed: () {
+                      speak(currentWord.word);
+                    },
+                    iconSize: 50,
+                    icon: Icon(Icons.volume_up),
+                  ),
+                )
               ],
             ))));
   }

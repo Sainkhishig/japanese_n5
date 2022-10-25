@@ -169,13 +169,15 @@ class VocabularyCardPage extends HookConsumerWidget {
                   style: const TextStyle(
                       fontSize: 30, fontWeight: FontWeight.bold),
                 ))),
-                TextButton.icon(
-                  onPressed: () {
-                    speak(currentWord.exampleTr);
-                  },
-                  icon: const Icon(Icons.volume_up),
-                  label: Text(currentWord.exampleTr),
-                ),
+                Visibility(
+                    visible: controller.isShowPreference ?? true,
+                    child: TextButton.icon(
+                      onPressed: () {
+                        speak(currentWord.exampleTr);
+                      },
+                      icon: const Icon(Icons.volume_up),
+                      label: Text(currentWord.exampleTr),
+                    )),
                 Expanded(flex: 1, child: Text(currentWord.example))
               ],
             )),
@@ -192,17 +194,20 @@ class VocabularyCardPage extends HookConsumerWidget {
                   style: const TextStyle(
                       fontSize: 30, fontWeight: FontWeight.bold),
                 )),
-                IconButton(
-                  onPressed: () {
-                    if (currentWord.word.isNotEmpty) {
-                      speak(currentWord.word);
-                    } else {
-                      speak(currentWord.kanji);
-                    }
-                  },
-                  iconSize: 50,
-                  icon: const Icon(Icons.volume_up),
-                ),
+                Visibility(
+                  visible: controller.isShowPreference ?? true,
+                  child: IconButton(
+                    onPressed: () {
+                      if (currentWord.word.isNotEmpty) {
+                        speak(currentWord.word);
+                      } else {
+                        speak(currentWord.kanji);
+                      }
+                    },
+                    iconSize: 50,
+                    icon: const Icon(Icons.volume_up),
+                  ),
+                )
               ],
             ))));
   }

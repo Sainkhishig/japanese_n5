@@ -295,11 +295,14 @@ class ConfugationResultForm extends HookConsumerWidget {
                                 (isChecked ?? false),
                             child: Row(
                               children: [
-                                IconButton(
-                                  onPressed: () {
-                                    speak(result.conjugatedVerb);
-                                  },
-                                  icon: Icon(Icons.volume_up),
+                                Visibility(
+                                  visible: controller.isShowPreference ?? true,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      speak(result.conjugatedVerb);
+                                    },
+                                    icon: Icon(Icons.volume_up),
+                                  ),
                                 ),
                                 Expanded(
                                   child: Text(

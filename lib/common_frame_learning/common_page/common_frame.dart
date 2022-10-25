@@ -111,6 +111,17 @@ class CommonLearningPage extends HookConsumerWidget {
             children: [
               IconButton(
                   onPressed: () {
+                    controller.setSpeechVisible(!controller.state.isShowSpeech);
+                  },
+                  icon: Icon((controller.isShowPreference ?? true)
+                      ? CupertinoIcons.volume_up
+                      : CupertinoIcons.volume_off)),
+            ],
+          ),
+          ButtonBar(
+            children: [
+              IconButton(
+                  onPressed: () {
                     controller.setGameMode(!controller.state.isGameMode);
                   },
                   icon: Icon(

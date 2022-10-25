@@ -1,4 +1,6 @@
+import 'package:afen_vocabulary/common_providers/shared_preferences_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 import 'common_model.dart';
@@ -13,10 +15,13 @@ class CommonPageController extends StateNotifier<CommonPageModel> {
       : super(const CommonPageModel());
 
   final StateNotifierProviderRef widgetRef;
+  late SharedPreferences preferences;
+  bool? get isShowPreference => preferences.getBool("isShowSpeechIcon");
   @override
   CommonPageModel get state;
   void setModelListenable(WidgetRef ref) {
     ref.watch(commonPageProvider);
+    preferences = ref.read(sharedPreferencesProvider);
   }
 
   setTableServingLocation(int selectedPlaceId) async {
@@ -38,6 +43,12 @@ class CommonPageController extends StateNotifier<CommonPageModel> {
 
   setGameMode(bool isGameMode) async {
     state = state.copyWith(isGameMode: isGameMode);
+  }
+
+  setSpeechVisible(bool isShow) async {
+    var preferences = widgetRef.read(sharedPreferencesProvider);
+    await preferences.setBool("isShowSpeechIcon", isShow);
+    state = state.copyWith(isShowSpeech: isShow);
   }
 
   refreshState(String? uuid) async {

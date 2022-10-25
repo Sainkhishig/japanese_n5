@@ -127,15 +127,18 @@ class LetterPage extends HookConsumerWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                IconButton(
-                                  onPressed: () {
-                                    speak(
-                                      currentLetter.lstLetter[index],
-                                    );
-                                  },
-                                  // iconSize: 30,
-                                  icon: const Icon(Icons.volume_up),
-                                ),
+                                Visibility(
+                                  visible: controller.isShowPreference ?? true,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      speak(
+                                        currentLetter.lstLetter[index],
+                                      );
+                                    },
+                                    // iconSize: 30,
+                                    icon: const Icon(Icons.volume_up),
+                                  ),
+                                )
                               ],
                             ),
                             Column(

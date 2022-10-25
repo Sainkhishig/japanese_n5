@@ -143,13 +143,16 @@ class KanjiCardPage extends HookConsumerWidget {
                   style: const TextStyle(
                       fontSize: 30, fontWeight: FontWeight.bold),
                 ))),
-                TextButton.icon(
-                  onPressed: () {
-                    speak(currentWord.example);
-                  },
-                  icon: const Icon(Icons.volume_up),
-                  label: Text(
-                      "${currentWord.example} (${currentWord.exampleReading})"),
+                Visibility(
+                  visible: controller.isShowPreference,
+                  child: TextButton.icon(
+                    onPressed: () {
+                      speak(currentWord.example);
+                    },
+                    icon: const Icon(Icons.volume_up),
+                    label: Text(
+                        "${currentWord.example} (${currentWord.exampleReading})"),
+                  ),
                 ),
                 Expanded(flex: 1, child: Text(currentWord.exampleTr)),
                 Expanded(

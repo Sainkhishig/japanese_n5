@@ -131,11 +131,14 @@ class KanjiListPage extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(
-                onPressed: () {
-                  speak("");
-                },
-                icon: const Icon(Icons.volume_up),
+              Visibility(
+                visible: controller.isShowPreference ?? true,
+                child: IconButton(
+                  onPressed: () {
+                    speak("");
+                  },
+                  icon: const Icon(Icons.volume_up),
+                ),
               ),
               const Expanded(
                 flex: 1,
@@ -185,11 +188,14 @@ class KanjiListPage extends HookConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            IconButton(
-                              onPressed: () {
-                                speak(lst[index].kunReading);
-                              },
-                              icon: const Icon(Icons.volume_up),
+                            Visibility(
+                              visible: controller.isShowPreference ?? true,
+                              child: IconButton(
+                                onPressed: () {
+                                  speak(lst[index].kunReading);
+                                },
+                                icon: const Icon(Icons.volume_up),
+                              ),
                             ),
                             Expanded(
                               flex: 1,

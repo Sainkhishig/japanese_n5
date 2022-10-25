@@ -1,4 +1,5 @@
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/vocabulary_model.dart';
+import 'package:afen_vocabulary/common_providers/shared_preferences_provider.dart';
 import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
 import 'package:afen_vocabulary/hive_db/object/kanji_dictionary.dart';
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
@@ -6,6 +7,7 @@ import 'package:csv/csv.dart';
 import 'package:excel/excel.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 final kanjiListProvider =
@@ -18,10 +20,14 @@ class KanjiListPageController extends StateNotifier<VocabularyModel> {
       : super(const VocabularyModel());
 
   final StateNotifierProviderRef widgetRef;
+  late SharedPreferences preferences;
+  bool? get isShowPreference => preferences.getBool("isShowSpeechIcon");
+
   @override
   VocabularyModel get state;
   void setModelListenable(WidgetRef ref) {
     ref.watch(kanjiListProvider);
+    preferences = ref.read(sharedPreferencesProvider);
   }
 
   setSelectedIndex(int index) async {

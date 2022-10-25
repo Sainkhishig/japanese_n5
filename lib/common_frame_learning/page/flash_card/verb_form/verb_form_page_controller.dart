@@ -1,7 +1,9 @@
 import 'package:afen_vocabulary/common_frame_learning/page/master/verbForm/verb_form_model.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/verb_conjugation/conjugation_constant.dart';
+import 'package:afen_vocabulary/common_providers/shared_preferences_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kana_kit/kana_kit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 final verbFormGamePageProvider =
@@ -14,10 +16,14 @@ class VerbFormGamePageController extends StateNotifier<VerbFormModel> {
       : super(VerbFormModel());
 
   final StateNotifierProviderRef widgetRef;
+  late SharedPreferences preferences;
+  bool? get isShowPreference => preferences.getBool("isShowSpeechIcon");
+
   @override
   VerbFormModel get state;
   void setModelListenable(WidgetRef ref) {
     ref.watch(verbFormGamePageProvider);
+    preferences = ref.read(sharedPreferencesProvider);
   }
 
   setSelectedIndex(int index) async {

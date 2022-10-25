@@ -12,6 +12,7 @@ _$_CommonPageModel _$$_CommonPageModelFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String? ?? '',
       selectedIndex: json['selectedIndex'] as int? ?? 0,
       isGameMode: json['isGameMode'] as bool? ?? false,
+      isShowSpeech: json['isShowSpeech'] as bool? ?? true,
       masterDataDestination:
           json['masterDataDestination'] as String? ?? 'letter',
       vocabularyMenuDestination:
@@ -24,6 +25,7 @@ Map<String, dynamic> _$$_CommonPageModelToJson(_$_CommonPageModel instance) =>
       'title': instance.title,
       'selectedIndex': instance.selectedIndex,
       'isGameMode': instance.isGameMode,
+      'isShowSpeech': instance.isShowSpeech,
       'masterDataDestination': instance.masterDataDestination,
       'vocabularyMenuDestination': instance.vocabularyMenuDestination,
     };

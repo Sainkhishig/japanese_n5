@@ -128,13 +128,16 @@ class MasterDataPage extends HookConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            IconButton(
-                              onPressed: () {
-                                speak(
-                                  currentLetter.lstWord[index].reading,
-                                );
-                              },
-                              icon: Icon(Icons.volume_up),
+                            Visibility(
+                              visible: controller.isShowPreference ?? true,
+                              child: IconButton(
+                                onPressed: () {
+                                  speak(
+                                    currentLetter.lstWord[index].reading,
+                                  );
+                                },
+                                icon: Icon(Icons.volume_up),
+                              ),
                             ),
                             Expanded(
                               flex: 1,

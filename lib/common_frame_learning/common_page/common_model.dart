@@ -10,6 +10,7 @@ abstract class CommonPageModel with _$CommonPageModel {
     @Default("") String title,
     @Default(0) int selectedIndex,
     @Default(false) bool isGameMode,
+    @Default(true) bool isShowSpeech,
     @Default("letter") String masterDataDestination,
     @Default("allVocabulary") String vocabularyMenuDestination,
   }) = _CommonPageModel;

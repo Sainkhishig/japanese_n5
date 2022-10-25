@@ -132,14 +132,17 @@ class PronounGamePage extends HookConsumerWidget {
                                   // kanakit.toRomaji(currentLetter.lstLetter[index]),
                                   textAlign: TextAlign.center,
                                 ),
-                                IconButton(
-                                  onPressed: () {
-                                    speak(
-                                      currentLetter.lstLetter[index].reading,
-                                    );
-                                  },
-                                  icon: Icon(Icons.volume_up),
-                                ),
+                                Visibility(
+                                  visible: controller.isShowPreference,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      speak(
+                                        currentLetter.lstLetter[index].reading,
+                                      );
+                                    },
+                                    icon: Icon(Icons.volume_up),
+                                  ),
+                                )
                               ],
                             ),
                             backWidget: Text(
