@@ -1,5 +1,6 @@
 import 'package:afen_vocabulary/common_frame_learning/common_page/common_frame.dart';
 import 'package:afen_vocabulary/common_frame_practice/common_page/common_practice_page.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                   "Дасгал",
                   style: TextStyle(fontSize: 30),
                 )),
-          )
+          ),
         ],
       ),
     );

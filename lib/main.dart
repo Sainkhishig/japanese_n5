@@ -84,11 +84,7 @@ class MyApp extends HookConsumerWidget {
         //       )
         //     :
         MaterialApp(
-      initialRoute: '/',
-      home: loginState ? HomeScreen() : Login(),
-      routes: {
-        '/login': (context) => Login(),
-      },
+      home: HomeScreen(),
     );
 
     // ? HomeScreen()
@@ -102,28 +98,4 @@ class MyApp extends HookConsumerWidget {
     //     },
     //   );
   }
-
-  // Future<bool?> setInitValue(LoginState notifier) async {
-  //   KeycloakProfile? profile;
-  //   var isLoggedIn = await keycloakService.isLoggedIn();
-  //   notifier.loggedIn = isLoggedIn;
-  //   if (isLoggedIn) {
-  //     final token = await keycloakService.getToken();
-  //     Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-
-  //     // NOTE: KeyCloakのrolesは role と permission を含めているため、authorities と呼称する
-  //     notifier.authorities =
-  //         decodedToken['realm_access']['roles'].cast<String>();
-
-  //     profile = await keycloakService.loadUserProfile();
-  //     notifier.userName = profile!.username;
-  //     notifier.fullname = "${profile.lastName}${profile.firstName}";
-  //   } else {
-  //     notifier.userName = "";
-  //     notifier.fullname = "";
-  //     notifier.authorities = [];
-  //   }
-
-  //   return isLoggedIn;
-  // }
 }

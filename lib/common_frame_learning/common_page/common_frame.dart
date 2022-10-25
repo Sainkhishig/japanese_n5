@@ -1,4 +1,5 @@
 import 'package:adaptive_navigation/adaptive_navigation.dart';
+import 'package:afen_vocabulary/authentication/login.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/counter/counter_game_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/grammer/grammer_card_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/kanji/kanji_card_page.dart';
@@ -54,6 +55,9 @@ class CommonFrameLearning extends StatelessWidget {
         user_id: user_id,
         auth: auth,
       ),
+      routes: {
+        '/login': (context) => Login(),
+      },
     );
   }
 }
@@ -161,13 +165,15 @@ class CommonPage2 extends HookConsumerWidget {
             icon: Icon(Icons.menu),
             onSelected: (String s) async {
               if (s == 'Гарах') {
-                await auth!.signOut();
-                loginNotifier = false;
+                Navigator.pushNamed(context, "/login");
+                // await auth!.signOut();
+                // loginNotifier = false;
                 // loginNotifier.auth = ;
                 // loginNotifier(false);
                 // Navigator.of(context).pushNamed("/login");
               } else {
-                loginNotifier = false;
+                Navigator.pushNamed(context, "/login");
+                // loginNotifier = false;
                 // Navigator.of(context).pushNamed("/login");
               }
               // loginNotifier.notifyListeners();
