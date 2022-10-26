@@ -306,6 +306,12 @@ late final lstWordMenu = <Menu>[
   Menu("Ханз", "kanji", Icons.dashboard_outlined, KanjiListPage(),
       KanjiCardPage()),
 ];
+late final lstConjugation = <Menu>[
+  Menu("Үйл үг хувиргах", "verbConj", Icons.ac_unit, VocabularyListPage(),
+      VocabularyCardPage()),
+  Menu("Тэмдэг нэр хувиргах", "adjConj", Icons.dashboard_outlined,
+      KanjiListPage(), KanjiCardPage()),
+];
 
 class AfenUser {
   late String userName;

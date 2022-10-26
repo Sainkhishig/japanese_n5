@@ -21,9 +21,7 @@ class VerbFormPage extends HookConsumerWidget {
     final controller = ref.watch(verbFormPageProvider.notifier);
     controller.setModelListenable(ref);
 
-    List<Widget> lsttableServings = [];
-
-    // lsttableServings.add(tabCardBody(lstVerbForms, context, controller));
+    List<Widget> lstPages = [];
 
     for (var element in [
       VerbGroup.godan,
@@ -31,18 +29,18 @@ class VerbFormPage extends HookConsumerWidget {
       VerbGroup.irregular,
       null
     ]) {
-      lsttableServings.add(tabCardBody(element, context, controller, ref));
+      lstPages.add(pageBody(element, context, controller, ref));
     }
     return Scaffold(
       // appBar: AppBar(
       //   title: const Text("ҮҮ нөхцөл"),
       // ),
       body: Scaffold(
-        body: lsttableServings.isEmpty
+        body: lstPages.isEmpty
             ? showEmptyDataWidget()
             : PageView(
                 controller: pageController,
-                children: lsttableServings,
+                children: lstPages,
                 onPageChanged: (value) {
                   controller.setSelectedIndex(value);
                 },
@@ -71,9 +69,9 @@ class VerbFormPage extends HookConsumerWidget {
             ),
             Padding(
                 padding: const EdgeInsets.all(8),
-                child: Text(lsttableServings.isEmpty
+                child: Text(lstPages.isEmpty
                     ? " 0/0"
-                    : " ${controller.state.selectedCardIndex}/${lsttableServings.length}")),
+                    : " ${controller.state.selectedCardIndex}/${lstPages.length}")),
             IconButton(
               padding: const EdgeInsets.only(bottom: 4),
               iconSize: 40,
@@ -81,8 +79,7 @@ class VerbFormPage extends HookConsumerWidget {
               color: Colors.white,
               icon: const Icon(Icons.chevron_right),
               onPressed: () {
-                if (pageController.page!.toInt() + 1 <
-                    lsttableServings.length) {
+                if (pageController.page!.toInt() + 1 < lstPages.length) {
                   controller.setSelectedIndex(pageController.page!.toInt() + 1);
                   pageController.animateToPage(pageController.page!.toInt() + 1,
                       duration: const Duration(milliseconds: 500),
@@ -101,7 +98,7 @@ class VerbFormPage extends HookConsumerWidget {
     );
   }
 
-  Widget tabCardBody(VerbGroup? verbGroup, context,
+  Widget pageBody(VerbGroup? verbGroup, context,
       VerbFormPageController controller, WidgetRef ref) {
     List<ConjugationResult> conjugationResuls = [];
     String title = "";
@@ -140,9 +137,9 @@ class VerbFormPage extends HookConsumerWidget {
             controller.conjugateVerb(VerbGroup.irregular, "", "kuru");
     }
 
-    var listDragItem = conjugationResuls
+    var lstWidgetVerbDexription = conjugationResuls
         .map(
-          (verbResult) => ConfugationInfoForm(verbResult, verbGroup),
+          (verbResult) => WidgetVerbDescriptionWithEx(verbResult, verbGroup),
         )
         .toList();
 
@@ -167,9 +164,9 @@ class VerbFormPage extends HookConsumerWidget {
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  itemCount: listDragItem.length,
+                  itemCount: lstWidgetVerbDexription.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return listDragItem[index].build(context, ref);
+                    return lstWidgetVerbDexription[index].build(context, ref);
                   })),
         ],
       ),
@@ -177,8 +174,8 @@ class VerbFormPage extends HookConsumerWidget {
   }
 }
 
-class ConfugationInfoForm extends HookConsumerWidget {
-  ConfugationInfoForm(this.result, this.verbGroup, {Key? key})
+class WidgetVerbDescriptionWithEx extends HookConsumerWidget {
+  WidgetVerbDescriptionWithEx(this.result, this.verbGroup, {Key? key})
       : super(key: key);
   final ConjugationResult result;
 
