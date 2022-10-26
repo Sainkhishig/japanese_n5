@@ -1,6 +1,6 @@
-# afen_vocabulary
+# hishig-erdem
 
-A new Flutter project.
+япон хэлний хичээл (yapon helnii hicheel) Japanese tutorial.
 
 ## Getting Started
 
