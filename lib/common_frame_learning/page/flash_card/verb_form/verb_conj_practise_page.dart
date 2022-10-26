@@ -225,6 +225,7 @@ class ExerciseVerbConjResultForm extends HookConsumerWidget {
           child: ExpansionTile(
             // tilePadding: EdgeInsets.zero,
             title: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   flex: 2,
