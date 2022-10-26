@@ -132,7 +132,7 @@ class LetterPage extends HookConsumerWidget {
                           children: [
                             Visibility(
                               visible:
-                                  currentLetter.lstLetter[index].isNotEmpty ||
+                                  currentLetter.lstLetter[index].isNotEmpty &&
                                       (controller.isShowPreference ?? true),
                               child: IconButton(
                                 onPressed: () {
