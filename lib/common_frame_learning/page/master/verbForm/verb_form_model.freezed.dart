@@ -26,13 +26,13 @@ class _$VerbFormModelTearOff {
       int selectedCardIndex = 1,
       bool isTestMode = false,
       String currentVerb = "",
-      List<dynamic> lstVerbForms = const []}) {
+      List<dynamic> lstConjugateResult = const []}) {
     return _VerbFormModel(
       title: title,
       selectedCardIndex: selectedCardIndex,
       isTestMode: isTestMode,
       currentVerb: currentVerb,
-      lstVerbForms: lstVerbForms,
+      lstConjugateResult: lstConjugateResult,
     );
   }
 
@@ -50,7 +50,7 @@ mixin _$VerbFormModel {
   int get selectedCardIndex => throw _privateConstructorUsedError;
   bool get isTestMode => throw _privateConstructorUsedError;
   String get currentVerb => throw _privateConstructorUsedError;
-  List<dynamic> get lstVerbForms => throw _privateConstructorUsedError;
+  List<dynamic> get lstConjugateResult => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,7 +68,7 @@ abstract class $VerbFormModelCopyWith<$Res> {
       int selectedCardIndex,
       bool isTestMode,
       String currentVerb,
-      List<dynamic> lstVerbForms});
+      List<dynamic> lstConjugateResult});
 }
 
 /// @nodoc
@@ -86,7 +86,7 @@ class _$VerbFormModelCopyWithImpl<$Res>
     Object? selectedCardIndex = freezed,
     Object? isTestMode = freezed,
     Object? currentVerb = freezed,
-    Object? lstVerbForms = freezed,
+    Object? lstConjugateResult = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed
@@ -105,9 +105,9 @@ class _$VerbFormModelCopyWithImpl<$Res>
           ? _value.currentVerb
           : currentVerb // ignore: cast_nullable_to_non_nullable
               as String,
-      lstVerbForms: lstVerbForms == freezed
-          ? _value.lstVerbForms
-          : lstVerbForms // ignore: cast_nullable_to_non_nullable
+      lstConjugateResult: lstConjugateResult == freezed
+          ? _value.lstConjugateResult
+          : lstConjugateResult // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
     ));
   }
@@ -125,7 +125,7 @@ abstract class _$VerbFormModelCopyWith<$Res>
       int selectedCardIndex,
       bool isTestMode,
       String currentVerb,
-      List<dynamic> lstVerbForms});
+      List<dynamic> lstConjugateResult});
 }
 
 /// @nodoc
@@ -145,7 +145,7 @@ class __$VerbFormModelCopyWithImpl<$Res>
     Object? selectedCardIndex = freezed,
     Object? isTestMode = freezed,
     Object? currentVerb = freezed,
-    Object? lstVerbForms = freezed,
+    Object? lstConjugateResult = freezed,
   }) {
     return _then(_VerbFormModel(
       title: title == freezed
@@ -164,9 +164,9 @@ class __$VerbFormModelCopyWithImpl<$Res>
           ? _value.currentVerb
           : currentVerb // ignore: cast_nullable_to_non_nullable
               as String,
-      lstVerbForms: lstVerbForms == freezed
-          ? _value.lstVerbForms
-          : lstVerbForms // ignore: cast_nullable_to_non_nullable
+      lstConjugateResult: lstConjugateResult == freezed
+          ? _value.lstConjugateResult
+          : lstConjugateResult // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
     ));
   }
@@ -180,7 +180,7 @@ class _$_VerbFormModel implements _VerbFormModel {
       this.selectedCardIndex = 1,
       this.isTestMode = false,
       this.currentVerb = "",
-      this.lstVerbForms = const []});
+      this.lstConjugateResult = const []});
 
   factory _$_VerbFormModel.fromJson(Map<String, dynamic> json) =>
       _$$_VerbFormModelFromJson(json);
@@ -199,11 +199,11 @@ class _$_VerbFormModel implements _VerbFormModel {
   final String currentVerb;
   @JsonKey(defaultValue: const [])
   @override
-  final List<dynamic> lstVerbForms;
+  final List<dynamic> lstConjugateResult;
 
   @override
   String toString() {
-    return 'VerbFormModel(title: $title, selectedCardIndex: $selectedCardIndex, isTestMode: $isTestMode, currentVerb: $currentVerb, lstVerbForms: $lstVerbForms)';
+    return 'VerbFormModel(title: $title, selectedCardIndex: $selectedCardIndex, isTestMode: $isTestMode, currentVerb: $currentVerb, lstConjugateResult: $lstConjugateResult)';
   }
 
   @override
@@ -221,9 +221,9 @@ class _$_VerbFormModel implements _VerbFormModel {
             (identical(other.currentVerb, currentVerb) ||
                 const DeepCollectionEquality()
                     .equals(other.currentVerb, currentVerb)) &&
-            (identical(other.lstVerbForms, lstVerbForms) ||
+            (identical(other.lstConjugateResult, lstConjugateResult) ||
                 const DeepCollectionEquality()
-                    .equals(other.lstVerbForms, lstVerbForms)));
+                    .equals(other.lstConjugateResult, lstConjugateResult)));
   }
 
   @override
@@ -233,7 +233,7 @@ class _$_VerbFormModel implements _VerbFormModel {
       const DeepCollectionEquality().hash(selectedCardIndex) ^
       const DeepCollectionEquality().hash(isTestMode) ^
       const DeepCollectionEquality().hash(currentVerb) ^
-      const DeepCollectionEquality().hash(lstVerbForms);
+      const DeepCollectionEquality().hash(lstConjugateResult);
 
   @JsonKey(ignore: true)
   @override
@@ -252,7 +252,7 @@ abstract class _VerbFormModel implements VerbFormModel {
       int selectedCardIndex,
       bool isTestMode,
       String currentVerb,
-      List<dynamic> lstVerbForms}) = _$_VerbFormModel;
+      List<dynamic> lstConjugateResult}) = _$_VerbFormModel;
 
   factory _VerbFormModel.fromJson(Map<String, dynamic> json) =
       _$_VerbFormModel.fromJson;
@@ -266,7 +266,7 @@ abstract class _VerbFormModel implements VerbFormModel {
   @override
   String get currentVerb => throw _privateConstructorUsedError;
   @override
-  List<dynamic> get lstVerbForms => throw _privateConstructorUsedError;
+  List<dynamic> get lstConjugateResult => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$VerbFormModelCopyWith<_VerbFormModel> get copyWith =>

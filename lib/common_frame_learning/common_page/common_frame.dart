@@ -8,7 +8,7 @@ import 'package:afen_vocabulary/common_frame_learning/page/flash_card/kanji/kanj
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/letter/letter_game_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/master_data/master_data_game_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/pronoun_game/pronoun_game_page.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/flash_card/verb_form/verb_form_game_page.dart';
+import 'package:afen_vocabulary/common_frame_learning/page/flash_card/verb_form/verb_conj_practise_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/all/vocabulary_card_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/grammer/grammer_page.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/kanji/kanji_list_page.dart';
@@ -285,7 +285,8 @@ late final lstMenu = <Menu>[
       LetterCardPage()),
   Menu("Ханз, Шинэ үг", "allVocabulary", Icons.border_color,
       VocabularyListPage(), VocabularyCardPage()),
-  Menu("Дүрэм", "verbForm", Icons.rule, VerbFormPage(), VerbFormGamePage()),
+  Menu("Дүрэм", "verbForm", Icons.rule, VerbFormPage(),
+      VerbConjugationPracticePage()),
   Menu("Өгүүлбэр зүй", "grammer", Icons.school_rounded, GrammerPage(),
       GrammarCardPage()),
 ];

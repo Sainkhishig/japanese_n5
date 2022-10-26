@@ -10,7 +10,7 @@ abstract class VerbFormModel with _$VerbFormModel {
     @Default(1) int selectedCardIndex,
     @Default(false) bool isTestMode,
     @Default("") String currentVerb,
-    @Default([]) List<dynamic> lstVerbForms,
+    @Default([]) List<dynamic> lstConjugateResult,
   }) = _VerbFormModel;
   factory VerbFormModel.fromJson(Map<String, dynamic> json) =>
       _$VerbFormModelFromJson(json);

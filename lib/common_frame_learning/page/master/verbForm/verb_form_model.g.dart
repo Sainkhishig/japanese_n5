@@ -12,7 +12,7 @@ _$_VerbFormModel _$$_VerbFormModelFromJson(Map<String, dynamic> json) =>
       selectedCardIndex: json['selectedCardIndex'] as int? ?? 1,
       isTestMode: json['isTestMode'] as bool? ?? false,
       currentVerb: json['currentVerb'] as String? ?? '',
-      lstVerbForms: json['lstVerbForms'] as List<dynamic>? ?? [],
+      lstConjugateResult: json['lstConjugateResult'] as List<dynamic>? ?? [],
     );
 
 Map<String, dynamic> _$$_VerbFormModelToJson(_$_VerbFormModel instance) =>
@@ -21,5 +21,5 @@ Map<String, dynamic> _$$_VerbFormModelToJson(_$_VerbFormModel instance) =>
       'selectedCardIndex': instance.selectedCardIndex,
       'isTestMode': instance.isTestMode,
       'currentVerb': instance.currentVerb,
-      'lstVerbForms': instance.lstVerbForms,
+      'lstConjugateResult': instance.lstConjugateResult,
     };

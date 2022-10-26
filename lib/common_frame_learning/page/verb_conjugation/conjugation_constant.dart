@@ -731,7 +731,9 @@ List<ConjugationResult> conjugate(
             (element) => element.name.contains(kanakit.toHiragana(verbEnding)))
         .toList();
     var verbTeForm = conjugateByOne(group, teFormula[0], verbKana, verbEnding);
-    if ((verbKana + verbEnding) == "iku") verbTeForm.conjugatedVerb = "いって";
+    if ((verbKana + verbEnding) == "iku" || (verbKana + verbEnding) == "行ku") {
+      verbTeForm.conjugatedVerb = "いって";
+    }
     result.add(verbTeForm);
 
     var taFormula = taFormGodan
@@ -739,7 +741,9 @@ List<ConjugationResult> conjugate(
             (element) => element.name.contains(kanakit.toHiragana(verbEnding)))
         .toList();
     var verbTaForm = conjugateByOne(group, taFormula[0], verbKana, verbEnding);
-    if ((verbKana + verbEnding) == "iku") verbTaForm.conjugatedVerb = "いった";
+    if ((verbKana + verbEnding) == "iku" || (verbKana + verbEnding) == "行ku") {
+      verbTaForm.conjugatedVerb = "いった";
+    }
     result.add(verbTaForm);
   }
   return result;
@@ -772,13 +776,13 @@ ConjugationResult conjugateByOne(VerbGroup group, ConjugationFormula formula,
     var suffixes = kanakit.toRomaji(formula.suffix).split(",");
     var currentSuffix = verbEnding == "suru" ? suffixes[0] : suffixes[1];
 
-    conjugatedVerb = verbKana + currentSuffix;
+    conjugatedVerb = verbKana + kanakit.toHiragana(currentSuffix);
   } else if (formula.isRemove) {
-    conjugatedVerb = verbKana + kanakit.toRomaji(formula.suffix);
+    conjugatedVerb = verbKana + kanakit.toHiragana(formula.suffix);
   } else {
     conjugatedVerb = verbKana +
-        changeEndRow(verbEnding, formula.rowChanging) +
-        kanakit.toRomaji(formula.suffix);
+        kanakit.toHiragana(
+            changeEndRow(verbEnding, formula.rowChanging) + formula.suffix);
   }
   var hiraganaConjugated = kanakit.toHiragana(conjugatedVerb);
   var conjugationName = formula.type == Conjugation.teForm

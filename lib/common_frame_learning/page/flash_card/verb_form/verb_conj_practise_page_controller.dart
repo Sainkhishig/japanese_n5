@@ -6,13 +6,13 @@ import 'package:kana_kit/kana_kit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-final verbFormGamePageProvider =
-    StateNotifierProvider<VerbFormGamePageController, VerbFormModel>((ref) {
-  return VerbFormGamePageController(widgetRef: ref);
+final verbConjPracticePageProvider =
+    StateNotifierProvider<VerbConjPracticePageProvider, VerbFormModel>((ref) {
+  return VerbConjPracticePageProvider(widgetRef: ref);
 });
 
-class VerbFormGamePageController extends StateNotifier<VerbFormModel> {
-  VerbFormGamePageController({required this.widgetRef})
+class VerbConjPracticePageProvider extends StateNotifier<VerbFormModel> {
+  VerbConjPracticePageProvider({required this.widgetRef})
       : super(VerbFormModel());
 
   final StateNotifierProviderRef widgetRef;
@@ -22,7 +22,7 @@ class VerbFormGamePageController extends StateNotifier<VerbFormModel> {
   @override
   VerbFormModel get state;
   void setModelListenable(WidgetRef ref) {
-    ref.watch(verbFormGamePageProvider);
+    ref.watch(verbConjPracticePageProvider);
     preferences = ref.read(sharedPreferencesProvider);
   }
 
@@ -30,7 +30,7 @@ class VerbFormGamePageController extends StateNotifier<VerbFormModel> {
     state = state.copyWith(selectedCardIndex: index + 1);
   }
 
-  setTestMode(bool mode) async {
+  setExerciseMode(bool mode) async {
     state = state.copyWith(isTestMode: mode);
   }
 
@@ -48,7 +48,7 @@ class VerbFormGamePageController extends StateNotifier<VerbFormModel> {
     List<ConjugationResult> result = conjugate(group, verbKana, verbEnding);
     var currentV = KanaKit().toHiragana("$verbKana$verbEnding");
     if (result.isNotEmpty) {
-      state = state.copyWith(lstVerbForms: result);
+      state = state.copyWith(lstConjugateResult: result);
     }
     // lstRestult = result;
     return result;

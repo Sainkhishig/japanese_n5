@@ -3,36 +3,28 @@ import 'dart:math';
 import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/verb_conjugation/conjugation_constant.dart';
 import 'package:afen_vocabulary/common_frame_learning/page/verb_conjugation/conjugation_practice.dart';
-import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kana_kit/kana_kit.dart';
-import 'package:translit/translit.dart';
 
-import 'verb_form_page_controller.dart';
+import 'verb_conj_practise_page_controller.dart';
 
-class VerbFormGamePage extends HookConsumerWidget {
-  VerbFormGamePage({Key? key}) : super(key: key);
-  late N5Box lstN5;
-  final trans = Translit();
-  Random rnd = Random();
+class VerbConjugationPracticePage extends HookConsumerWidget {
+  VerbConjugationPracticePage({Key? key}) : super(key: key);
+
+  Random randomVerbToExercise = Random();
   KanaKit kanakit2 = const KanaKit();
 
-  TextEditingController tcVerb = TextEditingController();
+  TextEditingController tcVerbConjugator = TextEditingController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    PageController pageController = PageController(
-      initialPage: 0,
-      keepPage: true,
-    );
-
-    final controller = ref.watch(verbFormGamePageProvider.notifier);
+    final controller = ref.watch(verbConjPracticePageProvider.notifier);
     controller.setModelListenable(ref);
-    List<Widget> lsttableServings = [];
 
-    var listDragItem = controller.state.lstVerbForms
+    var lstWidgetConjugatedResult = controller.state.lstConjugateResult
         .map(
-          (verbResult) => ConfugationResultForm(verbResult),
+          (conjugatedVerb) => ExerciseVerbConjResultForm(conjugatedVerb),
         )
         .toList();
 
@@ -50,11 +42,12 @@ class VerbFormGamePage extends HookConsumerWidget {
                       value: controller.state.isTestMode,
                       onChanged: (value) {
                         if (value) {
-                          var verb = lstVerb[rnd.nextInt(lstVerb.length)];
+                          var verb = lstVerb[
+                              randomVerbToExercise.nextInt(lstVerb.length)];
                           controller.setVerb(verb);
-                          conjugateFormula(controller, verb);
+                          conjugateVerbByFormula(controller, verb);
                         }
-                        controller.setTestMode(value);
+                        controller.setExerciseMode(value);
                       },
                       // secondary: const Icon(Icons.lightbulb_outline),
                     )),
@@ -66,7 +59,7 @@ class VerbFormGamePage extends HookConsumerWidget {
                           width: 170,
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
-                            controller: tcVerb,
+                            controller: tcVerbConjugator,
                             decoration: const InputDecoration(
                                 labelText: "хувиргах үг",
                                 border: OutlineInputBorder()),
@@ -75,9 +68,9 @@ class VerbFormGamePage extends HookConsumerWidget {
                         ElevatedButton(
                           child: const Text("хувиргах"),
                           onPressed: () async {
-                            var verb = tcVerb.text;
+                            var verb = tcVerbConjugator.text;
                             if (verb.trim().isNotEmpty) {
-                              conjugateFormula(controller, verb);
+                              conjugateVerbByFormula(controller, verb);
                             }
                             // verb.endsWith(other)
                           },
@@ -92,9 +85,10 @@ class VerbFormGamePage extends HookConsumerWidget {
                   child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemCount: listDragItem.length,
+                      itemCount: lstWidgetConjugatedResult.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return listDragItem[index].build(context, ref);
+                        return lstWidgetConjugatedResult[index]
+                            .build(context, ref);
                       })),
             ),
             Visibility(
@@ -114,7 +108,7 @@ class VerbFormGamePage extends HookConsumerWidget {
                             width: 20,
                           ),
                           Text(
-                            "${listDragItem.where((element) => element.result.conjugatedVerb == kanakit2.toHiragana(element.tcTest.text.trim())).toList().length} / ${controller.state.lstVerbForms.length}",
+                            "${lstWidgetConjugatedResult.where((element) => element.result.conjugatedVerb == kanakit2.toHiragana(element.tcTest.text.trim())).toList().length} / ${controller.state.lstConjugateResult.length}",
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.blue),
@@ -125,9 +119,10 @@ class VerbFormGamePage extends HookConsumerWidget {
                         child: ListView.builder(
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
-                            itemCount: listDragItem.length,
+                            itemCount: lstWidgetConjugatedResult.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return listDragItem[index].build(context, ref);
+                              return lstWidgetConjugatedResult[index]
+                                  .build(context, ref);
                             })),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -136,25 +131,28 @@ class VerbFormGamePage extends HookConsumerWidget {
                             child: const Text("шалгах"),
                             onPressed: () async {
                               setState(() {
-                                listDragItem.forEach((rowElement) {
+                                for (var rowElement
+                                    in lstWidgetConjugatedResult) {
                                   rowElement.isChecked = true;
-                                });
+                                }
                               });
                             }),
                         const SizedBox(
                           width: 15,
                         ),
                         ElevatedButton.icon(
-                          icon: Icon(Icons.arrow_forward_sharp),
+                          icon: const Icon(Icons.arrow_forward_sharp),
                           onPressed: () async {
-                            var verb = lstVerb[rnd.nextInt(lstVerb.length)];
+                            var verb = lstVerb[
+                                randomVerbToExercise.nextInt(lstVerb.length)];
                             controller.setVerb(verb);
-                            conjugateFormula(controller, verb);
+                            conjugateVerbByFormula(controller, verb);
                             // controller.setVerb(verb)
                             setState(() {
-                              listDragItem.forEach((rowElement) {
+                              for (var rowElement
+                                  in lstWidgetConjugatedResult) {
                                 rowElement.isChecked = true;
-                              });
+                              }
                             });
                           },
                           label: Text(""),
@@ -169,60 +167,10 @@ class VerbFormGamePage extends HookConsumerWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 40,
-        color: Colors.grey,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              padding: const EdgeInsets.only(bottom: 4),
-              iconSize: 40,
-              disabledColor: Colors.grey,
-              color: Colors.white,
-              icon: const Icon(Icons.chevron_left),
-              onPressed: () {
-                if (pageController.page!.toInt() > 0) {
-                  controller.setSelectedIndex(pageController.page!.toInt() - 1);
-                  pageController.animateToPage(pageController.page!.toInt() - 1,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.ease);
-                }
-              },
-            ),
-            Padding(
-                padding: const EdgeInsets.all(8),
-                child: Text(lsttableServings.isEmpty
-                    ? " 0/0"
-                    : " ${controller.state.selectedCardIndex}/${lsttableServings.length}")),
-            IconButton(
-              padding: const EdgeInsets.only(bottom: 4),
-              iconSize: 40,
-              disabledColor: Colors.grey,
-              color: Colors.white,
-              icon: const Icon(Icons.chevron_right),
-              onPressed: () {
-                if (pageController.page!.toInt() + 1 <
-                    lsttableServings.length) {
-                  controller.setSelectedIndex(pageController.page!.toInt() + 1);
-                  pageController.animateToPage(pageController.page!.toInt() + 1,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.ease);
-                } else if (pageController.page!.toInt() != 0) {
-                  controller.setSelectedIndex(0);
-                  pageController.animateToPage(0,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.ease);
-                }
-              },
-            )
-          ],
-        ),
-      ),
     );
   }
 
-  conjugateFormula(VerbFormGamePageController controller, String verb) {
+  conjugateVerbByFormula(VerbConjPracticePageProvider controller, String verb) {
     VerbGroup group;
     var verbEnding = "";
     var verbHiragana = kanakit2.toHiragana(verb);
@@ -259,8 +207,8 @@ class VerbFormGamePage extends HookConsumerWidget {
   }
 }
 
-class ConfugationResultForm extends HookConsumerWidget {
-  ConfugationResultForm(this.result, {Key? key}) : super(key: key);
+class ExerciseVerbConjResultForm extends HookConsumerWidget {
+  ExerciseVerbConjResultForm(this.result, {Key? key}) : super(key: key);
   final ConjugationResult result;
   bool? isChecked;
   KanaKit kanakit2 = KanaKit();
@@ -268,8 +216,7 @@ class ConfugationResultForm extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //  ($conjugatedVerb)
-    final controller = ref.watch(verbFormGamePageProvider.notifier);
+    final controller = ref.watch(verbConjPracticePageProvider.notifier);
     var answer = kanakit2.toRomaji(tcTest.text.trim());
     var testResult = kanakit2.toRomaji(result.conjugatedVerb) == answer;
     return Row(
@@ -316,21 +263,17 @@ class ConfugationResultForm extends HookConsumerWidget {
                             )),
                         Visibility(
                           visible: controller.state.isTestMode,
-                          child: Container(
-                            // width: 200,
-                            // height: 50,
-                            child: TextFormField(
-                              readOnly: (isChecked ?? false),
-                              controller: tcTest,
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder()),
-                            ),
+                          child: TextFormField(
+                            readOnly: (isChecked ?? false),
+                            controller: tcTest,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder()),
                           ),
                         ),
                       ]),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(right: 10),
+                  padding: const EdgeInsets.only(right: 10),
                   child: Visibility(
                     visible:
                         controller.state.isTestMode && (isChecked ?? false),
