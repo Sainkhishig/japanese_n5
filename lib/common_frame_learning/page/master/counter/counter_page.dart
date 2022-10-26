@@ -101,7 +101,7 @@ class CounterPage extends HookConsumerWidget {
     return Card(
         child: Column(
       children: [
-        Text(title),
+        Text(title.substring(1)),
         const SizedBox(
           height: 5,
         ),
