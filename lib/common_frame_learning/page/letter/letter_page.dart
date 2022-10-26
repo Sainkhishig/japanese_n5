@@ -131,7 +131,9 @@ class LetterPage extends HookConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Visibility(
-                              visible: controller.isShowPreference ?? true,
+                              visible:
+                                  currentLetter.lstLetter[index].isNotEmpty ||
+                                      (controller.isShowPreference ?? true),
                               child: IconButton(
                                 onPressed: () {
                                   speak(
