@@ -95,9 +95,16 @@ class CounterPage extends HookConsumerWidget {
   }
 
   Widget tabCardBody(List<CounterGroup> lstCounter, context, controller) {
+    // var title = lstCounter.map((e) => e.wordMn.join(',')).toList();
+    var title = lstCounter.map<String>((value) => value.wordMn).join(',');
+
     return Card(
         child: Column(
       children: [
+        Text(title),
+        const SizedBox(
+          height: 5,
+        ),
         Expanded(
             child: Padding(
                 padding: const EdgeInsets.only(left: 10, right: 30),

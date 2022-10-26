@@ -102,61 +102,66 @@ class LetterPage extends HookConsumerWidget {
         ),
         Expanded(
             child: Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30),
-                child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      // childAspectRatio: 3 / 2,
-                      crossAxisSpacing: 2,
-                      mainAxisSpacing: 2,
-                      crossAxisCount: 5,
-                      mainAxisExtent: MediaQuery.of(context).size.height / 12,
+          padding: const EdgeInsets.only(left: 30, right: 30),
+          child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                // childAspectRatio: 3 / 2,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 2,
+                crossAxisCount: 5,
+                mainAxisExtent: MediaQuery.of(context).size.height / 14,
+              ),
+              itemCount: currentLetter.lstLetter.length,
+              itemBuilder: (BuildContext ctx, index) {
+                return Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1,
                     ),
-                    itemCount: currentLetter.lstLetter.length,
-                    itemBuilder: (BuildContext ctx, index) {
-                      return Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 1,
+                  ),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Visibility(
+                              visible: controller.isShowPreference ?? true,
+                              child: IconButton(
+                                onPressed: () {
+                                  speak(
+                                    currentLetter.lstLetter[index],
+                                  );
+                                },
+                                // iconSize: 30,
+                                icon: const Icon(Icons.volume_up),
+                              ),
+                            )
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              currentLetter.lstLetter[index],
                             ),
-                          ),
-                          child: Row(children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Visibility(
-                                  visible: controller.isShowPreference ?? true,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      speak(
-                                        currentLetter.lstLetter[index],
-                                      );
-                                    },
-                                    // iconSize: 30,
-                                    icon: const Icon(Icons.volume_up),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  currentLetter.lstLetter[index],
-                                ),
-                                Text(replaceCyrillic(
-                                    currentLetter.lstLetter[index])),
+                            Text(replaceCyrillic(
+                                currentLetter.lstLetter[index])),
 
-                                // trans.unTranslit(source: 'Privet mir');
-                                // Text(
-                                //     "(${kanakit.toRomaji(currentLetter.lstLetter[index])})")
-                              ],
-                            ),
-                          ]));
-                    })))
+                            // trans.unTranslit(source: 'Privet mir');
+                            // Text(
+                            //     "(${kanakit.toRomaji(currentLetter.lstLetter[index])})")
+                          ],
+                        ),
+                      ]),
+                );
+              }),
+        ))
       ],
     ));
   }
