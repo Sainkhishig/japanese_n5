@@ -238,6 +238,15 @@ class ExerciseVerbConjResultForm extends HookConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Visibility(
+                          visible: controller.state.isTestMode,
+                          child: TextFormField(
+                            readOnly: (isChecked ?? false),
+                            controller: tcTest,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder()),
+                          ),
+                        ),
+                        Visibility(
                             visible: !controller.state.isTestMode ||
                                 (isChecked ?? false),
                             child: Row(
@@ -248,7 +257,7 @@ class ExerciseVerbConjResultForm extends HookConsumerWidget {
                                     onPressed: () {
                                       speak(result.conjugatedVerb);
                                     },
-                                    icon: Icon(Icons.volume_up),
+                                    icon: const Icon(Icons.volume_up),
                                   ),
                                 ),
                                 Expanded(
@@ -261,15 +270,6 @@ class ExerciseVerbConjResultForm extends HookConsumerWidget {
                                 )
                               ],
                             )),
-                        Visibility(
-                          visible: controller.state.isTestMode,
-                          child: TextFormField(
-                            readOnly: (isChecked ?? false),
-                            controller: tcTest,
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder()),
-                          ),
-                        ),
                       ]),
                 ),
                 Padding(
