@@ -1,5 +1,5 @@
 import 'package:afen_vocabulary/authentication/email_check.dart';
-import 'package:afen_vocabulary/authentication/home.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'authentication_error.dart';
@@ -208,8 +208,8 @@ class _RegistrationState extends State<Registration> {
               minWidth: 350.0,
               // height: 100.0,
               child: RaisedButton(
-                child: Text(
-                  '登録',
+                child: const Text(
+                  'Бүртгүүлэх',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 textColor: Colors.white,

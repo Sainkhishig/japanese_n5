@@ -173,6 +173,9 @@ class LetterPage extends HookConsumerWidget {
     letter = letter.replaceAll('у', 'ү');
     letter = letter.replaceAll('е', 'э');
     letter = letter.replaceAll('сх', 'ш');
+    letter = letter.replaceAll('тс', 'ц');
+    letter = letter.replaceAll('wa', 'ва');
+    letter = letter.replaceAll('wo', 'о');
     letter = letter.replaceAll('й', 'ж');
     return letter;
   }

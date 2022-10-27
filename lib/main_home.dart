@@ -40,19 +40,19 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CommonPracticePage()));
-                },
-                child: const Text(
-                  "Дасгал",
-                  style: TextStyle(fontSize: 30),
-                )),
-          ),
+          // Center(
+          //   child: ElevatedButton(
+          //       onPressed: () {
+          //         Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //                 builder: (context) => const CommonPracticePage()));
+          //       },
+          //       child: const Text(
+          //         "Дасгал",
+          //         style: TextStyle(fontSize: 30),
+          //       )),
+          // ),
         ],
       ),
     );
