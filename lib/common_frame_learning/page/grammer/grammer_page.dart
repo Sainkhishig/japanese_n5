@@ -14,42 +14,40 @@ class GrammerPage extends HookConsumerWidget {
 
   final trans = Translit();
 
-  final keywordController = TextEditingController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(grammerPageProvider.notifier);
+    controller.setModelListenable(ref);
+
     PageController pageController = PageController(
       initialPage: 0,
       keepPage: true,
     );
-
-    final controller = ref.watch(grammerPageProvider.notifier);
-    controller.setModelListenable(ref);
-
-    List<Widget> lsttableServings = [];
-    // if (lstVocabul.isNotEmpty) {
+    List<Widget> lstGrammerPages = [];
     var filteredGrammar = lstGrammar;
+    print("search${controller.state.searchKey}");
     if (controller.state.searchKey.trim().isNotEmpty) {
       filteredGrammar = lstGrammar
-          .where(
-              (element) => element.grammar.contains(controller.state.searchKey))
+          .where((element) =>
+              element.grammar.contains(controller.state.searchKey) ||
+              element.grammarMn.contains(controller.state.searchKey))
           .toList();
     }
-    lsttableServings.add(tabCardBody(filteredGrammar, context, controller));
+    lstGrammerPages.add(tabCardBody(filteredGrammar, context, controller));
     // }
 
     return Scaffold(
-      body: //Expanded(child: FlashCardListItem(flashcards: flashCard)),
-          Column(
+      body: Column(
         children: [
           CustomSearchBar(onSearch: (searchKey) {
-            controller.setSearchKey(keywordController.text);
+            controller.setSearchKey(searchKey);
           }),
-          lsttableServings.isEmpty
+          lstGrammerPages.isEmpty
               ? showEmptyDataWidget()
               : Expanded(
                   child: PageView(
                     controller: pageController,
-                    children: lsttableServings,
+                    children: lstGrammerPages,
                     onPageChanged: (value) {
                       controller.setSelectedIndex(value);
                     },
@@ -58,61 +56,66 @@ class GrammerPage extends HookConsumerWidget {
         ],
       ),
       bottomNavigationBar: Container(
-        height: 40,
+        height: lstGrammerPages.length > 1 ? 40 : 0,
         color: Colors.grey,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              padding: const EdgeInsets.only(bottom: 4),
-              iconSize: 40,
-              disabledColor: Colors.grey,
-              color: Colors.white,
-              icon: const Icon(Icons.chevron_left),
-              onPressed: () {
-                if (pageController.page!.toInt() > 0) {
-                  controller.setSelectedIndex(pageController.page!.toInt() - 1);
-                  pageController.animateToPage(pageController.page!.toInt() - 1,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.ease);
-                }
-              },
-            ),
-            Padding(
-                padding: const EdgeInsets.all(8),
-                child: Text(lsttableServings.isEmpty
-                    ? " 0/0"
-                    : " ${controller.state.selectedCardIndex}/${lsttableServings.length}")),
-            IconButton(
-              padding: const EdgeInsets.only(bottom: 4),
-              iconSize: 40,
-              disabledColor: Colors.grey,
-              color: Colors.white,
-              icon: const Icon(Icons.chevron_right),
-              onPressed: () {
-                if (pageController.page!.toInt() + 1 <
-                    lsttableServings.length) {
-                  controller.setSelectedIndex(pageController.page!.toInt() + 1);
-                  pageController.animateToPage(pageController.page!.toInt() + 1,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.ease);
-                } else if (pageController.page!.toInt() != 0) {
-                  controller.setSelectedIndex(0);
-                  pageController.animateToPage(0,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.ease);
-                }
-              },
-            )
-          ],
+        child: Visibility(
+          visible: lstGrammerPages.length > 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                padding: const EdgeInsets.only(bottom: 4),
+                iconSize: 40,
+                disabledColor: Colors.grey,
+                color: Colors.white,
+                icon: const Icon(Icons.chevron_left),
+                onPressed: () {
+                  if (pageController.page!.toInt() > 0) {
+                    controller
+                        .setSelectedIndex(pageController.page!.toInt() - 1);
+                    pageController.animateToPage(
+                        pageController.page!.toInt() - 1,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.ease);
+                  }
+                },
+              ),
+              Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(lstGrammerPages.isEmpty
+                      ? " 0/0"
+                      : " ${controller.state.selectedCardIndex}/${lstGrammerPages.length}")),
+              IconButton(
+                padding: const EdgeInsets.only(bottom: 4),
+                iconSize: 40,
+                disabledColor: Colors.grey,
+                color: Colors.white,
+                icon: const Icon(Icons.chevron_right),
+                onPressed: () {
+                  if (pageController.page!.toInt() + 1 <
+                      lstGrammerPages.length) {
+                    controller
+                        .setSelectedIndex(pageController.page!.toInt() + 1);
+                    pageController.animateToPage(
+                        pageController.page!.toInt() + 1,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.ease);
+                  } else if (pageController.page!.toInt() != 0) {
+                    controller.setSelectedIndex(0);
+                    pageController.animateToPage(0,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.ease);
+                  }
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget tabCardBody(List<Grammar> lst, context, controller) {
-    // var currentLetter = lstVoc as List<Dictionary>;
-    // var ss =
     return Padding(
         padding: const EdgeInsets.all(15),
         child: Column(

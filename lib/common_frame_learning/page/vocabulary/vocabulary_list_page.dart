@@ -4,6 +4,7 @@ import 'package:afen_vocabulary/common/app_function.dart';
 import 'package:afen_vocabulary/common/common_widget.dart';
 import 'package:afen_vocabulary/common/search_bar.dart';
 import 'package:afen_vocabulary/common_frame_learning/constant_value/common_constants.dart';
+import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
 
 import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
 import 'package:flutter/material.dart';
@@ -18,59 +19,68 @@ class VocabularyListPage extends HookConsumerWidget {
 
   final trans = Translit();
   final keywordController = TextEditingController();
-
+  List<Widget> lstVocabularyWidget = [];
+  List<Dictionary> lstAllVocabulary = [];
+  late N5Box lstN5db;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var lstN5db = ref.read(n5BoxDataProvider);
+    final controller = ref.watch(vocListProvider.notifier);
+    controller.setModelListenable(ref);
 
     PageController pageController = PageController(
       initialPage: 0,
       keepPage: true,
     );
-    final controller = ref.watch(vocListProvider.notifier);
-    controller.setModelListenable(ref);
 
-    useEffect(() {}, const []);
+    useEffect(() {
+      lstN5db = ref.read(n5BoxDataProvider);
+      lstAllVocabulary = lstN5db.box.get("vocabularyDB");
+      for (var data in lstCsvDBName) {
+        List<Dictionary> lstVocabul = lstAllVocabulary
+            .where((vocabulary) => vocabulary.wordType == data.vocType)
+            .toList();
 
-    // var lstVocabul = lstN5db.box.get("N5Words");
-    // if (lstVocabul == null || lstVocabul.isEmpty) {
-    final future = useMemoized(() => controller.prepareVocabulary());
-    final snapshot = useFuture(future, initialData: null);
-    if (snapshot.hasError) {
-      return showErrorWidget(context, "Error card", snapshot.error);
-    }
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
-    // }
-    List<Widget> lsttableServings = [];
-
-    for (var data in lstCsvDBName) {
-      var lstVocabul = lstN5db.box.get("${data.dbName}");
-      print("len:${lstVocabul.length}");
-      lsttableServings
-          .add(tabCardBody(lstVocabul, context, controller, data.name));
-    }
+        lstVocabularyWidget
+            .add(tabCardBody(lstVocabul, context, controller, data.name));
+      }
+    }, []);
 
     return Scaffold(
       body: Scaffold(
-          body: //Expanded(child: FlashCardListItem(flashcards: flashCard)),
-              Column(children: [
-        CustomSearchBar(onSearch: (searchKey) {
-          controller.setSearchKey(searchKey);
-        }),
-        lsttableServings.isEmpty
+          body: Column(children: [
+        CustomSearchBar(
+          onSearch: (searchKey) {
+            controller.setSearchKey(searchKey);
+          },
+          onClear: () {
+            controller.setSearchKey("");
+          },
+        ),
+        lstVocabularyWidget.isEmpty
             ? showEmptyDataWidget()
-            : Expanded(
-                child: PageView(
-                  controller: pageController,
-                  children: lsttableServings,
-                  onPageChanged: (value) {
-                    controller.setSelectedIndex(value);
-                  },
-                ),
-              )
+            : controller.state.searchKey.isEmpty
+                ? Expanded(
+                    child: PageView(
+                    controller: pageController,
+                    children: lstVocabularyWidget,
+                    onPageChanged: (value) {
+                      controller.setSelectedIndex(value);
+                    },
+                  ))
+                : Expanded(
+                    child: tabCardBody(
+                        lstAllVocabulary
+                            .where((element) =>
+                                element.word
+                                    .contains(controller.state.searchKey) ||
+                                element.kanji
+                                    .contains(controller.state.searchKey) ||
+                                element.translate
+                                    .contains(controller.state.searchKey))
+                            .toList(),
+                        context,
+                        controller,
+                        "Хайлтын үр дүн:"))
       ])),
       bottomNavigationBar: Container(
         height: 40,
@@ -95,9 +105,9 @@ class VocabularyListPage extends HookConsumerWidget {
             ),
             Padding(
                 padding: const EdgeInsets.all(8),
-                child: Text(lsttableServings.isEmpty
+                child: Text(lstVocabularyWidget.isEmpty
                     ? " 0/0"
-                    : " ${controller.state.selectedCardIndex}/${lsttableServings.length}")),
+                    : " ${controller.state.selectedCardIndex}/${lstVocabularyWidget.length}")),
             IconButton(
               padding: const EdgeInsets.only(bottom: 4),
               iconSize: 40,
@@ -106,7 +116,7 @@ class VocabularyListPage extends HookConsumerWidget {
               icon: const Icon(Icons.chevron_right),
               onPressed: () {
                 if (pageController.page!.toInt() + 1 <
-                    lsttableServings.length) {
+                    lstVocabularyWidget.length) {
                   controller.setSelectedIndex(pageController.page!.toInt() + 1);
                   pageController.animateToPage(pageController.page!.toInt() + 1,
                       duration: const Duration(milliseconds: 500),

@@ -6,6 +6,7 @@ class CustomSearchBar extends HookConsumerWidget {
   CustomSearchBar({
     Key? key,
     required this.onSearch,
+    this.onClear,
     this.hintText,
     this.widgetKey = "",
   }) : super(key: key);
@@ -17,6 +18,7 @@ class CustomSearchBar extends HookConsumerWidget {
   /// 検索機能
   // final String Function() onSearch;
   late Function(String searchKey)? onSearch;
+  late Function()? onClear;
 
   /// hint
   final String? hintText;
@@ -46,6 +48,7 @@ class CustomSearchBar extends HookConsumerWidget {
                     icon: const Icon(Icons.clear),
                     onPressed: () {
                       keywordController.text = '';
+                      onClear?.call();
                     },
                   ),
                 ),

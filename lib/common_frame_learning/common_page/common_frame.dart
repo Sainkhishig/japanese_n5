@@ -75,6 +75,7 @@ class CommonLearningPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var lstN5db = ref.read(n5BoxDataProvider);
     final controller = ref.watch(commonPageProvider.notifier);
     var loginNotifier = ref.read(loginStateNotifierProvider);
     final List<String> _popmenu_list = ["Хэрэглэгчийн мэдээлэл", "Тохиргоо"];
@@ -213,11 +214,20 @@ class CommonLearningPage extends HookConsumerWidget {
         ],
       )),
       selectedIndex: controller.state.selectedIndex,
-      onDestinationSelected: (value) {
+      onDestinationSelected: (value) async {
         controller.setGameMode(false);
-        // if (value == (lstMenu.length - 1)) {
-        //   controller.setGameMode(!controller.state.isGameMode);
-        // }
+        switch (value) {
+          case 1:
+            if (value == 1 &&
+                (lstN5db.box.get("vocabularyDB") == null ||
+                    lstN5db.box.get("vocabularyDB").length == 0)) {
+              print("prepareVoc$value");
+              await controller.prepareVocabulary();
+            }
+            break;
+          default:
+        }
+
         controller.setSelectedIndex(value);
       },
       destinations: _buildDestinations2(context, controller),
