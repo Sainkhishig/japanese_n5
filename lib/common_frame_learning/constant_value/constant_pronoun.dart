@@ -119,8 +119,8 @@ var pronounIntensive = <Pronoun>[
 var pronounInterrogative = <Pronoun>[
   Pronoun(
     '何',
-    'なに',
-    'nani',
+    'なに/なん',
+    'nani/nan',
     'юу?',
   ),
   Pronoun(

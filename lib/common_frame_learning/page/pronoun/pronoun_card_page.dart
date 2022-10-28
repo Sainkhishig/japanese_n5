@@ -113,7 +113,8 @@ class PronounCardPage extends HookConsumerWidget {
                       crossAxisSpacing: 2,
                       mainAxisSpacing: 2,
                       crossAxisCount: 1,
-                      mainAxisExtent: MediaQuery.of(context).size.height / 12,
+                      mainAxisExtent: MediaQuery.of(context).size.height /
+                          (currentLetter.lstLetter.length < 10 ? 12 : 14),
                     ),
                     itemCount: currentLetter.lstLetter.length,
                     itemBuilder: (BuildContext ctx, index) {
