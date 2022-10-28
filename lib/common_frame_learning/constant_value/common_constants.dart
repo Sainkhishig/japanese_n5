@@ -97,7 +97,7 @@ var lstPronoun = <PronounType>[
   PronounType("Биеийн ТҮ(хүч нэмэх)", pronounIntensive, "explanation"),
   PronounType("Асуух ТҮ", pronounInterrogative, "explanation"),
   PronounType("Заах ТҮ", pronounDemonstrative, "explanation"),
-  PronounType("Эс тодоройлох ТҮ", pronounDemonstrative, "explanation"),
+  PronounType("Эс тодоройлох ТҮ", pronounIndefinite, "explanation"),
 ];
 
 var lstVerbForms = <VerbForm>[
