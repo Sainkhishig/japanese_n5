@@ -192,7 +192,7 @@ class CommonLearningPage extends HookConsumerWidget {
             padding: const EdgeInsets.only(bottom: 4),
             disabledColor: Colors.grey,
             // color: Colors.white,
-            icon: Icon(user_id == null ? Icons.logout : Icons.login),
+            icon: Icon(user_id == null ? Icons.login : Icons.logout),
             onPressed: () async {
               if (user_id == null) {
                 Navigator.pushNamed(context, "/login");
