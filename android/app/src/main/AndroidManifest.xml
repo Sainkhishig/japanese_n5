@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.afen_vocabulary">
+    package="com.example.hishig_erdem">
    <application
-        android:label="afen_vocabulary"
+        android:label="hishig_erdem"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

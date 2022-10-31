@@ -5,19 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "afen_vocabulary",
+            "name": "hishig_erdem",
             "request": "launch",
             "type": "dart",
             "args": ["--web-port", "8088", "--web-renderer", "html"]
         },
         {
-            "name": "afen_vocabulary (profile mode)",
+            "name": "hishig_erdem (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "afen_vocabulary (release mode)",
+            "name": "hishig_erdem (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
