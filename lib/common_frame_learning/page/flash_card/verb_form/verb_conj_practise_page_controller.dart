@@ -1,6 +1,6 @@
-import 'package:afen_vocabulary/common_frame_learning/page/master/verbForm/verb_form_model.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/verb_conjugation/conjugation_constant.dart';
-import 'package:afen_vocabulary/common_providers/shared_preferences_provider.dart';
+import 'package:hishig_erdem/common_frame_learning/page/master/verbForm/verb_form_model.dart';
+import 'package:hishig_erdem/common_frame_learning/page/verb_conjugation/conjugation_constant.dart';
+import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kana_kit/kana_kit.dart';
 import 'package:shared_preferences/shared_preferences.dart';

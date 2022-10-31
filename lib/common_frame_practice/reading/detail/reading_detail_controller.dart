@@ -1,6 +1,6 @@
-import 'package:afen_vocabulary/common_frame_practice/reading/detail/reading_detail.dart';
-import 'package:afen_vocabulary/common_frame_practice/reading/list/reading_state.dart';
-import 'package:afen_vocabulary/common_frame_practice/reading/model/reading_model.dart';
+import 'package:hishig_erdem/common_frame_practice/reading/detail/reading_detail.dart';
+import 'package:hishig_erdem/common_frame_practice/reading/list/reading_state.dart';
+import 'package:hishig_erdem/common_frame_practice/reading/model/reading_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_database/firebase_database.dart';
 

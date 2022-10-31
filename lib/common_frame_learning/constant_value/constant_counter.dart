@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/classes/number_order.dart';
+import 'package:hishig_erdem/classes/number_order.dart';
 
 var counterMn = NumberOrder(
   '1',

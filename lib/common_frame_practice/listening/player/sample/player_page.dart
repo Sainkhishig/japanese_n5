@@ -1,8 +1,8 @@
-import 'package:afen_vocabulary/common_frame_practice/listening/player/notifiers/play_button_notifier.dart';
-import 'package:afen_vocabulary/common_frame_practice/listening/player/notifiers/progress_notifier.dart';
-import 'package:afen_vocabulary/common_frame_practice/listening/player/notifiers/repeat_button_notifier.dart';
-import 'package:afen_vocabulary/common_frame_practice/listening/player/page_manager.dart';
-import 'package:afen_vocabulary/common_frame_practice/listening/player/services/service_locator.dart';
+import 'package:hishig_erdem/common_frame_practice/listening/player/notifiers/play_button_notifier.dart';
+import 'package:hishig_erdem/common_frame_practice/listening/player/notifiers/progress_notifier.dart';
+import 'package:hishig_erdem/common_frame_practice/listening/player/notifiers/repeat_button_notifier.dart';
+import 'package:hishig_erdem/common_frame_practice/listening/player/page_manager.dart';
+import 'package:hishig_erdem/common_frame_practice/listening/player/services/service_locator.dart';
 
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';

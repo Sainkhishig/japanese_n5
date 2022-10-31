@@ -1,8 +1,8 @@
-import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/vocabulary_model.dart';
-import 'package:afen_vocabulary/common_providers/shared_preferences_provider.dart';
-import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
-import 'package:afen_vocabulary/hive_db/object/kanji_dictionary.dart';
-import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
+import 'package:hishig_erdem/common_frame_learning/page/flash_card/vocabulary/vocabulary_model.dart';
+import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
+import 'package:hishig_erdem/hive_db/object/dictionary.dart';
+import 'package:hishig_erdem/hive_db/object/kanji_dictionary.dart';
+import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:csv/csv.dart';
 import 'package:excel/excel.dart';
 import 'package:flutter/services.dart';

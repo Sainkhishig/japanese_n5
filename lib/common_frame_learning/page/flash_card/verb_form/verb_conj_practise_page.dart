@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:afen_vocabulary/common/app_function.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/verb_conjugation/conjugation_constant.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/verb_conjugation/conjugation_practice.dart';
+import 'package:hishig_erdem/common/app_function.dart';
+import 'package:hishig_erdem/common_frame_learning/page/verb_conjugation/conjugation_constant.dart';
+import 'package:hishig_erdem/common_frame_learning/page/verb_conjugation/conjugation_practice.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

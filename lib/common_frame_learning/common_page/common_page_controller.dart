@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
-import 'package:afen_vocabulary/common_providers/shared_preferences_provider.dart';
-import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
-import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
+import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
+import 'package:hishig_erdem/hive_db/object/dictionary.dart';
+import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:state_notifier/state_notifier.dart';

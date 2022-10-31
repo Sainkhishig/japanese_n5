@@ -1,9 +1,9 @@
-import 'package:afen_vocabulary/classes/pronoun_type.dart';
-import 'package:afen_vocabulary/common/app_function.dart';
-import 'package:afen_vocabulary/common/common_widget.dart';
-import 'package:afen_vocabulary/common_frame_learning/constant_value/common_constants.dart';
+import 'package:hishig_erdem/classes/pronoun_type.dart';
+import 'package:hishig_erdem/common/app_function.dart';
+import 'package:hishig_erdem/common/common_widget.dart';
+import 'package:hishig_erdem/common_frame_learning/constant_value/common_constants.dart';
 
-import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
+import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:flash_card/flash_card.dart';
 import 'package:flutter/material.dart';
 

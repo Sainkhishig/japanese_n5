@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/authentication/email_check.dart';
+import 'package:hishig_erdem/authentication/email_check.dart';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -1,12 +1,11 @@
-import 'package:afen_vocabulary/classes/word.dart';
+import 'package:hishig_erdem/classes/word.dart';
 
 class WordGroup {
-  
-  late String name;late List<Word> lstWord;
+  late String name;
+  late List<Word> lstWord;
   late String explanation;
   late String question;
   late String example;
 
   WordGroup(this.name, this.lstWord, this.question);
-
 }

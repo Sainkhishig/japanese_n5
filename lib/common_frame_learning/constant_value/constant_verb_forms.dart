@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/classes/verb_form.dart';
+import 'package:hishig_erdem/classes/verb_form.dart';
 
 var constDictionaryForm = VerbForm(
     'Толь', '書く', 'ある', '持つ', '読む', '買う', '見る', '食べる', '（来）くる*1', 'する');

@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/common/common_dialog.dart';
+import 'package:hishig_erdem/common/common_dialog.dart';
 
 import '../main.dart';
 

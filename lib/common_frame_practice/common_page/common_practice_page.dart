@@ -1,9 +1,9 @@
 import 'package:adaptive_navigation/adaptive_navigation.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/sample/text_to_speech_sample.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/sample/tts_sample.dart';
-import 'package:afen_vocabulary/common_frame_practice/reading/detail/reading_detail.dart';
-import 'package:afen_vocabulary/common_frame_practice/reading/list/reading_list.dart';
-import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
+import 'package:hishig_erdem/common_frame_learning/page/sample/text_to_speech_sample.dart';
+import 'package:hishig_erdem/common_frame_learning/page/sample/tts_sample.dart';
+import 'package:hishig_erdem/common_frame_practice/reading/detail/reading_detail.dart';
+import 'package:hishig_erdem/common_frame_practice/reading/list/reading_list.dart';
+import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

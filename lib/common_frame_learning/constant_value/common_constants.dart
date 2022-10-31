@@ -1,15 +1,15 @@
-import 'package:afen_vocabulary/classes/counter_group.dart';
-import 'package:afen_vocabulary/classes/grammar.dart';
-import 'package:afen_vocabulary/classes/pronoun_type.dart';
-import 'package:afen_vocabulary/classes/verb_form.dart';
-import 'package:afen_vocabulary/classes/word_group.dart';
-import 'package:afen_vocabulary/common_frame_learning/constant_value/constant_counter.dart';
-import 'package:afen_vocabulary/common_frame_learning/constant_value/constant_month.dart';
-import 'package:afen_vocabulary/common_frame_learning/constant_value/constant_monthday.dart';
-import 'package:afen_vocabulary/common_frame_learning/constant_value/constant_number.dart';
-import 'package:afen_vocabulary/common_frame_learning/constant_value/constants_katakana.dart';
-import 'package:afen_vocabulary/common_frame_learning/constant_value/constants_weekday.dart';
-import 'package:afen_vocabulary/common_frame_learning/page/letter/letter_type.dart';
+import 'package:hishig_erdem/classes/counter_group.dart';
+import 'package:hishig_erdem/classes/grammar.dart';
+import 'package:hishig_erdem/classes/pronoun_type.dart';
+import 'package:hishig_erdem/classes/verb_form.dart';
+import 'package:hishig_erdem/classes/word_group.dart';
+import 'package:hishig_erdem/common_frame_learning/constant_value/constant_counter.dart';
+import 'package:hishig_erdem/common_frame_learning/constant_value/constant_month.dart';
+import 'package:hishig_erdem/common_frame_learning/constant_value/constant_monthday.dart';
+import 'package:hishig_erdem/common_frame_learning/constant_value/constant_number.dart';
+import 'package:hishig_erdem/common_frame_learning/constant_value/constants_katakana.dart';
+import 'package:hishig_erdem/common_frame_learning/constant_value/constants_weekday.dart';
+import 'package:hishig_erdem/common_frame_learning/page/letter/letter_type.dart';
 
 import 'constant_pronoun.dart';
 import 'constant_verb_forms.dart';

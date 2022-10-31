@@ -1,7 +1,7 @@
-import 'package:afen_vocabulary/classes/grammar.dart';
-import 'package:afen_vocabulary/common/common_widget.dart';
-import 'package:afen_vocabulary/common/search_bar.dart';
-import 'package:afen_vocabulary/common_frame_learning/constant_value/common_constants.dart';
+import 'package:hishig_erdem/classes/grammar.dart';
+import 'package:hishig_erdem/common/common_widget.dart';
+import 'package:hishig_erdem/common/search_bar.dart';
+import 'package:hishig_erdem/common_frame_learning/constant_value/common_constants.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

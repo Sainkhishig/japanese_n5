@@ -1,9 +1,9 @@
-import 'package:afen_vocabulary/common_frame_practice/listening/player/services/service_locator.dart';
+import 'package:hishig_erdem/common_frame_practice/listening/player/services/service_locator.dart';
 
-import 'package:afen_vocabulary/hive_db/object/dictionary.dart';
-import 'package:afen_vocabulary/hive_db/object/kanji_dictionary.dart';
-import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
-import 'package:afen_vocabulary/main_home.dart';
+import 'package:hishig_erdem/hive_db/object/dictionary.dart';
+import 'package:hishig_erdem/hive_db/object/kanji_dictionary.dart';
+import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
+import 'package:hishig_erdem/main_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

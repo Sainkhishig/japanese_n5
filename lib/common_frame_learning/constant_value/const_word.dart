@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/classes/word.dart';
+import 'package:hishig_erdem/classes/word.dart';
 
 // var lstVoc = <Voc>[
 //   Voc(

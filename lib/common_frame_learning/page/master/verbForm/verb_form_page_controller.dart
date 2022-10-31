@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/common_frame_learning/page/verb_conjugation/conjugation_constant.dart';
+import 'package:hishig_erdem/common_frame_learning/page/verb_conjugation/conjugation_constant.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:state_notifier/state_notifier.dart';
 

@@ -1,5 +1,5 @@
-// import 'package:afen_vocabulary/authentication/home.dart';
-import 'package:afen_vocabulary/main_home.dart';
+// import 'package:hishig_erdem/authentication/home.dart';
+import 'package:hishig_erdem/main_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'authentication_error.dart';

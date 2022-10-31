@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/classes/word.dart';
+import 'package:hishig_erdem/classes/word.dart';
 
 var lstMonthDay = <Word>[
   Word('1', '一日', 'いちにち (ついたち/いっぴ)', '1-ны өдөр / 1 өдөр'),

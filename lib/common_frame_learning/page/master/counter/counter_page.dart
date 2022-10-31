@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:afen_vocabulary/classes/counter_group.dart';
-import 'package:afen_vocabulary/common/common_widget.dart';
-import 'package:afen_vocabulary/common_frame_learning/constant_value/common_constants.dart';
-import 'package:afen_vocabulary/hive_db/provider/n5_box_provider.dart';
+import 'package:hishig_erdem/classes/counter_group.dart';
+import 'package:hishig_erdem/common/common_widget.dart';
+import 'package:hishig_erdem/common_frame_learning/constant_value/common_constants.dart';
+import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:translit/translit.dart';

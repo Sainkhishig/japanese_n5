@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/hive_db/boxes/hive_box_class.dart';
+import 'package:hishig_erdem/hive_db/boxes/hive_box_class.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/common_frame_learning/page/flash_card/vocabulary/vocabulary_model.dart';
+import 'package:hishig_erdem/common_frame_learning/page/flash_card/vocabulary/vocabulary_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:state_notifier/state_notifier.dart';
 

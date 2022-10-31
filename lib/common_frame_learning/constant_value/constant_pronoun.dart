@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/classes/pronoun.dart';
+import 'package:hishig_erdem/classes/pronoun.dart';
 
 var pronounSingular = <Pronoun>[
   Pronoun(

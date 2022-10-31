@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/main.dart';
+import 'package:hishig_erdem/main.dart';
 import 'package:flutter/foundation.dart';
 import 'notifiers/play_button_notifier.dart';
 import 'notifiers/progress_notifier.dart';

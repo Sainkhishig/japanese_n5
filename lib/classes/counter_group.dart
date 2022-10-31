@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/classes/number_order.dart';
+import 'package:hishig_erdem/classes/number_order.dart';
 
 class CounterGroup {
   late NumberOrder sampleCounter;
@@ -7,6 +7,6 @@ class CounterGroup {
   late String wordEN;
   late String reading;
 
-  CounterGroup(this.wordEN, this.kanji, this.reading,this.wordMn, this.sampleCounter);
-
+  CounterGroup(
+      this.wordEN, this.kanji, this.reading, this.wordMn, this.sampleCounter);
 }

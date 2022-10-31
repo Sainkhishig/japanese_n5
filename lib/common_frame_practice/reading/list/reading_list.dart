@@ -1,4 +1,4 @@
-import 'package:afen_vocabulary/common_frame_practice/reading/list/reading_list_controller.dart';
+import 'package:hishig_erdem/common_frame_practice/reading/list/reading_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_database/firebase_database.dart';
