@@ -2,6 +2,7 @@ import 'package:hishig_erdem/common_frame_practice/listening/player/services/ser
 
 import 'package:hishig_erdem/hive_db/object/dictionary.dart';
 import 'package:hishig_erdem/hive_db/object/kanji_dictionary.dart';
+import 'package:hishig_erdem/hive_db/provider/n4_box_provider.dart';
 import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:hishig_erdem/main_home.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,8 @@ Future<void> main() async {
     overrides: [
       n5BoxDataProvider
           .overrideWithValue(N5Box(await Hive.openBox('N5BoxData'))),
+      n4BoxDataProvider
+          .overrideWithValue(N4Box(await Hive.openBox('N4BoxData'))),
       sharedPreferencesProvider.overrideWithValue(
         await SharedPreferences.getInstance(),
       ),

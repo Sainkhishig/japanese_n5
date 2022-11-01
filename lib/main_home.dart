@@ -3,6 +3,7 @@ import 'package:hishig_erdem/common_frame_learning/common_page/common_frame.dart
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/common_page_N4/common_page/n4common_page.dart';
 
 class HomeScreen extends StatelessWidget {
   final String? user_id;
@@ -81,13 +82,7 @@ class HomeScreen extends StatelessWidget {
                 Center(
                   child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CommonFrameLearning(
-                                      user_id: user_id,
-                                      auth: auth,
-                                    )));
+                        moveCommonPage(context, int.parse("$selectedLevel"));
                       },
                       child: const Text(
                         "Хичээл",
@@ -100,5 +95,51 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  moveCommonPage(context, int jlptLevel) {
+    Widget commonPage = CommonFrameLearning(
+      user_id: user_id,
+      auth: auth,
+    );
+    print("level:$jlptLevel");
+    switch (jlptLevel) {
+      case 5:
+        print("case:5");
+        commonPage = CommonFrameLearning(
+          user_id: user_id,
+          auth: auth,
+        );
+        break;
+      case 4:
+        print("case:4");
+        commonPage = N4CommonPage(
+          user_id: user_id,
+          auth: auth,
+        );
+        break;
+      case 3:
+        print("case:3");
+        commonPage = CommonFrameLearning(
+          user_id: user_id,
+          auth: auth,
+        );
+        break;
+      case 2:
+        commonPage = CommonFrameLearning(
+          user_id: user_id,
+          auth: auth,
+        );
+        break;
+      case 1:
+        commonPage = CommonFrameLearning(
+          user_id: user_id,
+          auth: auth,
+        );
+        break;
+      default:
+    }
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => commonPage));
   }
 }

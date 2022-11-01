@@ -112,14 +112,15 @@ late final lstMenu = <Menu>[
   //   Icons.format_list_numbered,
   //   Text("shine uug"),
   // ),
+
+  // Menu("Сонсгол", "verbForm", CupertinoIcons.ear, PlayerPage()),
+  Menu("Сонсгол", "verbForm", CupertinoIcons.ear, TextToSpeechSample()),
   Menu(
-    "Дүрэм",
+    "Өгүүлбэр зүй",
     "grammar",
     Icons.rule,
     TtsSample(),
   ),
-  // Menu("Сонсгол", "verbForm", CupertinoIcons.ear, PlayerPage()),
-  Menu("Сонсгол", "verbForm", CupertinoIcons.ear, TextToSpeechSample()),
   Menu(
     "Уншлага",
     "verbForm",
