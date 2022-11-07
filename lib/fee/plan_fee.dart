@@ -1,18 +1,15 @@
 // import 'package:hishig_erdem/authentication/home.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:hishig_erdem/main_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'authentication_error.dart';
-import 'registration.dart';
 
-import 'email_check.dart';
-
-class Login extends StatefulWidget {
+class PlanFee extends StatefulWidget {
   @override
-  _Login createState() => _Login();
+  _PlanFee createState() => _PlanFee();
 }
 
-class _Login extends State<Login> {
+class _PlanFee extends State<PlanFee> {
   // Firebase 認証
   final _auth = FirebaseAuth.instance;
   UserCredential? _result;
@@ -24,9 +21,9 @@ class _Login extends State<Login> {
   String _telephone = ""; // 入力されたパスワード
   String _address = ""; // 入力されたパスワード
   String _infoText = ""; // ログインに関する情報を表示
-
+  final _database = FirebaseDatabase.instance.reference();
   // エラーメッセージを日本語化するためのクラス
-  final auth_error = Authentication_error();
+  // final auth_error = Authentication_error();
 
   @override
   Widget build(BuildContext context) {
@@ -127,19 +124,19 @@ class _Login extends State<Login> {
                         ),
                       );
                     } else {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Emailcheck(
-                                email: _login_Email,
-                                pswd: _login_Password,
-                                from: 2)),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => Emailcheck(
+                      //           email: _login_Email,
+                      //           pswd: _login_Password,
+                      //           from: 2)),
+                      // );
                     }
                   } catch (e) {
                     // ログインに失敗した場合
                     setState(() {
-                      _infoText = auth_error.login_error_msg("e:::$e");
+                      // _infoText = auth_error.login_error_msg("e:::$e");
                     });
                   }
                 },
@@ -180,16 +177,140 @@ class _Login extends State<Login> {
 
                 // ボタンクリック後にアカウント作成用の画面の遷移する.
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      fullscreenDialog: true,
-                      builder: (BuildContext context) => Registration(),
-                    ),
-                  );
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     fullscreenDialog: true,
+                  //     builder: (BuildContext context) => Registration(),
+                  //   ),
+                  // );
                 }),
           ),
         ),
       ]),
     );
   }
+
+  sendPlanRequest() {
+    final newData = <String, dynamic>{
+      'userId': "userName",
+      'level': "N5",
+      'planName': "",
+      'paymentStatus': "waiting", //waiting, Complete
+      'isCancelled': false,
+      'startTime': DateTime.now().microsecondsSinceEpoch,
+      'endTime': DateTime.now().microsecondsSinceEpoch,
+      'writeDate': DateTime.now().microsecondsSinceEpoch,
+    };
+    _database
+        .child('planRequest')
+        .push()
+        .set(newData)
+        .then((value) => {
+              print('planRequest written'),
+            })
+        .catchError((onError) {
+      print('could not saved data');
+    });
+  }
+
+  Widget planSelectionBody(lstPlan, context, controller) {
+    // var title = lstCounter.map((e) => e.wordMn.join(',')).toList();
+    var title = lstPlan.map<String>((value) => value.wordMn).join(',');
+
+    return Card(
+        child: Column(
+      children: [
+        Text(title.substring(1)),
+        const SizedBox(
+          height: 5,
+        ),
+        Expanded(
+            child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 30),
+                child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisSpacing: 2,
+                        mainAxisSpacing: 0,
+                        crossAxisCount: lstPlan.length,
+                        mainAxisExtent: MediaQuery.of(context).size.height /
+                            lstPlan.length),
+                    itemCount: lstPlan.length,
+                    itemBuilder: (BuildContext ctx, index) {
+                      PlanSelection counter = lstPlan[index];
+                      return Container(
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: [
+                              borderWidget(counter.level,
+                                  fontWight: FontWeight.bold),
+                              borderWidget(counter.oneMonth),
+                              borderWidget(counter.twoMonth),
+                              borderWidget(counter.threeMonth),
+                            ],
+                          ));
+                    })))
+      ],
+    ));
+  }
+
+  Widget borderWidget(String text,
+      {double heightRow = 50, FontWeight fontWight = FontWeight.normal}) {
+    return Container(
+      height: heightRow,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        // borderRadius: BorderRadius.circular(5),
+        border: Border.all(
+          color: Colors.black,
+          width: 1,
+        ),
+      ),
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: fontWight),
+      ),
+    );
+  }
+}
+
+// class planSelec {
+//   late NumberOrder sampleCounter;
+//   late String wordMn;
+//   late String kanji;
+//   late String wordEN;
+//   late String reading;
+
+//   CounterGroup(
+//       this.wordEN, this.kanji, this.reading, this.wordMn, this.sampleCounter);
+// }
+
+class PlanSelection {
+  late String level;
+  late String oneMonth;
+  late String twoMonth;
+  late String threeMonth;
+  PlanSelection(this.level, this.oneMonth, this.twoMonth, this.threeMonth);
+}
+
+var lstPlan = <PlanSelection>[
+  PlanSelection("N5", "40000", "60000", "60000"),
+  PlanSelection("N4", "50", "75000", "100000"),
+  PlanSelection("N3", "50", "75000", "100000"),
+  PlanSelection("N5", "70", "105000", "140000"),
+  PlanSelection("N5", "70", "105000", "140000"),
+];
+// 1сар	40	50	50	70	70
+// 2сар	60	75	75	105	105
+// 3сар	80	100	100	140	140
+
+class PlanModel {
+  late String userId;
+  late String level;
+  late String planName;
+  late String paymentStatus;
+  late String isCancelled;
+  late String startTime;
+  late String endTime;
+  late String writeDate;
 }
