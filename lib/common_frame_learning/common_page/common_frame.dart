@@ -18,6 +18,7 @@ import 'package:hishig_erdem/common_frame_learning/page/master/number_day/master
 import 'package:hishig_erdem/common_frame_learning/page/master/verbForm/verb_form_page.dart';
 import 'package:hishig_erdem/common_frame_learning/page/pronoun/pronoun_card_page.dart';
 import 'package:hishig_erdem/common_frame_learning/page/vocabulary/vocabulary_list_page.dart';
+import 'package:hishig_erdem/fee/plan_fee.dart';
 import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:hishig_erdem/login_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -60,6 +61,7 @@ class CommonFrameLearning extends StatelessWidget {
       ),
       routes: {
         '/login': (context) => Login(),
+        '/planFee': (context) => PlanFee(),
       },
     );
   }
@@ -78,7 +80,11 @@ class CommonLearningPage extends HookConsumerWidget {
     var lstN5db = ref.read(n5BoxDataProvider);
     final controller = ref.watch(commonPageProvider.notifier);
     var loginNotifier = ref.read(loginStateNotifierProvider);
-    final List<String> _popmenu_list = ["Хэрэглэгчийн мэдээлэл", "Тохиргоо"];
+    final List<String> _popmenu_list = [
+      "Хэрэглэгчийн мэдээлэл",
+      "Дасгал ажиллах эрх",
+      "Тохиргоо"
+    ];
     lstN5 = ref.read(n5BoxDataProvider);
     controller.setModelListenable(ref);
 
@@ -174,10 +180,17 @@ class CommonLearningPage extends HookConsumerWidget {
                     },
                   ))),
           Visibility(
-            visible: user_id != null,
+            visible: user_id == null,
             child: PopupMenuButton<String>(
               icon: const Icon(Icons.person),
-              onSelected: (String s) async {},
+              onSelected: (String popMenu) async {
+                switch (popMenu) {
+                  case "Дасгал ажиллах эрх":
+                    Navigator.pushNamed(context, "/planFee");
+                    break;
+                  default:
+                }
+              },
               itemBuilder: (BuildContext context) {
                 return _popmenu_list.map((String s) {
                   return PopupMenuItem(

@@ -1,4 +1,6 @@
 // import 'package:hishig_erdem/authentication/home.dart';
+import 'dart:html';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hishig_erdem/main_home.dart';
 import 'package:flutter/material.dart';
@@ -28,133 +30,55 @@ class _PlanFee extends State<PlanFee> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            // メールアドレスの入力フォーム
-            Padding(
-                padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 0),
-                child: TextFormField(
-                  decoration: InputDecoration(labelText: "Цахим хаяг"),
-                  onChanged: (String value) {
-                    _login_Email = value;
-                  },
-                )),
+      body: Card(
+          child: Column(
+        children: [
+          // Text(title.substring(1)),
+          const SizedBox(
+            height: 5,
+          ),
+          Expanded(
+              child: Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 30),
+                  child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisSpacing: 2,
+                          mainAxisSpacing: 0,
+                          crossAxisCount: lstPlan.length,
+                          mainAxisExtent: MediaQuery.of(context).size.height /
+                              lstPlan.length),
+                      itemCount: lstPlan.length,
+                      itemBuilder: (BuildContext ctx, index) {
+                        PlanSelection counter = lstPlan[index];
+                        return Container(
+                            alignment: Alignment.center,
+                            child: Column(
+                              children: [
+                                borderWidget(counter.level,
+                                    fontWight: FontWeight.bold),
+                                borderWidget("${counter.oneMonth}"),
+                                borderWidget("${counter.twoMonth}"),
+                                borderWidget("${counter.threeMonth}"),
+                              ],
+                            ));
+                      })))
+        ],
+      )),
 
-            // パスワードの入力フォーム
-            Padding(
-              padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
-              child: TextFormField(
-                decoration: InputDecoration(labelText: "Нууц үг（8～20тэмдэгт）"),
-                obscureText: true, // パスワードが見えないようRにする
-                maxLength: 20, // 入力可能な文字数
-                maxLengthEnforced: false, // 入力可能な文字数の制限を超える場合の挙動の制御
-                onChanged: (String value) {
-                  _login_Password = value;
-                },
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
-              child: TextFormField(
-                decoration: InputDecoration(labelText: "Утасны дугаар"),
-                obscureText: true,
-                maxLength: 20,
-                maxLengthEnforced: false,
-                onChanged: (String value) {
-                  _telephone = value;
-                },
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
-              child: TextFormField(
-                decoration: InputDecoration(labelText: "Хаяг"),
-                obscureText: true,
-                maxLength: 20,
-                maxLengthEnforced: false,
-                onChanged: (String value) {
-                  _address = value;
-                },
-              ),
-            ),
-
-            // ログイン失敗時のエラーメッセージ
-            Padding(
-              padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 5.0),
-              child: Text(
-                _infoText,
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-
-            // ログインボタンの配置
-            ButtonTheme(
-              minWidth: 350.0,
-              // height: 100.0,
-              child: RaisedButton(
-                // ボタンの形状
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-// ボタン内の文字や書式
-                child: const Text(
-                  'Нэвтрэх',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                onPressed: () async {
-                  try {
-                    // メール/パスワードでログイン
-                    _result = await _auth.signInWithEmailAndPassword(
-                      email: _login_Email,
-                      password: _login_Password,
-                    );
-
-                    // ログイン成功
-                    _user = _result!.user; // ログインユーザーのIDを取得
-
-                    // Email確認が済んでいる場合のみHome画面へ
-                    if (_user!.emailVerified) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              HomeScreen(user_id: _user!.uid, auth: _auth),
-                        ),
-                      );
-                    } else {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => Emailcheck(
-                      //           email: _login_Email,
-                      //           pswd: _login_Password,
-                      //           from: 2)),
-                      // );
-                    }
-                  } catch (e) {
-                    // ログインに失敗した場合
-                    setState(() {
-                      // _infoText = auth_error.login_error_msg("e:::$e");
-                    });
-                  }
-                },
-
-                textColor: Colors.white,
-                color: Colors.blue,
-              ),
-            ),
-
-            // ログイン失敗時のエラーメッセージ
-            TextButton(
-              child: const Text('Нуур үг сэргээх'),
-              onPressed: () =>
-                  _auth.sendPasswordResetEmail(email: _login_Email),
-            ),
-          ],
-        ),
-      ),
+// Center(
+//         child: Column(
+//           mainAxisSize: MainAxisSize.min,
+//           children: <Widget>[
+//             //
+//             // ログイン失敗時のエラーメッセージ
+//             TextButton(
+//               child: const Text('Нуур үг сэргээх'),
+//               onPressed: () =>
+//                   _auth.sendPasswordResetEmail(email: _login_Email),
+//             ),
+//           ],
+//         ),
+//       ),
 
       // 画面下にアカウント作成画面への遷移ボタンを配置
       bottomNavigationBar:
@@ -213,42 +137,58 @@ class _PlanFee extends State<PlanFee> {
     });
   }
 
-  Widget planSelectionBody(lstPlan, context, controller) {
+  Widget planSelectionBody(List<PlanSelection> lstPlan, context) {
     // var title = lstCounter.map((e) => e.wordMn.join(',')).toList();
-    var title = lstPlan.map<String>((value) => value.wordMn).join(',');
+    // var title = lstPlan.map<String>((value) => value.wordMn).join(',');
 
     return Card(
         child: Column(
       children: [
-        Text(title.substring(1)),
+        // Text(title.substring(1)),
         const SizedBox(
           height: 5,
         ),
         Expanded(
             child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 30),
-                child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisSpacing: 2,
-                        mainAxisSpacing: 0,
-                        crossAxisCount: lstPlan.length,
-                        mainAxisExtent: MediaQuery.of(context).size.height /
-                            lstPlan.length),
-                    itemCount: lstPlan.length,
-                    itemBuilder: (BuildContext ctx, index) {
-                      PlanSelection counter = lstPlan[index];
-                      return Container(
-                          alignment: Alignment.center,
-                          child: Column(
-                            children: [
-                              borderWidget(counter.level,
-                                  fontWight: FontWeight.bold),
-                              borderWidget(counter.oneMonth),
-                              borderWidget(counter.twoMonth),
-                              borderWidget(counter.threeMonth),
-                            ],
-                          ));
-                    })))
+          padding: const EdgeInsets.only(left: 10, right: 30),
+          child:
+              // ListView.builder(
+              //     scrollDirection: Axis.vertical,
+              //     shrinkWrap: true,
+              //     itemCount: lstPlan.length,
+              //     itemBuilder: (BuildContext context, int index) {
+              //       return Row(
+              //         children: [
+              //           TextButton(
+              //             onPressed: () {},
+              //             child: Text(lstPlan[index].level),
+              //           )
+              //         ],
+              //       );
+              //     })
+              GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisSpacing: 2,
+                      mainAxisSpacing: 0,
+                      crossAxisCount: lstPlanByMonth.length,
+                      mainAxisExtent:
+                          MediaQuery.of(context).size.height / lstPlan.length),
+                  itemCount: lstPlan.length,
+                  itemBuilder: (BuildContext ctx, index) {
+                    PlanSelection counter = lstPlan[index];
+                    return Container(
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            borderWidget(counter.level,
+                                fontWight: FontWeight.bold),
+                            borderWidget("${counter.oneMonth}"),
+                            borderWidget("${counter.twoMonth}"),
+                            borderWidget("${counter.threeMonth}"),
+                          ],
+                        ));
+                  }),
+        ))
       ],
     ));
   }
@@ -287,18 +227,34 @@ class _PlanFee extends State<PlanFee> {
 
 class PlanSelection {
   late String level;
-  late String oneMonth;
-  late String twoMonth;
-  late String threeMonth;
+  late double oneMonth;
+  late double twoMonth;
+  late double threeMonth;
   PlanSelection(this.level, this.oneMonth, this.twoMonth, this.threeMonth);
 }
 
+class PlanPriceByMonth {
+  late String month;
+  late double priceN5;
+  late double priceN4;
+  late double priceN3;
+  late double priceN2;
+  late double priceN1;
+  PlanPriceByMonth(this.month, this.priceN5, this.priceN4, this.priceN3,
+      this.priceN2, this.priceN1);
+}
+
+var lstPlanByMonth = <PlanPriceByMonth>[
+  PlanPriceByMonth("1month", 40000, 50000, 50000, 50000, 50000),
+  PlanPriceByMonth("2month", 60000, 75000, 75000, 100000, 100000),
+  PlanPriceByMonth("3month", 80000, 100000, 100000, 140000, 140000),
+];
 var lstPlan = <PlanSelection>[
-  PlanSelection("N5", "40000", "60000", "60000"),
-  PlanSelection("N4", "50", "75000", "100000"),
-  PlanSelection("N3", "50", "75000", "100000"),
-  PlanSelection("N5", "70", "105000", "140000"),
-  PlanSelection("N5", "70", "105000", "140000"),
+  PlanSelection("N5", 40000, 60000, 60000),
+  PlanSelection("N4", 50, 75000, 100000),
+  PlanSelection("N3", 50, 75000, 100000),
+  PlanSelection("N5", 70, 105000, 140000),
+  PlanSelection("N5", 70, 105000, 140000),
 ];
 // 1сар	40	50	50	70	70
 // 2сар	60	75	75	105	105
