@@ -1,5 +1,5 @@
 // import 'package:hishig_erdem/authentication/home.dart';
-import 'package:hishig_erdem/main_home.dart';
+import 'package:hishig_erdem/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

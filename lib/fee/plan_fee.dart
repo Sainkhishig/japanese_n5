@@ -1,8 +1,6 @@
 // import 'package:hishig_erdem/authentication/home.dart';
-import 'dart:html';
 
 import 'package:firebase_database/firebase_database.dart';
-import 'package:hishig_erdem/main_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

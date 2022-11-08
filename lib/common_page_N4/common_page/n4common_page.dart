@@ -11,9 +11,10 @@ import 'package:hishig_erdem/common_page_N4/page/kanji/n4kanji_list_page.dart';
 import 'package:hishig_erdem/common_page_N4/page/vocabulary/n4vocabulary_list_page.dart';
 import 'package:hishig_erdem/hive_db/provider/n4_box_provider.dart';
 // import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
-import 'package:hishig_erdem/login_state.dart';
+// import 'package:hishig_erdem/login_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/main/login_state.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/cupertino.dart';

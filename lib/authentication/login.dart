@@ -1,18 +1,30 @@
 // import 'package:hishig_erdem/authentication/home.dart';
-import 'package:hishig_erdem/main_home.dart';
+import 'package:hishig_erdem/authentication/login_controller.dart';
+import 'package:hishig_erdem/main/login_state.dart';
+import 'package:hishig_erdem/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'authentication_error.dart';
 import 'registration.dart';
 
 import 'email_check.dart';
 
-class Login extends StatefulWidget {
-  @override
-  _Login createState() => _Login();
-}
+class Login extends HookConsumerWidget {
+  //#region ==================== local variable ====================
+  // late KeycloakSetting keycloak;
+  final GlobalKey<ScaffoldState> _mainScaffoldKey = GlobalKey<ScaffoldState>();
+  //#endregion ==================== local variable ====================
 
-class _Login extends State<Login> {
+  //#region ==================== constructor ====================
+  Login({Key? key}) : super(key: key);
+  //#endregion ==================== constructor ====================
+
+  //#region ==================== accessor ====================
+  //#endregion ==================== accessor ====================
+
+  //#region ==================== method ====================
+
   // Firebase 認証
   final _auth = FirebaseAuth.instance;
   UserCredential? _result;
@@ -29,7 +41,12 @@ class _Login extends State<Login> {
   final auth_error = Authentication_error();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.read(loginHomeController.notifier);
+    controller.setModelListenable(ref);
+
+    var loginNotifier = ref.read(loginStateNotifierProvider);
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -118,14 +135,10 @@ class _Login extends State<Login> {
                     _user = _result!.user; // ログインユーザーのIDを取得
 
                     // Email確認が済んでいる場合のみHome画面へ
+
                     if (_user!.emailVerified) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              HomeScreen(user_id: _user!.uid, auth: _auth),
-                        ),
-                      );
+                      loginNotifier.loggedIn = true;
+                      loginNotifier.notifyListeners();
                     } else {
                       Navigator.push(
                         context,
@@ -138,9 +151,9 @@ class _Login extends State<Login> {
                     }
                   } catch (e) {
                     // ログインに失敗した場合
-                    setState(() {
-                      _infoText = auth_error.login_error_msg("e:::$e");
-                    });
+                    // setState(() {
+                    //   _infoText = auth_error.login_error_msg("e:::$e");
+                    // });
                   }
                 },
 
