@@ -49,7 +49,7 @@ class HomeScreen extends HookConsumerWidget {
                 children: [
                   // Text("$title"),
                   Container(
-                    width: 200,
+                    width: 250,
                     padding: const EdgeInsets.only(top: 20),
                     child: DropdownButtonHideUnderline(
                         child: DropdownButtonFormField(
@@ -57,7 +57,7 @@ class HomeScreen extends HookConsumerWidget {
                       hint: const Text("сурах түвшингээ сонгоно уу"),
                       isDense: true,
                       items: getDropItems(),
-                      value: hasSelectedValue ? selectedLevel : null,
+                      value: hasSelectedValue ? selectedLevel : 5,
                       onChanged: (value) {
                         setState(() {
                           selectedLevel = value;
@@ -84,7 +84,8 @@ class HomeScreen extends HookConsumerWidget {
                 Center(
                   child: ElevatedButton(
                       onPressed: () {
-                        moveCommonPage(context, int.parse("$selectedLevel"));
+                        moveLearningCommonPage(
+                            context, int.parse("$selectedLevel"));
                       },
                       child: const Text(
                         "Хичээл",
@@ -99,44 +100,39 @@ class HomeScreen extends HookConsumerWidget {
     );
   }
 
-  moveCommonPage(context, int jlptLevel) {
+  moveLearningCommonPage(context, int jlptLevel) {
     print("level:$jlptLevel");
     switch (jlptLevel) {
       case 5:
-        router.goNamed("n5-root", params: {"tab": "masterData"});
-        // router. ("n5-root", params: {"tab": "masterData"});
-        // print("case:5");
-        // commonPage = CommonFrameLearning(
-        //   user_id: user_id,
-        //   auth: auth,
-        // );
+        router.goNamed("n5-learning", params: {"tab": "masterData"});
+
         break;
       case 4:
-        router.goNamed("n5-root", params: {"tab": "allVocabulary"});
-        // print("case:4");
-        // commonPage = N4CommonPage(
-        //   user_id: user_id,
-        //   auth: auth,
-        // );
         break;
       case 3:
-        // print("case:3");
-        // commonPage = CommonFrameLearning(
-        //   user_id: user_id,
-        //   auth: auth,
-        // );
         break;
       case 2:
-        // commonPage = CommonFrameLearning(
-        //   user_id: user_id,
-        //   auth: auth,
-        // );
         break;
       case 1:
-        // commonPage = CommonFrameLearning(
-        //   user_id: user_id,
-        //   auth: auth,
-        // );
+        break;
+      default:
+    }
+    // Navigator.push(
+    //     context, MaterialPageRoute(builder: (context) => commonPage));
+  }
+
+  movePracticeCommonPage(context, int jlptLevel) {
+    print("level:$jlptLevel");
+    switch (jlptLevel) {
+      case 5:
+        break;
+      case 4:
+        break;
+      case 3:
+        break;
+      case 2:
+        break;
+      case 1:
         break;
       default:
     }

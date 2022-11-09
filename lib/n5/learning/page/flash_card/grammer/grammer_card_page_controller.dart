@@ -2,20 +2,20 @@ import 'package:hishig_erdem/n5/learning/page/flash_card/vocabulary/vocabulary_m
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-final n4grammerCardProvider =
-    StateNotifierProvider<N4GrammerCardPageController, VocabularyModel>((ref) {
-  return N4GrammerCardPageController(widgetRef: ref);
+final grammerCardProvider =
+    StateNotifierProvider<GrammerCardPageController, VocabularyModel>((ref) {
+  return GrammerCardPageController(widgetRef: ref);
 });
 
-class N4GrammerCardPageController extends StateNotifier<VocabularyModel> {
-  N4GrammerCardPageController({required this.widgetRef})
+class GrammerCardPageController extends StateNotifier<VocabularyModel> {
+  GrammerCardPageController({required this.widgetRef})
       : super(const VocabularyModel());
 
   final StateNotifierProviderRef widgetRef;
   @override
   VocabularyModel get state;
   void setModelListenable(WidgetRef ref) {
-    ref.watch(n4grammerCardProvider);
+    ref.watch(grammerCardProvider);
   }
 
   void setLevel(int level) {

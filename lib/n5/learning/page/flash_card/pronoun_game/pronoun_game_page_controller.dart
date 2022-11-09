@@ -1,31 +1,27 @@
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
-import 'package:hishig_erdem/n5/learning/page/flash_card/vocabulary/vocabulary_model.dart';
+import 'package:hishig_erdem/n5/learning/page/pronoun/pronoun_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-final kanjiCardProvider =
-    StateNotifierProvider<N4KanjiCardPageController, VocabularyModel>((ref) {
-  return N4KanjiCardPageController(widgetRef: ref);
+final letterGameProvider =
+    StateNotifierProvider<LetterCardPageController, PronounModel>((ref) {
+  return LetterCardPageController(widgetRef: ref);
 });
 
-class N4KanjiCardPageController extends StateNotifier<VocabularyModel> {
-  N4KanjiCardPageController({required this.widgetRef})
-      : super(const VocabularyModel());
+class LetterCardPageController extends StateNotifier<PronounModel> {
+  LetterCardPageController({required this.widgetRef})
+      : super(const PronounModel());
 
   final StateNotifierProviderRef widgetRef;
   late SharedPreferences preferences;
   bool? get isShowPreference => preferences.getBool("isShowSpeechIcon");
 
   @override
-  VocabularyModel get state;
+  PronounModel get state;
   void setModelListenable(WidgetRef ref) {
-    ref.watch(kanjiCardProvider);
     preferences = ref.read(sharedPreferencesProvider);
-  }
-
-  void setLevel(int level) {
-    state = state.copyWith(pageIndex: level);
+    ref.watch(letterGameProvider);
   }
 
   setSelectedIndex(int index) async {

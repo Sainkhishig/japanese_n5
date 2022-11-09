@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hishig_erdem/authentication/login.dart';
 import 'package:hishig_erdem/home_screen.dart';
-import 'package:hishig_erdem/main/n5_common_page.dart';
 import 'package:hishig_erdem/main/not_found_page.dart';
+import 'package:hishig_erdem/n5/learning/frame/n5_common_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'login_state.dart';
@@ -62,7 +62,7 @@ class MainRoute {
       //   ),
       // ),
       GoRoute(
-        name: "n5-root",
+        name: "n5-learning",
         // 1
         path: '/n5/:tab(masterData|allVocabulary|verbForm|grammer)',
         pageBuilder: (context, state) {
@@ -72,7 +72,7 @@ class MainRoute {
           return MaterialPage<void>(
             key: state.pageKey,
             // 3
-            child: N5CommonPage(
+            child: N5LearningCommonPage(
               destination: tab,
             ),
           );
@@ -138,14 +138,12 @@ class MainRoute {
       // final creatingAccount = state.subloc == createAccountLoc;
       // 4
       final loggedIn = loginState.loggedIn;
-      // final rootLoc =
-      //     state.namedLocation("n5-root", params: {"tab": "masterData"});
       final rootLoc = state.namedLocation("home");
 
       // 5
       if (!loggedIn && !loggingIn) return loginLoc;
       if (loggedIn && (loggingIn)) return rootLoc;
-      return null;
+      // return rootLoc;
     },
   );
 }

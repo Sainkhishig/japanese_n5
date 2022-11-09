@@ -9,7 +9,8 @@ import 'package:hishig_erdem/common_frame_learning/constant_value/constant_month
 import 'package:hishig_erdem/common_frame_learning/constant_value/constant_number.dart';
 import 'package:hishig_erdem/common_frame_learning/constant_value/constants_katakana.dart';
 import 'package:hishig_erdem/common_frame_learning/constant_value/constants_weekday.dart';
-import 'package:hishig_erdem/common_frame_learning/page/letter/letter_type.dart';
+
+import 'package:hishig_erdem/n5/learning/page/letter/letter_type.dart';
 
 import 'constant_pronoun.dart';
 import 'constant_verb_forms.dart';

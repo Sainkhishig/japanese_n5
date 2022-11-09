@@ -1,5 +1,5 @@
+import 'package:hishig_erdem/n5/reference_n5_common_model.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
-import 'package:hishig_erdem/n5/learning/page/flash_card/vocabulary/vocabulary_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:state_notifier/state_notifier.dart';

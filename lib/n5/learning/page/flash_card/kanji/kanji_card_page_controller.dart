@@ -4,13 +4,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-final vocabularyCardProvider =
-    StateNotifierProvider<VocabularyCardPageController, VocabularyModel>((ref) {
-  return VocabularyCardPageController(widgetRef: ref);
+final kanjiCardProvider =
+    StateNotifierProvider<KanjiCardPageController, VocabularyModel>((ref) {
+  return KanjiCardPageController(widgetRef: ref);
 });
 
-class VocabularyCardPageController extends StateNotifier<VocabularyModel> {
-  VocabularyCardPageController({required this.widgetRef})
+class KanjiCardPageController extends StateNotifier<VocabularyModel> {
+  KanjiCardPageController({required this.widgetRef})
       : super(const VocabularyModel());
 
   final StateNotifierProviderRef widgetRef;
@@ -20,16 +20,12 @@ class VocabularyCardPageController extends StateNotifier<VocabularyModel> {
   @override
   VocabularyModel get state;
   void setModelListenable(WidgetRef ref) {
-    ref.watch(vocabularyCardProvider);
+    ref.watch(kanjiCardProvider);
     preferences = ref.read(sharedPreferencesProvider);
   }
 
   void setLevel(int level) {
     state = state.copyWith(pageIndex: level);
-  }
-
-  void setDb(int dbIndexh) {
-    state = state.copyWith(dbNameIndex: dbIndexh);
   }
 
   setSelectedIndex(int index) async {

@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
 
-import 'package:hishig_erdem/common_frame_learning/page/flash_card/grammer/grammer_card_page.dart';
-import 'package:hishig_erdem/common_frame_learning/page/flash_card/letter/letter_game_page.dart';
-import 'package:hishig_erdem/common_frame_learning/page/flash_card/verb_form/verb_conj_practise_page.dart';
-import 'package:hishig_erdem/common_frame_learning/page/flash_card/vocabulary/all/vocabulary_card_page.dart';
-import 'package:hishig_erdem/common_frame_learning/page/grammer/grammer_page.dart';
-import 'package:hishig_erdem/common_frame_learning/page/letter/letter_page.dart';
-import 'package:hishig_erdem/common_frame_learning/page/master/verbForm/verb_form_page.dart';
-import 'package:hishig_erdem/common_frame_learning/page/vocabulary/vocabulary_list_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
