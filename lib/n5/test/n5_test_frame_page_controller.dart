@@ -37,10 +37,6 @@ class N5TestFramePageController extends StateNotifier<N5TestFramePageModel> {
     state = state.copyWith(isGameMode: isGameMode);
   }
 
-  refreshState(String? uuid) async {
-    state = state.copyWith(userName: uuid ?? "");
-  }
-
   int get railIndex => state.railIndex;
   void setRailIndex(int index) {
     state = state.copyWith(railIndex: index);
@@ -51,7 +47,4 @@ class N5TestFramePageController extends StateNotifier<N5TestFramePageModel> {
     await preferences.setBool("isShowSpeechIcon", isShow);
     state = state.copyWith(isShowSpeech: isShow);
   }
-
-  String? get facilityId => state.facilityId;
-  set facilityId(String? value) => state = state.copyWith(facilityId: value);
 }

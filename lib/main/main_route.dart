@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hishig_erdem/authentication/login.dart';
 import 'package:hishig_erdem/home_screen.dart';
 import 'package:hishig_erdem/main/not_found_page.dart';
+import 'package:hishig_erdem/n5/common/menu.dart';
 import 'package:hishig_erdem/n5/learning/frame/n5_common_page.dart';
+import 'package:hishig_erdem/n5/test/n5_test_frame_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'login_state.dart';
@@ -62,9 +64,10 @@ class MainRoute {
       //   ),
       // ),
       GoRoute(
-        name: "n5-learning",
+        name: "n5-lesson",
         // 1
-        path: '/n5/:tab(masterData|allVocabulary|verbForm|grammer)',
+        path:
+            '/n5lesson/:tab(${learningMenuN5.map((e) => e.destination).toList().join('|')})',
         pageBuilder: (context, state) {
           // 2
           final tab = state.params['tab']!;
@@ -122,6 +125,24 @@ class MainRoute {
         //   ),
         // ],
       ),
+      GoRoute(
+        name: "n5-test",
+        // 1
+        path:
+            '/n5test/:tab(${practiceMenuN5.map((e) => e.destination).toList().join('|')})',
+        pageBuilder: (context, state) {
+          // 2
+          final tab = state.params['tab']!;
+          // final facilityId = state.params['facilityId']!;
+          return MaterialPage<void>(
+            key: state.pageKey,
+            // 3
+            child: N5PracticeCommonPage(
+              destination: tab,
+            ),
+          );
+        },
+      )
       // TODO: Add Other routes
     ],
     errorPageBuilder: (context, state) => MaterialPage<void>(

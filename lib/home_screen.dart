@@ -94,6 +94,25 @@ class HomeScreen extends HookConsumerWidget {
                 ),
               ],
             ),
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(
+                  child: ElevatedButton(
+                      onPressed: () {
+                        movePracticeCommonPage(
+                            context, int.parse("$selectedLevel"));
+                      },
+                      child: const Text(
+                        "Тест",
+                        style: TextStyle(fontSize: 30),
+                      )),
+                ),
+              ],
+            ),
           )
         ],
       ),
@@ -104,7 +123,7 @@ class HomeScreen extends HookConsumerWidget {
     print("level:$jlptLevel");
     switch (jlptLevel) {
       case 5:
-        router.goNamed("n5-learning", params: {"tab": "masterData"});
+        router.goNamed("n5-lesson", params: {"tab": "learnMasterDataN5"});
 
         break;
       case 4:
@@ -125,6 +144,7 @@ class HomeScreen extends HookConsumerWidget {
     print("level:$jlptLevel");
     switch (jlptLevel) {
       case 5:
+        router.goNamed("n5-test", params: {"tab": "testVocabularyN5"});
         break;
       case 4:
         break;

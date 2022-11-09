@@ -204,9 +204,9 @@ class N5CommonPageController extends StateNotifier<N5CommonPageModel> {
     state = state.copyWith(isGameMode: isGameMode);
   }
 
-  refreshState(String? uuid) async {
-    state = state.copyWith(userName: uuid ?? "");
-  }
+  // refreshState(String? uuid) async {
+  //   state = state.copyWith(userName: uuid ?? "");
+  // }
 
   int get railIndex => state.railIndex;
   void setRailIndex(int index) {
@@ -218,7 +218,4 @@ class N5CommonPageController extends StateNotifier<N5CommonPageModel> {
     await preferences.setBool("isShowSpeechIcon", isShow);
     state = state.copyWith(isShowSpeech: isShow);
   }
-
-  String? get facilityId => state.facilityId;
-  set facilityId(String? value) => state = state.copyWith(facilityId: value);
 }

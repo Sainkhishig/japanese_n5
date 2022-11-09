@@ -76,8 +76,8 @@ class CommonLearningPage extends HookConsumerWidget {
     controller.setModelListenable(ref);
 
     var bodyPage = !controller.state.isGameMode
-        ? lstMenu[controller.state.selectedIndex].mainPage
-        : lstMenu[controller.state.selectedIndex].gamePage;
+        ? learningMenuN5[controller.state.selectedIndex].mainPage
+        : learningMenuN5[controller.state.selectedIndex].practicePage;
     if (controller.state.selectedIndex == 0) {
       var selectedMaster = lstMasterMenu
           .where((element) =>
@@ -99,7 +99,7 @@ class CommonLearningPage extends HookConsumerWidget {
 
     return AdaptiveNavigationScaffold(
       appBar: AdaptiveAppBar(
-        title: Text(lstMenu[controller.state.selectedIndex].name),
+        title: Text(learningMenuN5[controller.state.selectedIndex].name),
         actions: [
           ButtonBar(
             children: [
@@ -272,7 +272,7 @@ class CommonLearningPage extends HookConsumerWidget {
 
   List<AdaptiveScaffoldDestination> _buildDestinations2(
       BuildContext context, CommonPageController controller) {
-    return lstMenu
+    return learningMenuN5
         .map((menu) => AdaptiveScaffoldDestination(
               title: menu.name,
               icon: menu.icon,

@@ -26,17 +26,6 @@ class LoginState extends ChangeNotifier {
   int railIndex = 0;
   bool readylogin = false;
 
-  late final lstMenuWithPage = <MenuPage>[
-    MenuPage("Үсэг, тоо, ТҮ", "masterData", Icons.format_list_numbered,
-        LetterPage(), LetterCardPage()),
-    MenuPage("Ханз, Шинэ үг", "allVocabulary", Icons.border_color,
-        VocabularyListPage(), VocabularyCardPage()),
-    MenuPage("Дүрэм", "verbForm", Icons.rule, VerbFormPage(),
-        VerbConjugationPracticePage()),
-    MenuPage("Өгүүлбэр зүй", "grammer", Icons.school_rounded, GrammerPage(),
-        GrammarCardPage()),
-  ];
-
   //#endregion ==================== local variable ====================
 
   //#region ==================== constructor ====================
@@ -157,21 +146,4 @@ class LoginState extends ChangeNotifier {
   }
 
   //#endregion ==================== method ====================
-}
-
-class Menu {
-  late String name;
-  late String destination;
-  late IconData icon;
-  Menu(this.name, this.destination, this.icon);
-}
-
-class MenuPage {
-  late String name;
-  late String destination;
-  late IconData icon;
-  late dynamic mainPage;
-  late dynamic practicePage;
-  MenuPage(
-      this.name, this.destination, this.icon, this.mainPage, this.practicePage);
 }

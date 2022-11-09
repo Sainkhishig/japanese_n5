@@ -2,7 +2,6 @@ import 'package:adaptive_navigation/adaptive_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hishig_erdem/common_frame_learning/common_page/common_frame.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 
@@ -41,7 +40,7 @@ class N5LearningCommonPage extends HookConsumerWidget {
 
     final controller = ref.read(n5commonPageProvider.notifier);
     controller.setModelListenable(ref);
-    final _destinations = loginStateNotifier.lstMenuWithPage
+    final _destinations = learningMenuN5
         .map((menu) => AdaptiveScaffoldDestination(
               title: menu.name,
               icon: menu.icon,
@@ -52,8 +51,7 @@ class N5LearningCommonPage extends HookConsumerWidget {
 
     return AdaptiveNavigationScaffold(
       appBar: AdaptiveAppBar(
-        title:
-            Text(loginStateNotifier.lstMenuWithPage[controller.railIndex].name),
+        title: Text(learningMenuN5[controller.railIndex].name),
         actions: [
           ButtonBar(
             children: [
@@ -173,8 +171,8 @@ class N5LearningCommonPage extends HookConsumerWidget {
       //         .firstWhere((element) => element.destination == destination)
       //         .mainPage,
       // loginStateNotifier.getBody(destination),
-      selectedIndex: loginStateNotifier.lstMenuWithPage
-          .indexWhere((e) => e.destination == destination),
+      selectedIndex:
+          learningMenuN5.indexWhere((e) => e.destination == destination),
       onDestinationSelected: (value) async {
         print("indexRail0:$value");
         switch (value) {
@@ -237,8 +235,8 @@ class N5LearningCommonPage extends HookConsumerWidget {
 
   getBody(N5CommonPageController controller) {
     var bodyPage = !controller.state.isGameMode
-        ? lstMenu[controller.state.railIndex].mainPage
-        : lstMenu[controller.state.railIndex].gamePage;
+        ? learningMenuN5[controller.state.railIndex].mainPage
+        : learningMenuN5[controller.state.railIndex].practicePage;
     if (controller.state.railIndex == 0) {
       var selectedMaster = lstMasterMenu
           .where((element) =>
@@ -262,8 +260,7 @@ class N5LearningCommonPage extends HookConsumerWidget {
 
   changeIndex(int index, N5CommonPageController controller,
       BuildContext context, GoRouter router) async {
-    final selectedDestination =
-        loginStateNotifier.lstMenuWithPage[index].destination;
+    final selectedDestination = learningMenuN5[index].destination;
     print("indexRail:$index");
     if (selectedDestination == "logout") {
       // loginStateNotifier.logOut();
