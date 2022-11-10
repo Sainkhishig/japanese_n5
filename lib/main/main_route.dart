@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hishig_erdem/authentication/login.dart';
+import 'package:hishig_erdem/authentication/registration.dart';
 import 'package:hishig_erdem/common_page/student_comment.dart';
 import 'package:hishig_erdem/fee/plan_fee.dart';
 import 'package:hishig_erdem/home_screen.dart';
@@ -75,14 +76,14 @@ class MainRoute {
           child: PlanFee(),
         ),
       ),
-      // GoRoute(
-      //   name: createAccountRouteName,
-      //   path: '/create-account',
-      //   pageBuilder: (context, state) => MaterialPage<void>(
-      //     key: state.pageKey,
-      //     child: const CreateAccount(),
-      //   ),
-      // ),
+      GoRoute(
+        name: "registration",
+        path: '/create-account',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: Registration(),
+        ),
+      ),
       GoRoute(
         name: "n5-lesson",
         // 1
@@ -100,50 +101,6 @@ class MainRoute {
             ),
           );
         },
-        // routes: [
-        //   GoRoute(
-        //     name: subDetailsRouteName,
-        //     // 4
-        //     path: 'details/:item',
-        //     pageBuilder: (context, state) => MaterialPage<void>(
-        //       key: state.pageKey,
-        //       // 5
-        //       child: Details(description: state.params['item']!),
-        //     ),
-        //   ),
-        //   GoRoute(
-        //     name: profilePersonalRouteName,
-        //     path: 'personal',
-        //     pageBuilder: (context, state) => MaterialPage<void>(
-        //       key: state.pageKey,
-        //       child: const PersonalInfo(),
-        //     ),
-        //   ),
-        //   GoRoute(
-        //     name: profilePaymentRouteName,
-        //     path: 'payment',
-        //     pageBuilder: (context, state) => MaterialPage<void>(
-        //       key: state.pageKey,
-        //       child: const Payment(),
-        //     ),
-        //   ),
-        //   GoRoute(
-        //     name: profileSigninInfoRouteName,
-        //     path: 'signin-info',
-        //     pageBuilder: (context, state) => MaterialPage<void>(
-        //       key: state.pageKey,
-        //       child: const SigninInfo(),
-        //     ),
-        //   ),
-        //   GoRoute(
-        //     name: profileMoreInfoRouteName,
-        //     path: 'more-info',
-        //     pageBuilder: (context, state) => MaterialPage<void>(
-        //       key: state.pageKey,
-        //       child: const MoreInfo(),
-        //     ),
-        //   ),
-        // ],
       ),
 
       GoRoute(

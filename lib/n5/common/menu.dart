@@ -73,11 +73,12 @@ late final lstMasterMenu = <Menu>[
 ];
 
 late final lstWordMenu = <Menu>[
-  Menu("Шинэ үг", "allVocabulary", Icons.ac_unit, VocabularyListPage(),
+  Menu("Шинэ үг", "vocabularyN5", Icons.ac_unit, VocabularyListPage(),
       VocabularyCardPage()),
   Menu("Ханз", "kanji", Icons.dashboard_outlined, KanjiListPage(),
       KanjiCardPage()),
 ];
+
 late final lstConjugation = <Menu>[
   Menu("Үйл үг хувиргах", "verbConj", Icons.ac_unit, VocabularyListPage(),
       VocabularyCardPage()),

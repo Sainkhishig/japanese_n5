@@ -249,7 +249,7 @@ class N5LearningCommonPage extends HookConsumerWidget {
       controller.setGameMode(false);
       controller.setRailIndex(index);
 
-      router.go("/n5/$destination");
+      router.go("/n5lesson/$destination");
     }
     // TODO: URLから取得
   }

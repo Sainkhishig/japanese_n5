@@ -25,22 +25,16 @@ class HomeScreen extends HookConsumerWidget {
     return lstDropItem;
   }
 
-  Object? selectedLevel;
+  int selectedLevel = 5;
   late GoRouter router;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var itemSource = getDropItems();
-    router = ref.read(mainRouteProvider).router;
-
-    var hasSelectedValue = selectedLevel == null
-        ? true
-        : itemSource.any((element) => element.value == selectedLevel);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Хишиг эрдэм: Япон хэлний хичээл"),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         // crossAxisAlignment: CrossAxisAlignment.,
         children: [
           StatefulBuilder(
@@ -57,10 +51,10 @@ class HomeScreen extends HookConsumerWidget {
                       hint: const Text("сурах түвшингээ сонгоно уу"),
                       isDense: true,
                       items: getDropItems(),
-                      value: hasSelectedValue ? selectedLevel : 5,
+                      value: selectedLevel,
                       onChanged: (value) {
                         setState(() {
-                          selectedLevel = value;
+                          selectedLevel = int.parse("N$value түвшин");
                         });
                       },
                     )),
@@ -76,44 +70,78 @@ class HomeScreen extends HookConsumerWidget {
               );
             },
           ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(
-                  child: ElevatedButton(
-                      onPressed: () {
-                        moveLearningCommonPage(
-                            context, int.parse("$selectedLevel"));
-                      },
-                      child: const Text(
-                        "Хичээл",
-                        style: TextStyle(fontSize: 30),
-                      )),
-                ),
-              ],
+
+          const SizedBox(height: 24),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                print("level$selectedLevel");
+                moveLearningCommonPage(context, int.parse("$selectedLevel"));
+              },
+              child: const SizedBox(
+                  width: 120,
+                  child: Text(
+                    "Хичээл",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 30),
+                  )),
             ),
           ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(
-                  child: ElevatedButton(
-                      onPressed: () {
-                        movePracticeCommonPage(
-                            context, int.parse("$selectedLevel"));
-                      },
-                      child: const Text(
-                        "Тест",
-                        style: TextStyle(fontSize: 30),
-                      )),
-                ),
-              ],
+          const SizedBox(height: 20),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                print("level$selectedLevel");
+                movePracticeCommonPage(context, int.parse("$selectedLevel"));
+              },
+              child: const SizedBox(
+                  width: 120,
+                  child: Text(
+                    "Тест",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 30),
+                  )),
             ),
-          )
+          ),
+          SizedBox(height: 20),
+          // Expanded(
+          //   child: Column(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     crossAxisAlignment: CrossAxisAlignment.center,
+          //     children: [
+          //       Center(
+          //         child: ElevatedButton(
+          //             onPressed: () {
+          //               moveLearningCommonPage(
+          //                   context, int.parse("$selectedLevel"));
+          //             },
+          //             child: const Text(
+          //               "Хичээл",
+          //               style: TextStyle(fontSize: 30),
+          //             )),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Expanded(
+          //   child: Column(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     crossAxisAlignment: CrossAxisAlignment.center,
+          //     children: [
+          //       Center(
+          //         child: ElevatedButton(
+          //             onPressed: () {
+          //               movePracticeCommonPage(
+          //                   context, int.parse("$selectedLevel"));
+          //             },
+          //             child: const Text(
+          //               "Тест",
+          //               style: TextStyle(fontSize: 30),
+          //             )),
+          //       ),
+          //     ],
+          //   ),
+          // )
         ],
       ),
     );

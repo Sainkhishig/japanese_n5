@@ -12,7 +12,7 @@ abstract class N5CommonPageModel with _$N5CommonPageModel {
     @Default(false) bool isGameMode,
     @Default(true) bool isShowSpeech,
     @Default("letter") String masterDataDestination,
-    @Default("learnVocabulary") String vocabularyMenuDestination,
+    @Default("vocabularyN5") String vocabularyMenuDestination,
   }) = _N5CommonPageModel;
   factory N5CommonPageModel.fromJson(Map<String, dynamic> json) =>
       _$N5CommonPageModelFromJson(json);

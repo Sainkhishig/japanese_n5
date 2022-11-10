@@ -15,7 +15,7 @@ _$_N5CommonPageModel _$$_N5CommonPageModelFromJson(Map<String, dynamic> json) =>
       masterDataDestination:
           json['masterDataDestination'] as String? ?? 'letter',
       vocabularyMenuDestination:
-          json['vocabularyMenuDestination'] as String? ?? 'learnVocabulary',
+          json['vocabularyMenuDestination'] as String? ?? 'vocabularyN5',
     );
 
 Map<String, dynamic> _$$_N5CommonPageModelToJson(

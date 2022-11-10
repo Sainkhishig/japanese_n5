@@ -27,7 +27,7 @@ class _$N5CommonPageModelTearOff {
       bool isGameMode = false,
       bool isShowSpeech = true,
       String masterDataDestination = "letter",
-      String vocabularyMenuDestination = "learnVocabulary"}) {
+      String vocabularyMenuDestination = "vocabularyN5"}) {
     return _N5CommonPageModel(
       railIndex: railIndex,
       status: status,
@@ -197,7 +197,7 @@ class _$_N5CommonPageModel implements _N5CommonPageModel {
       this.isGameMode = false,
       this.isShowSpeech = true,
       this.masterDataDestination = "letter",
-      this.vocabularyMenuDestination = "learnVocabulary"});
+      this.vocabularyMenuDestination = "vocabularyN5"});
 
   factory _$_N5CommonPageModel.fromJson(Map<String, dynamic> json) =>
       _$$_N5CommonPageModelFromJson(json);
@@ -217,7 +217,7 @@ class _$_N5CommonPageModel implements _N5CommonPageModel {
   @JsonKey(defaultValue: "letter")
   @override
   final String masterDataDestination;
-  @JsonKey(defaultValue: "learnVocabulary")
+  @JsonKey(defaultValue: "vocabularyN5")
   @override
   final String vocabularyMenuDestination;
 
