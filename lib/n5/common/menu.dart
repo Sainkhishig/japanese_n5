@@ -1,6 +1,7 @@
 import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hishig_erdem/n5/test/pages/kanji/list/kanji_test_list.dart';
 
 class Menu {
   late String name;
@@ -11,24 +12,6 @@ class Menu {
   Menu(this.name, this.destination, this.icon, this.mainPage, this.gamePage);
 }
 
-late final practiceMenuN5 = <MenuPage>[
-  MenuPage(
-    "Шинэ үг",
-    "testVocabularyN5",
-    Icons.format_list_numbered,
-    LetterPage(),
-    LetterCardPage(),
-  ),
-  MenuPage("Ханз", "testKanjiN5", CupertinoIcons.pencil_outline,
-      VocabularyListPage(), VocabularyCardPage()),
-  MenuPage("Өгүүлбэр зүй", "testGrammarN5", Icons.rule, VerbFormPage(),
-      VerbConjugationPracticePage()),
-  MenuPage("Уншлага", "testReadingN5", Icons.menu_book, GrammerPage(),
-      GrammarCardPage()),
-  MenuPage("Сонсгол", "testListeningN5", CupertinoIcons.ear, GrammerPage(),
-      GrammarCardPage()),
-];
-
 late final learningMenuN5 = <MenuPage>[
   MenuPage("Үсэг, тоо, ТҮ", "learnMasterDataN5", Icons.format_list_numbered,
       LetterPage(), LetterCardPage()),
@@ -38,6 +21,24 @@ late final learningMenuN5 = <MenuPage>[
       VerbConjugationPracticePage()),
   MenuPage("Өгүүлбэр зүй", "learnGrammerN5", Icons.school_rounded,
       GrammerPage(), GrammarCardPage()),
+];
+
+late final practiceMenuN5 = <MenuPage>[
+  MenuPage(
+    "Шинэ үг",
+    "testVocabularyN5",
+    Icons.format_list_numbered,
+    LetterPage(),
+    LetterCardPage(),
+  ),
+  MenuPage("Ханз", "testKanjiN5", CupertinoIcons.pencil_outline,
+      KanjiTestList(), KanjiTestList()),
+  MenuPage("Өгүүлбэр зүй", "testGrammarN5", Icons.rule, VerbFormPage(),
+      VerbConjugationPracticePage()),
+  MenuPage("Уншлага", "testReadingN5", Icons.menu_book, GrammerPage(),
+      GrammarCardPage()),
+  MenuPage("Сонсгол", "testListeningN5", CupertinoIcons.ear, GrammerPage(),
+      GrammarCardPage()),
 ];
 
 class MenuPage {

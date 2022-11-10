@@ -142,26 +142,8 @@ class N5PracticeCommonPage extends HookConsumerWidget {
 
   getBody(N5TestFramePageController controller) {
     var bodyPage = !controller.state.isGameMode
-        ? learningMenuN5[controller.state.railIndex].mainPage
-        : learningMenuN5[controller.state.railIndex].practicePage;
-    if (controller.state.railIndex == 0) {
-      var selectedMaster = lstMasterMenu
-          .where((element) =>
-              element.destination == controller.state.masterDataDestination)
-          .first;
-      bodyPage = !controller.state.isGameMode
-          ? selectedMaster.mainPage
-          : selectedMaster.gamePage;
-    }
-    if (controller.state.railIndex == 1) {
-      var selectedMaster = lstWordMenu
-          .where((element) =>
-              element.destination == controller.state.vocabularyMenuDestination)
-          .first;
-      bodyPage = !controller.state.isGameMode
-          ? selectedMaster.mainPage
-          : selectedMaster.gamePage;
-    }
+        ? practiceMenuN5[controller.state.railIndex].mainPage
+        : practiceMenuN5[controller.state.railIndex].practicePage;
     return bodyPage;
   }
 

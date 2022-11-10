@@ -6,6 +6,7 @@ import 'package:hishig_erdem/main/not_found_page.dart';
 import 'package:hishig_erdem/n5/common/menu.dart';
 import 'package:hishig_erdem/n5/learning/frame/n5_common_page.dart';
 import 'package:hishig_erdem/n5/test/n5_test_frame_page.dart';
+import 'package:hishig_erdem/n5/test/pages/kanji/test/kanji_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'login_state.dart';
@@ -125,24 +126,46 @@ class MainRoute {
         //   ),
         // ],
       ),
+
       GoRoute(
-        name: "n5-test",
-        // 1
-        path:
-            '/n5test/:tab(${practiceMenuN5.map((e) => e.destination).toList().join('|')})',
-        pageBuilder: (context, state) {
-          // 2
-          final tab = state.params['tab']!;
-          // final facilityId = state.params['facilityId']!;
-          return MaterialPage<void>(
-            key: state.pageKey,
-            // 3
-            child: N5PracticeCommonPage(
-              destination: tab,
+          name: "n5-test",
+          // 1
+          path:
+              '/n5test/:tab(${practiceMenuN5.map((e) => e.destination).toList().join('|')})',
+          pageBuilder: (context, state) {
+            // 2
+            final tab = state.params['tab']!;
+            // final facilityId = state.params['facilityId']!;
+            return MaterialPage<void>(
+              key: state.pageKey,
+              // 3
+              child: N5PracticeCommonPage(
+                destination: tab,
+              ),
+            );
+          },
+          routes: [
+            GoRoute(
+              name: "kanji-test-n5",
+              // 4
+              path: 'details/:item',
+              pageBuilder: (context, state) => MaterialPage<void>(
+                key: state.pageKey,
+                // 5
+                child: KanjiTest(description: state.params['item']!),
+              ),
             ),
-          );
-        },
-      )
+          ]),
+      GoRoute(
+        name: "redirect-n5-kanji-test",
+        // 2
+        path: '/redirect-n5-kanji-test/:item',
+        // 3
+        redirect: (state) => state.namedLocation(
+          "kanji-test-n5",
+          params: {'tab': 'testKanjiN5', 'item': state.params['item']!},
+        ),
+      ),
       // TODO: Add Other routes
     ],
     errorPageBuilder: (context, state) => MaterialPage<void>(
