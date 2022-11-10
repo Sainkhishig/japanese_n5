@@ -1,7 +1,8 @@
 {
   "projects": {
     "default": "afen-vocabulary",
-    "releasejp": "hishig-erdem"
+    "releasejp": "hishig-erdem",
+    "testmode": "test-hishig-erdem"
   },
   "targets": {}
 }
