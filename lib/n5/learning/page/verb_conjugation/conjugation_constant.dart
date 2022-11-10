@@ -170,7 +170,7 @@ List<ConjugationFormula> verbGodan = [
       rowChanging: RowName.e,
       isRemove: false,
       suffix: "",
-      description: "う мөр  → え мөр + ば",
+      description: "う мөр  → え мөр",
       example: "吸う → 吸えば,読めば",
       exception: ""),
   ConjugationFormula(
