@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hishig_erdem/authentication/login.dart';
+import 'package:hishig_erdem/common_page/student_comment.dart';
+import 'package:hishig_erdem/fee/plan_fee.dart';
 import 'package:hishig_erdem/home_screen.dart';
 import 'package:hishig_erdem/main/not_found_page.dart';
 import 'package:hishig_erdem/n5/common/menu.dart';
 import 'package:hishig_erdem/n5/learning/frame/n5_common_page.dart';
 import 'package:hishig_erdem/n5/test/n5_test_frame_page.dart';
+import 'package:hishig_erdem/n5/test/pages/kanji/model/kanji_model.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/test/kanji_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -54,6 +57,22 @@ class MainRoute {
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
           child: Login(),
+        ),
+      ),
+      GoRoute(
+        name: "commentSend",
+        path: '/commentSend',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: StudentCommentPage(),
+        ),
+      ),
+      GoRoute(
+        name: "planFee",
+        path: '/planFee',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: PlanFee(),
         ),
       ),
       // GoRoute(
@@ -152,7 +171,9 @@ class MainRoute {
               pageBuilder: (context, state) => MaterialPage<void>(
                 key: state.pageKey,
                 // 5
-                child: KanjiTest(description: state.params['item']!),
+                child: KanjiTestPage(
+                  description: state.extra as KanjiTestModel,
+                ),
               ),
             ),
           ]),

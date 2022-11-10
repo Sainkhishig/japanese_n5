@@ -1,7 +1,7 @@
 class Question {
   late String question;
   late List<AnswerOption> answers;
-
+  late String selectedAnswer = "";
   Question(this.question, this.answers);
   factory Question.fromRTDB(Map<String, dynamic> data) {
     return Question(

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hishig_erdem/common_frame_practice/common_widget/afen_text_field.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/save_button.dart';
+import 'package:hishig_erdem/n5/test/pages/kanji/model/kanji_model.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/test/kanji_test_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // pyfm061 : キャンセル規定編集
-class KanjiTest extends HookConsumerWidget {
-  KanjiTest({Key? key, this.description = ""}) : super(key: key);
-  String description;
-  AfenTextField txtCode = AfenTextField("код");
-  AfenTextField txtName = AfenTextField("нэр");
+class KanjiTestPage extends HookConsumerWidget {
+  KanjiTestPage({Key? key, this.description}) : super(key: key);
+  KanjiTestModel? description;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(kanjiTestController.notifier);
     controller.setModelListenable(ref);
+    // if (description != null) txtName.controller.text = description!.name;
 
     return Scaffold(
         body: Padding(
@@ -22,8 +21,40 @@ class KanjiTest extends HookConsumerWidget {
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            txtCode,
-            txtName,
+            Text(
+              "${description!.name}",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            ListView.builder(
+                itemCount: description!.exercises.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  return StatefulBuilder(builder: (context, setState) {
+                    var test = description!.exercises[index];
+                    return ListTile(
+                      title: Text("${index + 1}. ${test.question}"),
+                      subtitle: ListView.builder(
+                          itemCount: test.answers.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            var answerItem = test.answers[index];
+                            return RadioListTile(
+                              title: Text(answerItem.answer),
+                              value: answerItem.answer,
+                              groupValue: test.selectedAnswer,
+                              onChanged: (value) {
+                                setState(() {
+                                  test.selectedAnswer = value.toString();
+                                  print("radioSelection$value");
+                                });
+                              },
+                            );
+                          }),
+                    );
+                  });
+                }),
             SaveButton(
               onSave: () {
                 save(controller);

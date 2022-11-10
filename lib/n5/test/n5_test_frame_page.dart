@@ -2,6 +2,7 @@ import 'package:adaptive_navigation/adaptive_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hishig_erdem/common/common_popup_menu.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 
 import 'package:hishig_erdem/main/login_state.dart';
@@ -27,11 +28,7 @@ class N5PracticeCommonPage extends HookConsumerWidget {
     //#region ---------- arrange ----------
     final router = ref.read(mainRouteProvider).router;
     // keycloak = ref.read(keycloakProvider);
-    final List<String> _popmenu_list = [
-      "Хэрэглэгчийн мэдээлэл",
-      "Дасгал ажиллах эрх",
-      "Тохиргоо"
-    ];
+
     loginStateNotifier = ref.read(loginStateNotifierProvider.notifier);
     auth = ref.read(firebaseAuthProvider);
 
@@ -76,27 +73,8 @@ class N5PracticeCommonPage extends HookConsumerWidget {
             ],
           ),
           Visibility(
-            visible: loginStateNotifier.loggedIn,
-            child: PopupMenuButton<String>(
-              icon: const Icon(Icons.person),
-              onSelected: (String popMenu) async {
-                switch (popMenu) {
-                  case "Дасгал ажиллах эрх":
-                    Navigator.pushNamed(context, "/planFee");
-                    break;
-                  default:
-                }
-              },
-              itemBuilder: (BuildContext context) {
-                return _popmenu_list.map((String s) {
-                  return PopupMenuItem(
-                    child: Text(s),
-                    value: s,
-                  );
-                }).toList();
-              },
-            ),
-          ),
+              visible: loginStateNotifier.loggedIn,
+              child: commonPopUpMenu(context, ref)),
           IconButton(
             padding: const EdgeInsets.only(bottom: 4),
             disabledColor: Colors.grey,

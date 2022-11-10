@@ -110,7 +110,7 @@ class KanjiTestList extends HookConsumerWidget {
                         ),
                         onTap: () {
                           router.goNamed("redirect-n5-kanji-test",
-                              params: {'item': "hello"});
+                              extra: nextUser, params: {'item': nextUser.name});
 
                           // controller.update(keyUser);
                         },

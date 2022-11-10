@@ -1,3 +1,4 @@
+import 'package:hishig_erdem/common/common_popup_menu.dart';
 import 'package:hishig_erdem/n5/common/menu.dart';
 import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
 import 'package:flutter/material.dart';
@@ -67,11 +68,7 @@ class CommonLearningPage extends HookConsumerWidget {
     var lstN5db = ref.read(n5BoxDataProvider);
     final controller = ref.watch(commonPageProvider.notifier);
     var loginNotifier = ref.read(loginStateNotifierProvider);
-    final List<String> _popmenu_list = [
-      "Хэрэглэгчийн мэдээлэлx",
-      "Дасгал ажиллах эрх",
-      "Тохиргоо"
-    ];
+
     lstN5 = ref.read(n5BoxDataProvider);
     controller.setModelListenable(ref);
 
@@ -167,27 +164,7 @@ class CommonLearningPage extends HookConsumerWidget {
                     },
                   ))),
           Visibility(
-            visible: user_id == null,
-            child: PopupMenuButton<String>(
-              icon: const Icon(Icons.person),
-              onSelected: (String popMenu) async {
-                switch (popMenu) {
-                  case "Дасгал ажиллах эрх":
-                    Navigator.pushNamed(context, "/planFee");
-                    break;
-                  default:
-                }
-              },
-              itemBuilder: (BuildContext context) {
-                return _popmenu_list.map((String s) {
-                  return PopupMenuItem(
-                    child: Text(s),
-                    value: s,
-                  );
-                }).toList();
-              },
-            ),
-          ),
+              visible: user_id == null, child: commonPopUpMenu(context, ref)),
           IconButton(
             padding: const EdgeInsets.only(bottom: 4),
             disabledColor: Colors.grey,

@@ -6,17 +6,20 @@ class AfenRichTextField extends HookConsumerWidget {
     this.lablel, {
     Key? key,
     this.onValueChanged,
+    this.rowNumber = 3,
   }) : super(key: key);
 
   /// 検索機能
   final VoidCallback? onValueChanged;
   final String lablel;
+  final int rowNumber;
 
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return StatefulBuilder(builder: (context, setState) {
-      return SizedBox(
+      return Container(
+          padding: EdgeInsets.all(8),
           width: 500,
           // height: 50,
           child: Column(
@@ -26,7 +29,7 @@ class AfenRichTextField extends HookConsumerWidget {
                   Expanded(
                     flex: 1,
                     child: TextFormField(
-                      maxLines: 3,
+                      maxLines: rowNumber,
                       controller: controller,
                       autofocus: true,
                       // textInputAction: TextInputAction.search,
