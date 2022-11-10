@@ -148,7 +148,8 @@ class _RegistrationState extends State<Registration> {
   String _newPassword = ""; // 入力されたパスワード
   String _infoText = ""; // 登録に関する情報を表示
   bool _pswd_OK = false; // パスワードが有効な文字数を満たしているかどうか
-
+  String _telephone = ""; // 入力されたパスワード
+  String _address = ""; // 入力されたパスワード
   // エラーメッセージを日本語化するためのクラス
   final auth_error = Authentication_error();
 
@@ -193,7 +194,30 @@ class _RegistrationState extends State<Registration> {
                     }
                   }),
             ),
-
+            Padding(
+              padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
+              child: TextFormField(
+                decoration: InputDecoration(labelText: "Утасны дугаар"),
+                obscureText: true,
+                maxLength: 20,
+                maxLengthEnforced: false,
+                onChanged: (String value) {
+                  _telephone = value;
+                },
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
+              child: TextFormField(
+                decoration: InputDecoration(labelText: "Хаяг"),
+                obscureText: true,
+                maxLength: 20,
+                maxLengthEnforced: false,
+                onChanged: (String value) {
+                  _address = value;
+                },
+              ),
+            ),
             // 登録失敗時のエラーメッセージ
             Padding(
               padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 5.0),

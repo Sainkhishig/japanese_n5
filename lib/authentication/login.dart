@@ -1,9 +1,12 @@
 // import 'package:hishig_erdem/authentication/home.dart';
+import 'dart:ui';
+
 import 'package:hishig_erdem/authentication/login_controller.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hishig_erdem/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hishig_erdem/main/main_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'authentication_error.dart';
 import 'registration.dart';
@@ -33,8 +36,6 @@ class Login extends HookConsumerWidget {
   String _login_Email = ""; // 入力されたメールアドレス
   String _login_Password = ""; // 入力されたパスワード
 
-  String _telephone = ""; // 入力されたパスワード
-  String _address = ""; // 入力されたパスワード
   String _infoText = ""; // ログインに関する情報を表示
 
   // エラーメッセージを日本語化するためのクラス
@@ -46,7 +47,7 @@ class Login extends HookConsumerWidget {
     controller.setModelListenable(ref);
 
     var loginNotifier = ref.read(loginStateNotifierProvider);
-
+    final go = ref.read(mainRouteProvider);
     return Scaffold(
       body: Center(
         child: Column(
@@ -72,30 +73,6 @@ class Login extends HookConsumerWidget {
                 maxLengthEnforced: false, // 入力可能な文字数の制限を超える場合の挙動の制御
                 onChanged: (String value) {
                   _login_Password = value;
-                },
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
-              child: TextFormField(
-                decoration: InputDecoration(labelText: "Утасны дугаар"),
-                obscureText: true,
-                maxLength: 20,
-                maxLengthEnforced: false,
-                onChanged: (String value) {
-                  _telephone = value;
-                },
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
-              child: TextFormField(
-                decoration: InputDecoration(labelText: "Хаяг"),
-                obscureText: true,
-                maxLength: 20,
-                maxLengthEnforced: false,
-                onChanged: (String value) {
-                  _address = value;
                 },
               ),
             ),
@@ -180,19 +157,31 @@ class Login extends HookConsumerWidget {
           child: ButtonTheme(
             minWidth: 350.0,
             // height: 100.0,
-            child: RaisedButton(
-                child: const Text(
-                  'Бүртгэл үүсгэх',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+            child: ElevatedButton(
+                child: const SizedBox(
+                  width: 350,
+                  child: Text(
+                    'Бүртгэл үүсгэх',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.bold),
+                  ),
                 ),
-                textColor: Colors.blue,
-                color: Colors.blue[50],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                style: ElevatedButton.styleFrom(
+                  textStyle: const TextStyle(
+                    color: Colors.blue,
+                  ),
+                  primary: Colors.blue[50],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
 
                 // ボタンクリック後にアカウント作成用の画面の遷移する.
                 onPressed: () {
+                  // go.router.goNamed("registration");
+                  // go.router.pushNamed("registration");
+                  // go.router.pushNamed("registration");
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       fullscreenDialog: true,
