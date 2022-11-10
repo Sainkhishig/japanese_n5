@@ -3,6 +3,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hishig_erdem/common/enum_values.dart';
 
 class PlanFee extends StatefulWidget {
   @override
@@ -28,6 +29,9 @@ class _PlanFee extends State<PlanFee> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(PopupMenu.planFee.title),
+      ),
       body: Card(
           child: Column(
         children: [

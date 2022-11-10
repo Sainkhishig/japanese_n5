@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/common/common_dialog.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/save_button.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/model/kanji_model.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/test/kanji_test_controller.dart';
@@ -56,8 +57,20 @@ class KanjiTestPage extends HookConsumerWidget {
                   });
                 }),
             SaveButton(
+              label: "Дуусгах",
               onSave: () {
-                save(controller);
+                int allCount = description!.exercises.length;
+                var failedQuestions = description!.exercises
+                    .where((quest) =>
+                        quest.answers
+                            .firstWhere((answer) => answer.isTrue)
+                            .answer !=
+                        quest.selectedAnswer)
+                    .toList();
+                int failedCount = failedQuestions.length;
+                showWarningMessage(context, "Хариу",
+                    "$allCountасуултаас $failedCount хариулт буруу");
+                // save(controller);
               },
             )
           ]),
