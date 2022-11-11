@@ -18,7 +18,7 @@ class HomeScreen extends HookConsumerWidget {
           alignment: AlignmentDirectional.center,
           value: i,
           child: Text(
-            "$i",
+            "N$i түвшин",
             textAlign: TextAlign.center,
           )));
     }
@@ -29,6 +29,7 @@ class HomeScreen extends HookConsumerWidget {
   late GoRouter router;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    router = ref.read(mainRouteProvider).router;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Хишиг эрдэм: Япон хэлний хичээл"),
@@ -54,7 +55,7 @@ class HomeScreen extends HookConsumerWidget {
                       value: selectedLevel,
                       onChanged: (value) {
                         setState(() {
-                          selectedLevel = int.parse("N$value түвшин");
+                          selectedLevel = int.parse("$value");
                         });
                       },
                     )),
