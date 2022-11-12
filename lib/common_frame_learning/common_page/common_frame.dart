@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 
 import 'package:adaptive_navigation/adaptive_navigation.dart';
 import 'package:hishig_erdem/authentication/login.dart';
-import 'package:hishig_erdem/fee/plan_fee.dart';
+
 import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
+import 'package:hishig_erdem/popup_menu_pages/fee/plan_fee.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/cupertino.dart';
 

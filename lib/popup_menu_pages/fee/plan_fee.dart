@@ -4,6 +4,8 @@ import 'package:hishig_erdem/common/common_dialog.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
 import 'package:hishig_erdem/common/enum_values.dart';
 import 'package:hishig_erdem/main/login_state.dart';
+import 'package:hishig_erdem/popup_menu_pages/user_info/model/plan_model.dart';
+import 'package:hishig_erdem/popup_menu_pages/user_info/user_info.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class PlanFee extends HookConsumerWidget {
@@ -77,8 +79,21 @@ class PlanFee extends HookConsumerWidget {
                             "${plan.level} дасгалын эрх авах",
                             "Та дараах эрхийг идэвхижүүлэхдээ итгэлтэй байна уу? \n${levelPrice.month} сар: ${levelPrice.price}");
                         if (isConfirmed) {
-                          var requestSent = await sendPlanRequest(
-                              plan.level, levelPrice.month, levelPrice.price);
+                          PlanModel planDetail = PlanModel(
+                              loginState.userId,
+                              loginState.userName,
+                              plan.level,
+                              "${levelPrice.month}",
+                              levelPrice.price,
+                              false,
+                              false,
+                              false,
+                              DateTime.now(),
+                              DateTime.now(),
+                              DateTime.now(),
+                              DateTime.now(),
+                              DateTime.now());
+                          var requestSent = await sendPlanRequest(planDetail);
                           if (requestSent) {
                             showInfoMessage(context, "Хүсэлт илгээлээ",
                                 "Та дараах дансанд төлбөрөө шилжүүлсний дараа хэрэглэгчийн мэдээлэл цэс рүү орж төлбөр төлсөн мэдэгдлээ илгээнэ үү.");
@@ -99,17 +114,20 @@ class PlanFee extends HookConsumerWidget {
     );
   }
 
-  Future<bool> sendPlanRequest(level, plan, planfee) async {
+  Future<bool> sendPlanRequest(PlanModel plan) async {
     final newData = <String, dynamic>{
-      'userId': loginState.userId,
-      'userName': loginState.userName,
-      'level': "$level",
-      'plan': plan,
-      'planfee': plan,
-      'paymentStatus': "waiting", //waiting, Complete
+      'userId': plan.userId,
+      'userName': plan.userName,
+      'level': plan.level,
+      'name': plan.name,
+      'price': plan.price,
+      'isApproved': false,
+      'isPaid': false,
       'isCancelled': false,
-      'startTime': DateTime.now().microsecondsSinceEpoch,
-      'endTime': DateTime.now().microsecondsSinceEpoch,
+      'startDate': DateTime.now().microsecondsSinceEpoch,
+      'endDate': DateTime.now().microsecondsSinceEpoch,
+      'approveDate': DateTime.now().microsecondsSinceEpoch,
+      'paidDate': DateTime.now().microsecondsSinceEpoch,
       'writeDate': DateTime.now().microsecondsSinceEpoch,
     };
     try {
@@ -244,13 +262,13 @@ var priceN1 = [
 // 2сар	60	75	75	105	105
 // 3сар	80	100	100	140	140
 
-class PlanModel {
-  late String userId;
-  late String level;
-  late String planName;
-  late String paymentStatus;
-  late String isCancelled;
-  late String startTime;
-  late String endTime;
-  late String writeDate;
-}
+// class PlanModel {
+//   late String userId;
+//   late String level;
+//   late String planName;
+//   late String paymentStatus;
+//   late String isCancelled;
+//   late String startTime;
+//   late String endTime;
+//   late String writeDate;
+// }
