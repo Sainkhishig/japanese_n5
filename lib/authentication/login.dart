@@ -1,9 +1,6 @@
-// import 'package:hishig_erdem/authentication/home.dart';
-import 'dart:ui';
-
 import 'package:hishig_erdem/authentication/login_controller.dart';
 import 'package:hishig_erdem/main/login_state.dart';
-import 'package:hishig_erdem/home_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hishig_erdem/main/main_route.dart';
@@ -47,6 +44,7 @@ class Login extends HookConsumerWidget {
     controller.setModelListenable(ref);
 
     var loginNotifier = ref.read(loginStateNotifierProvider);
+    var router = ref.read(mainRouteProvider).router;
     final go = ref.read(mainRouteProvider);
     return Scaffold(
       body: Center(
@@ -55,7 +53,7 @@ class Login extends HookConsumerWidget {
           children: <Widget>[
             // メールアドレスの入力フォーム
             Padding(
-                padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 0),
+                padding: const EdgeInsets.fromLTRB(25.0, 0, 25.0, 0),
                 child: TextFormField(
                   decoration: InputDecoration(labelText: "Цахим хаяг"),
                   onChanged: (String value) {
@@ -65,9 +63,10 @@ class Login extends HookConsumerWidget {
 
             // パスワードの入力フォーム
             Padding(
-              padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
+              padding: const EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
               child: TextFormField(
-                decoration: InputDecoration(labelText: "Нууц үг（8～20тэмдэгт）"),
+                decoration:
+                    const InputDecoration(labelText: "Нууц үг（8～20тэмдэгт）"),
                 obscureText: true, // パスワードが見えないようRにする
                 maxLength: 20, // 入力可能な文字数
                 maxLengthEnforced: false, // 入力可能な文字数の制限を超える場合の挙動の制御
@@ -76,69 +75,89 @@ class Login extends HookConsumerWidget {
                 },
               ),
             ),
+            StatefulBuilder(builder: (context, setState) {
+              return Column(children: [
+                // ログイン失敗時のエラーメッセージ
 
-            // ログイン失敗時のエラーメッセージ
-            Padding(
-              padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 5.0),
-              child: Text(
-                _infoText,
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-
-            // ログインボタンの配置
-            ButtonTheme(
-              minWidth: 350.0,
-              // height: 100.0,
-              child: RaisedButton(
-                // ボタンの形状
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 5.0),
+                  child: Text(
+                    _infoText,
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ),
+
+                // ログインボタンの配置
+                ButtonTheme(
+                  minWidth: 350.0,
+                  // height: 100.0,
+                  child: RaisedButton(
+                    // ボタンの形状
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
 // ボタン内の文字や書式
-                child: const Text(
-                  'Нэвтрэх',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                    child: const Text(
+                      'Нэвтрэх',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () async {
+                      try {
+                        // メール/パスワードでログイン
+                        _result = await _auth.signInWithEmailAndPassword(
+                          email: _login_Email,
+                          password: _login_Password,
+                        );
+
+                        // ログイン成功
+                        _user = _result!.user; // ログインユーザーのIDを取得
+
+                        // Email確認が済んでいる場合のみHome画面へ
+                        // GoRouter.of(context).go('/login');
+
+                        if (_user!.emailVerified) {
+                          loginNotifier.loggedIn = true;
+                          loginNotifier.userId = _result!.user!.uid;
+                          loginNotifier.userName = _result!.user!.email!;
+
+                          router.goNamed("home");
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Emailcheck(
+                                    email: _login_Email,
+                                    pswd: _login_Password,
+                                    from: 2)),
+                          );
+                        }
+                      } catch (e) {
+                        // ログインに失敗した場合
+                        setState(() {
+                          if ("$e".contains("There is no user record corres")) {
+                            _infoText = auth_error.login_error_msg(
+                                "Хэрэглэгчийн мэдээлэл олдсонгүй.");
+                          } else if ("$e".contains(
+                              "The email address is badly formatted")) {
+                            _infoText = auth_error.login_error_msg(
+                                "Цахим хаягийн формат буруу байна.");
+                          } else if ("$e".contains("The password is invalid")) {
+                            _infoText = auth_error
+                                .login_error_msg("Нууц үг буруу байна.");
+                          } else {
+                            _infoText = auth_error
+                                .login_error_msg("Нэвтрэхэд алдаа гарлаа.");
+                          }
+                        });
+                      }
+                    },
+
+                    textColor: Colors.white,
+                    color: Colors.blue,
+                  ),
                 ),
-                onPressed: () async {
-                  try {
-                    // メール/パスワードでログイン
-                    _result = await _auth.signInWithEmailAndPassword(
-                      email: _login_Email,
-                      password: _login_Password,
-                    );
-
-                    // ログイン成功
-                    _user = _result!.user; // ログインユーザーのIDを取得
-
-                    // Email確認が済んでいる場合のみHome画面へ
-
-                    if (_user!.emailVerified) {
-                      loginNotifier.loggedIn = true;
-                      loginNotifier.notifyListeners();
-                    } else {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Emailcheck(
-                                email: _login_Email,
-                                pswd: _login_Password,
-                                from: 2)),
-                      );
-                    }
-                  } catch (e) {
-                    // ログインに失敗した場合
-                    // setState(() {
-                    //   _infoText = auth_error.login_error_msg("e:::$e");
-                    // });
-                  }
-                },
-
-                textColor: Colors.white,
-                color: Colors.blue,
-              ),
-            ),
-
+              ]);
+            }),
             // ログイン失敗時のエラーメッセージ
             TextButton(
               child: const Text('Нуур үг сэргээх'),

@@ -240,6 +240,7 @@ class N5LearningCommonPage extends HookConsumerWidget {
   changeIndex(int index, N5CommonPageController controller,
       BuildContext context, GoRouter router) async {
     final selectedDestination = learningMenuN5[index].destination;
+    loginStateNotifier.setRailIndex(index);
     print("indexRail:$index");
     if (selectedDestination == "logout") {
       // loginStateNotifier.logOut();

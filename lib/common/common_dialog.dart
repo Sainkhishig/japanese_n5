@@ -80,7 +80,7 @@ Future<bool> showConfirmationMessage(context, String title, String content,
               CupertinoDialogAction(
                 isDestructiveAction:
                     distructiveIndex == null ? false : distructiveIndex == 0,
-                child: Text(labelFalse ?? "いいえ"),
+                child: Text(labelFalse ?? "үгүй"),
                 onPressed: () {
                   isConfirmed = false;
                   Navigator.pop(context, false);
@@ -89,7 +89,7 @@ Future<bool> showConfirmationMessage(context, String title, String content,
               CupertinoDialogAction(
                 isDestructiveAction:
                     distructiveIndex == null ? false : distructiveIndex == 1,
-                child: Text(labelTrue ?? "はい"),
+                child: Text(labelTrue ?? "тийм"),
                 onPressed: () {
                   isConfirmed = true;
                   Navigator.pop(context, true);

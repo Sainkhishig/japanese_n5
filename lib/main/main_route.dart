@@ -150,24 +150,28 @@ class MainRoute {
       key: state.pageKey,
       child: NotFoundPage(), //ErrorPage(error: state.error),
     ),
-    // redirect: (state) {
-    //   // 1
-    //   final loginLoc = state.namedLocation("home");
-    //   final rootLoc = state.namedLocation("login");
-    //   // 2
-    //   final loggingIn = state.subloc == rootLoc;
-    //   // 3
-    //   // final createAccountLoc = state.namedLocation(createAccountRouteName);
-    //   // final creatingAccount = state.subloc == createAccountLoc;
-    //   // 4
-    //   final loggedIn = loginState.loggedIn;
-    //   // final rootLoc = state.namedLocation("login");
-    //   print("loggingIn:$loggingIn");
-    //   print("loggedIn:$loggedIn");
-    //   // 5
-    //   if (!loggedIn && !loggingIn) return loginLoc;
-    //   if (loggedIn && (loggingIn)) return rootLoc;
-    //   // return rootLoc;
-    // },
+    redirect: (state) {
+      // if (loginState.loggedIn) {
+      //   state.namedLocation("home");
+      // }
+      return null;
+      // 1
+      // final loginLoc = state.namedLocation("home");
+      // final rootLoc = state.namedLocation("login");
+      // // 2
+      // final loggingIn = state.subloc == rootLoc;
+      // // 3
+      // // final createAccountLoc = state.namedLocation(createAccountRouteName);
+      // // final creatingAccount = state.subloc == createAccountLoc;
+      // // 4
+      // final loggedIn = loginState.loggedIn;
+      // // final rootLoc = state.namedLocation("login");
+      // print("loggingIn:$loggingIn");
+      // print("loggedIn:$loggedIn");
+      // // 5
+      // if (!loggedIn && !loggingIn) return loginLoc;
+      // if (loggedIn && (loggingIn)) return rootLoc;
+      // return rootLoc;
+    },
   );
 }
