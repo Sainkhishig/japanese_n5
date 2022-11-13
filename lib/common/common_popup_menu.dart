@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hishig_erdem/common/enum_values.dart';
+import 'package:hishig_erdem/common/common_enum.dart';
 import 'package:hishig_erdem/main/main_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

@@ -1,5 +1,5 @@
 import 'package:hishig_erdem/common/common_widget.dart';
-import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
+import 'package:hishig_erdem/hive_db/provider/kanji_box_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hishig_erdem/n5/learning/page/verb_conjugation/conjugation_constant.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

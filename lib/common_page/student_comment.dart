@@ -1,7 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
-import 'package:hishig_erdem/common/enum_values.dart';
+import 'package:hishig_erdem/common/common_enum.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/afen_rich_text_field.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/afen_text_field.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/save_button.dart';

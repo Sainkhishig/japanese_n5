@@ -2,8 +2,12 @@ import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/common/common_constant.dart';
+import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
+import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hishig_erdem/main/main_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends HookConsumerWidget {
   final String? user_id;
@@ -29,6 +33,7 @@ class HomeScreen extends HookConsumerWidget {
   late GoRouter router;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    LoginState loginState = ref.read(loginStateNotifierProvider);
     router = ref.read(mainRouteProvider).router;
     return Scaffold(
       appBar: AppBar(
@@ -71,12 +76,11 @@ class HomeScreen extends HookConsumerWidget {
               );
             },
           ),
-
           const SizedBox(height: 24),
           Center(
             child: ElevatedButton(
               onPressed: () {
-                print("level$selectedLevel");
+                loginState.hiveInfo = lstHiveInfo[selectedLevel - 1];
                 moveLearningCommonPage(context, int.parse("$selectedLevel"));
               },
               child: const SizedBox(
@@ -92,7 +96,7 @@ class HomeScreen extends HookConsumerWidget {
           Center(
             child: ElevatedButton(
               onPressed: () {
-                print("level$selectedLevel");
+                loginState.hiveInfo = lstHiveInfo[selectedLevel - 1];
                 movePracticeCommonPage(context, int.parse("$selectedLevel"));
               },
               child: const SizedBox(
@@ -104,45 +108,6 @@ class HomeScreen extends HookConsumerWidget {
                   )),
             ),
           ),
-          SizedBox(height: 20),
-          // Expanded(
-          //   child: Column(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     crossAxisAlignment: CrossAxisAlignment.center,
-          //     children: [
-          //       Center(
-          //         child: ElevatedButton(
-          //             onPressed: () {
-          //               moveLearningCommonPage(
-          //                   context, int.parse("$selectedLevel"));
-          //             },
-          //             child: const Text(
-          //               "Хичээл",
-          //               style: TextStyle(fontSize: 30),
-          //             )),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // Expanded(
-          //   child: Column(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     crossAxisAlignment: CrossAxisAlignment.center,
-          //     children: [
-          //       Center(
-          //         child: ElevatedButton(
-          //             onPressed: () {
-          //               movePracticeCommonPage(
-          //                   context, int.parse("$selectedLevel"));
-          //             },
-          //             child: const Text(
-          //               "Тест",
-          //               style: TextStyle(fontSize: 30),
-          //             )),
-          //       ),
-          //     ],
-          //   ),
-          // )
         ],
       ),
     );

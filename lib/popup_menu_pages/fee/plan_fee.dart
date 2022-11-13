@@ -2,7 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hishig_erdem/common/common_dialog.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
-import 'package:hishig_erdem/common/enum_values.dart';
+import 'package:hishig_erdem/common/common_enum.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hishig_erdem/popup_menu_pages/user_info/model/plan_model.dart';
 import 'package:hishig_erdem/popup_menu_pages/user_info/user_info.dart';

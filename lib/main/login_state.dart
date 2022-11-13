@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/common/common_constant.dart';
 import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -24,6 +25,8 @@ class LoginState extends ChangeNotifier {
 
   String _token = "";
   int railIndex = 0;
+  HiveInfo hiveInfo = lstHiveInfo[0];
+
   bool readylogin = false;
 
   //#endregion ==================== local variable ====================
