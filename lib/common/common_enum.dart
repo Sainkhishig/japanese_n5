@@ -42,3 +42,5 @@ extension CommentTypeExtension on CommentType {
 
   String get id => typeIds[this]!;
 }
+
+enum JlptLevel { n5, n4, n3, n2, n1 }
