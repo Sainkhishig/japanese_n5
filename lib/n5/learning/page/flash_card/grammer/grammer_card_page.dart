@@ -4,7 +4,6 @@ import 'package:hishig_erdem/common/app_function.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
 import 'package:hishig_erdem/common_frame_learning/constant_value/common_constants.dart';
 
-import 'package:hishig_erdem/hive_db/provider/kanji_box_provider.dart';
 import 'package:flash_card/flash_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,7 +14,7 @@ class GrammarCardPage extends HookConsumerWidget {
   GrammarCardPage({Key? key}) : super(key: key);
   late List<JLPTLevel> listLevel = [];
   late List<String> listInterval = [];
-  late N5Box lstN5;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     PageController pageController = PageController(

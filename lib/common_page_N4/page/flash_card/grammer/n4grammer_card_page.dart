@@ -7,6 +7,7 @@ import 'package:hishig_erdem/common_frame_learning/constant_value/common_constan
 import 'package:hishig_erdem/hive_db/provider/kanji_box_provider.dart';
 import 'package:flash_card/flash_card.dart';
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'n4grammer_card_page_controller.dart';

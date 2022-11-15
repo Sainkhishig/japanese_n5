@@ -3,10 +3,11 @@ import 'package:hishig_erdem/hive_db/boxes/hive_box_class.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final n5BoxDataProvider = Provider<N5Box>((ref) => throw UnimplementedError());
+final xlKanjiBoxDataProvider =
+    Provider<XlKanjiBox>((ref) => throw UnimplementedError());
 
-class N5Box extends HiveBoxClass {
-  N5Box(Box box) : super(box) {}
+class XlKanjiBox extends HiveBoxClass {
+  XlKanjiBox(Box box) : super(box) {}
   dynamic get lstN5VocAll => box.get("wordN5");
   dynamic get lstN5VocAdjective => box.get("adjectives");
 

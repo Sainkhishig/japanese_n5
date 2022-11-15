@@ -1,7 +1,7 @@
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
+import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:hishig_erdem/n5/reference_n5_common_model.dart';
 import 'package:hishig_erdem/hive_db/object/kanji_dictionary.dart';
-import 'package:hishig_erdem/hive_db/provider/kanji_box_provider.dart';
 import 'package:excel/excel.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

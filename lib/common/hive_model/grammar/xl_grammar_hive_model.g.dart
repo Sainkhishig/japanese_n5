@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'xl_grammar_box.dart';
+part of 'xl_grammar_hive_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class XlGrammarBoxAdapter extends TypeAdapter<XlGrammarBox> {
+class XlGrammarHiveModelAdapter extends TypeAdapter<XlGrammarHiveModel> {
   @override
-  final int typeId = 4;
+  final int typeId = 2;
 
   @override
-  XlGrammarBox read(BinaryReader reader) {
+  XlGrammarHiveModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return XlGrammarBox()
+    return XlGrammarHiveModel()
       ..level = fields[0] as int
       ..grammar = fields[1] as String
       ..formMn = fields[2] as String
@@ -26,18 +26,24 @@ class XlGrammarBoxAdapter extends TypeAdapter<XlGrammarBox> {
       ..example1 = fields[6] as String
       ..example2 = fields[7] as String
       ..example3 = fields[8] as String
-      ..example1Mn = fields[9] as String
-      ..example2Mn = fields[10] as String
-      ..example3Mn = fields[11] as String
-      ..example1En = fields[12] as String
-      ..example2En = fields[13] as String
-      ..example3En = fields[14] as String;
+      ..example4 = fields[9] as String
+      ..example5 = fields[10] as String
+      ..example1Mn = fields[11] as String
+      ..example2Mn = fields[12] as String
+      ..example3Mn = fields[13] as String
+      ..example4Mn = fields[14] as String
+      ..example5Mn = fields[15] as String
+      ..example1En = fields[16] as String
+      ..example2En = fields[17] as String
+      ..example3En = fields[18] as String
+      ..example4En = fields[19] as String
+      ..example5En = fields[20] as String;
   }
 
   @override
-  void write(BinaryWriter writer, XlGrammarBox obj) {
+  void write(BinaryWriter writer, XlGrammarHiveModel obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(21)
       ..writeByte(0)
       ..write(obj.level)
       ..writeByte(1)
@@ -57,17 +63,29 @@ class XlGrammarBoxAdapter extends TypeAdapter<XlGrammarBox> {
       ..writeByte(8)
       ..write(obj.example3)
       ..writeByte(9)
-      ..write(obj.example1Mn)
+      ..write(obj.example4)
       ..writeByte(10)
-      ..write(obj.example2Mn)
+      ..write(obj.example5)
       ..writeByte(11)
-      ..write(obj.example3Mn)
+      ..write(obj.example1Mn)
       ..writeByte(12)
-      ..write(obj.example1En)
+      ..write(obj.example2Mn)
       ..writeByte(13)
-      ..write(obj.example2En)
+      ..write(obj.example3Mn)
       ..writeByte(14)
-      ..write(obj.example3En);
+      ..write(obj.example4Mn)
+      ..writeByte(15)
+      ..write(obj.example5Mn)
+      ..writeByte(16)
+      ..write(obj.example1En)
+      ..writeByte(17)
+      ..write(obj.example2En)
+      ..writeByte(18)
+      ..write(obj.example3En)
+      ..writeByte(19)
+      ..write(obj.example4En)
+      ..writeByte(20)
+      ..write(obj.example5En);
   }
 
   @override
@@ -76,7 +94,7 @@ class XlGrammarBoxAdapter extends TypeAdapter<XlGrammarBox> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is XlGrammarBoxAdapter &&
+      other is XlGrammarHiveModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

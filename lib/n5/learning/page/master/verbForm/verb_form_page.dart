@@ -1,5 +1,4 @@
 import 'package:hishig_erdem/common/common_widget.dart';
-import 'package:hishig_erdem/hive_db/provider/kanji_box_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hishig_erdem/n5/learning/page/verb_conjugation/conjugation_constant.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,7 +8,7 @@ import 'verb_form_page_controller.dart';
 
 class VerbFormPage extends HookConsumerWidget {
   VerbFormPage({Key? key}) : super(key: key);
-  late N5Box lstN5;
+
   final trans = Translit();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
