@@ -1,3 +1,5 @@
+import 'package:hishig_erdem/common/common_constant.dart';
+import 'package:hishig_erdem/common/hive_model/kanji/xl_kanji_hive_model.dart';
 import 'package:hishig_erdem/hive_db/boxes/hive_box_class.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
@@ -7,8 +9,7 @@ final n4BoxDataProvider = Provider<N4Box>((ref) => throw UnimplementedError());
 
 class N4Box extends HiveBoxClass {
   N4Box(Box box) : super(box) {}
-  dynamic get lstN4VocAll => box.get("vocabularyN4");
-  dynamic get lstN4VocAdjective => box.get("adjectives");
-  dynamic get lstN4VocAdverb => box.get("csvadverb");
-  dynamic get lstN4VocParticle => box.get("csvparticle");
+  List<XlKanjiHiveModel> get lstN4Kanji => box.get(lstHiveInfo[3].kanjiHive);
+  dynamic get lstN4Grammar => box.get(lstHiveInfo[3].grammarHive);
+  dynamic get lstN4Vocabulary => box.get(lstHiveInfo[3].vocabularyHive);
 }

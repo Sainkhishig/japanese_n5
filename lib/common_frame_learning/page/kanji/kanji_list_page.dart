@@ -1,9 +1,11 @@
 import 'package:hishig_erdem/common/app_function.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
+import 'package:hishig_erdem/common/hive_model/kanji/xl_kanji_hive_model.dart';
 import 'package:hishig_erdem/common/search_bar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hishig_erdem/hive_db/provider/n4_box_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:translit/translit.dart';
 
@@ -25,18 +27,20 @@ class CommonKanjiListPage extends HookConsumerWidget {
 
     final controller = ref.watch(commonKanjiListProvider.notifier);
     controller.setModelListenable(ref);
-    final future = useMemoized(() => controller.loadExcel());
-    final snapshot = useFuture(future, initialData: null);
-    if (snapshot.hasError) {
-      return showErrorWidget(context, "Error card", snapshot.error);
-    }
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return const Center(child: CircularProgressIndicator());
-    }
+
+    final n4Box = ref.watch(n4BoxDataProvider);
+    // final future = useMemoized(() => n4Box.lstN4Kanji());
+    // final snapshot = useFuture(future, initialData: null);
+    // if (snapshot.hasError) {
+    //   return showErrorWidget(context, "Error card", snapshot.error);
+    // }
+    // if (snapshot.connectionState == ConnectionState.waiting) {
+    //   return const Center(child: CircularProgressIndicator());
+    // }
     // }
     List<Widget> lsttableServings = [];
     // lstVocabul = lstN5db.box.get("N5Words");
-    var filteredGrammar = controller.state.lstVocabulary;
+    List<XlKanjiHiveModel> filteredGrammar = n4Box.lstN4Kanji;
     // if (controller.state.searchKey.trim().isNotEmpty) {
     //   filteredGrammar = controller.state.lstVocabulary
     //       .where((element) =>
@@ -120,7 +124,7 @@ class CommonKanjiListPage extends HookConsumerWidget {
     );
   }
 
-  Widget tabCardBody(List lst, context, controller) {
+  Widget tabCardBody(List<XlKanjiHiveModel> lst, context, controller) {
     // var currentLetter = lstVoc as List<Dictionary>;
     return Card(
         child: Column(
@@ -167,7 +171,7 @@ class CommonKanjiListPage extends HookConsumerWidget {
                 itemBuilder: (BuildContext ctx, index) {
                   print("lst[index]");
                   print(lst[index].kanji);
-                  print(lst[index].translate);
+                  print(lst[index].meaningMn);
                   print(lst[index].onReading);
                   print(lst[index].kunReading);
 
@@ -205,7 +209,7 @@ class CommonKanjiListPage extends HookConsumerWidget {
                             ),
                             Expanded(
                               flex: 2,
-                              child: Text("${lst[index].translate}"),
+                              child: Text("${lst[index].meaningMn}"),
                             ),
                             Expanded(
                               flex: 2,
