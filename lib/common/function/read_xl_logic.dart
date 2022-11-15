@@ -26,45 +26,84 @@ Future<List<XlKanjiHiveModel>> readKanji(StateNotifierProviderRef ref) async {
   var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   var excel = Excel.decodeBytes(bytes);
   print("rowlength:${excel.tables["Worksheet"]!.rows.length}");
-  for (var i = 1; i < excel.tables["Worksheet"]!.rows.length; i++) {
+  hiveBox.box.clear();
+  int index = 0;
+  for (var row in excel.tables["Worksheet"]!.rows) {
     print("start kanji");
-    var row = excel.tables["Worksheet"]!.rows[i];
-    var kanji = row[0];
-    var translate = row[1]; //!.value.toString();
+    // var row = excel.tables["Worksheet"]!.rows[i];
 
-    var vocabulary = XlKanjiHiveModel()
-      ..level = loginState.hiveInfo.jlptLevel
-      ..kanji = "${row[0]!.value}"
-      ..onReading = getCellValue(row[1])
-      ..kunReading = getCellValue(row[2])
-      ..meaningMn = getCellValue(row[3])
-      ..meaningEn = getCellValue(row[4])
-      ..example1 = getCellValue(row[5])
-      ..example1Mn = getCellValue(row[6])
-      ..example1En = getCellValue(row[7])
-      ..example2 = getCellValue(row[8])
-      ..example2Mn = getCellValue(row[9])
-      ..example2En = getCellValue(row[10])
-      ..example3 = getCellValue(row[11])
-      ..example3Mn = getCellValue(row[12])
-      ..example3En = getCellValue(row[13])
-      ..example4 = getCellValue(row[14])
-      ..example4Mn = getCellValue(row[15])
-      ..example4En = getCellValue(row[16])
-      ..example5 = getCellValue(row[17])
-      ..example5Mn = getCellValue(row[18])
-      ..example5En = getCellValue(row[19]);
-
-    lstData.add(vocabulary);
+    var vocabulary = XlKanjiHiveModel();
+    vocabulary.level = loginState.hiveInfo.jlptLevel;
+    vocabulary.kanji = getCellValue(row[0]);
+    vocabulary.onReading = getCellValue(row[1]);
+    vocabulary.kunReading = getCellValue(row[2]);
+    vocabulary.meaningMn = getCellValue(row[3]);
+    vocabulary.meaningEn = getCellValue(row[4]);
+    vocabulary.example1 = getCellValue(row[5]);
+    vocabulary.example1Mn = getCellValue(row[6]);
+    vocabulary.example1En = getCellValue(row[7]);
+    vocabulary.example2 = getCellValue(row[8]);
+    vocabulary.example2Mn = getCellValue(row[9]);
+    vocabulary.example2En = getCellValue(row[10]);
+    vocabulary.example3 = getCellValue(row[11]);
+    vocabulary.example3Mn = getCellValue(row[12]);
+    vocabulary.example3En = getCellValue(row[13]);
+    // vocabulary.example4 = getCellValue(row[14]);
+    // vocabulary.example4Mn = getCellValue(row[15]);
+    // vocabulary.example4En = getCellValue(row[16]);
+    // vocabulary.example5 = getCellValue(row[17]);
+    // vocabulary.example5Mn = getCellValue(row[18]);
+    // vocabulary.example5En = getCellValue(row[19]);
+    // ..level = loginState.hiveInfo.jlptLevel
+    // ..kanji = getCellValue(row[0])
+    // ..onReading = getCellValue(row[1])
+    // ..kunReading = getCellValue(row[2])
+    // ..meaningMn = getCellValue(row[3])
+    // ..meaningEn = getCellValue(row[4])
+    // ..example1 = getCellValue(row[5])
+    // ..example1Mn = getCellValue(row[6])
+    // ..example1En = getCellValue(row[7])
+    // ..example2 = getCellValue(row[8])
+    // ..example2Mn = getCellValue(row[9])
+    // ..example2En = getCellValue(row[10])
+    // ..example3 = getCellValue(row[11])
+    // ..example3Mn = getCellValue(row[12])
+    // ..example3En = getCellValue(row[13])
+    // ..example4 = getCellValue(row[14])
+    // ..example4Mn = getCellValue(row[15])
+    // ..example4En = getCellValue(row[16])
+    // ..example5 = getCellValue(row[17])
+    // ..example5Mn = getCellValue(row[18])
+    // ..example5En = getCellValue(row[19]);
+    print("model");
+    print("${vocabulary.kanji}");
+    print("${vocabulary.meaningMn}");
+    print("${vocabulary.onReading}");
+    print("${vocabulary.kunReading}");
+    // lstData.add(vocabulary);
+    await hiveBox.box.put(index++, vocabulary);
   }
   print("ent kanjixl");
-  await hiveBox.box.put(excelDBName, lstData);
-
+  // await hiveBox.box.put(excelDBName, lstData);
+  for (var item in hiveBox.box.values) {
+    print("row kanjixl");
+    print("${item.kanji}");
+    print("${item.meaningMn}");
+    print("${item.onReading}");
+    print("${item.kunReading}");
+  }
   return lstData;
 }
 
 getCellValue(Data? row) {
-  return row == null ? "" : row.value ?? "";
+  String value = "";
+  try {
+    value = row == null ? "" : row.value ?? "";
+  } catch (ex) {
+    print("cellError");
+  }
+
+  return value;
 }
 
 Future<List<XlGrammarHiveModel>> readGrammar(
