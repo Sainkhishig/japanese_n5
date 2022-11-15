@@ -1,10 +1,8 @@
-import 'package:hishig_erdem/common/common_popup_menu.dart';
 import 'package:hishig_erdem/n5/common/menu.dart';
 
 import 'package:flutter/material.dart';
 
 import 'package:adaptive_navigation/adaptive_navigation.dart';
-import 'package:hishig_erdem/authentication/login.dart';
 
 import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:hishig_erdem/main/login_state.dart';
@@ -31,30 +29,12 @@ class CommonFrameLearning extends HookConsumerWidget {
     controller.setModelListenable(ref);
 
     var bodyPage = !controller.state.isGameMode
-        ? learningMenuN5[controller.state.selectedIndex].mainPage
-        : learningMenuN5[controller.state.selectedIndex].practicePage;
-    if (controller.state.selectedIndex == 0) {
-      var selectedMaster = lstMasterMenu
-          .where((element) =>
-              element.destination == controller.state.masterDataDestination)
-          .first;
-      bodyPage = !controller.state.isGameMode
-          ? selectedMaster.mainPage
-          : selectedMaster.gamePage;
-    }
-    if (controller.state.selectedIndex == 1) {
-      var selectedMaster = lstWordMenu
-          .where((element) =>
-              element.destination == controller.state.vocabularyMenuDestination)
-          .first;
-      bodyPage = !controller.state.isGameMode
-          ? selectedMaster.mainPage
-          : selectedMaster.gamePage;
-    }
+        ? learningMenuCommon[controller.state.selectedIndex].mainPage
+        : learningMenuCommon[controller.state.selectedIndex].practicePage;
 
     return AdaptiveNavigationScaffold(
       appBar: AdaptiveAppBar(
-        title: Text(learningMenuN5[controller.state.selectedIndex].name),
+        title: Text(learningMenuCommon[controller.state.selectedIndex].name),
         actions: [
           ButtonBar(
             children: [
@@ -81,63 +61,6 @@ class CommonFrameLearning extends HookConsumerWidget {
                   )),
             ],
           ),
-          Visibility(
-              visible: controller.state.selectedIndex == 0,
-              child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: DropdownButton(
-                    value: controller.state.masterDataDestination,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                    items: lstMasterMenu
-                        .map((e) => DropdownMenuItem(
-                              value: e.destination,
-                              child: Text(e.name),
-                            ))
-                        .toList(),
-                    onChanged: (lvl) async {
-                      controller.setMasterDataDestination(lvl as String);
-                    },
-                  ))),
-          Visibility(
-              visible: controller.state.selectedIndex == 1,
-              child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: DropdownButton(
-                    value: controller.state.vocabularyMenuDestination,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                    items: lstWordMenu
-                        .map((e) => DropdownMenuItem(
-                              value: e.destination,
-                              child: Text(e.name),
-                            ))
-                        .toList(),
-                    onChanged: (lvl) async {
-                      controller.setVocabularyDestination(lvl as String);
-                    },
-                  ))),
-          // Visibility(
-          //     visible: user_id == null, child: commonPopUpMenu(context, ref)),
-          // IconButton(
-          //   padding: const EdgeInsets.only(bottom: 4),
-          //   disabledColor: Colors.grey,
-          //   // color: Colors.white,
-          //   icon: Icon(user_id == null ? Icons.login : Icons.logout),
-          //   onPressed: () async {
-          //     if (user_id == null) {
-          //       Navigator.pushNamed(context, "/login");
-          //     } else {
-          //       await auth!.signOut();
-          //       user_id = null;
-          //       controller.refreshState(user_id);
-          //     }
-          //   },
-          // )
         ],
       ),
       body: Scaffold(
@@ -207,7 +130,7 @@ class CommonFrameLearning extends HookConsumerWidget {
 
   List<AdaptiveScaffoldDestination> _buildDestinations2(
       BuildContext context, CommonPageController controller) {
-    return learningMenuN5
+    return learningMenuCommon
         .map((menu) => AdaptiveScaffoldDestination(
               title: menu.name,
               icon: menu.icon,

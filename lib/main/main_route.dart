@@ -117,7 +117,7 @@ class MainRoute {
         name: "common-lesson",
         // 1
         path:
-            '/commonLesson/:tab(${learningMenuN5.map((e) => e.destination).toList().join('|')})',
+            '/commonLesson/:tab(${learningMenuCommon.map((e) => e.destination).toList().join('|')})',
         pageBuilder: (context, state) {
           // 2
           final tab = state.params['tab']!;

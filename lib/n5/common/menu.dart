@@ -1,3 +1,6 @@
+import 'package:hishig_erdem/common_frame_learning/page/grammer/common_grammer_page.dart';
+import 'package:hishig_erdem/common_frame_learning/page/kanji/kanji_list_page.dart';
+import 'package:hishig_erdem/common_frame_learning/page/vocabulary/common_vocabulary_list_page.dart';
 import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,6 +14,17 @@ class Menu {
   late Widget gamePage;
   Menu(this.name, this.destination, this.icon, this.mainPage, this.gamePage);
 }
+
+late final learningMenuCommon = <MenuPage>[
+  MenuPage("Ханз", "kanji", Icons.format_list_numbered, CommonKanjiListPage(),
+      CommonKanjiListPage()),
+  MenuPage("Шинэ үг", "vocabulary", Icons.border_color,
+      CommonVocabularyListPage(), CommonVocabularyListPage()),
+  MenuPage("Өгүүлбэр зүй", "grammar", Icons.school_rounded, CommonGrammerPage(),
+      GrammarCardPage()),
+  MenuPage("Дүрэм", "conjugation", Icons.rule, VerbFormPage(),
+      VerbConjugationPracticePage()),
+];
 
 late final learningMenuN5 = <MenuPage>[
   MenuPage("Үсэг, тоо, ТҮ", "learnMasterDataN5", Icons.format_list_numbered,

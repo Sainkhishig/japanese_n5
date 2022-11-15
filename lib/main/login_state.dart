@@ -25,7 +25,7 @@ class LoginState extends ChangeNotifier {
 
   String _token = "";
   int railIndex = 0;
-  HiveInfo hiveInfo = lstHiveInfo[0];
+  HiveInfo hiveInfo = lstHiveInfo[4];
 
   bool readylogin = false;
 

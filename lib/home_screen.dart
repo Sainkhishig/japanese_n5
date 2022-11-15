@@ -7,6 +7,7 @@ import 'package:hishig_erdem/common/loading_button.dart';
 import 'package:hishig_erdem/home_screen_controller.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hishig_erdem/main/main_route.dart';
+import 'package:hishig_erdem/n5/common/menu.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomeScreen extends HookConsumerWidget {
@@ -145,7 +146,8 @@ class HomeScreen extends HookConsumerWidget {
     print("level:$jlptLevel");
     switch (jlptLevel) {
       case 5:
-        router.goNamed("n5-lesson", params: {"tab": "learnMasterDataN5"});
+        router.goNamed("n5-lesson",
+            params: {"tab": learningMenuN5[0].destination});
 
         break;
       // case 4:
@@ -157,7 +159,8 @@ class HomeScreen extends HookConsumerWidget {
       // case 1:
       //   break;
       default:
-        router.goNamed("common-lesson", params: {"tab": "testVocabularyN5"});
+        router.goNamed("common-lesson",
+            params: {"tab": learningMenuCommon[0].destination});
         break;
     }
     // Navigator.push(

@@ -3,6 +3,9 @@ import 'package:hishig_erdem/common_frame_practice/listening/player/services/ser
 
 import 'package:hishig_erdem/hive_db/object/dictionary.dart';
 import 'package:hishig_erdem/hive_db/object/kanji_dictionary.dart';
+import 'package:hishig_erdem/hive_db/provider/n1_box_provider.dart';
+import 'package:hishig_erdem/hive_db/provider/n2_box_provider.dart';
+import 'package:hishig_erdem/hive_db/provider/n3_box_provider.dart';
 import 'package:hishig_erdem/hive_db/provider/n4_box_provider.dart';
 import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:hishig_erdem/main/init_app.dart';
@@ -38,6 +41,12 @@ Future<void> main() async {
           .overrideWithValue(N5Box(await Hive.openBox('N5BoxData'))),
       n4BoxDataProvider
           .overrideWithValue(N4Box(await Hive.openBox('N4BoxData'))),
+      n3BoxDataProvider
+          .overrideWithValue(N3Box(await Hive.openBox('N3BoxData'))),
+      n2BoxDataProvider
+          .overrideWithValue(N2Box(await Hive.openBox('N2BoxData'))),
+      n1BoxDataProvider
+          .overrideWithValue(N1Box(await Hive.openBox('N1BoxData'))),
       sharedPreferencesProvider.overrideWithValue(
         await SharedPreferences.getInstance(),
       ),
