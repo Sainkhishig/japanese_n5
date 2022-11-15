@@ -3,11 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hishig_erdem/common/common_constant.dart';
-import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
+import 'package:hishig_erdem/common/loading_button.dart';
+import 'package:hishig_erdem/home_screen_controller.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hishig_erdem/main/main_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends HookConsumerWidget {
   final String? user_id;
@@ -35,6 +35,7 @@ class HomeScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     LoginState loginState = ref.read(loginStateNotifierProvider);
     router = ref.read(mainRouteProvider).router;
+    var controller = ref.read(homeScreenController.notifier);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Хишиг эрдэм: Япон хэлний хичээл"),
@@ -108,6 +109,33 @@ class HomeScreen extends HookConsumerWidget {
                   )),
             ),
           ),
+          Center(
+            child: LoadingButton(
+              widgetKey: "kanjiXlLoad",
+              onPressed: () {
+                controller.loadKanji();
+              },
+              textLabel: 'kanjiXlLoad',
+            ),
+          ),
+          Center(
+            child: LoadingButton(
+              widgetKey: "vocabularyXlLoad",
+              onPressed: () {
+                controller.loadVocabulary();
+              },
+              textLabel: 'vocabularyXlLoad',
+            ),
+          ),
+          Center(
+            child: LoadingButton(
+              widgetKey: "grammarXlLoad",
+              onPressed: () {
+                controller.loadGrammar();
+              },
+              textLabel: 'grammarXlLoad',
+            ),
+          ),
         ],
       ),
     );
@@ -120,15 +148,17 @@ class HomeScreen extends HookConsumerWidget {
         router.goNamed("n5-lesson", params: {"tab": "learnMasterDataN5"});
 
         break;
-      case 4:
-        break;
-      case 3:
-        break;
-      case 2:
-        break;
-      case 1:
-        break;
+      // case 4:
+      //   break;
+      // case 3:
+      //   break;
+      // case 2:
+      //   break;
+      // case 1:
+      //   break;
       default:
+        router.goNamed("common-lesson", params: {"tab": "testVocabularyN5"});
+        break;
     }
     // Navigator.push(
     //     context, MaterialPageRoute(builder: (context) => commonPage));

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hishig_erdem/authentication/login.dart';
 import 'package:hishig_erdem/authentication/registration.dart';
+import 'package:hishig_erdem/common_frame_learning/common_page/common_frame.dart';
 import 'package:hishig_erdem/common_page/student_comment.dart';
 
 import 'package:hishig_erdem/home_screen.dart';
@@ -112,7 +113,24 @@ class MainRoute {
           );
         },
       ),
-
+      GoRoute(
+        name: "common-lesson",
+        // 1
+        path:
+            '/commonLesson/:tab(${learningMenuN5.map((e) => e.destination).toList().join('|')})',
+        pageBuilder: (context, state) {
+          // 2
+          final tab = state.params['tab']!;
+          // final facilityId = state.params['facilityId']!;
+          return MaterialPage<void>(
+            key: state.pageKey,
+            // 3
+            child: CommonFrameLearning(
+              destination: tab,
+            ),
+          );
+        },
+      ),
       GoRoute(
           name: "n5-test",
           // 1

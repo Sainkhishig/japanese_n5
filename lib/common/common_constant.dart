@@ -1,9 +1,9 @@
 var lstHiveInfo = <HiveInfo>[
-  HiveInfo(1, 'KanjiXlN1', 'GrammarXlN1', 'VocabularyXlN1'),
-  HiveInfo(2, 'KanjiXlN2', 'GrammarXlN2', 'VocabularyXlN2'),
-  HiveInfo(3, 'KanjiXlN3', 'GrammarXlN3', 'VocabularyXlN3'),
-  HiveInfo(3, 'KanjiXlN4', 'GrammarXlN4', 'VocabularyXlN4'),
-  HiveInfo(5, 'KanjiXlN5', 'GrammarXlN5', 'VocabularyXlN5'),
+  HiveInfo(1, 'N4_Kanji', 'N4_Grammar', 'N4_Vocabulary'),
+  HiveInfo(2, 'N4_Kanji', 'N4_Grammar', 'N4_Vocabulary'),
+  HiveInfo(3, 'N4_Kanji', 'N4_Grammar', 'N4_Vocabulary'),
+  HiveInfo(3, 'N4_Kanji', 'N4_Grammar', 'N4_Vocabulary'),
+  HiveInfo(5, 'N4_Kanji', 'N4_Grammar', 'N4_Vocabulary'),
 ];
 
 class HiveInfo {

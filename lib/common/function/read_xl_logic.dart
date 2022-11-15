@@ -19,7 +19,7 @@ Future<List<XlKanjiHiveModel>> readKanji(StateNotifierProviderRef ref) async {
   var excelDBName = loginState.hiveInfo.kanjiHive;
   var hiveBox = getJlptBoxByLevel(ref, loginState.hiveInfo.jlptLevel);
   print("readKanji:$excelDBName");
-  ByteData data = await rootBundle.load("assets/xl/$excelDBName.xlsx");
+  ByteData data = await rootBundle.load("assets/xl/all/$excelDBName.xlsx");
   var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   var excel = Excel.decodeBytes(bytes);
   for (var i = 0; i < excel.tables["Worksheet"]!.rows.length; i++) {
@@ -51,7 +51,7 @@ Future<List<XlGrammarHiveModel>> readGrammar(
   var excelDBName = loginState.hiveInfo.grammarHive;
   var hiveBox = getJlptBoxByLevel(ref, loginState.hiveInfo.jlptLevel);
   print("readKanji:$excelDBName");
-  ByteData data = await rootBundle.load("assets/xl/$excelDBName.xlsx");
+  ByteData data = await rootBundle.load("assets/xl/all/$excelDBName.xlsx");
   var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   var excel = Excel.decodeBytes(bytes);
   for (var i = 0; i < excel.tables["Worksheet"]!.rows.length; i++) {
@@ -84,7 +84,7 @@ Future<List<XlVocabularyHiveModel>> readVocabulary(
   var excelDBName = loginState.hiveInfo.vocabularyHive;
   var hiveBox = getJlptBoxByLevel(ref, loginState.hiveInfo.jlptLevel);
   print("readKanji:$excelDBName");
-  ByteData data = await rootBundle.load("assets/xl/$excelDBName.xlsx");
+  ByteData data = await rootBundle.load("assets/xl/all/$excelDBName.xlsx");
   var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   var excel = Excel.decodeBytes(bytes);
   for (var i = 0; i < excel.tables["Worksheet"]!.rows.length; i++) {

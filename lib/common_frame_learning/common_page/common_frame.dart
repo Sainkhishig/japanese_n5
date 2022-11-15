@@ -1,65 +1,22 @@
 import 'package:hishig_erdem/common/common_popup_menu.dart';
 import 'package:hishig_erdem/n5/common/menu.dart';
-import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:adaptive_navigation/adaptive_navigation.dart';
 import 'package:hishig_erdem/authentication/login.dart';
 
 import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hishig_erdem/main/login_state.dart';
-import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
-import 'package:hishig_erdem/popup_menu_pages/fee/plan_fee.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'common_page_controller.dart';
 
-class CommonFrameLearning extends StatelessWidget {
-  final String? user_id;
-  final FirebaseAuth? auth;
+class CommonFrameLearning extends HookConsumerWidget {
+  CommonFrameLearning({Key? key, required this.destination}) : super(key: key);
 
-  const CommonFrameLearning({Key? key, this.user_id, this.auth})
-      : super(key: key);
-
-  // const CommonFrameLearning({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      locale: const Locale('ja', 'JP'),
-      localizationsDelegates: const [
-        // AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [Locale('ja', 'JP')],
-      title: 'Хишиг эрдэмs',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-        // primarySwatch: Colors.blue,
-      ),
-      home: CommonLearningPage(
-        user_id: user_id,
-        auth: auth,
-      ),
-      routes: {
-        '/login': (context) => Login(),
-        '/planFee': (context) => PlanFee(),
-      },
-    );
-  }
-}
-
-class CommonLearningPage extends HookConsumerWidget {
-  CommonLearningPage({Key? key, this.user_id, this.auth}) : super(key: key);
-  late String? user_id;
-  final FirebaseAuth? auth;
+  final String destination;
   late N5Box lstN5;
   String? language = 'en-US';
   String? languageCode;
@@ -164,23 +121,23 @@ class CommonLearningPage extends HookConsumerWidget {
                       controller.setVocabularyDestination(lvl as String);
                     },
                   ))),
-          Visibility(
-              visible: user_id == null, child: commonPopUpMenu(context, ref)),
-          IconButton(
-            padding: const EdgeInsets.only(bottom: 4),
-            disabledColor: Colors.grey,
-            // color: Colors.white,
-            icon: Icon(user_id == null ? Icons.login : Icons.logout),
-            onPressed: () async {
-              if (user_id == null) {
-                Navigator.pushNamed(context, "/login");
-              } else {
-                await auth!.signOut();
-                user_id = null;
-                controller.refreshState(user_id);
-              }
-            },
-          )
+          // Visibility(
+          //     visible: user_id == null, child: commonPopUpMenu(context, ref)),
+          // IconButton(
+          //   padding: const EdgeInsets.only(bottom: 4),
+          //   disabledColor: Colors.grey,
+          //   // color: Colors.white,
+          //   icon: Icon(user_id == null ? Icons.login : Icons.logout),
+          //   onPressed: () async {
+          //     if (user_id == null) {
+          //       Navigator.pushNamed(context, "/login");
+          //     } else {
+          //       await auth!.signOut();
+          //       user_id = null;
+          //       controller.refreshState(user_id);
+          //     }
+          //   },
+          // )
         ],
       ),
       body: Scaffold(
