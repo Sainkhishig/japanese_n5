@@ -1,10 +1,10 @@
 import 'package:hishig_erdem/common/app_function.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
+import 'package:hishig_erdem/common/hive_model/voabulary/xl_vocabulary_hive_model.dart';
 import 'package:hishig_erdem/common/search_bar.dart';
 import 'package:hishig_erdem/common_frame_learning/constant_value/common_constants.dart';
-import 'package:hishig_erdem/hive_db/object/dictionary.dart';
+import 'package:hishig_erdem/hive_db/provider/n4_box_provider.dart';
 
-import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -18,8 +18,8 @@ class CommonVocabularyListPage extends HookConsumerWidget {
   final trans = Translit();
   final keywordController = TextEditingController();
   List<Widget> lstVocabularyWidget = [];
-  List<Dictionary> lstAllVocabulary = [];
-  late N5Box lstN5db;
+  List<XlVocabularyHiveModel> lstAllVocabulary = [];
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(commonVocabularyListPageController.notifier);
@@ -31,12 +31,13 @@ class CommonVocabularyListPage extends HookConsumerWidget {
     );
 
     useEffect(() {
-      lstN5db = ref.read(n5BoxDataProvider);
-      lstAllVocabulary = lstN5db.box.get("vocabularyDB");
+      final n4Box = ref.watch(n4BoxDataProvider);
+      // List<XlVocabularyHiveModel> filteredGrammar = n4Box.lstN4Vocabulary;
+      lstAllVocabulary = n4Box.lstN4Vocabulary;
       for (var data in lstCsvDBName) {
-        List<Dictionary> lstVocabul = lstAllVocabulary
-            .where((vocabulary) => vocabulary.wordType == data.vocType)
-            .toList();
+        List<XlVocabularyHiveModel> lstVocabul = lstAllVocabulary;
+        // .where((vocabulary) => vocabulary.wordType == data.vocType)
+        // .toList();
 
         lstVocabularyWidget
             .add(tabCardBody(lstVocabul, context, controller, data.name));
@@ -69,11 +70,11 @@ class CommonVocabularyListPage extends HookConsumerWidget {
                     child: tabCardBody(
                         lstAllVocabulary
                             .where((element) =>
-                                element.word
-                                    .contains(controller.state.searchKey) ||
                                 element.kanji
                                     .contains(controller.state.searchKey) ||
-                                element.translate
+                                element.kana
+                                    .contains(controller.state.searchKey) ||
+                                element.meaningMn
                                     .contains(controller.state.searchKey))
                             .toList(),
                         context,
@@ -133,7 +134,8 @@ class CommonVocabularyListPage extends HookConsumerWidget {
     );
   }
 
-  Widget tabCardBody(List<Dictionary> lst, context, controller, String title) {
+  Widget tabCardBody(
+      List<XlVocabularyHiveModel> lst, context, controller, String title) {
     // var currentLetter = lstVoc as List<Dictionary>;
     return Card(
         child: Column(
@@ -171,7 +173,7 @@ class CommonVocabularyListPage extends HookConsumerWidget {
                               visible: controller.isShowPreference ?? true,
                               child: IconButton(
                                 onPressed: () {
-                                  speak(lst[index].word);
+                                  speak(lst[index].kana);
                                 },
                                 icon: Icon(Icons.volume_up),
                               ),
@@ -179,17 +181,17 @@ class CommonVocabularyListPage extends HookConsumerWidget {
                             Expanded(
                               flex: 1,
                               child: Text(
-                                lst[index].word.isNotEmpty
-                                    ? lst[index].word
-                                    : lst[index].kanji,
+                                lst[index].kanji.isNotEmpty
+                                    ? lst[index].kanji
+                                    : lst[index].kana,
                               ),
                             ),
                             Expanded(
                               flex: 2,
                               child: Text(
-                                "${lst[index].translate}".contains("null")
+                                "${lst[index].meaningMn}".contains("null")
                                     ? ""
-                                    : lst[index].translate,
+                                    : lst[index].meaningMn,
                               ),
                             ),
                             // Text(

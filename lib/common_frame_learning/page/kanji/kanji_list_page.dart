@@ -40,8 +40,7 @@ class CommonKanjiListPage extends HookConsumerWidget {
     // }
     List<Widget> lsttableServings = [];
     // lstVocabul = lstN5db.box.get("N5Words");
-    var filteredGrammar = n4Box.box.values.toList();
-    print("db${filteredGrammar.length}");
+    List<XlKanjiHiveModel> filteredGrammar = n4Box.lstN4Kanji;
     // if (controller.state.searchKey.trim().isNotEmpty) {
     //   filteredGrammar = controller.state.lstVocabulary
     //       .where((element) =>
@@ -125,7 +124,7 @@ class CommonKanjiListPage extends HookConsumerWidget {
     );
   }
 
-  Widget tabCardBody(List lst, context, controller) {
+  Widget tabCardBody(List<XlKanjiHiveModel> lst, context, controller) {
     // var currentLetter = lstVoc as List<Dictionary>;
     return Card(
         child: Column(
@@ -172,7 +171,7 @@ class CommonKanjiListPage extends HookConsumerWidget {
                 itemBuilder: (BuildContext ctx, index) {
                   print("lst[index]");
                   print(lst[index].kanji);
-                  print(lst[index].example3En);
+                  print(lst[index].meaningMn);
                   print(lst[index].onReading);
                   print(lst[index].kunReading);
 
@@ -210,7 +209,7 @@ class CommonKanjiListPage extends HookConsumerWidget {
                             ),
                             Expanded(
                               flex: 2,
-                              child: Text("${lst[index].example3En}"),
+                              child: Text("${lst[index].meaningMn}"),
                             ),
                             Expanded(
                               flex: 2,

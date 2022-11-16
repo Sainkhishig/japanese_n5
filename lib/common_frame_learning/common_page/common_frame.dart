@@ -21,7 +21,6 @@ class CommonFrameLearning extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var lstN5db = ref.read(n5BoxDataProvider);
     final controller = ref.watch(commonPageProvider.notifier);
     var loginNotifier = ref.read(loginStateNotifierProvider);
 
@@ -74,17 +73,6 @@ class CommonFrameLearning extends HookConsumerWidget {
       selectedIndex: controller.state.selectedIndex,
       onDestinationSelected: (value) async {
         controller.setGameMode(false);
-        switch (value) {
-          case 1:
-            if (value == 1 &&
-                (lstN5db.box.get("vocabularyDB") == null ||
-                    lstN5db.box.get("vocabularyDB").length == 0)) {
-              print("prepareVoc$value");
-              await controller.prepareVocabulary();
-            }
-            break;
-          default:
-        }
 
         controller.setSelectedIndex(value);
       },
@@ -118,8 +106,8 @@ class CommonFrameLearning extends HookConsumerWidget {
               "Япон хэлний хичээл",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            const Text(
-              "N5 түвшин",
+            Text(
+              "${loginNotifier.hiveInfo.jlptLevel} түвшин",
               style: TextStyle(fontSize: 16),
             )
           ],

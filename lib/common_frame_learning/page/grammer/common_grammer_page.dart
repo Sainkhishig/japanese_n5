@@ -1,9 +1,9 @@
-import 'package:hishig_erdem/classes/grammar.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
+import 'package:hishig_erdem/common/hive_model/grammar/xl_grammar_hive_model.dart';
 import 'package:hishig_erdem/common/search_bar.dart';
-import 'package:hishig_erdem/common_frame_learning/constant_value/common_constants.dart';
 
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/hive_db/provider/n4_box_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:translit/translit.dart';
 
@@ -24,13 +24,14 @@ class CommonGrammerPage extends HookConsumerWidget {
       keepPage: true,
     );
     List<Widget> lstGrammerPages = [];
-    var filteredGrammar = lstGrammar;
+    final n4Box = ref.watch(n4BoxDataProvider);
+    List<XlGrammarHiveModel> filteredGrammar = n4Box.lstN4Grammar;
     print("search${controller.state.searchKey}");
     if (controller.state.searchKey.trim().isNotEmpty) {
-      filteredGrammar = lstGrammar
+      filteredGrammar = filteredGrammar
           .where((element) =>
               element.grammar.contains(controller.state.searchKey) ||
-              element.grammarMn.contains(controller.state.searchKey))
+              element.meaningMn.contains(controller.state.searchKey))
           .toList();
     }
     lstGrammerPages.add(tabCardBody(filteredGrammar, context, controller));
@@ -115,7 +116,7 @@ class CommonGrammerPage extends HookConsumerWidget {
     );
   }
 
-  Widget tabCardBody(List<Grammar> lst, context, controller) {
+  Widget tabCardBody(List<XlGrammarHiveModel> lst, context, controller) {
     return Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -154,7 +155,7 @@ class CommonGrammerPage extends HookConsumerWidget {
                                   Expanded(
                                     flex: 2,
                                     child: Text(
-                                      lst[index].grammarMn,
+                                      lst[index].meaningMn,
                                     ),
                                   ),
                                   // Text(

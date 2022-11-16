@@ -14,7 +14,8 @@
             "name": "hishig_erdem (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "args": ["--web-port", "8088", "--web-renderer", "html"]
         },
         {
             "name": "hishig_erdem (release mode)",

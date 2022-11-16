@@ -17,33 +17,33 @@ class XlGrammarHiveModel extends HiveObject {
   @HiveField(5)
   late String meaningEn;
   @HiveField(6)
-  late String example1;
+  String example1 = "";
   @HiveField(7)
-  late String example2;
+  String example2 = "";
   @HiveField(8)
-  late String example3;
+  String example3 = "";
   @HiveField(9)
-  late String example4;
+  String example4 = "";
   @HiveField(10)
-  late String example5;
+  String example5 = "";
   @HiveField(11)
-  late String example1Mn;
+  String example1Mn = "";
   @HiveField(12)
-  late String example2Mn;
+  String example2Mn = "";
   @HiveField(13)
-  late String example3Mn;
+  String example3Mn = "";
   @HiveField(14)
-  late String example4Mn;
+  String example4Mn = "";
   @HiveField(15)
-  late String example5Mn;
+  String example5Mn = "";
   @HiveField(16)
-  late String example1En;
+  String example1En = "";
   @HiveField(17)
-  late String example2En;
+  String example2En = "";
   @HiveField(18)
-  late String example3En;
+  String example3En = "";
   @HiveField(19)
-  late String example4En;
+  String example4En = "";
   @HiveField(20)
-  late String example5En;
+  String example5En = "";
 }

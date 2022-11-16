@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hishig_erdem/common/hive_model/grammar/xl_grammar_hive_model.dart';
 import 'package:hishig_erdem/common/hive_model/kanji/xl_kanji_hive_model.dart';
+import 'package:hishig_erdem/common/hive_model/voabulary/xl_vocabulary_hive_model.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/player/services/service_locator.dart';
 
 import 'package:hishig_erdem/hive_db/object/dictionary.dart';
 import 'package:hishig_erdem/hive_db/object/kanji_dictionary.dart';
+import 'package:hishig_erdem/hive_db/provider/grammar_box_provider.dart';
 import 'package:hishig_erdem/hive_db/provider/n1_box_provider.dart';
 import 'package:hishig_erdem/hive_db/provider/n2_box_provider.dart';
 import 'package:hishig_erdem/hive_db/provider/n3_box_provider.dart';
@@ -28,6 +31,9 @@ Future<void> main() async {
   Hive.registerAdapter(DictionaryAdapter());
   Hive.registerAdapter(KanjiDictionaryAdapter());
   Hive.registerAdapter(XlKanjiHiveModelAdapter());
+  Hive.registerAdapter(XlGrammarHiveModelAdapter());
+  Hive.registerAdapter(XlVocabularyHiveModelAdapter());
+
   await setupServiceLocator();
   await flutterTts.setVoice({'name': 'Kyoko', 'locale': 'ja-JP'});
   // await Firebase.initializeApp();

@@ -63,6 +63,7 @@ class HomeScreen extends HookConsumerWidget {
                       onChanged: (value) {
                         setState(() {
                           selectedLevel = int.parse("$value");
+                          loginState.hiveInfo = lstHiveInfo[selectedLevel - 1];
                         });
                       },
                     )),
