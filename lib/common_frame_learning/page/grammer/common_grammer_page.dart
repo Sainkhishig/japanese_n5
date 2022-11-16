@@ -3,7 +3,7 @@ import 'package:hishig_erdem/common/hive_model/grammar/xl_grammar_hive_model.dar
 import 'package:hishig_erdem/common/search_bar.dart';
 
 import 'package:flutter/material.dart';
-import 'package:hishig_erdem/hive_db/provider/n4_box_provider.dart';
+import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:translit/translit.dart';
 
@@ -16,16 +16,18 @@ class CommonGrammerPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(commonGrammerPageProvider.notifier);
-    controller.setModelListenable(ref);
-
     PageController pageController = PageController(
       initialPage: 0,
       keepPage: true,
     );
     List<Widget> lstGrammerPages = [];
-    final n4Box = ref.watch(n4BoxDataProvider);
-    List<XlGrammarHiveModel> filteredGrammar = n4Box.lstN4Grammar;
+
+    final controller = ref.watch(commonGrammerPageProvider.notifier);
+    controller.setModelListenable(ref);
+
+    final loginState = ref.watch(loginStateNotifierProvider.notifier);
+    final hiveBox = controller.getHiveBox(loginState.hiveInfo.jlptLevel);
+    List<XlGrammarHiveModel> filteredGrammar = hiveBox.lstGrammar;
     print("search${controller.state.searchKey}");
     if (controller.state.searchKey.trim().isNotEmpty) {
       filteredGrammar = filteredGrammar

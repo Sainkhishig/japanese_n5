@@ -6,6 +6,7 @@ import 'package:hishig_erdem/common_frame_practice/listening/player/services/ser
 
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+
 // import 'package:japanese_practise_n5/common/player/notifiers/play_button_notifier.dart';
 // import 'package:japanese_practise_n5/common/player/notifiers/progress_notifier.dart';
 // import 'package:japanese_practise_n5/common/player/notifiers/repeat_button_notifier.dart';
@@ -21,7 +22,8 @@ class _PlayerPageState extends State<PlayerPage> {
   @override
   void initState() {
     super.initState();
-    getIt<PageManager>().init();
+    // _initImages();
+    getIt<PageManager>().init("ex1");
   }
 
   @override

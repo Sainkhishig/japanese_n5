@@ -1,3 +1,4 @@
+import 'package:hishig_erdem/common/function/read_xl_logic.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:hishig_erdem/n5/reference_n5_common_model.dart';
@@ -29,6 +30,7 @@ class CommonKanjiListPageController extends StateNotifier<VocabularyModel> {
     preferences = ref.read(sharedPreferencesProvider);
   }
 
+  dynamic getHiveBox(int level) => getJlptBoxByLevel(widgetRef, level);
   setSelectedIndex(int index) async {
     state = state.copyWith(selectedCardIndex: index + 1);
   }

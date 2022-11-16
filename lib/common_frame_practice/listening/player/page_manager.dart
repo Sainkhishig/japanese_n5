@@ -1,4 +1,5 @@
-import 'package:hishig_erdem/main.dart';
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'notifiers/play_button_notifier.dart';
 import 'notifiers/progress_notifier.dart';
@@ -6,6 +7,7 @@ import 'notifiers/repeat_button_notifier.dart';
 import 'package:audio_service/audio_service.dart';
 import 'services/playlist_repository.dart';
 import 'services/service_locator.dart';
+import 'package:flutter/services.dart';
 
 class PageManager {
   // Listeners: Updates going to the UI
@@ -21,8 +23,8 @@ class PageManager {
   final _audioHandler = getIt<AudioHandler>();
 
   // Events: Calls coming from the UI
-  void init() async {
-    await _loadPlaylist();
+  void init(String exFolderName) async {
+    await _loadPlaylist(exFolderName);
     _listenToChangesInPlaylist();
     _listenToPlaybackState();
     _listenToCurrentPosition();
@@ -31,9 +33,23 @@ class PageManager {
     _listenToChangesInSong();
   }
 
-  Future<void> _loadPlaylist() async {
+  Future<List<String>> initListeningFileNames(String folder) async {
+    List<String> images = json
+        .decode(await rootBundle.loadString('AssetManifest.json'))
+        .keys
+        .where((String key) => key.contains('assets/listening/$folder/'))
+        .toList();
+    // var fileNames=images.map
+    var fileNames = images.map((e) => e.replaceAll("assets", "")).toList();
+    print(fileNames.toString());
+    return fileNames;
+  }
+
+  Future<void> _loadPlaylist(String folderName) async {
+    var fileNames = await initListeningFileNames(folderName);
     final songRepository = getIt<PlaylistRepository>();
-    final playlist = await songRepository.fetchInitialPlaylist();
+    final playlist = await songRepository.fetchInitialPlaylist(fileNames);
+    // final playlist = await songRepository.fetchInitialPlaylist(["1", "2"]);
     final mediaItems = playlist
         .map((song) => MediaItem(
               id: song['id'] ?? '',
@@ -164,7 +180,7 @@ class PageManager {
 
   Future<void> add() async {
     final songRepository = getIt<PlaylistRepository>();
-    final song = await songRepository.fetchAnotherSong();
+    final song = await songRepository.fetchAnotherSong("songPath.mp3");
     final mediaItem = MediaItem(
       id: song['id'] ?? '',
       album: song['album'] ?? '',

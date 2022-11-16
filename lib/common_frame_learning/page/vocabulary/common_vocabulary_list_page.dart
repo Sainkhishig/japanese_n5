@@ -3,10 +3,9 @@ import 'package:hishig_erdem/common/common_widget.dart';
 import 'package:hishig_erdem/common/hive_model/voabulary/xl_vocabulary_hive_model.dart';
 import 'package:hishig_erdem/common/search_bar.dart';
 import 'package:hishig_erdem/common_frame_learning/constant_value/common_constants.dart';
-import 'package:hishig_erdem/hive_db/provider/n4_box_provider.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:translit/translit.dart';
 
@@ -31,9 +30,9 @@ class CommonVocabularyListPage extends HookConsumerWidget {
     );
 
     useEffect(() {
-      final n4Box = ref.watch(n4BoxDataProvider);
-      // List<XlVocabularyHiveModel> filteredGrammar = n4Box.lstN4Vocabulary;
-      lstAllVocabulary = n4Box.lstN4Vocabulary;
+      final loginState = ref.watch(loginStateNotifierProvider.notifier);
+      final hiveBox = controller.getHiveBox(loginState.hiveInfo.jlptLevel);
+      lstAllVocabulary = hiveBox.lstVocabulary;
       for (var data in lstCsvDBName) {
         List<XlVocabularyHiveModel> lstVocabul = lstAllVocabulary;
         // .where((vocabulary) => vocabulary.wordType == data.vocType)

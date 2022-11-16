@@ -5,7 +5,8 @@ import 'package:hishig_erdem/common/search_bar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hishig_erdem/hive_db/provider/n4_box_provider.dart';
+import 'package:hishig_erdem/main/login_state.dart';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:translit/translit.dart';
 
@@ -28,8 +29,9 @@ class CommonKanjiListPage extends HookConsumerWidget {
     final controller = ref.watch(commonKanjiListProvider.notifier);
     controller.setModelListenable(ref);
 
-    final n4Box = ref.watch(n4BoxDataProvider);
-    // final future = useMemoized(() => n4Box.lstN4Kanji());
+    final loginState = ref.watch(loginStateNotifierProvider.notifier);
+    final hiveBox = controller.getHiveBox(loginState.hiveInfo.jlptLevel);
+    // final future = useMemoized(() => n4Box.lstKanji());
     // final snapshot = useFuture(future, initialData: null);
     // if (snapshot.hasError) {
     //   return showErrorWidget(context, "Error card", snapshot.error);
@@ -40,7 +42,7 @@ class CommonKanjiListPage extends HookConsumerWidget {
     // }
     List<Widget> lsttableServings = [];
     // lstVocabul = lstN5db.box.get("N5Words");
-    List<XlKanjiHiveModel> filteredGrammar = n4Box.lstN4Kanji;
+    List<XlKanjiHiveModel> filteredGrammar = hiveBox.lstKanji;
     // if (controller.state.searchKey.trim().isNotEmpty) {
     //   filteredGrammar = controller.state.lstVocabulary
     //       .where((element) =>

@@ -21,7 +21,13 @@ Future<List<XlKanjiHiveModel>> readKanji(StateNotifierProviderRef ref) async {
   print("jlptLevel:${loginState.hiveInfo.jlptLevel}");
 
   var hiveBox = getJlptBoxByLevel(ref, loginState.hiveInfo.jlptLevel);
-  print("readKanji:$excelDBName");
+
+  var db = hiveBox.lstKanji;
+  if (db != null && db.isNotEmpty) {
+    print("$excelDBName exist");
+    return db;
+  }
+
   ByteData data = await rootBundle.load("assets/xl/all/$excelDBName.xlsx");
   var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   var excel = Excel.decodeBytes(bytes);
@@ -78,6 +84,13 @@ Future<List<XlGrammarHiveModel>> readGrammar(
   var excelDBName = loginState.hiveInfo.grammarHive;
 
   var hiveBox = getJlptBoxByLevel(ref, loginState.hiveInfo.jlptLevel);
+
+  var db = hiveBox.lstGrammar;
+  if (db != null && db.isNotEmpty) {
+    print("$excelDBName exist");
+    return db;
+  }
+
   ByteData data = await rootBundle.load("assets/xl/all/$excelDBName.xlsx");
   var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   var excel = Excel.decodeBytes(bytes);
@@ -123,6 +136,12 @@ Future<List<XlVocabularyHiveModel>> readVocabulary(
   var excelDBName = loginState.hiveInfo.vocabularyHive;
 
   var hiveBox = getJlptBoxByLevel(ref, loginState.hiveInfo.jlptLevel);
+  var db = hiveBox.lstVocabulary;
+  if (db != null && db.isNotEmpty) {
+    print("$excelDBName exist");
+    return db;
+  }
+
   ByteData data = await rootBundle.load("assets/xl/all/$excelDBName.xlsx");
   var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   var excel = Excel.decodeBytes(bytes);
@@ -161,7 +180,7 @@ Future<List<XlVocabularyHiveModel>> readVocabulary(
   return lstData;
 }
 
-getJlptBoxByLevel(StateNotifierProviderRef ref, int level) {
+dynamic getJlptBoxByLevel(StateNotifierProviderRef ref, int level) {
   HiveBoxClass hiveBox;
   switch (level) {
     case 5:
