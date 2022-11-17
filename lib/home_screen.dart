@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:hishig_erdem/common/common_constant.dart';
 import 'package:hishig_erdem/common/loading_button.dart';
+import 'package:hishig_erdem/common/widget/media_uploader.dart';
 import 'package:hishig_erdem/home_screen_controller.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hishig_erdem/main/main_route.dart';
@@ -140,6 +138,7 @@ class HomeScreen extends HookConsumerWidget {
               textLabel: 'grammarXlLoad',
             ),
           ),
+          MediaUploader(),
           Center(
             child: LoadingButton(
               widgetKey: "readListeningPath",
@@ -151,6 +150,29 @@ class HomeScreen extends HookConsumerWidget {
       ),
     );
   }
+
+  // Future fileSelect() async {
+  //   FilePickerResult? image = await FilePicker.platform.pickFiles(
+  //     allowMultiple: true,
+  //     type: FileType.custom,
+  //     allowedExtensions: ['jpg', 'jpeg', 'png', 'mp3'],
+  //   );
+  //   if (image != null) {
+  //     var duplicateFilter = image.files.where((e) {
+  //       return !_pickedImages.map((y) => y!.name).toList().contains(e.name);
+  //     }).toList();
+
+  //     for (var e in duplicateFilter) {
+  //       _pickedImages.add(e);
+  //     }
+
+  //     if (mounted) {
+  //       setState(() {});
+  //     }
+  //   } else {
+  //     print("File picker error");
+  //   }
+  // }
 
   moveLearningCommonPage(context, int jlptLevel) {
     print("level:$jlptLevel");
