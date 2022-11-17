@@ -18,68 +18,76 @@ class KanjiTestPage extends HookConsumerWidget {
     return Scaffold(
         body: Padding(
       padding: EdgeInsets.all(20),
-      child: Column(
+      child: ListView(
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "${description!.name}",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              description!.name,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            ListView.builder(
-                itemCount: description!.exercises.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  return StatefulBuilder(builder: (context, setState) {
-                    var test = description!.exercises[index];
-                    return ListTile(
-                      title: Text("${index + 1}. ${test.question}"),
-                      subtitle: ListView.builder(
-                          itemCount: test.answers.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            var answerItem = test.answers[index];
-                            return RadioListTile(
-                              title: Text(answerItem.answer),
-                              value: answerItem.answer,
-                              groupValue: test.selectedAnswer,
-                              onChanged: (value) {
-                                setState(() {
-                                  test.selectedAnswer = value.toString();
-                                  print("radioSelection$value");
-                                });
-                              },
-                            );
-                          }),
-                    );
-                  });
-                }),
             StatefulBuilder(builder: (context, setState) {
               return Column(children: [
-                SaveButton(
-                  label: "Дуусгах",
-                  onSave: () async {
-                    int allCount = description!.exercises.length;
-                    var failedQuestions = description!.exercises
-                        .where((quest) =>
-                            quest.answers
-                                .firstWhere((answer) => answer.isTrue)
-                                .answer !=
-                            quest.selectedAnswer)
-                        .toList();
-                    int failedCount = failedQuestions.length;
-                    await showWarningMessage(context, "Хариу",
-                        "$allCountасуултаас $failedCount хариулт буруу");
+                Visibility(
+                    visible: !isChecked,
+                    child: ListView.builder(
+                        itemCount: description!.exercises.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          return StatefulBuilder(builder: (context, setState) {
+                            var test = description!.exercises[index];
+                            return ListTile(
+                              title: Text("${index + 1}. ${test.question}"),
+                              subtitle: ListView.builder(
+                                  itemCount: test.answers.length,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    var answerItem = test.answers[index];
+                                    return RadioListTile(
+                                      title: Text(answerItem.answer),
+                                      value: answerItem.answer,
+                                      groupValue: test.selectedAnswer,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          test.selectedAnswer =
+                                              value.toString();
+                                          print("radioSelection$value");
+                                        });
+                                      },
+                                    );
+                                  }),
+                            );
+                          });
+                        })),
+                Visibility(
+                  visible: !isChecked,
+                  child: SaveButton(
+                    label: "Шалгах",
+                    onSave: () async {
+                      int allCount = description!.exercises.length;
+                      var failedQuestions = description!.exercises
+                          .where((quest) =>
+                              quest.answers
+                                  .firstWhere((answer) => answer.isTrue)
+                                  .answer !=
+                              quest.selectedAnswer)
+                          .toList();
+                      int failedCount = failedQuestions.length;
+                      await showWarningMessage(context, "Хариу",
+                          "$allCountасуултаас $failedCount хариулт буруу");
 
-                    setState(() {
-                      isChecked = true;
-                    });
+                      setState(() {
+                        isChecked = true;
+                      });
 
-                    // save(controller);
-                  },
+                      // save(controller);
+                    },
+                  ),
                 ),
+                Visibility(visible: isChecked, child: Text("Тестийн хариу")),
                 Visibility(
                   visible: isChecked,
                   child: ListView.builder(
@@ -92,12 +100,19 @@ class KanjiTestPage extends HookConsumerWidget {
                           var trueAnswer = test.answers
                               .firstWhere((answer) => answer.isTrue);
                           return ListTile(
-                            leading: const Icon(
-                              Icons.check_circle,
-                              color: Colors.green,
-                            ),
+                            leading: trueAnswer.answer == test.selectedAnswer
+                                ? const Icon(
+                                    Icons.check_circle,
+                                    color: Colors.green,
+                                  )
+                                : const Icon(
+                                    Icons.cancel,
+                                    color: Colors.red,
+                                  ),
                             title: Text("${index + 1}. ${test.question}"),
                             subtitle: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text("зөв хариулт: ${trueAnswer.answer}"),
                                 Visibility(
