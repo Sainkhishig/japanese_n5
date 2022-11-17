@@ -14,7 +14,7 @@ class KanjiTestPage extends HookConsumerWidget {
     final controller = ref.watch(kanjiTestController.notifier);
     controller.setModelListenable(ref);
     // if (description != null) txtName.controller.text = description!.name;
-
+    bool isChecked = false;
     return Scaffold(
         body: Padding(
       padding: EdgeInsets.all(20),
@@ -56,23 +56,64 @@ class KanjiTestPage extends HookConsumerWidget {
                     );
                   });
                 }),
-            SaveButton(
-              label: "Дуусгах",
-              onSave: () {
-                int allCount = description!.exercises.length;
-                var failedQuestions = description!.exercises
-                    .where((quest) =>
-                        quest.answers
-                            .firstWhere((answer) => answer.isTrue)
-                            .answer !=
-                        quest.selectedAnswer)
-                    .toList();
-                int failedCount = failedQuestions.length;
-                showWarningMessage(context, "Хариу",
-                    "$allCountасуултаас $failedCount хариулт буруу");
-                // save(controller);
-              },
-            )
+            StatefulBuilder(builder: (context, setState) {
+              return Column(children: [
+                SaveButton(
+                  label: "Дуусгах",
+                  onSave: () async {
+                    int allCount = description!.exercises.length;
+                    var failedQuestions = description!.exercises
+                        .where((quest) =>
+                            quest.answers
+                                .firstWhere((answer) => answer.isTrue)
+                                .answer !=
+                            quest.selectedAnswer)
+                        .toList();
+                    int failedCount = failedQuestions.length;
+                    await showWarningMessage(context, "Хариу",
+                        "$allCountасуултаас $failedCount хариулт буруу");
+
+                    setState(() {
+                      isChecked = true;
+                    });
+
+                    // save(controller);
+                  },
+                ),
+                Visibility(
+                  visible: isChecked,
+                  child: ListView.builder(
+                      itemCount: description!.exercises.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return StatefulBuilder(builder: (context, setState) {
+                          var test = description!.exercises[index];
+                          var trueAnswer = test.answers
+                              .firstWhere((answer) => answer.isTrue);
+                          return ListTile(
+                            leading: const Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                            ),
+                            title: Text("${index + 1}. ${test.question}"),
+                            subtitle: Column(
+                              children: [
+                                Text("зөв хариулт: ${trueAnswer.answer}"),
+                                Visibility(
+                                  visible:
+                                      trueAnswer.answer != test.selectedAnswer,
+                                  child: Text(
+                                      "таны хариулт:${test.selectedAnswer}"),
+                                )
+                              ],
+                            ),
+                          );
+                        });
+                      }),
+                ),
+              ]);
+            })
           ]),
     ));
   }

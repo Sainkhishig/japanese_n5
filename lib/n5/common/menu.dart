@@ -50,8 +50,8 @@ late final practiceMenuN5 = <MenuPage>[
       KanjiTestList(), KanjiTestList()),
   MenuPage("Өгүүлбэр зүй", "testGrammarN5", Icons.rule, VerbFormPage(),
       VerbConjugationPracticePage()),
-  MenuPage("Уншлага", "testReadingN5", Icons.menu_book, GrammerPage(),
-      GrammarCardPage()),
+  MenuPage("Уншлага", "testReadingN5", Icons.menu_book, KanjiTestList(),
+      KanjiTestList()),
   MenuPage("Сонсгол", "testListeningN5", CupertinoIcons.ear, GrammerPage(),
       GrammarCardPage()),
 ];

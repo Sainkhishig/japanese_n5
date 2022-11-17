@@ -200,10 +200,11 @@ class HomeScreen extends HookConsumerWidget {
   }
 
   movePracticeCommonPage(context, int jlptLevel) {
-    print("level:$jlptLevel");
+    print("testlevel:$jlptLevel");
     switch (jlptLevel) {
       case 5:
-        router.goNamed("n5-test", params: {"tab": "testVocabularyN5"});
+        router
+            .goNamed("n5-test", params: {"tab": practiceMenuN5[0].destination});
         break;
       case 4:
         break;
