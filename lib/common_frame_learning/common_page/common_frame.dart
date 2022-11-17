@@ -1,3 +1,5 @@
+import 'package:go_router/go_router.dart';
+import 'package:hishig_erdem/main/main_route.dart';
 import 'package:hishig_erdem/n5/common/menu.dart';
 
 import 'package:flutter/material.dart';
@@ -14,22 +16,18 @@ import 'common_page_controller.dart';
 class CommonFrameLearning extends HookConsumerWidget {
   CommonFrameLearning({Key? key, required this.destination}) : super(key: key);
 
-  final String destination;
+  String destination;
   late N5Box lstN5;
   String? language = 'en-US';
   String? languageCode;
-
+  late LoginState loginNotifier;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(commonPageProvider.notifier);
-    var loginNotifier = ref.read(loginStateNotifierProvider);
-
+    loginNotifier = ref.read(loginStateNotifierProvider);
+    final router = ref.read(mainRouteProvider).router;
     lstN5 = ref.read(n5BoxDataProvider);
     controller.setModelListenable(ref);
-
-    var bodyPage = !controller.state.isGameMode
-        ? learningMenuCommon[controller.state.selectedIndex].mainPage
-        : learningMenuCommon[controller.state.selectedIndex].practicePage;
 
     return AdaptiveNavigationScaffold(
       appBar: AdaptiveAppBar(
@@ -66,15 +64,16 @@ class CommonFrameLearning extends HookConsumerWidget {
           body: Row(
         children: [
           Expanded(
-            child: Center(child: bodyPage),
+            child: Center(child: getBody(controller)),
           ),
         ],
       )),
-      selectedIndex: controller.state.selectedIndex,
+      selectedIndex: loginNotifier.railIndex,
       onDestinationSelected: (value) async {
         controller.setGameMode(false);
 
-        controller.setSelectedIndex(value);
+        // controller.setSelectedIndex(value);
+        changeIndex(value, controller, context, router);
       },
       destinations: _buildDestinations2(context, controller),
       drawerHeader: ListTile(
@@ -116,6 +115,14 @@ class CommonFrameLearning extends HookConsumerWidget {
     );
   }
 
+  getBody(CommonPageController controller) {
+    var bodyPage = !controller.state.isGameMode
+        ? learningMenuCommon[loginNotifier.railIndex].mainPage
+        : learningMenuCommon[loginNotifier.railIndex].practicePage;
+
+    return bodyPage;
+  }
+
   List<AdaptiveScaffoldDestination> _buildDestinations2(
       BuildContext context, CommonPageController controller) {
     return learningMenuCommon
@@ -124,5 +131,20 @@ class CommonFrameLearning extends HookConsumerWidget {
               icon: menu.icon,
             ))
         .toList();
+  }
+
+  changeIndex(int index, CommonPageController controller, BuildContext context,
+      GoRouter router) async {
+    final selectedDestination = learningMenuCommon[index].destination;
+    loginNotifier.setRailIndex(index);
+    print("indexRail:$index");
+    if (selectedDestination == "logout") {
+      // loginStateNotifier.logOut();
+    } else {
+      destination = selectedDestination;
+      print("index:$index");
+      controller.setGameMode(false);
+      router.go("/commonLesson/$selectedDestination");
+    }
   }
 }
