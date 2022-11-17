@@ -7,7 +7,6 @@ import 'package:excel/excel.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:state_notifier/state_notifier.dart';
 
 final commonKanjiListProvider =
     StateNotifierProvider<CommonKanjiListPageController, VocabularyModel>(

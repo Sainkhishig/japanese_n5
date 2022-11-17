@@ -37,13 +37,6 @@ class KanjiListPage extends HookConsumerWidget {
     List<Widget> lsttableServings = [];
     // lstVocabul = lstN5db.box.get("N5Words");
     var filteredGrammar = controller.state.lstVocabulary;
-    // if (controller.state.searchKey.trim().isNotEmpty) {
-    //   filteredGrammar = controller.state.lstVocabulary
-    //       .where((element) =>
-    //           element.word.contains(controller.state.searchKey) ||
-    //           element.translate.contains(controller.state.searchKey))
-    //       .toList();
-    // }
 
     if (filteredGrammar.isNotEmpty) {
       lsttableServings.add(tabCardBody(filteredGrammar, context, controller));
@@ -165,12 +158,6 @@ class KanjiListPage extends HookConsumerWidget {
                 shrinkWrap: true,
                 itemCount: lst.length,
                 itemBuilder: (BuildContext ctx, index) {
-                  print("lst[index]");
-                  print(lst[index].kanji);
-                  print(lst[index].translate);
-                  print(lst[index].onReading);
-                  print(lst[index].kunReading);
-
                   // var kanji = lst[index] as KanjiDictionary;
                   return Padding(
                       padding: const EdgeInsets.all(2),

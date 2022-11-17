@@ -1,4 +1,6 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
+import 'package:hishig_erdem/common/function/read_xl_logic.dart';
 import 'package:hishig_erdem/common/hive_model/grammar/xl_grammar_hive_model.dart';
 import 'package:hishig_erdem/common/search_bar.dart';
 
@@ -27,8 +29,21 @@ class CommonGrammerPage extends HookConsumerWidget {
 
     final loginState = ref.watch(loginStateNotifierProvider.notifier);
     final hiveBox = controller.getHiveBox(loginState.hiveInfo.jlptLevel);
-    List<XlGrammarHiveModel> filteredGrammar = hiveBox.lstGrammar;
-    print("search${controller.state.searchKey}");
+
+    if (hiveBox.lstGrammar == null || hiveBox.lstGrammar.isEmpty) {
+      final future = useMemoized(() => readXlGrammar(ref));
+      final snapshot = useFuture(future, initialData: null);
+      if (snapshot.hasError) {
+        return showErrorWidget(context, "Error card", snapshot.error);
+      }
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(child: CircularProgressIndicator());
+      }
+    }
+
+    List<XlGrammarHiveModel> filteredGrammar =
+        hiveBox.lstGrammar.cast<XlGrammarHiveModel>();
+
     if (controller.state.searchKey.trim().isNotEmpty) {
       filteredGrammar = filteredGrammar
           .where((element) =>

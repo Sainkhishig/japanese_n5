@@ -11,9 +11,7 @@ final n3BoxDataProvider = Provider<N3Box>((ref) => throw UnimplementedError());
 
 class N3Box extends HiveBoxClass {
   N3Box(Box box) : super(box) {}
-  List<XlKanjiHiveModel>? get lstKanji => box.get(lstHiveInfo[2].kanjiHive);
-  List<XlGrammarHiveModel>? get lstGrammar =>
-      box.get(lstHiveInfo[2].grammarHive);
-  List<XlVocabularyHiveModel>? get lstVocabulary =>
-      box.get(lstHiveInfo[2].vocabularyHive);
+  List get lstKanji => box.get(lstHiveInfo[2].kanjiHive);
+  List get lstGrammar => box.get(lstHiveInfo[2].grammarHive);
+  List get lstVocabulary => box.get(lstHiveInfo[2].vocabularyHive);
 }

@@ -1,5 +1,6 @@
 import 'package:hishig_erdem/common/app_function.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
+import 'package:hishig_erdem/common/function/read_xl_logic.dart';
 import 'package:hishig_erdem/common/hive_model/kanji/xl_kanji_hive_model.dart';
 import 'package:hishig_erdem/common/search_bar.dart';
 
@@ -10,7 +11,7 @@ import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:translit/translit.dart';
 
-import 'kanji_list_page_controller.dart';
+import 'common_kanji_list_page_controller.dart';
 
 class CommonKanjiListPage extends HookConsumerWidget {
   CommonKanjiListPage({Key? key}) : super(key: key);
@@ -24,32 +25,25 @@ class CommonKanjiListPage extends HookConsumerWidget {
       keepPage: true,
     );
 
-    useEffect(() {}, const []);
-
     final controller = ref.watch(commonKanjiListProvider.notifier);
     controller.setModelListenable(ref);
 
     final loginState = ref.watch(loginStateNotifierProvider.notifier);
     final hiveBox = controller.getHiveBox(loginState.hiveInfo.jlptLevel);
-    // final future = useMemoized(() => n4Box.lstKanji());
-    // final snapshot = useFuture(future, initialData: null);
-    // if (snapshot.hasError) {
-    //   return showErrorWidget(context, "Error card", snapshot.error);
-    // }
-    // if (snapshot.connectionState == ConnectionState.waiting) {
-    //   return const Center(child: CircularProgressIndicator());
-    // }
-    // }
+
+    if (hiveBox.lstKanji == null || hiveBox.lstKanji.isEmpty) {
+      final future = useMemoized(() => readXlKanji(ref));
+      final snapshot = useFuture(future, initialData: null);
+      if (snapshot.hasError) {
+        return showErrorWidget(context, "Error card", snapshot.error);
+      }
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(child: CircularProgressIndicator());
+      }
+    }
     List<Widget> lsttableServings = [];
-    // lstVocabul = lstN5db.box.get("N5Words");
-    List<XlKanjiHiveModel> filteredGrammar = hiveBox.lstKanji;
-    // if (controller.state.searchKey.trim().isNotEmpty) {
-    //   filteredGrammar = controller.state.lstVocabulary
-    //       .where((element) =>
-    //           element.word.contains(controller.state.searchKey) ||
-    //           element.translate.contains(controller.state.searchKey))
-    //       .toList();
-    // }
+    List<XlKanjiHiveModel> filteredGrammar =
+        hiveBox.lstKanji.cast<XlKanjiHiveModel>();
 
     if (filteredGrammar.isNotEmpty) {
       lsttableServings.add(tabCardBody(filteredGrammar, context, controller));
@@ -171,13 +165,6 @@ class CommonKanjiListPage extends HookConsumerWidget {
                 shrinkWrap: true,
                 itemCount: lst.length,
                 itemBuilder: (BuildContext ctx, index) {
-                  print("lst[index]");
-                  print(lst[index].kanji);
-                  print(lst[index].meaningMn);
-                  print(lst[index].onReading);
-                  print(lst[index].kunReading);
-
-                  // var kanji = lst[index] as KanjiDictionary;
                   return Padding(
                       padding: const EdgeInsets.all(2),
                       child: Container(

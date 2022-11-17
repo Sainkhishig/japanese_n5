@@ -16,10 +16,8 @@ class N5Box extends HiveBoxClass {
 
   dynamic get lstN5VocAdverb => box.get("csvadverb");
   dynamic get lstN5VocParticle => box.get("csvparticle");
-  List<XlKanjiHiveModel>? get lstKanji => box.get(lstHiveInfo[3].kanjiHive);
+  List get lstKanji => box.get(lstHiveInfo[3].kanjiHive);
 
-  List<XlGrammarHiveModel>? get lstGrammar =>
-      box.get(lstHiveInfo[3].grammarHive);
-  List<XlVocabularyHiveModel>? get lstVocabulary =>
-      box.get(lstHiveInfo[3].vocabularyHive);
+  List get lstGrammar => box.get(lstHiveInfo[3].grammarHive);
+  List get lstVocabulary => box.get(lstHiveInfo[3].vocabularyHive);
 }

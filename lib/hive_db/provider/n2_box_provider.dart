@@ -11,10 +11,8 @@ final n2BoxDataProvider = Provider<N2Box>((ref) => throw UnimplementedError());
 
 class N2Box extends HiveBoxClass {
   N2Box(Box box) : super(box);
-  List<XlKanjiHiveModel>? get lstKanji => box.get(lstHiveInfo[1].kanjiHive);
+  List get lstKanji => box.get(lstHiveInfo[1].kanjiHive);
 
-  List<XlGrammarHiveModel>? get lstGrammar =>
-      box.get(lstHiveInfo[1].grammarHive);
-  List<XlVocabularyHiveModel>? get lstVocabulary =>
-      box.get(lstHiveInfo[1].vocabularyHive);
+  List get lstGrammar => box.get(lstHiveInfo[1].grammarHive);
+  List get lstVocabulary => box.get(lstHiveInfo[1].vocabularyHive);
 }

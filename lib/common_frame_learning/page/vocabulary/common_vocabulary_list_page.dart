@@ -1,8 +1,9 @@
 import 'package:hishig_erdem/common/app_function.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
+import 'package:hishig_erdem/common/function/read_xl_logic.dart';
 import 'package:hishig_erdem/common/hive_model/voabulary/xl_vocabulary_hive_model.dart';
 import 'package:hishig_erdem/common/search_bar.dart';
-import 'package:hishig_erdem/common_frame_learning/constant_value/common_constants.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hishig_erdem/main/login_state.dart';
@@ -29,20 +30,23 @@ class CommonVocabularyListPage extends HookConsumerWidget {
       keepPage: true,
     );
 
-    useEffect(() {
-      final loginState = ref.watch(loginStateNotifierProvider.notifier);
-      final hiveBox = controller.getHiveBox(loginState.hiveInfo.jlptLevel);
-      lstAllVocabulary = hiveBox.lstVocabulary;
-      for (var data in lstCsvDBName) {
-        List<XlVocabularyHiveModel> lstVocabul = lstAllVocabulary;
-        // .where((vocabulary) => vocabulary.wordType == data.vocType)
-        // .toList();
-
-        lstVocabularyWidget
-            .add(tabCardBody(lstVocabul, context, controller, data.name));
+    final loginState = ref.watch(loginStateNotifierProvider.notifier);
+    final hiveBox = controller.getHiveBox(loginState.hiveInfo.jlptLevel);
+    if (hiveBox.lstVocabulary == null || hiveBox.lstVocabulary.isEmpty) {
+      final future = useMemoized(() => readXlVocabulary(ref));
+      final snapshot = useFuture(future, initialData: null);
+      if (snapshot.hasError) {
+        return showErrorWidget(context, "Error card", snapshot.error);
       }
-    }, []);
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(child: CircularProgressIndicator());
+      }
+    }
 
+    lstAllVocabulary = hiveBox.lstVocabulary.cast<XlVocabularyHiveModel>();
+
+    lstVocabularyWidget
+        .add(tabCardBody(lstAllVocabulary, context, controller, "data.name"));
     return Scaffold(
       body: Scaffold(
           body: Column(children: [

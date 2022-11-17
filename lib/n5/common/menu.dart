@@ -1,5 +1,5 @@
 import 'package:hishig_erdem/common_frame_learning/page/grammer/common_grammer_page.dart';
-import 'package:hishig_erdem/common_frame_learning/page/kanji/kanji_list_page.dart';
+import 'package:hishig_erdem/common_frame_learning/page/kanji/common_kanji_list_page.dart';
 import 'package:hishig_erdem/common_frame_learning/page/vocabulary/common_vocabulary_list_page.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/player/sample/player_page.dart';
 import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';

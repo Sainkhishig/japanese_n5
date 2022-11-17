@@ -37,6 +37,7 @@ class HomeScreen extends HookConsumerWidget {
     LoginState loginState = ref.read(loginStateNotifierProvider);
     router = ref.read(mainRouteProvider).router;
     var controller = ref.read(homeScreenController.notifier);
+    selectedLevel = loginState.hiveInfo.jlptLevel;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Хишиг эрдэм: Япон хэлний хичээл"),
@@ -59,7 +60,7 @@ class HomeScreen extends HookConsumerWidget {
                       hint: const Text("сурах түвшингээ сонгоно уу"),
                       isDense: true,
                       items: getDropItems(),
-                      value: selectedLevel,
+                      value: loginState.hiveInfo.jlptLevel,
                       onChanged: (value) {
                         setState(() {
                           selectedLevel = int.parse("$value");
