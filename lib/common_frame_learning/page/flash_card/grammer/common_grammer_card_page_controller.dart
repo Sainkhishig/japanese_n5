@@ -1,23 +1,25 @@
+import 'package:hishig_erdem/common/function/read_xl_logic.dart';
 import 'package:hishig_erdem/n5/learning/page/flash_card/vocabulary/vocabulary_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:state_notifier/state_notifier.dart';
 
-final grammerCardProvider =
-    StateNotifierProvider<GrammerCardPageController, VocabularyModel>((ref) {
-  return GrammerCardPageController(widgetRef: ref);
+final commonGrammerCardProvider =
+    StateNotifierProvider<CommonGrammerCardPageController, VocabularyModel>(
+        (ref) {
+  return CommonGrammerCardPageController(widgetRef: ref);
 });
 
-class GrammerCardPageController extends StateNotifier<VocabularyModel> {
-  GrammerCardPageController({required this.widgetRef})
+class CommonGrammerCardPageController extends StateNotifier<VocabularyModel> {
+  CommonGrammerCardPageController({required this.widgetRef})
       : super(const VocabularyModel());
 
   final StateNotifierProviderRef widgetRef;
   @override
   VocabularyModel get state;
   void setModelListenable(WidgetRef ref) {
-    ref.watch(grammerCardProvider);
+    ref.watch(commonGrammerCardProvider);
   }
 
+  dynamic getHiveBox(int level) => getJlptBoxByLevel(widgetRef, level);
   void setLevel(int level) {
     state = state.copyWith(pageIndex: level);
   }

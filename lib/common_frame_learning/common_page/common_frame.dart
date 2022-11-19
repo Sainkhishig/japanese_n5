@@ -79,7 +79,7 @@ class CommonFrameLearning extends HookConsumerWidget {
       drawerHeader: ListTile(
         contentPadding: const EdgeInsets.all(4),
         onTap: () {
-          Navigator.of(context).pop();
+          router.goNamed("home");
         },
         // tileColor: Colors.black,
         title: Column(
@@ -101,10 +101,14 @@ class CommonFrameLearning extends HookConsumerWidget {
                 fit: BoxFit.fill,
               ),
             ),
-            const Text(
-              "Япон хэлний хичээл",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
+            TextButton(
+                onPressed: () {
+                  // router.goNamed("home");
+                },
+                child: const Text(
+                  "Япон хэлний хичээл",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                )),
             Text(
               "${loginNotifier.hiveInfo.jlptLevel} түвшин",
               style: TextStyle(fontSize: 16),

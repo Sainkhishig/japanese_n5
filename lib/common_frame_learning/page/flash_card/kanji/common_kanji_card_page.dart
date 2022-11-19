@@ -1,44 +1,61 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hishig_erdem/classes/jlpt_level.dart';
 import 'package:hishig_erdem/common/app_function.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
-import 'package:hishig_erdem/hive_db/object/kanji_dictionary.dart';
-import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
+import 'package:hishig_erdem/common/function/read_xl_logic.dart';
+import 'package:hishig_erdem/common/hive_model/kanji/xl_kanji_hive_model.dart';
+
 import 'package:flash_card/flash_card.dart';
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'kanji_card_page_controller.dart';
+import 'common_kanji_card_page_controller.dart';
 
-class KanjiCardPage extends HookConsumerWidget {
-  KanjiCardPage({Key? key}) : super(key: key);
+class CommonKanjiCardPage extends HookConsumerWidget {
+  CommonKanjiCardPage({Key? key}) : super(key: key);
   late List<JLPTLevel> listLevel = [];
   late List<String> listInterval = [];
-  late N5Box lstN5;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(kanjiCardProvider.notifier);
+    final controller = ref.watch(commonKanjiCardProvider.notifier);
     controller.setModelListenable(ref);
 
     PageController pageController = PageController(
       initialPage: 0,
       keepPage: true,
     );
-    List<Widget> lstVocabularyWidget = [];
-    var lstN5db = ref.read(n5BoxDataProvider);
-    var lstVocabul = lstN5db.box.get("N5Kanji");
+    final loginState = ref.watch(loginStateNotifierProvider.notifier);
+    final hiveBox = controller.getHiveBox(loginState.hiveInfo.jlptLevel);
 
-    if (lstVocabul != null) {
-      var sectionCount = (lstVocabul.length / 10).ceil();
-      listLevel = [];
-      for (var i = 1; i <= sectionCount; i++) {
-        listLevel.add(JLPTLevel(i, "x - $i"));
+    if (hiveBox.lstKanji == null || hiveBox.lstKanji.isEmpty) {
+      final future = useMemoized(() => readXlKanji(ref));
+      final snapshot = useFuture(future, initialData: null);
+      if (snapshot.hasError) {
+        return showErrorWidget(context, "Error card", snapshot.error);
       }
-      var lstVocDataRange = lstVocabul.getRange(
-          (controller.state.pageIndex - 1), lstVocabul.length - 1);
-      for (var element in lstVocDataRange) {
-        lstVocabularyWidget.add(tabCardBody(element, context, controller));
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(child: CircularProgressIndicator());
       }
     }
+
+    List<XlKanjiHiveModel> lstXlKanji =
+        hiveBox.lstKanji.cast<XlKanjiHiveModel>();
+
+    listLevel = [];
+
+    List<Widget> lsttableServings = [];
+    var sectionCount = (lstXlKanji.length / 10).ceil();
+    for (var i = 1; i <= sectionCount; i++) {
+      listLevel.add(JLPTLevel(i, "x-$i"));
+    }
+    var lstVocDataRange = lstXlKanji.getRange(
+        (controller.state.pageIndex - 1) * 10, lstXlKanji.length - 1);
+    for (var element in lstVocDataRange) {
+      lsttableServings.add(tabCardBody(element, context, controller));
+    }
+
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -63,11 +80,11 @@ class KanjiCardPage extends HookConsumerWidget {
         ],
       ),
       body: Scaffold(
-        body: lstVocabularyWidget.isEmpty
+        body: lsttableServings.isEmpty
             ? showEmptyDataWidget()
             : PageView(
                 controller: pageController,
-                children: lstVocabularyWidget,
+                children: lsttableServings,
                 onPageChanged: (value) {
                   controller.setSelectedIndex(value);
                 },
@@ -96,9 +113,9 @@ class KanjiCardPage extends HookConsumerWidget {
             ),
             Padding(
                 padding: const EdgeInsets.all(8),
-                child: Text(lstVocabularyWidget.isEmpty
+                child: Text(lsttableServings.isEmpty
                     ? " 0/0"
-                    : " ${controller.state.selectedCardIndex}/${lstVocabularyWidget.length}")),
+                    : " ${controller.state.selectedCardIndex}/${lsttableServings.length}")),
             IconButton(
               padding: const EdgeInsets.only(bottom: 4),
               iconSize: 40,
@@ -107,7 +124,7 @@ class KanjiCardPage extends HookConsumerWidget {
               icon: const Icon(Icons.chevron_right),
               onPressed: () {
                 if (pageController.page!.toInt() + 1 <
-                    lstVocabularyWidget.length) {
+                    lsttableServings.length) {
                   controller.setSelectedIndex(pageController.page!.toInt() + 1);
                   pageController.animateToPage(pageController.page!.toInt() + 1,
                       duration: const Duration(milliseconds: 500),
@@ -126,7 +143,7 @@ class KanjiCardPage extends HookConsumerWidget {
     );
   }
 
-  Widget tabCardBody(KanjiDictionary currentWord, context, controller) {
+  Widget tabCardBody(XlKanjiHiveModel currentWord, context, controller) {
     return Center(
         child: FlashCard(
             height: MediaQuery.of(context).size.height - 100,
@@ -139,22 +156,21 @@ class KanjiCardPage extends HookConsumerWidget {
                 Expanded(
                     child: Center(
                         child: Text(
-                  currentWord.translate,
+                  currentWord.meaningMn,
                   style: const TextStyle(
                       fontSize: 30, fontWeight: FontWeight.bold),
                 ))),
                 Visibility(
-                  visible: controller.isShowPreference,
+                  visible: controller.isShowPreference ?? true,
                   child: TextButton.icon(
                     onPressed: () {
-                      speak(currentWord.example);
+                      speak(currentWord.example1);
                     },
                     icon: const Icon(Icons.volume_up),
-                    label: Text(
-                        "${currentWord.example} (${currentWord.exampleReading})"),
+                    label: Text("${currentWord.meaningMn}"),
                   ),
                 ),
-                Expanded(flex: 1, child: Text(currentWord.exampleTr)),
+                Expanded(flex: 1, child: Text(currentWord.example1Mn)),
                 Expanded(
                     flex: 1,
                     child: Text(
@@ -176,7 +192,7 @@ class KanjiCardPage extends HookConsumerWidget {
                       fontSize: 30, fontWeight: FontWeight.bold),
                 )),
                 Text(
-                  "жишээ: ${currentWord.example}",
+                  "жишээ: ${currentWord.example1}",
                   style: const TextStyle(
                       fontSize: 15, fontWeight: FontWeight.bold),
                 )

@@ -1,45 +1,66 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hishig_erdem/classes/grammar.dart';
 import 'package:hishig_erdem/classes/jlpt_level.dart';
 import 'package:hishig_erdem/common/app_function.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
-import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
+import 'package:hishig_erdem/common/function/read_xl_logic.dart';
+import 'package:hishig_erdem/common/hive_model/grammar/xl_grammar_hive_model.dart';
+
 import 'package:flash_card/flash_card.dart';
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'adverb_card_page_controller.dart';
+import 'common_grammer_card_page_controller.dart';
 
-class AdverbCardPage extends HookConsumerWidget {
-  AdverbCardPage({Key? key}) : super(key: key);
+class CommonGrammarCardPage extends HookConsumerWidget {
+  CommonGrammarCardPage({Key? key}) : super(key: key);
   late List<JLPTLevel> listLevel = [];
   late List<String> listInterval = [];
-  late N5Box lstN5;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(adverbCardProvider.notifier);
-    controller.setModelListenable(ref);
-
     PageController pageController = PageController(
       initialPage: 0,
       keepPage: true,
     );
-    List<Widget> lstVocabularyWidget = [];
-    var lstN5db = ref.read(n5BoxDataProvider);
-    var lstVocabul = lstN5db.box.get("N5Adverb");
 
-    if (lstVocabul != null) {
-      var sectionCount = (lstVocabul.length / 10).ceil();
-      listLevel = [];
-      for (var i = 1; i <= sectionCount; i++) {
-        listLevel.add(JLPTLevel(i, "x - $i"));
+    final controller = ref.watch(commonGrammerCardProvider.notifier);
+    controller.setModelListenable(ref);
+
+    final loginState = ref.watch(loginStateNotifierProvider.notifier);
+    final hiveBox = controller.getHiveBox(loginState.hiveInfo.jlptLevel);
+
+    if (hiveBox.lstGrammar == null || hiveBox.lstGrammar.isEmpty) {
+      final future = useMemoized(() => readXlGrammar(ref));
+      final snapshot = useFuture(future, initialData: null);
+      if (snapshot.hasError) {
+        return showErrorWidget(context, "Error card", snapshot.error);
       }
-      var lstVocDataRange = lstVocabul.getRange(
-          (controller.state.pageIndex - 1), lstVocabul.length - 1);
-      for (var element in lstVocDataRange) {
-        lstVocabularyWidget.add(tabCardBody(element, context, controller));
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(child: CircularProgressIndicator());
       }
     }
+
+    List<XlGrammarHiveModel> lstXlGrammar =
+        hiveBox.lstGrammar.cast<XlGrammarHiveModel>();
+
+    listLevel = [];
+
+    List<Widget> lsttableServings = [];
+    var sectionCount = (lstXlGrammar.length / 10).ceil();
+    for (var i = 1; i <= sectionCount; i++) {
+      listLevel.add(JLPTLevel(i, "x-$i"));
+    }
+    var lstVocDataRange = lstXlGrammar.getRange(
+        (controller.state.pageIndex - 1) * 10, lstXlGrammar.length - 1);
+    for (var element in lstVocDataRange) {
+      lsttableServings.add(tabCardBody(element, context, controller));
+    }
+
     return Scaffold(
       appBar: AppBar(
+        // title: const Text("Vocabulary"),
         actions: <Widget>[
           Padding(
               padding: const EdgeInsets.all(10),
@@ -62,11 +83,13 @@ class AdverbCardPage extends HookConsumerWidget {
         ],
       ),
       body: Scaffold(
-        body: lstVocabularyWidget.isEmpty
+        body: lsttableServings.isEmpty
             ? showEmptyDataWidget()
-            : PageView(
+            : //Expanded(child: FlashCardListItem(flashcards: flashCard)),
+
+            PageView(
                 controller: pageController,
-                children: lstVocabularyWidget,
+                children: lsttableServings,
                 onPageChanged: (value) {
                   controller.setSelectedIndex(value);
                 },
@@ -95,9 +118,9 @@ class AdverbCardPage extends HookConsumerWidget {
             ),
             Padding(
                 padding: const EdgeInsets.all(8),
-                child: Text(lstVocabularyWidget.isEmpty
+                child: Text(lsttableServings.isEmpty
                     ? " 0/0"
-                    : " ${controller.state.selectedCardIndex}/${lstVocabularyWidget.length}")),
+                    : " ${controller.state.selectedCardIndex}/${lsttableServings.length}")),
             IconButton(
               padding: const EdgeInsets.only(bottom: 4),
               iconSize: 40,
@@ -106,7 +129,7 @@ class AdverbCardPage extends HookConsumerWidget {
               icon: const Icon(Icons.chevron_right),
               onPressed: () {
                 if (pageController.page!.toInt() + 1 <
-                    lstVocabularyWidget.length) {
+                    lsttableServings.length) {
                   controller.setSelectedIndex(pageController.page!.toInt() + 1);
                   pageController.animateToPage(pageController.page!.toInt() + 1,
                       duration: const Duration(milliseconds: 500),
@@ -125,58 +148,58 @@ class AdverbCardPage extends HookConsumerWidget {
     );
   }
 
-  Widget tabCardBody(dynamic currentWord, context, controller) {
+  Widget tabCardBody(XlGrammarHiveModel currentWord, context, controller) {
     return Center(
         child: FlashCard(
             height: MediaQuery.of(context).size.height - 100,
             width: MediaQuery.of(context).size.width - 100,
-            frontWidget: Container(
-                child: Column(
+            frontWidget: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
+                    flex: 2,
                     child: Center(
                         child: Text(
-                  currentWord.translate,
-                  style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold),
-                ))),
-                Visibility(
-                  visible: controller.isShowPreference ?? true,
-                  child: TextButton.icon(
-                    onPressed: () {
-                      speak(currentWord.exampleTr);
-                    },
-                    icon: const Icon(Icons.volume_up),
-                    label: Text(currentWord.exampleTr),
-                  ),
-                ),
-                Expanded(flex: 1, child: Text(currentWord.example))
-              ],
-            )),
-            backWidget: Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(
-                    child: Text(
-                  currentWord.word,
-                  style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold),
-                )),
-                Visibility(
-                  visible: controller.isShowPreference ?? true,
-                  child: IconButton(
-                    onPressed: () {
-                      speak(currentWord.word);
-                    },
-                    iconSize: 50,
-                    icon: Icon(Icons.volume_up),
-                  ),
+                      currentWord.meaningMn,
+                      style: const TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.bold),
+                    ))),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TextButton.icon(
+                      onPressed: () {
+                        speak(currentWord.example1);
+                      },
+                      icon: const Icon(Icons.volume_up),
+                      label: Text(currentWord.example1),
+                    ), //テキスト
+
+                    // Text("(${currentWord.exampleRomaji})"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(currentWord.example1Mn)
+                  ],
                 )
+                // Expanded(flex: 1, child: Text(currentWord.exampleRomaji)),
+
+                // Expanded(flex: 1, child: Text(currentWord.exampleTr)),
               ],
-            ))));
+            ),
+            backWidget: Column(
+              children: [
+                Expanded(
+                    flex: 3,
+                    child: Center(
+                        child: Text(
+                      currentWord.grammar,
+                      style: const TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.bold),
+                    ))),
+              ],
+            )));
   }
 }
