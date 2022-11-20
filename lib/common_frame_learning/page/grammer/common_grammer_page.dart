@@ -43,7 +43,7 @@ class CommonGrammerPage extends HookConsumerWidget {
 
     List<XlGrammarHiveModel> filteredGrammar =
         hiveBox.lstGrammar.cast<XlGrammarHiveModel>();
-
+    final DataTableSource _data = GrammarData(filteredGrammar);
     if (controller.state.searchKey.trim().isNotEmpty) {
       filteredGrammar = filteredGrammar
           .where((element) =>
@@ -60,17 +60,30 @@ class CommonGrammerPage extends HookConsumerWidget {
           CustomSearchBar(onSearch: (searchKey) {
             controller.setSearchKey(searchKey);
           }),
-          lstGrammerPages.isEmpty
-              ? showEmptyDataWidget()
-              : Expanded(
-                  child: PageView(
-                    controller: pageController,
-                    children: lstGrammerPages,
-                    onPageChanged: (value) {
-                      controller.setSelectedIndex(value);
-                    },
-                  ),
-                )
+          PaginatedDataTable(
+            source: _data,
+            header: const Text('My Products'),
+            columns: [
+              DataColumn(label: Expanded(child: Center(child: Text('ID')))),
+              DataColumn(label: Expanded(child: Center(child: Text('Name')))),
+              DataColumn(label: Expanded(child: Center(child: Text('Price'))))
+            ],
+            columnSpacing: 100,
+            horizontalMargin: 10,
+            rowsPerPage: 8,
+            showCheckboxColumn: false,
+          ),
+          // lstGrammerPages.isEmpty
+          //     ? showEmptyDataWidget()
+          //     : Expanded(
+          //         child: PageView(
+          //           controller: pageController,
+          //           children: lstGrammerPages,
+          //           onPageChanged: (value) {
+          //             controller.setSelectedIndex(value);
+          //           },
+          //         ),
+          //       )
         ],
       ),
       bottomNavigationBar: Container(
@@ -181,5 +194,37 @@ class CommonGrammerPage extends HookConsumerWidget {
                             ));
                       }))
             ]));
+  }
+}
+
+class GrammarData extends DataTableSource {
+  final List<XlGrammarHiveModel> listGrammar;
+  GrammarData(this.listGrammar);
+  // Generate some made-up data
+  // final List<Map<String, dynamic>> _data = List.generate(
+  //     200,
+  //     (index) => {
+  //           "id": index,
+  //           "title": "Item $index",
+  //           "price": Random().nextInt(10000)
+  //         });
+
+  @override
+  bool get isRowCountApproximate => false;
+  @override
+  int get rowCount => listGrammar.length;
+  @override
+  int get selectedRowCount => 0;
+  @override
+  DataRow getRow(int index) {
+    return DataRow(cells: [
+      DataCell(Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text(listGrammar[index].grammar.toString())])),
+      DataCell(Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text(listGrammar[index].meaningMn)])),
+      DataCell(Text(listGrammar[index].formMn.toString())),
+    ]);
   }
 }

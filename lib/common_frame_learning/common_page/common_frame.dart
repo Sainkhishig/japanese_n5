@@ -110,7 +110,7 @@ class CommonFrameLearning extends HookConsumerWidget {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 )),
             Text(
-              "${loginNotifier.hiveInfo.jlptLevel} түвшин",
+              "N${loginNotifier.hiveInfo.jlptLevel} түвшин",
               style: TextStyle(fontSize: 16),
             )
           ],

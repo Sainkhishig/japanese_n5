@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hishig_erdem/common/common_constant.dart';
 import 'package:hishig_erdem/common/loading_button.dart';
 import 'package:hishig_erdem/common/widget/media_uploader.dart';
+import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 import 'package:hishig_erdem/home_screen_controller.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hishig_erdem/main/main_route.dart';
@@ -38,6 +39,8 @@ class HomeScreen extends HookConsumerWidget {
     router = ref.read(mainRouteProvider).router;
     var controller = ref.read(homeScreenController.notifier);
     selectedLevel = loginState.hiveInfo.jlptLevel;
+    var pref = ref.read(sharedPreferencesProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Хишиг эрдэм: Япон хэлний хичээл"),
@@ -62,9 +65,11 @@ class HomeScreen extends HookConsumerWidget {
                       items: getDropItems(),
                       value: loginState.hiveInfo.jlptLevel,
                       onChanged: (value) {
-                        setState(() {
+                        setState(() async {
                           selectedLevel = int.parse("$value");
-                          loginState.hiveInfo = lstHiveInfo[selectedLevel - 1];
+                          await pref.setInt("jlptLevel", selectedLevel);
+
+                          // loginState.hiveInfo = lstHiveInfo[selectedLevel - 1];
                         });
                       },
                     )),
@@ -84,7 +89,7 @@ class HomeScreen extends HookConsumerWidget {
           Center(
             child: ElevatedButton(
               onPressed: () {
-                loginState.hiveInfo = lstHiveInfo[selectedLevel - 1];
+                // loginState.hiveInfo = lstHiveInfo[selectedLevel - 1];
                 moveLearningCommonPage(context, int.parse("$selectedLevel"));
               },
               child: const SizedBox(
@@ -100,7 +105,7 @@ class HomeScreen extends HookConsumerWidget {
           Center(
             child: ElevatedButton(
               onPressed: () {
-                loginState.hiveInfo = lstHiveInfo[selectedLevel - 1];
+                // loginState.hiveInfo = lstHiveInfo[selectedLevel - 1];
                 movePracticeCommonPage(context, int.parse("$selectedLevel"));
               },
               child: const SizedBox(
