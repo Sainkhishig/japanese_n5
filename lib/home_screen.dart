@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hishig_erdem/common/common_constant.dart';
 import 'package:hishig_erdem/common/loading_button.dart';
 import 'package:hishig_erdem/common/widget/media_uploader.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';

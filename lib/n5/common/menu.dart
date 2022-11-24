@@ -9,6 +9,7 @@ import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/list/kanji_test_list.dart';
+import 'package:hishig_erdem/n5/test/pages/listening/listening_test_list.dart';
 
 class Menu {
   late String name;
@@ -42,21 +43,16 @@ late final learningMenuN5 = <MenuPage>[
 ];
 
 late final practiceMenuN5 = <MenuPage>[
-  MenuPage(
-    "Шинэ үг",
-    "testVocabularyN5",
-    Icons.format_list_numbered,
-    LetterPage(),
-    LetterCardPage(),
-  ),
+  MenuPage("Шинэ үг", "testVocabularyN5", Icons.format_list_numbered,
+      LetterPage(), LetterCardPage()),
   MenuPage("Ханз", "testKanjiN5", CupertinoIcons.pencil_outline,
       KanjiTestList(), KanjiTestList()),
   MenuPage("Өгүүлбэр зүй", "testGrammarN5", Icons.rule, VerbFormPage(),
       VerbConjugationPracticePage()),
   MenuPage("Уншлага", "testReadingN5", Icons.menu_book, KanjiTestList(),
       KanjiTestList()),
-  MenuPage("Сонсгол", "testListeningN5", CupertinoIcons.ear, GrammerPage(),
-      GrammarCardPage()),
+  MenuPage("Сонсгол", "testListening", CupertinoIcons.ear, ListeningTestList(),
+      ListeningTestList()),
 ];
 
 class MenuPage {

@@ -12,6 +12,8 @@ import 'package:hishig_erdem/n5/learning/frame/n5_common_page.dart';
 import 'package:hishig_erdem/n5/test/n5_test_frame_page.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/model/kanji_model.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/test/kanji_test.dart';
+import 'package:hishig_erdem/n5/test/pages/listening/model/listening_test_model.dart';
+import 'package:hishig_erdem/n5/test/pages/listening/test/listening_test.dart';
 import 'package:hishig_erdem/popup_menu_pages/fee/plan_fee.dart';
 import 'package:hishig_erdem/popup_menu_pages/user_info/user_info.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -161,6 +163,18 @@ class MainRoute {
                 ),
               ),
             ),
+            GoRoute(
+              name: "listening-test",
+              // 4
+              path: 'listening/:item',
+              pageBuilder: (context, state) => MaterialPage<void>(
+                key: state.pageKey,
+                // 5
+                child: ListeningTestPage(
+                  description: state.extra as ListeningTestModel,
+                ),
+              ),
+            ),
           ]),
       GoRoute(
         name: "redirect-n5-kanji-test",
@@ -170,6 +184,16 @@ class MainRoute {
         redirect: (state) => state.namedLocation(
           "kanji-test-n5",
           params: {'tab': 'testKanjiN5', 'item': state.params['item']!},
+        ),
+      ),
+      GoRoute(
+        name: "redirect-listening-test",
+        // 2
+        path: '/redirect-listening-test/:item',
+        // 3
+        redirect: (state) => state.namedLocation(
+          "listening-test",
+          params: {'tab': 'testListening', 'item': state.params['item']!},
         ),
       ),
       // TODO: Add Other routes
