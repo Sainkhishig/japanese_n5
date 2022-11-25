@@ -7,18 +7,20 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/services/service_locator.dart';
 
+import 'listening_manager.dart';
+
 // import 'package:japanese_practise_n5/common/player/notifiers/play_button_notifier.dart';
 // import 'package:japanese_practise_n5/common/player/notifiers/progress_notifier.dart';
 // import 'package:japanese_practise_n5/common/player/notifiers/repeat_button_notifier.dart';
 // import 'package:japanese_practise_n5/common/player/page_manager.dart';
 // import 'package:japanese_practise_n5/common/player/services/service_locator.dart';
 
-class PlayerPage extends StatefulWidget {
+class ListeningPage extends StatefulWidget {
   @override
-  _PlayerPageState createState() => _PlayerPageState();
+  _ListeningPageState createState() => _ListeningPageState();
 }
 
-class _PlayerPageState extends State<PlayerPage> {
+class _ListeningPageState extends State<ListeningPage> {
   @override
   void initState() {
     super.initState();
@@ -160,7 +162,7 @@ class RepeatButton extends StatelessWidget {
   const RepeatButton({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final pageManager = getIt<PageManager>();
+    final pageManager = getIt<ListeningPageManager>();
     return ValueListenableBuilder<RepeatState>(
       valueListenable: pageManager.repeatButtonNotifier,
       builder: (context, value, child) {

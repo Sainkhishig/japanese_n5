@@ -9,7 +9,7 @@ import 'package:hishig_erdem/common_frame_practice/listening/services/service_lo
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/services.dart';
 
-class PageManager {
+class ListeningPageManager {
   // Listeners: Updates going to the UI
   final currentSongTitleNotifier = ValueNotifier<String>('');
   final playlistNotifier = ValueNotifier<List<String>>([]);

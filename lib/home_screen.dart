@@ -116,33 +116,6 @@ class HomeScreen extends HookConsumerWidget {
                   )),
             ),
           ),
-          Center(
-            child: LoadingButton(
-              widgetKey: "kanjiXlLoad",
-              onPressed: () {
-                controller.loadKanji();
-              },
-              textLabel: 'kanjiXlLoad',
-            ),
-          ),
-          Center(
-            child: LoadingButton(
-              widgetKey: "vocabularyXlLoad",
-              onPressed: () {
-                controller.loadVocabulary();
-              },
-              textLabel: 'vocabularyXlLoad',
-            ),
-          ),
-          Center(
-            child: LoadingButton(
-              widgetKey: "grammarXlLoad",
-              onPressed: () {
-                controller.loadGrammar();
-              },
-              textLabel: 'grammarXlLoad',
-            ),
-          ),
           MediaUploader(),
           Center(
             child: LoadingButton(
@@ -212,6 +185,8 @@ class HomeScreen extends HookConsumerWidget {
             .goNamed("n5-test", params: {"tab": practiceMenuN5[0].destination});
         break;
       case 4:
+        router.goNamed("common-test",
+            params: {"tab": practiceMenuCommon[0].destination});
         break;
       case 3:
         break;

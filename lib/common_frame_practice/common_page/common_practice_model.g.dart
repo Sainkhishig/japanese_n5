@@ -1,24 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'common_model.dart';
+part of 'common_practice_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CommonPageModel _$$_CommonPageModelFromJson(Map<String, dynamic> json) =>
-    _$_CommonPageModel(
+_$_CommonPracticePageModel _$$_CommonPracticePageModelFromJson(
+        Map<String, dynamic> json) =>
+    _$_CommonPracticePageModel(
+      userName: json['userName'] as String? ?? '',
       title: json['title'] as String? ?? '',
       selectedIndex: json['selectedIndex'] as int? ?? 0,
       isGameMode: json['isGameMode'] as bool? ?? false,
-      masterDataDestination:
-          json['masterDataDestination'] as String? ?? 'masterDate',
+      isShowSpeech: json['isShowSpeech'] as bool? ?? true,
     );
 
-Map<String, dynamic> _$$_CommonPageModelToJson(_$_CommonPageModel instance) =>
+Map<String, dynamic> _$$_CommonPracticePageModelToJson(
+        _$_CommonPracticePageModel instance) =>
     <String, dynamic>{
+      'userName': instance.userName,
       'title': instance.title,
       'selectedIndex': instance.selectedIndex,
       'isGameMode': instance.isGameMode,
-      'masterDataDestination': instance.masterDataDestination,
+      'isShowSpeech': instance.isShowSpeech,
     };

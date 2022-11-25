@@ -1,136 +1,115 @@
-// import 'package:adaptive_navigation/adaptive_navigation.dart';
-// import 'package:hishig_erdem/common_frame_practice/reading/detail/reading_detail.dart';
-// import 'package:hishig_erdem/common_frame_practice/reading/list/reading_list.dart';
-// import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:hishig_erdem/n5/learning/page/sample/text_to_speech_sample.dart';
-// import 'package:hishig_erdem/n5/learning/page/sample/tts_sample.dart';
-// import 'package:hooks_riverpod/hooks_riverpod.dart';
-// import 'common_page_controller.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hishig_erdem/main/main_route.dart';
+import 'package:hishig_erdem/n5/common/menu.dart';
 
-// class CommonPracticePage extends StatelessWidget {
-//   const CommonPracticePage({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
 
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Хишиг эрдэм',
-//       theme: ThemeData(
-//         primarySwatch: Colors.amber,
-//         // primarySwatch: Colors.blue,
-//       ),
-//       home: CommonPage2(),
-//     );
-//   }
-// }
+import 'package:adaptive_navigation/adaptive_navigation.dart';
 
-// class CommonPage2 extends HookConsumerWidget {
-//   CommonPage2({Key? key}) : super(key: key);
-//   late N5Box lstN5;
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final controller = ref.watch(commonPageProvider.notifier);
-//     lstN5 = ref.read(n5BoxDataProvider);
-//     controller.setModelListenable(ref);
-//     return AdaptiveNavigationScaffold(
-//       appBar: AdaptiveAppBar(
-//         title: Text(lstMenu[controller.state.selectedIndex].name),
-//         actions: [],
-//       ),
-//       body: Scaffold(
-//           body: Row(
-//         children: [
-//           Expanded(
-//             child:
-//                 Center(child: lstMenu[controller.state.selectedIndex].mainPage),
-//           ),
-//         ],
-//       )),
-//       selectedIndex: controller.state.selectedIndex,
-//       onDestinationSelected: (value) {
-//         if (value == (lstMenu.length - 1)) {
-//           controller.setGameMode(!controller.state.isGameMode);
-//         }
-//         controller.setSelectedIndex(value);
-//       },
-//       destinations: _buildDestinations2(context, controller),
-//       drawerHeader: ListTile(
-//         contentPadding: const EdgeInsets.all(4),
-//         onTap: () {
-//           Navigator.of(context).pop();
-//         },
-//         // tileColor: Colors.black,
-//         title: Column(
-//           children: [
-//             Container(
-//               padding: const EdgeInsets.only(bottom: 5),
-//               margin: const EdgeInsets.only(bottom: 20),
-//               constraints: const BoxConstraints.expand(height: 150.0),
-//               decoration: const BoxDecoration(
-//                 border: Border(
-//                   top: BorderSide(width: 4.0, color: Colors.amber),
-//                   bottom: BorderSide(width: 4.0, color: Colors.amber),
-//                 ),
-//                 // color: Colors.blue
-//               ),
-//               child: Image.asset(
-//                 "assets/images/logo-removebg-preview.png",
-//                 fit: BoxFit.fill,
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
+import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
+import 'package:hishig_erdem/main/login_state.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-//   List<AdaptiveScaffoldDestination> _buildDestinations2(
-//       BuildContext context, CommonPageController controller) {
-//     return lstMenu
-//         .map((menu) => AdaptiveScaffoldDestination(
-//               title: menu.name,
-//               icon: menu.icon,
-//             ))
-//         .toList();
-//   }
-// }
+import 'common_page_controller.dart';
 
-// class Menu {
-//   late String name;
-//   late String destination;
-//   late IconData icon;
-//   late Widget mainPage;
-//   Menu(this.name, this.destination, this.icon, this.mainPage);
-// }
+class CommonPagePractice extends HookConsumerWidget {
+  CommonPagePractice({Key? key, required this.destination}) : super(key: key);
 
-// late final lstMenu = <Menu>[
-//   // Menu(
-//   //   "Шинэ үг",
-//   //   "vocabulary",
-//   //   Icons.format_list_numbered,
-//   //   Text("shine uug"),
-//   // ),
+  String destination;
+  late N5Box lstN5;
+  String? language = 'en-US';
+  String? languageCode;
+  late LoginState loginNotifier;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(commonPracticePageProvider.notifier);
+    loginNotifier = ref.read(loginStateNotifierProvider);
+    final router = ref.read(mainRouteProvider).router;
+    lstN5 = ref.read(n5BoxDataProvider);
+    controller.setModelListenable(ref);
 
-//   // Menu("Сонсгол", "verbForm", CupertinoIcons.ear, PlayerPage()),
-//   Menu("Сонсгол", "verbForm", CupertinoIcons.ear, TextToSpeechSample()),
-//   Menu(
-//     "Өгүүлбэр зүй",
-//     "grammar",
-//     Icons.rule,
-//     TtsSample(),
-//   ),
-//   Menu(
-//     "Уншлага",
-//     "verbForm",
-//     Icons.menu_book,
-//     ReadingList(),
-//   ),
-//   Menu(
-//     "Ханз",
-//     "verbForm",
-//     CupertinoIcons.pencil_outline,
-//     ReadingDetail(),
-//   ),
-// ];
+    return AdaptiveNavigationScaffold(
+      appBar: AdaptiveAppBar(
+        title: Text(practiceMenuCommon[controller.state.selectedIndex].name),
+      ),
+      body: Scaffold(
+          body: Row(
+        children: [
+          Expanded(
+            child: Center(child: getBody(controller)),
+          ),
+        ],
+      )),
+      selectedIndex: loginNotifier.railIndex,
+      onDestinationSelected: (value) async {
+        controller.setGameMode(false);
+        changeIndex(value, controller, context, router);
+      },
+      destinations: _buildDestinations2(context, controller),
+      drawerHeader: ListTile(
+        contentPadding: const EdgeInsets.all(4),
+        onTap: () {
+          router.goNamed("home");
+        },
+        // tileColor: Colors.black,
+        title: Column(
+          children: [
+            Container(
+              constraints:
+                  const BoxConstraints.expand(height: 150.0, width: 170),
+              child: Image.asset(
+                "assets/images/logo-shadow.png",
+                fit: BoxFit.fill,
+              ),
+            ),
+            TextButton(
+                onPressed: () {
+                  // router.goNamed("home");
+                },
+                child: const Text(
+                  "Япон хэлний хичээл",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                )),
+            Text(
+              "N${loginNotifier.hiveInfo.jlptLevel} түвшин",
+              style: TextStyle(fontSize: 16),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  getBody(CommonPracticePageController controller) {
+    var bodyPage = !controller.state.isGameMode
+        ? practiceMenuCommon[loginNotifier.railIndex].mainPage
+        : practiceMenuCommon[loginNotifier.railIndex].practicePage;
+
+    return bodyPage;
+  }
+
+  List<AdaptiveScaffoldDestination> _buildDestinations2(
+      BuildContext context, CommonPracticePageController controller) {
+    return practiceMenuCommon
+        .map((menu) => AdaptiveScaffoldDestination(
+              title: menu.name,
+              icon: menu.icon,
+            ))
+        .toList();
+  }
+
+  changeIndex(int index, CommonPracticePageController controller,
+      BuildContext context, GoRouter router) async {
+    final selectedDestination = practiceMenuCommon[index].destination;
+    loginNotifier.setRailIndex(index);
+    print("indexRail:$index");
+    if (selectedDestination == "logout") {
+      // loginStateNotifier.logOut();
+    } else {
+      destination = selectedDestination;
+      print("index:$index");
+      controller.setGameMode(false);
+      router.go("/test/$selectedDestination");
+    }
+  }
+}

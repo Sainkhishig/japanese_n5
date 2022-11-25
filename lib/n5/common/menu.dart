@@ -5,6 +5,7 @@ import 'package:hishig_erdem/common_frame_learning/page/grammer/common_grammer_p
 import 'package:hishig_erdem/common_frame_learning/page/kanji/common_kanji_list_page.dart';
 import 'package:hishig_erdem/common_frame_learning/page/vocabulary/common_vocabulary_list_page.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/player/sample/player_page.dart';
+
 import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,6 +30,17 @@ late final learningMenuCommon = <MenuPage>[
       CommonGrammarCardPage()),
   MenuPage(
       "Сонсгол", "conjugation", CupertinoIcons.ear, PlayerPage(), PlayerPage()),
+];
+
+late final practiceMenuCommon = <MenuPage>[
+  MenuPage("Ханз", "kanji", Icons.format_list_numbered, KanjiTestList(),
+      KanjiTestList()),
+  MenuPage("Шинэ үг", "vocabulary", Icons.border_color,
+      CommonVocabularyListPage(), CommonVocabularyCardPage()),
+  MenuPage("Өгүүлбэр зүй", "grammar", Icons.school_rounded, CommonGrammerPage(),
+      CommonGrammarCardPage()),
+  MenuPage("Сонсгол", "listening", CupertinoIcons.ear, ListeningTestList(),
+      ListeningTestList()),
 ];
 
 late final learningMenuN5 = <MenuPage>[

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hishig_erdem/authentication/login.dart';
 import 'package:hishig_erdem/authentication/registration.dart';
 import 'package:hishig_erdem/common_frame_learning/common_page/common_frame.dart';
+import 'package:hishig_erdem/common_frame_practice/common_page/common_practice_page.dart';
 import 'package:hishig_erdem/common_page/student_comment.dart';
 
 import 'package:hishig_erdem/home_screen.dart';
@@ -132,6 +133,69 @@ class MainRoute {
             ),
           );
         },
+      ),
+      GoRoute(
+          name: "common-test",
+          // 1
+          path:
+              '/test/:tab(${practiceMenuCommon.map((e) => e.destination).toList().join('|')})',
+          pageBuilder: (context, state) {
+            // 2
+            final tab = state.params['tab']!;
+            // final facilityId = state.params['facilityId']!;
+            return MaterialPage<void>(
+              key: state.pageKey,
+              // 3
+              child: CommonPagePractice(
+                destination: tab,
+              ),
+            );
+          },
+          routes: [
+            GoRoute(
+              name: "kanji-test-list",
+              // 4
+              path: 'details/:item',
+              pageBuilder: (context, state) => MaterialPage<void>(
+                key: state.pageKey,
+                // 5
+                child: KanjiTestPage(
+                  description: state.extra as KanjiTestModel,
+                ),
+              ),
+            ),
+            GoRoute(
+              name: "listening-test-list",
+              // 4
+              path: 'listening/:item',
+              pageBuilder: (context, state) => MaterialPage<void>(
+                key: state.pageKey,
+                // 5
+                child: ListeningTestPage(
+                  description: state.extra as ListeningTestModel,
+                ),
+              ),
+            ),
+          ]),
+      GoRoute(
+        name: "redirect-kanji",
+        // 2
+        path: '/redirect-kanji/:item',
+        // 3
+        redirect: (state) => state.namedLocation(
+          "kanji-test-list",
+          params: {'tab': 'kanji', 'item': state.params['item']!},
+        ),
+      ),
+      GoRoute(
+        name: "redirect-listening",
+        // 2
+        path: '/redirect-listening/:item',
+        // 3
+        redirect: (state) => state.namedLocation(
+          "listening-test-list",
+          params: {'tab': 'listening', 'item': state.params['item']!},
+        ),
       ),
       GoRoute(
           name: "n5-test",
