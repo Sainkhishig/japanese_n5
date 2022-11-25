@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/test/model/listening_test.dart';
 import 'package:hishig_erdem/main/main_route.dart';
-import 'package:hishig_erdem/n5/test/pages/kanji/list/kanji_test_list_controller.dart';
-import 'package:hishig_erdem/n5/test/pages/kanji/model/kanji_model.dart';
 import 'package:hishig_erdem/n5/test/pages/listening/listening_test_list_controller.dart';
 import 'package:hishig_erdem/n5/test/pages/listening/model/listening_test_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

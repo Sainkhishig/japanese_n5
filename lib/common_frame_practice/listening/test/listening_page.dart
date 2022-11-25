@@ -1,5 +1,3 @@
-import 'package:flutter_hooks/flutter_hooks.dart';
-
 import 'package:hishig_erdem/common_frame_practice/listening/notifiers/play_button_notifier.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/notifiers/progress_notifier.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/notifiers/repeat_button_notifier.dart';
@@ -7,81 +5,26 @@ import 'package:hishig_erdem/common_frame_practice/listening/notifiers/repeat_bu
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/services/service_locator.dart';
-import 'package:hishig_erdem/common_frame_practice/listening/test/listening_page_controller.dart';
+
 import 'package:hishig_erdem/common_frame_practice/listening/test/model/listening_test.dart';
 
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'listening_manager.dart';
-
-// import 'package:japanese_practise_n5/common/player/notifiers/play_button_notifier.dart';
-// import 'package:japanese_practise_n5/common/player/notifiers/progress_notifier.dart';
-// import 'package:japanese_practise_n5/common/player/notifiers/repeat_button_notifier.dart';
-// import 'package:japanese_practise_n5/common/player/page_manager.dart';
-// import 'package:japanese_practise_n5/common/player/services/service_locator.dart';
-
-// @override
-// void initState() {
-//   super.initState();
-//   // _initImages();
-//   getIt<ListeningPageManager>().init("ex1");
-// }
-
-// @override
-// void dispose() {
-//   getIt<ListeningPageManager>().dispose();
-//   super.dispose();
-// }
 
 class ListeningPage extends StatefulWidget {
   const ListeningPage({required this.testItem});
   final ListeningTest testItem;
   @override
-  _ListeningPage createState() => _ListeningPage(testItem: testItem);
+  _ListeningPage createState() => _ListeningPage();
 }
 
-// class _PlayerPageState extends State<ListeningPage> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     // _initImages();
-//     // getIt<PageManager>().init("ex1");
-//   }
-
-//   @override
-//   void dispose() {
-//     getIt<ListeningPageManager>().dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         body: Padding(
-//           padding: const EdgeInsets.all(20.0),
-//           child: Column(
-//             children: const [
-//               CurrentSongTitle(),
-//               Playlist(),
-//               AddRemoveSongButtons(),
-//               AudioProgressBar(),
-//               AudioControlButtons(),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class _ListeningPage extends State<ListeningPage> {
-  _ListeningPage({required this.testItem});
+  _ListeningPage();
+  // ListeningTest? testItem;
   @override
   void initState() {
     super.initState();
     // _initImages();
-    getIt<ListeningPageManager>().init(testItem!.exercises);
+    getIt<ListeningPageManager>().init(widget.testItem.exercises);
   }
 
   @override
@@ -90,35 +33,8 @@ class _ListeningPage extends State<ListeningPage> {
     super.dispose();
   }
 
-  ListeningTest? testItem;
-
   @override
   Widget build(BuildContext context) {
-    // var controller = ref.read(listeningPageProvider.notifier);
-    // final storageRef = FirebaseStorage.instance
-    //     .ref()
-    //     .child(testItem!.exercises.first.audioUrl);
-    // final future = useMemoized(() => controller.getUrlData(testItem));
-    // final snapshot = useFuture(future, initialData: null);
-    // if (snapshot.hasError) {
-    //   return showErrorWidget(context, "Алдаа", snapshot.error);
-    // }
-    // if (snapshot.connectionState == ConnectionState.waiting) {
-    //   return const Center(child: CircularProgressIndicator());
-    // }
-
-    // print(snapshot.data.toString());
-    // useEffect(() {
-    //   // print("url" + testItems!.exercises.first.audioUrl);
-
-    //   getIt<ListeningPageManager>().init(testItem!.exercises);
-
-    //   // final subscription = counter.listen((count) {
-    //   //   print(count);
-    //   // });
-    //   return audioDispose();
-    // }, const []);
-
     return MaterialApp(
       home: Scaffold(
         body: Padding(
@@ -128,9 +44,10 @@ class _ListeningPage extends State<ListeningPage> {
               // CurrentSongTitle(),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: Text(testItem!.name, style: TextStyle(fontSize: 40)),
+                child:
+                    Text(widget.testItem.name, style: TextStyle(fontSize: 40)),
               ),
-              CurrentQuestion(questions: widget.testItem!.exercises),
+              CurrentQuestion(questions: widget.testItem.exercises),
               // Playlist(),
 
               // AddRemoveSongButtons(),
@@ -144,23 +61,6 @@ class _ListeningPage extends State<ListeningPage> {
   }
 }
 
-class CurrentSongTitle extends StatelessWidget {
-  const CurrentSongTitle({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    final pageManager = getIt<ListeningPageManager>();
-    return ValueListenableBuilder<String>(
-      valueListenable: pageManager.currentSongTitleNotifier,
-      builder: (_, title, __) {
-        return Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Text(title, style: TextStyle(fontSize: 40)),
-        );
-      },
-    );
-  }
-}
-
 class CurrentQuestion extends StatelessWidget {
   CurrentQuestion({Key? key, required this.questions}) : super(key: key);
   List<ListeningQuestion> questions;
@@ -170,36 +70,47 @@ class CurrentQuestion extends StatelessWidget {
     return ValueListenableBuilder<String>(
       valueListenable: pageManager.currentSongTitleNotifier,
       builder: (_, titleIndex, __) {
-        return titleIndex.isEmpty
-            ? Text("empty")
-            : Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: StatefulBuilder(builder: (context, setState) {
-                  print("titleIndex::" + titleIndex);
-                  var questionIndex = int.parse(titleIndex.replaceAll("0", ""));
-                  var test = questions[questionIndex];
-                  return ListTile(
-                    title: Text("${questionIndex + 1}. ${test.question}"),
-                    subtitle: ListView.builder(
-                        itemCount: test.answers.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (BuildContext context, int index) {
-                          var answerItem = test.answers[index];
-                          return RadioListTile(
-                            title: Text(answerItem.answer),
-                            value: answerItem.answer,
-                            groupValue: test.selectedAnswer,
-                            onChanged: (value) {
-                              setState(() {
-                                test.selectedAnswer = value.toString();
-                                print("radioSelection$value");
-                              });
-                            },
-                          );
-                        }),
-                  );
-                }));
+        return Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: StatefulBuilder(builder: (context, setState) {
+              print("titleIndex::" + titleIndex);
+              var questionIndex = titleIndex.isEmpty
+                  ? 0
+                  : int.parse(titleIndex.replaceAll("0", "")) - 1;
+              var test = questions[questionIndex];
+              print("imageUrl:" + test.imageUrl);
+              return ListTile(
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("${questionIndex + 1}. ${test.question}"),
+                    Image.network(
+                      test.imageUrl,
+                      height: MediaQuery.of(context).size.height / 2.5,
+                      width: MediaQuery.of(context).size.width / 2,
+                    ),
+                  ],
+                ),
+                subtitle: ListView.builder(
+                    itemCount: test.answers.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      var answerItem = test.answers[index];
+                      return RadioListTile(
+                        title: Text(answerItem.answer),
+                        value: answerItem.answer,
+                        groupValue: test.selectedAnswer,
+                        onChanged: (value) {
+                          setState(() {
+                            test.selectedAnswer = value.toString();
+                            print("radioSelection$value");
+                          });
+                        },
+                      );
+                    }),
+              );
+            }));
       },
     );
   }
