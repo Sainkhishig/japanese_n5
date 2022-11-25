@@ -23,7 +23,7 @@ class _PlayerPageState extends State<PlayerPage> {
   void initState() {
     super.initState();
     // _initImages();
-    getIt<PageManager>().init("ex1");
+    // getIt<PageManager>().init("ex1");
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hishig_erdem/common_frame_practice/listening/test/model/listening_test.dart';
 import 'package:hishig_erdem/main/main_route.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/list/kanji_test_list_controller.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/model/kanji_model.dart';
@@ -61,8 +62,10 @@ class ListeningTestList extends HookConsumerWidget {
                           ],
                         ),
                         onTap: () {
-                          router.goNamed("redirect-listening-test",
-                              extra: nextUser, params: {'item': nextUser.name});
+                          var exercise = ListeningTest.fromRTDB(value);
+
+                          router.goNamed("redirect-listening",
+                              extra: exercise, params: {'item': nextUser.name});
 
                           // controller.update(keyUser);
                         },

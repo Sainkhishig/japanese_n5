@@ -1,7 +1,9 @@
+import 'package:hishig_erdem/common_frame_practice/listening/test/model/listening_test.dart';
+
 abstract class PlaylistRepository {
   Future<List<Map<String, String>>> fetchInitialPlaylist(
-      List<String> lstPlaylist);
-  Future<Map<String, String>> fetchAnotherSong(String s);
+      List<ListeningQuestion> lstPlaylist);
+  Future<Map<String, String>> fetchAnotherSong(ListeningQuestion s);
 }
 
 class DemoPlaylist extends PlaylistRepository {
@@ -19,14 +21,14 @@ class DemoPlaylist extends PlaylistRepository {
   var _songIndex = 0;
   static const _maxSongNumber = 16;
 
-  Map<String, String> _nextSong(String fileName) {
+  Map<String, String> _nextSong(ListeningQuestion fileName) {
     print("fileName:$fileName");
     _songIndex = (_songIndex % _maxSongNumber) + 1;
     return {
       'id': _songIndex.toString().padLeft(3, '0'),
-      'title': 'Song $_songIndex',
+      'title': _songIndex.toString(),
       'album': 'SoundHelix',
-      'url': 'asset:$fileName'
+      'url': fileName.audioUrl //'asset:$fileName'
       // 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-$_songIndex.mp3',
     };
   }

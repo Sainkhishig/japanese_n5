@@ -4,6 +4,8 @@ import 'package:hishig_erdem/authentication/login.dart';
 import 'package:hishig_erdem/authentication/registration.dart';
 import 'package:hishig_erdem/common_frame_learning/common_page/common_frame.dart';
 import 'package:hishig_erdem/common_frame_practice/common_page/common_practice_page.dart';
+import 'package:hishig_erdem/common_frame_practice/listening/test/listening_page.dart';
+import 'package:hishig_erdem/common_frame_practice/listening/test/model/listening_test.dart';
 import 'package:hishig_erdem/common_page/student_comment.dart';
 
 import 'package:hishig_erdem/home_screen.dart';
@@ -167,12 +169,12 @@ class MainRoute {
             GoRoute(
               name: "listening-test-list",
               // 4
-              path: 'listening/:item',
+              path: ':item',
               pageBuilder: (context, state) => MaterialPage<void>(
                 key: state.pageKey,
                 // 5
-                child: ListeningTestPage(
-                  description: state.extra as ListeningTestModel,
+                child: ListeningPage(
+                  testItem: state.extra as ListeningTest,
                 ),
               ),
             ),
@@ -235,7 +237,7 @@ class MainRoute {
                 key: state.pageKey,
                 // 5
                 child: ListeningTestPage(
-                  description: state.extra as ListeningTestModel,
+                  description: state.extra as ListeningTest,
                 ),
               ),
             ),

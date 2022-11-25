@@ -46,19 +46,19 @@ class PageManager {
   }
 
   Future<void> _loadPlaylist(String folderName) async {
-    var fileNames = await initListeningFileNames(folderName);
-    final songRepository = getIt<PlaylistRepository>();
-    final playlist = await songRepository.fetchInitialPlaylist(fileNames);
-    // final playlist = await songRepository.fetchInitialPlaylist(["1", "2"]);
-    final mediaItems = playlist
-        .map((song) => MediaItem(
-              id: song['id'] ?? '',
-              album: song['album'] ?? '',
-              title: song['title'] ?? '',
-              extras: {'url': song['url']},
-            ))
-        .toList();
-    _audioHandler.addQueueItems(mediaItems);
+    // var fileNames = await initListeningFileNames(folderName);
+    // final songRepository = getIt<PlaylistRepository>();
+    // final playlist = await songRepository.fetchInitialPlaylist(fileNames);
+    // // final playlist = await songRepository.fetchInitialPlaylist(["1", "2"]);
+    // final mediaItems = playlist
+    //     .map((song) => MediaItem(
+    //           id: song['id'] ?? '',
+    //           album: song['album'] ?? '',
+    //           title: song['title'] ?? '',
+    //           extras: {'url': song['url']},
+    //         ))
+    //     .toList();
+    // _audioHandler.addQueueItems(mediaItems);
   }
 
   void _listenToChangesInPlaylist() {
@@ -180,14 +180,14 @@ class PageManager {
 
   Future<void> add() async {
     final songRepository = getIt<PlaylistRepository>();
-    final song = await songRepository.fetchAnotherSong("songPath.mp3");
-    final mediaItem = MediaItem(
-      id: song['id'] ?? '',
-      album: song['album'] ?? '',
-      title: song['title'] ?? '',
-      extras: {'url': song['url']},
-    );
-    _audioHandler.addQueueItem(mediaItem);
+    // final song = await songRepository.fetchAnotherSong("songPath.mp3");
+    // final mediaItem = MediaItem(
+    //   id: song['id'] ?? '',
+    //   album: song['album'] ?? '',
+    //   title: song['title'] ?? '',
+    //   extras: {'url': song['url']},
+    // );
+    // _audioHandler.addQueueItem(mediaItem);
   }
 
   void remove() {

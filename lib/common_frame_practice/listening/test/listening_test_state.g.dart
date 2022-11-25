@@ -9,15 +9,13 @@ part of 'listening_test_state.dart';
 _$_ListeningTestState _$$_ListeningTestStateFromJson(
         Map<String, dynamic> json) =>
     _$_ListeningTestState(
-      audioSource: json['audioSource'] as List<dynamic>? ?? [],
-      imageSource: json['imageSource'] as List<dynamic>? ?? [],
+      tags: json['tags'] as List<dynamic>? ?? [],
       selectedId: json['selectedId'] as String? ?? null,
     );
 
 Map<String, dynamic> _$$_ListeningTestStateToJson(
         _$_ListeningTestState instance) =>
     <String, dynamic>{
-      'audioSource': instance.audioSource,
-      'imageSource': instance.imageSource,
+      'tags': instance.tags,
       'selectedId': instance.selectedId,
     };

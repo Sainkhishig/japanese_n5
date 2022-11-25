@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hishig_erdem/common/common_dialog.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/save_button.dart';
+import 'package:hishig_erdem/common_frame_practice/listening/test/model/listening_test.dart';
 import 'package:hishig_erdem/n5/test/pages/listening/model/listening_test_model.dart';
 import 'package:hishig_erdem/n5/test/pages/listening/test/liatening_test_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,7 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // pyfm061 : キャンセル規定編集
 class ListeningTestPage extends HookConsumerWidget {
   ListeningTestPage({Key? key, this.description}) : super(key: key);
-  ListeningTestModel? description;
+  ListeningTest? description;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(listeningTestController.notifier);

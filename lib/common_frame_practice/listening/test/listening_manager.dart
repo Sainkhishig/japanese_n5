@@ -8,6 +8,7 @@ import 'package:hishig_erdem/common_frame_practice/listening/services/playlist_r
 import 'package:hishig_erdem/common_frame_practice/listening/services/service_locator.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/services.dart';
+import 'package:hishig_erdem/common_frame_practice/listening/test/model/listening_test.dart';
 
 class ListeningPageManager {
   // Listeners: Updates going to the UI
@@ -23,8 +24,8 @@ class ListeningPageManager {
   final _audioHandler = getIt<AudioHandler>();
 
   // Events: Calls coming from the UI
-  void init(String exFolderName) async {
-    await _loadPlaylist(exFolderName);
+  void init(List<ListeningQuestion> listeningQuestions) async {
+    await _loadPlaylist(listeningQuestions);
     _listenToChangesInPlaylist();
     _listenToPlaybackState();
     _listenToCurrentPosition();
@@ -45,10 +46,11 @@ class ListeningPageManager {
     return fileNames;
   }
 
-  Future<void> _loadPlaylist(String folderName) async {
-    var fileNames = await initListeningFileNames(folderName);
+  Future<void> _loadPlaylist(List<ListeningQuestion> listeningQuestions) async {
+    // var fileNames = await initListeningFileNames(folderName);
     final songRepository = getIt<PlaylistRepository>();
-    final playlist = await songRepository.fetchInitialPlaylist(fileNames);
+    final playlist =
+        await songRepository.fetchInitialPlaylist(listeningQuestions);
     // final playlist = await songRepository.fetchInitialPlaylist(["1", "2"]);
     final mediaItems = playlist
         .map((song) => MediaItem(
@@ -180,14 +182,14 @@ class ListeningPageManager {
 
   Future<void> add() async {
     final songRepository = getIt<PlaylistRepository>();
-    final song = await songRepository.fetchAnotherSong("songPath.mp3");
-    final mediaItem = MediaItem(
-      id: song['id'] ?? '',
-      album: song['album'] ?? '',
-      title: song['title'] ?? '',
-      extras: {'url': song['url']},
-    );
-    _audioHandler.addQueueItem(mediaItem);
+    // final song = await songRepository.fetchAnotherSong("songPath.mp3");
+    // final mediaItem = MediaItem(
+    //   id: song['id'] ?? '',
+    //   album: song['album'] ?? '',
+    //   title: song['title'] ?? '',
+    //   extras: {'url': song['url']},
+    // );
+    // _audioHandler.addQueueItem(mediaItem);
   }
 
   void remove() {
