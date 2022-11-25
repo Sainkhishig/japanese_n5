@@ -1,3 +1,6 @@
+import 'package:hishig_erdem/common/common_dialog.dart';
+import 'package:hishig_erdem/common/common_widget.dart';
+import 'package:hishig_erdem/common_frame_practice/common_widget/save_button.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/notifiers/play_button_notifier.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/notifiers/progress_notifier.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/notifiers/repeat_button_notifier.dart';
@@ -33,13 +36,14 @@ class _ListeningPage extends State<ListeningPage> {
     super.dispose();
   }
 
+  bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
+          child: ListView(
             children: [
               // CurrentSongTitle(),
               Padding(
@@ -53,6 +57,36 @@ class _ListeningPage extends State<ListeningPage> {
               // AddRemoveSongButtons(),
               AudioProgressBar(),
               AudioControlButtons(),
+              Visibility(
+                visible: !isChecked,
+                child: SaveButton(
+                  label: "Шалгах",
+                  onSave: () async {
+                    int allCount = widget.testItem.exercises.length;
+                    var failedQuestions = widget.testItem.exercises
+                        .where((quest) =>
+                            quest.answers
+                                .firstWhere((answer) => answer.isTrue)
+                                .answer !=
+                            quest.selectedAnswer)
+                        .toList();
+                    int failedCount = failedQuestions.length;
+                    await showWarningMessage(context, "Хариу",
+                        "$allCountасуултаас $failedCount хариулт буруу");
+                    getIt<ListeningPageManager>().stop();
+                    setState(() {
+                      isChecked = true;
+                    });
+
+                    // save(controller);
+                  },
+                ),
+              ),
+              const SizedBox(height: 20),
+              // Visibility(visible: isChecked, child: Text("Тестийн хариу")),
+              Visibility(
+                  visible: isChecked,
+                  child: answerSheet(context, widget.testItem.exercises))
             ],
           ),
         ),

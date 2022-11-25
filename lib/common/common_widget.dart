@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/common_frame_practice/listening/test/model/listening_test.dart';
 
 Widget showErrorWidget(context, String title, Object? errorObject) {
   return Scaffold(
@@ -59,5 +59,44 @@ showErrorToastMessage(context, String message) {
       duration: const Duration(seconds: 2),
       backgroundColor: Colors.red,
     ),
+  );
+}
+
+answerSheet(context, List<ListeningQuestion> questions) {
+  return ListTile(
+    title: const Text("Тестийн хариу"),
+    subtitle: ListView.builder(
+        itemCount: questions.length,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (BuildContext context, int index) {
+          return StatefulBuilder(builder: (context, setState) {
+            var test = questions[index];
+            var trueAnswer = test.answers.firstWhere((answer) => answer.isTrue);
+            return ListTile(
+              leading: trueAnswer.answer == test.selectedAnswer
+                  ? const Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                    )
+                  : const Icon(
+                      Icons.cancel,
+                      color: Colors.red,
+                    ),
+              title: Text("${index + 1}. ${test.question}"),
+              subtitle: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("зөв хариулт: ${trueAnswer.answer}"),
+                  Visibility(
+                    visible: trueAnswer.answer != test.selectedAnswer,
+                    child: Text("таны хариулт:${test.selectedAnswer}"),
+                  )
+                ],
+              ),
+            );
+          });
+        }),
   );
 }
