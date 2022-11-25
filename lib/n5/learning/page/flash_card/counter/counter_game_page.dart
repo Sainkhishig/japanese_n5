@@ -1,4 +1,6 @@
 import 'package:hishig_erdem/classes/counter_group.dart';
+import 'package:hishig_erdem/classes/word_group.dart';
+import 'package:hishig_erdem/common/app_function.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
 import 'package:hishig_erdem/common_frame_learning/constant_value/common_constants.dart';
 
@@ -33,6 +35,7 @@ class CounterGamePage extends HookConsumerWidget {
     for (var counters in allCounter) {
       lstCounter.addAll(counters);
     }
+    // lsttableServings.add(numberCardBody(lstNumbers, context, controller));
     lsttableServings.add(tabCardBody(lstCounter, context, controller));
     return Scaffold(
       body: Scaffold(
@@ -40,7 +43,10 @@ class CounterGamePage extends HookConsumerWidget {
             ? showEmptyDataWidget()
             : PageView(
                 controller: pageController,
-                children: lsttableServings,
+                children: [
+                  numberCardBody(lstNumbers, context, controller),
+                  ...lsttableServings
+                ],
                 onPageChanged: (value) {
                   controller.setSelectedIndex(value);
                 },
@@ -136,6 +142,112 @@ class CounterGamePage extends HookConsumerWidget {
                             // height: 50,
                           ));
                     })))
+      ],
+    ));
+  }
+
+  Widget numberCardBody(WordGroup currentLetter, context, controller) {
+    var mainAxisExtent =
+        (currentLetter.lstWord.length < 10 || currentLetter.name == "Өдөр")
+            ? 12
+            : 22;
+    return Card(
+        child: Column(
+      children: [
+        Text(
+          currentLetter.name,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        Expanded(
+            child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 30),
+          child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                // childAspectRatio: 3 / 2,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 2,
+                crossAxisCount: 1,
+                mainAxisExtent: MediaQuery.of(context).size.height /
+                    mainAxisExtent, //(currentLetter.lstWord.length + 2),
+              ),
+              itemCount: currentLetter.lstWord.length,
+              itemBuilder: (BuildContext ctx, index) {
+                return Container(
+                  alignment: Alignment.center,
+                  // decoration: BoxDecoration(
+                  //   borderRadius: BorderRadius.circular(5),
+                  //   border: Border.all(
+                  //     color: Colors.black,
+                  //     width: 1,
+                  //   ),
+                  // ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Visibility(
+                        visible: controller.isShowPreference ?? true,
+                        child: IconButton(
+                          onPressed: () {
+                            speak(
+                              currentLetter.lstWord[index].reading,
+                            );
+                          },
+                          icon: Icon(Icons.volume_up),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            // borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                          ),
+                          child: Text(
+                            currentLetter.lstWord[index].kanji,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                          flex: 1,
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              // borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 1,
+                              ),
+                            ),
+                            child: Text(
+                              currentLetter.lstWord[index].reading,
+                            ),
+                          )),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            // borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                          ),
+                          child: Text(
+                            currentLetter.lstWord[index].wordMn,
+                          ),
+                        ),
+                      ),
+                      // Text(
+                    ],
+                  ),
+                );
+              }),
+        ))
       ],
     ));
   }

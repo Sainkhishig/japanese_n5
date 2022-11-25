@@ -27,7 +27,7 @@ class MasterDataGamePage extends HookConsumerWidget {
     controller.setModelListenable(ref);
 
     List<Widget> lsttableServings = [];
-    for (var element in lstMasterNumberAndDay) {
+    for (var element in lstDate) {
       lsttableServings.add(tabCardBody(element, context, controller));
     }
     return Scaffold(

@@ -10,6 +10,7 @@ import 'package:hishig_erdem/common_page/student_comment.dart';
 
 import 'package:hishig_erdem/home_screen.dart';
 import 'package:hishig_erdem/main/not_found_page.dart';
+import 'package:hishig_erdem/n5/common/frame/elementary_frame_page.dart';
 import 'package:hishig_erdem/n5/common/menu.dart';
 import 'package:hishig_erdem/n5/learning/frame/n5_common_page.dart';
 import 'package:hishig_erdem/n5/test/n5_test_frame_page.dart';
@@ -99,6 +100,24 @@ class MainRoute {
           key: state.pageKey,
           child: Registration(),
         ),
+      ),
+      GoRoute(
+        name: "elementary-lesson",
+        // 1
+        path:
+            '/japanese/:tab(${elementaryLessonMenu.map((e) => e.destination).toList().join('|')})',
+        pageBuilder: (context, state) {
+          // 2
+          final tab = state.params['tab']!;
+          // final facilityId = state.params['facilityId']!;
+          return MaterialPage<void>(
+            key: state.pageKey,
+            // 3
+            child: ElementaryFramePage(
+              destination: tab,
+            ),
+          );
+        },
       ),
       GoRoute(
         name: "n5-lesson",

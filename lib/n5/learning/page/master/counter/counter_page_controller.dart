@@ -1,6 +1,6 @@
-
+import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:state_notifier/state_notifier.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'counter_model.dart';
 
@@ -14,12 +14,15 @@ class CounterPageController extends StateNotifier<CounterModel> {
       : super(const CounterModel());
 
   final StateNotifierProviderRef widgetRef;
+  late SharedPreferences preferences;
   @override
   CounterModel get state;
   void setModelListenable(WidgetRef ref) {
     ref.watch(counterPageProvider);
+    preferences = ref.read(sharedPreferencesProvider);
   }
 
+  bool? get isShowPreference => preferences.getBool("isShowSpeechIcon");
 
   setTableServingLocation(int selectedPlaceId) async {
     // var preferences = widgetRef.read(sharedPreferencesProvider);

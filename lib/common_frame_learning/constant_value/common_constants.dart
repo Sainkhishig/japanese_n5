@@ -28,13 +28,13 @@ var lstLetters = <LetterType>[
       "explanation"),
 ];
 
-var lstMasterNumberAndDay = <WordGroup>[
-  WordGroup("Тоо", lstNumber, "Хэд?"),
+var lstDate = <WordGroup>[
   WordGroup("Гараг", lstWeekDay, "Хэд дэх өдөр вэ?"),
   WordGroup("Сар", lstMonth, "Хэдэн сар вэ?"),
   WordGroup("Өдөр", lstMonthDay, "Хэдний өдөр? Хэдэн өдөр"),
 ];
 
+var lstNumbers = WordGroup("Тоо", lstNumber, "Хэд?");
 var lstVocabulary = <WordGroup>[
   WordGroup("Бүгд", lstNumber, "Хэд?"),
   WordGroup("Тэмдэг нэр", lstWeekDay, "Хэд дэх өдөр вэ?"),

@@ -84,6 +84,21 @@ class HomeScreen extends HookConsumerWidget {
               );
             },
           ),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                router.goNamed("elementary-lesson",
+                    params: {"tab": elementaryLessonMenu[0].destination});
+              },
+              child: const SizedBox(
+                  width: 120,
+                  child: Text(
+                    "Үндсэн хичээл",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 30),
+                  )),
+            ),
+          ),
           const SizedBox(height: 24),
           Center(
             child: ElevatedButton(

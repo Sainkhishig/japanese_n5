@@ -43,7 +43,30 @@ late final practiceMenuCommon = <MenuPage>[
       ListeningTestList()),
 ];
 
-late final learningMenuN5 = <MenuPage>[
+late final lstMasterMenu = <Menu>[
+  Menu("Үсэг", "letter", Icons.sort_by_alpha, LetterPage(), LetterCardPage()),
+  Menu("Тоо, Гараг, Сар өдөр", "masterDate", Icons.dashboard_outlined,
+      MasterDataPage(), MasterDataGamePage()),
+  Menu("Тоо тоолох нөхцөл", "masterNumber", Icons.format_list_numbered,
+      CounterPage(), CounterGamePage()),
+  Menu("Төлөөний үг", "masterPronoun", Icons.person_pin_circle_outlined,
+      PronounCardPage(), PronounGamePage()),
+];
+
+final elementaryLessonMenu = <MenuPage>[
+  MenuPage("Үсэг", "letter", CupertinoIcons.pencil_outline, LetterPage(),
+      LetterCardPage()),
+  MenuPage("Төлөөний үг", "pronoun", Icons.person_pin_circle_outlined,
+      PronounCardPage(), PronounGamePage()),
+  MenuPage("Тоо, тоо тоолох", "number", Icons.format_list_numbered,
+      CounterPage(), CounterGamePage()),
+  MenuPage("Гараг, сар, өдөр", "date", Icons.calendar_today, MasterDataPage(),
+      MasterDataGamePage()),
+  MenuPage("Үг хувиргах", "conjugation", CupertinoIcons.color_filter,
+      VerbFormPage(), VerbConjugationPracticePage()),
+];
+
+final learningMenuN5 = <MenuPage>[
   MenuPage("Үсэг, тоо, ТҮ", "learnMasterDataN5", Icons.format_list_numbered,
       LetterPage(), LetterCardPage()),
   MenuPage("Ханз, Шинэ үг", "learnKanjiVocabularyN5", Icons.border_color,
@@ -87,16 +110,6 @@ class MenuPage {
 //   Menu("Өгүүлбэр зүй", "grammer", Icons.school_rounded, GrammerPage(),
 //       GrammarCardPage()),
 // ];
-
-late final lstMasterMenu = <Menu>[
-  Menu("Үсэг", "letter", Icons.sort_by_alpha, LetterPage(), LetterCardPage()),
-  Menu("Тоо, Гараг, Сар өдөр", "masterDate", Icons.dashboard_outlined,
-      MasterDataPage(), MasterDataGamePage()),
-  Menu("Тоо тоолох нөхцөл", "masterNumber", Icons.format_list_numbered,
-      CounterPage(), CounterGamePage()),
-  Menu("Төлөөний үг", "masterPronoun", Icons.person_pin_circle_outlined,
-      PronounCardPage(), PronounGamePage()),
-];
 
 late final lstWordMenu = <Menu>[
   Menu("Шинэ үг", "vocabularyN5", Icons.ac_unit, VocabularyListPage(),

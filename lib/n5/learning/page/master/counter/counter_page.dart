@@ -1,6 +1,6 @@
-import 'dart:ui';
-
 import 'package:hishig_erdem/classes/counter_group.dart';
+import 'package:hishig_erdem/classes/word_group.dart';
+import 'package:hishig_erdem/common/app_function.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
 import 'package:hishig_erdem/common_frame_learning/constant_value/common_constants.dart';
 import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
@@ -25,6 +25,7 @@ class CounterPage extends HookConsumerWidget {
     controller.setModelListenable(ref);
 
     List<Widget> lsttableServings = [];
+    lsttableServings.add(numberCardBody(lstNumbers, context, controller));
     for (var counters in allCounter) {
       lsttableServings.add(tabCardBody(counters, context, controller));
     }
@@ -94,6 +95,113 @@ class CounterPage extends HookConsumerWidget {
     );
   }
 
+  Widget numberCardBody(WordGroup currentLetter, context, controller) {
+    var mainAxisExtent =
+        (currentLetter.lstWord.length < 10 || currentLetter.name == "Өдөр")
+            ? 12
+            : 22;
+    return Card(
+        child: Column(
+      children: [
+        Text(
+          currentLetter.name,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        Expanded(
+            flex: 5,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, right: 30),
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    // childAspectRatio: 3 / 2,
+                    crossAxisSpacing: 2,
+                    mainAxisSpacing: 2,
+                    crossAxisCount: 1,
+                    mainAxisExtent: MediaQuery.of(context).size.height /
+                        mainAxisExtent, //(currentLetter.lstWord.length + 2),
+                  ),
+                  itemCount: currentLetter.lstWord.length,
+                  itemBuilder: (BuildContext ctx, index) {
+                    return Container(
+                      alignment: Alignment.center,
+                      // decoration: BoxDecoration(
+                      //   borderRadius: BorderRadius.circular(5),
+                      //   border: Border.all(
+                      //     color: Colors.black,
+                      //     width: 1,
+                      //   ),
+                      // ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Visibility(
+                            visible: controller.isShowPreference ?? true,
+                            child: IconButton(
+                              onPressed: () {
+                                speak(
+                                  currentLetter.lstWord[index].reading,
+                                );
+                              },
+                              icon: Icon(Icons.volume_up),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                // borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Text(
+                                currentLetter.lstWord[index].kanji,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  // borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Text(
+                                  currentLetter.lstWord[index].reading,
+                                ),
+                              )),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                // borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Text(
+                                currentLetter.lstWord[index].wordMn,
+                              ),
+                            ),
+                          ),
+                          // Text(
+                        ],
+                      ),
+                    );
+                  }),
+            ))
+      ],
+    ));
+  }
+
   Widget tabCardBody(List<CounterGroup> lstCounter, context, controller) {
     // var title = lstCounter.map((e) => e.wordMn.join(',')).toList();
     var title = lstCounter.map<String>((value) => value.wordMn).join(',');
@@ -111,8 +219,11 @@ class CounterPage extends HookConsumerWidget {
                 child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisSpacing: 2,
-                        mainAxisSpacing: 0,
+                        mainAxisSpacing: 2,
                         crossAxisCount: lstCounter.length,
+                        // crossAxisSpacing: 2,
+                        // mainAxisSpacing: 0,
+                        // crossAxisCount: lstCounter.length,
                         mainAxisExtent: MediaQuery.of(context).size.height /
                             lstCounter.length),
                     itemCount: lstCounter.length,

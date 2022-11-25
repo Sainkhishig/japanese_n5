@@ -25,7 +25,7 @@ class MasterDataPage extends HookConsumerWidget {
     final controller = ref.watch(letterCardProvider.notifier);
     controller.setModelListenable(ref);
     List<Widget> lsttableServings = [];
-    for (var element in lstMasterNumberAndDay) {
+    for (var element in lstDate) {
       lsttableServings.add(tabCardBody(element, context, controller));
     }
     return Scaffold(
