@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/list/kanji_test_state.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/model/kanji_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final kanjiTestController =
     StateNotifierProvider<KanjiTestController, KanjiTestState>(
@@ -17,8 +19,28 @@ class KanjiTestController extends StateNotifier<KanjiTestState> {
   void setModelListenable(WidgetRef ref) {}
 
   //#region ==================== constructor ====================
-  KanjiTestController({required this.ref}) : super(const KanjiTestState());
+  KanjiTestController({required this.ref}) : super(const KanjiTestState()) {
+    prefs = ref.read(sharedPreferencesProvider);
+  }
+
   //#endregion ==================== constructor ====================
+  late SharedPreferences prefs;
+  Future<void> getKanjiTest() async {
+    var masterCategoryDB = await _database
+        .child('KanjiTest')
+        // .orderByChild("jlptLevel")
+        // .equalTo(prefs.getInt("jlptLevel") ?? 5)
+        .get();
+    final categoryDB = Map<String, dynamic>.from(masterCategoryDB.value);
+    var lstKanjiTest = [];
+    categoryDB.forEach((keyUser, value) {
+      final kanjiTest =
+          KanjiTestModel.fromRTDB(Map<String, dynamic>.from(value));
+      lstKanjiTest.add(kanjiTest);
+    });
+    state = state.copyWith(kanjiTestSource: lstKanjiTest);
+    // await masterDB.box.put("KanjiTest", lstKanjiTest);
+  }
 
   //#region ==================== accessor ====================
   KanjiTestState? get facility => state;

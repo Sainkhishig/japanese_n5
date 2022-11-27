@@ -7,6 +7,7 @@ part 'kanji_test_state.g.dart';
 abstract class KanjiTestState with _$KanjiTestState {
   const factory KanjiTestState({
     @Default([]) List tags,
+    @Default([]) List kanjiTestSource,
     @Default(null) String? selectedId,
     // @Default(PlanType.lodging) PlanType planType,
     // @Default(DetailMode.none) DetailMode mode,

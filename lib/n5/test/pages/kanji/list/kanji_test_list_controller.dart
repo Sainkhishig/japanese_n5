@@ -1,5 +1,8 @@
+import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
+import 'package:hishig_erdem/n5/test/pages/kanji/model/kanji_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'kanji_test_state.dart';
 
@@ -11,11 +14,15 @@ class KanjiTestListController extends StateNotifier<KanjiTestState> {
   //#region ==================== local variable ====================
   final StateNotifierProviderRef ref;
   final _database = FirebaseDatabase.instance.reference();
+
   //#endregion ==================== local variable ====================
 
   //#region ==================== constructor ====================
-  KanjiTestListController({required this.ref}) : super(const KanjiTestState());
+  KanjiTestListController({required this.ref}) : super(const KanjiTestState()) {
+    prefs = ref.read(sharedPreferencesProvider);
+  }
   //#endregion ==================== constructor ====================
+  late SharedPreferences prefs;
 
   //#region ==================== accessor ====================
   // List<KanjiTestState>? get lstPlan => state.resultList;

@@ -3,6 +3,7 @@ import 'package:hishig_erdem/n5/test/model/question.dart';
 class KanjiTestModel {
   late String key;
   late String name;
+
   late List vocabularies;
   late List<Question> exercises;
   late DateTime writeDate;

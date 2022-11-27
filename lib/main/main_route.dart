@@ -180,9 +180,7 @@ class MainRoute {
               pageBuilder: (context, state) => MaterialPage<void>(
                 key: state.pageKey,
                 // 5
-                child: KanjiTestPage(
-                  description: state.extra as KanjiTestModel,
-                ),
+                child: KanjiTestPage(),
               ),
             ),
             GoRoute(
@@ -243,9 +241,7 @@ class MainRoute {
               pageBuilder: (context, state) => MaterialPage<void>(
                 key: state.pageKey,
                 // 5
-                child: KanjiTestPage(
-                  description: state.extra as KanjiTestModel,
-                ),
+                child: KanjiTestPage(),
               ),
             ),
             GoRoute(
