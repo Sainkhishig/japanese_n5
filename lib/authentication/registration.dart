@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:hishig_erdem/authentication/email_check.dart';
 
 import 'package:flutter/material.dart';
@@ -138,6 +139,8 @@ class Registration extends StatefulWidget {
   _RegistrationState createState() => _RegistrationState();
 }
 
+final _database = FirebaseDatabase.instance.reference();
+
 class _RegistrationState extends State<Registration> {
   // Firebase Authenticationを利用するためのインスタンス
   final _auth = FirebaseAuth.instance;
@@ -150,6 +153,8 @@ class _RegistrationState extends State<Registration> {
   bool _pswd_OK = false; // パスワードが有効な文字数を満たしているかどうか
   String _telephone = ""; // 入力されたパスワード
   String _address = ""; // 入力されたパスワード
+  String _firstName = "";
+  String _lastName = "";
   // エラーメッセージを日本語化するためのクラス
   final auth_error = Authentication_error();
 
@@ -277,5 +282,23 @@ class _RegistrationState extends State<Registration> {
         ),
       ),
     );
+  }
+
+  Future<void> writeUser() async {
+    final newData = <String, dynamic>{
+      'firstname': _firstName,
+      'lastname': _lastName,
+      'telephone': _telephone,
+      'address': _address,
+      'email': _newEmail,
+      'password': _pswd_OK,
+      'birthday': DateTime.now().microsecondsSinceEpoch,
+      'createDate': DateTime.now().microsecondsSinceEpoch
+    };
+
+    await _database.child('UserInfo').push().set(newData).catchError((onError) {
+      print('could not saved data');
+      throw ("aldaa garlaa");
+    });
   }
 }

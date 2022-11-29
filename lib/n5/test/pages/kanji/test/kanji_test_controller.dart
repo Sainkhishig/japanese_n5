@@ -42,6 +42,25 @@ class KanjiTestController extends StateNotifier<KanjiTestState> {
     // await masterDB.box.put("KanjiTest", lstKanjiTest);
   }
 
+  Future<void> sendTestResult(userKey, testResult) async {
+    final newData = <String, dynamic>{
+      'userId': prefs.getString("userId"),
+      'jlptLevel': prefs.getInt("jlptLevel"),
+      'test': "KANJI",
+      'result': testResult,
+      'testDate': DateTime.now().microsecondsSinceEpoch,
+    };
+
+    await _database
+        .child('UserTestResult')
+        .push()
+        .set(newData)
+        .catchError((onError) {
+      print('could not saved data');
+      throw ("aldaa garlaa");
+    });
+  }
+
   //#region ==================== accessor ====================
   KanjiTestState? get facility => state;
 
