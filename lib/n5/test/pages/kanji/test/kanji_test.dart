@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hishig_erdem/common/app_function.dart';
 import 'package:hishig_erdem/common/common_dialog.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/save_button.dart';
@@ -45,7 +46,7 @@ class KanjiTestPage extends HookConsumerWidget {
             StatefulBuilder(builder: (context, setState) {
               return Column(children: [
                 Visibility(
-                    visible: !isChecked,
+                    visible: true, // !isChecked,
                     child: ListView.builder(
                         itemCount: kanjiTest.exercises.length,
                         shrinkWrap: true,
@@ -92,9 +93,15 @@ class KanjiTestPage extends HookConsumerWidget {
                               quest.selectedAnswer)
                           .toList();
                       int failedCount = failedQuestions.length;
-                      await showWarningMessage(context, "Хариу",
-                          "$allCountасуултаас $failedCount хариулт буруу");
+                      var resultByPercent =
+                          (allCount - failedCount) * 100 / allCount;
+                      print("percent:$resultByPercent");
+                      String emotionMessage =
+                          getTestResultForPercent(resultByPercent);
 
+                      await showWarningMessage(context, emotionMessage,
+                          "Гүйцэтгэл: $resultByPercent%");
+                      await controller.sendTestResult(resultByPercent);
                       setState(() {
                         isChecked = true;
                       });
@@ -103,7 +110,8 @@ class KanjiTestPage extends HookConsumerWidget {
                     },
                   ),
                 ),
-                Visibility(visible: isChecked, child: Text("Тестийн хариу")),
+                Visibility(
+                    visible: isChecked, child: const Text("Тестийн хариу")),
                 Visibility(
                   visible: isChecked,
                   child: ListView.builder(

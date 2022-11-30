@@ -17,6 +17,22 @@ Future speak(String speechText) async {
   }
 }
 
+String getTestResultForPercent(double resultPercent) {
+  var emotionText = "";
+  if (resultPercent == 100) {
+    emotionText = "Гайхалтай! Танд баяр хүргэе \u{1f44c}";
+  } else if (resultPercent >= 90) {
+    emotionText = "Онц! Илүү амжилт хүсье \u{1f44c}";
+  } else if (resultPercent >= 80) {
+    emotionText = "Сайн байна! Онц дүн ойрхон байна шүү. Амжилт\u{1f44c}";
+  } else if (resultPercent >= 50) {
+    emotionText = "Дахиад жаахан хичээгээрэй.\u{1f44c}";
+  } else {
+    emotionText =
+        "Харамсалтай байна. Сэтгэлээр бүү унаарай. Алдаа бүхэн амжилтын эхлэл шүү.\u{1f44c}";
+  }
+  return emotionText;
+}
 // void speak() {
 //   tts.setVolume(volume);
 //   tts.setRate(rate);

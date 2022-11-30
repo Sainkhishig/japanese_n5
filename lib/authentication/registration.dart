@@ -1,8 +1,12 @@
+import 'dart:html';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hishig_erdem/authentication/email_check.dart';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hishig_erdem/common/common_enum.dart';
+import 'package:hishig_erdem/common/widget/afen_date_selector.dart';
 import 'authentication_error.dart';
 
 // // アカウント登録ページ
@@ -155,9 +159,10 @@ class _RegistrationState extends State<Registration> {
   String _address = ""; // 入力されたパスワード
   String _firstName = "";
   String _lastName = "";
+  late DateTime? _birthDate;
   // エラーメッセージを日本語化するためのクラス
   final auth_error = Authentication_error();
-
+  String _userGender = Gender.male.id;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -202,8 +207,53 @@ class _RegistrationState extends State<Registration> {
             Padding(
               padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
               child: TextFormField(
-                decoration: InputDecoration(labelText: "Утасны дугаар"),
-                obscureText: true,
+                decoration: InputDecoration(labelText: "Овог"),
+                maxLength: 20,
+                maxLengthEnforced: false,
+                onChanged: (String value) {
+                  _firstName = value;
+                },
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
+              child: TextFormField(
+                decoration: InputDecoration(labelText: "Нэр"),
+                maxLength: 20,
+                maxLengthEnforced: false,
+                onChanged: (String value) {
+                  _lastName = value;
+                },
+              ),
+            ),
+            AfenDateSelector(
+                label: "Төрсөн он, сар,өдөр",
+                onDateChanged: (date) {
+                  _birthDate = date;
+                }),
+            Text("хүйс"),
+            ListView.builder(
+                itemCount: Gender.values.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  Gender gender = Gender.values[index];
+                  return RadioListTile(
+                    title: Text(gender.label),
+                    value: gender.id,
+                    groupValue: _userGender,
+                    onChanged: (value) {
+                      setState(() {
+                        _userGender = value.toString();
+                        print("radioSelection$value");
+                      });
+                    },
+                  );
+                }),
+            Padding(
+              padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
+              child: TextFormField(
+                decoration: const InputDecoration(labelText: "Утасны дугаар"),
                 maxLength: 20,
                 maxLengthEnforced: false,
                 onChanged: (String value) {
@@ -214,8 +264,7 @@ class _RegistrationState extends State<Registration> {
             Padding(
               padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
               child: TextFormField(
-                decoration: InputDecoration(labelText: "Хаяг"),
-                obscureText: true,
+                decoration: const InputDecoration(labelText: "Хаяг"),
                 maxLength: 20,
                 maxLengthEnforced: false,
                 onChanged: (String value) {
@@ -228,7 +277,7 @@ class _RegistrationState extends State<Registration> {
               padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 5.0),
               child: Text(
                 _infoText,
-                style: TextStyle(color: Colors.red),
+                style: const TextStyle(color: Colors.red),
               ),
             ),
 
@@ -254,7 +303,7 @@ class _RegistrationState extends State<Registration> {
                         email: _newEmail,
                         password: _newPassword,
                       );
-
+                      writeUser();
                       // 登録成功
                       user = result.user!; // 登録したユーザー情報
                       user.sendEmailVerification(); // Email確認のメールを送信
@@ -291,8 +340,9 @@ class _RegistrationState extends State<Registration> {
       'telephone': _telephone,
       'address': _address,
       'email': _newEmail,
-      'password': _pswd_OK,
-      'birthday': DateTime.now().microsecondsSinceEpoch,
+      'password': _newPassword,
+      'sex': _userGender,
+      'birthday': _birthDate!.microsecondsSinceEpoch,
       'createDate': DateTime.now().microsecondsSinceEpoch
     };
 

@@ -42,7 +42,7 @@ class KanjiTestController extends StateNotifier<KanjiTestState> {
     // await masterDB.box.put("KanjiTest", lstKanjiTest);
   }
 
-  Future<void> sendTestResult(userKey, testResult) async {
+  Future<void> sendTestResult(testResult) async {
     final newData = <String, dynamic>{
       'userId': prefs.getString("userId"),
       'jlptLevel': prefs.getInt("jlptLevel"),

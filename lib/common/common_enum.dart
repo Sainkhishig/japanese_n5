@@ -44,3 +44,21 @@ extension CommentTypeExtension on CommentType {
 }
 
 enum JlptLevel { n5, n4, n3, n2, n1 }
+
+enum Gender { male, female }
+
+extension GenderExtension on Gender {
+  static final typeNames = {
+    Gender.male: 'эр',
+    Gender.female: 'эм',
+  };
+
+  String get label => typeNames[this]!;
+
+  static final typeIds = {
+    Gender.male: 'male',
+    Gender.female: 'female',
+  };
+
+  String get id => typeIds[this]!;
+}

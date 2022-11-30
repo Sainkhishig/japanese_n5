@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hishig_erdem/main/main_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -36,6 +37,15 @@ class InitApp extends HookConsumerWidget {
 
     var router = ref.read(mainRouteProvider).router;
     return MaterialApp.router(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('mn', 'MN'), // English, no country code
+        Locale('en', 'EN'), // English, no country code
+      ],
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
       debugShowCheckedModeBanner: false,
