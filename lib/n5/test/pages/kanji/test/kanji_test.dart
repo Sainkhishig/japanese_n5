@@ -26,7 +26,6 @@ class KanjiTestPage extends HookConsumerWidget {
     KanjiTestModel kanjiTest = controller.state.selectedKanjiTest;
     var jlptLevel = controller.prefs.getInt("jlptLevel");
 
-    // if (description != null) txtName.controller.text = kanjiTest.name;
     bool isChecked = false;
     return Scaffold(
         appBar: AppBar(
@@ -112,7 +111,6 @@ class KanjiTestPage extends HookConsumerWidget {
                         },
                       ),
                     ),
-
                     Visibility(
                       visible: isChecked,
                       child: Row(
@@ -128,16 +126,6 @@ class KanjiTestPage extends HookConsumerWidget {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
                                     ),
-                                    // Expanded(
-                                    //   flex: 4,
-                                    //   child: Column(
-                                    //     mainAxisAlignment:
-                                    //         MainAxisAlignment.start,
-                                    //     crossAxisAlignment:
-                                    //         CrossAxisAlignment.start,
-                                    //     children: lstDescriptionWidget,
-                                    //   ), //Text("${result.desctiprion} "),
-                                    // )
                                   ],
                                 ),
                                 childrenPadding: const EdgeInsets.all(8.0),
@@ -205,49 +193,6 @@ class KanjiTestPage extends HookConsumerWidget {
                         },
                       ),
                     ),
-                    // Visibility(
-                    //     visible: isChecked, child: const Text("Тестийн хариу")),
-                    // Visibility(
-                    //   visible: isChecked,
-                    //   child: ListView.builder(
-                    //       itemCount: kanjiTest.exercises.length,
-                    //       shrinkWrap: true,
-                    //       physics: const NeverScrollableScrollPhysics(),
-                    //       itemBuilder: (BuildContext context, int index) {
-                    //         return StatefulBuilder(
-                    //             builder: (context, setState) {
-                    //           var test = kanjiTest.exercises[index];
-                    //           var trueAnswer = test.answers
-                    //               .firstWhere((answer) => answer.isTrue);
-                    //           return ListTile(
-                    //             leading:
-                    //                 trueAnswer.answer == test.selectedAnswer
-                    //                     ? const Icon(
-                    //                         Icons.check_circle,
-                    //                         color: Colors.green,
-                    //                       )
-                    //                     : const Icon(
-                    //                         Icons.cancel,
-                    //                         color: Colors.red,
-                    //                       ),
-                    //             title: Text("${index + 1}. ${test.question}"),
-                    //             subtitle: Column(
-                    //               mainAxisAlignment: MainAxisAlignment.start,
-                    //               crossAxisAlignment: CrossAxisAlignment.start,
-                    //               children: [
-                    //                 Text("зөв хариулт: ${trueAnswer.answer}"),
-                    //                 Visibility(
-                    //                   visible: trueAnswer.answer !=
-                    //                       test.selectedAnswer,
-                    //                   child: Text(
-                    //                       "таны хариулт:${test.selectedAnswer}"),
-                    //                 )
-                    //               ],
-                    //             ),
-                    //           );
-                    //         });
-                    //       }),
-                    // ),
                   ]);
                 })
               ]),
