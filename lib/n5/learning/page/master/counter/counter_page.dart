@@ -31,17 +31,15 @@ class CounterPage extends HookConsumerWidget {
     }
 
     return Scaffold(
-      body: Scaffold(
-        body: lsttableServings.isEmpty
-            ? showEmptyDataWidget()
-            : PageView(
-                controller: pageController,
-                children: lsttableServings,
-                onPageChanged: (value) {
-                  controller.setSelectedIndex(value);
-                },
-              ),
-      ),
+      body: lsttableServings.isEmpty
+          ? showEmptyDataWidget()
+          : PageView(
+              controller: pageController,
+              children: lsttableServings,
+              onPageChanged: (value) {
+                controller.setSelectedIndex(value);
+              },
+            ),
       bottomNavigationBar: Container(
         height: 40,
         color: Colors.grey,
@@ -224,14 +222,13 @@ class CounterPage extends HookConsumerWidget {
                         // crossAxisSpacing: 2,
                         // mainAxisSpacing: 0,
                         // crossAxisCount: lstCounter.length,
-                        mainAxisExtent: MediaQuery.of(context).size.height /
-                            lstCounter.length),
+                        mainAxisExtent: MediaQuery.of(context).size.height),
                     itemCount: lstCounter.length,
                     itemBuilder: (BuildContext ctx, index) {
                       CounterGroup counter = lstCounter[index];
                       return Container(
                           alignment: Alignment.center,
-                          child: Column(
+                          child: ListView(
                             children: [
                               borderWidget(counter.wordMn,
                                   fontWight: FontWeight.bold),
