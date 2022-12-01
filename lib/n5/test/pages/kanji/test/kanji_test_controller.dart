@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/list/kanji_test_state.dart';
@@ -16,7 +17,9 @@ class KanjiTestController extends StateNotifier<KanjiTestState> {
   //#region ==================== local variable ====================
   final StateNotifierProviderRef ref;
   //#endregion ==================== local variable ====================
-  void setModelListenable(WidgetRef ref) {}
+  void setModelListenable(WidgetRef ref) {
+    ref.watch(kanjiTestController);
+  }
 
   //#region ==================== constructor ====================
   KanjiTestController({required this.ref}) : super(const KanjiTestState()) {
@@ -38,7 +41,11 @@ class KanjiTestController extends StateNotifier<KanjiTestState> {
           KanjiTestModel.fromRTDB(Map<String, dynamic>.from(value));
       lstKanjiTest.add(kanjiTest);
     });
-    state = state.copyWith(kanjiTestSource: lstKanjiTest);
+    var randomTest =
+        lstKanjiTest[randomVerbToExercise.nextInt(lstKanjiTest.length)];
+
+    state = state.copyWith(
+        kanjiTestSource: lstKanjiTest, selectedKanjiTest: randomTest);
     // await masterDB.box.put("KanjiTest", lstKanjiTest);
   }
 
@@ -68,7 +75,7 @@ class KanjiTestController extends StateNotifier<KanjiTestState> {
 
   //#region ==================== method ====================
   clearState() => state = const KanjiTestState();
-
+  Random randomVerbToExercise = Random();
   Future<KanjiTestState?> getCancellationPolicyDetail(String uniqueId) async {
     // final response = await ref
     //     .read(facilityApiProvider)
@@ -105,6 +112,13 @@ class KanjiTestController extends StateNotifier<KanjiTestState> {
       print(e);
       return false;
     }
+  }
+
+  changeTest() {
+    print("setNextTest");
+    var randomTest = state.kanjiTestSource[
+        randomVerbToExercise.nextInt(state.kanjiTestSource.length)];
+    state = state.copyWith(selectedKanjiTest: randomTest);
   }
 
   void update() {

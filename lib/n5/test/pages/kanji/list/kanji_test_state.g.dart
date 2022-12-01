@@ -11,6 +11,7 @@ _$_KanjiTestState _$$_KanjiTestStateFromJson(Map<String, dynamic> json) =>
       tags: json['tags'] as List<dynamic>? ?? [],
       kanjiTestSource: json['kanjiTestSource'] as List<dynamic>? ?? [],
       selectedId: json['selectedId'] as String? ?? null,
+      selectedKanjiTest: json['selectedKanjiTest'] ?? null,
     );
 
 Map<String, dynamic> _$$_KanjiTestStateToJson(_$_KanjiTestState instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_KanjiTestStateToJson(_$_KanjiTestState instance) =>
       'tags': instance.tags,
       'kanjiTestSource': instance.kanjiTestSource,
       'selectedId': instance.selectedId,
+      'selectedKanjiTest': instance.selectedKanjiTest,
     };

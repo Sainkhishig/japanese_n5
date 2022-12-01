@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hishig_erdem/n5/test/pages/kanji/model/kanji_model.dart';
 
 part 'kanji_test_state.freezed.dart';
 part 'kanji_test_state.g.dart';
@@ -9,6 +10,7 @@ abstract class KanjiTestState with _$KanjiTestState {
     @Default([]) List tags,
     @Default([]) List kanjiTestSource,
     @Default(null) String? selectedId,
+    @Default(null) dynamic selectedKanjiTest,
     // @Default(PlanType.lodging) PlanType planType,
     // @Default(DetailMode.none) DetailMode mode,
     // @Default(SearchStatus.none) SearchStatus searchStatus,

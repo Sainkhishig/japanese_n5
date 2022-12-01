@@ -24,11 +24,13 @@ class _$KanjiTestStateTearOff {
   _KanjiTestState call(
       {List<dynamic> tags = const [],
       List<dynamic> kanjiTestSource = const [],
-      String? selectedId = null}) {
+      String? selectedId = null,
+      dynamic selectedKanjiTest = null}) {
     return _KanjiTestState(
       tags: tags,
       kanjiTestSource: kanjiTestSource,
       selectedId: selectedId,
+      selectedKanjiTest: selectedKanjiTest,
     );
   }
 
@@ -45,6 +47,7 @@ mixin _$KanjiTestState {
   List<dynamic> get tags => throw _privateConstructorUsedError;
   List<dynamic> get kanjiTestSource => throw _privateConstructorUsedError;
   String? get selectedId => throw _privateConstructorUsedError;
+  dynamic get selectedKanjiTest => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,7 +61,10 @@ abstract class $KanjiTestStateCopyWith<$Res> {
           KanjiTestState value, $Res Function(KanjiTestState) then) =
       _$KanjiTestStateCopyWithImpl<$Res>;
   $Res call(
-      {List<dynamic> tags, List<dynamic> kanjiTestSource, String? selectedId});
+      {List<dynamic> tags,
+      List<dynamic> kanjiTestSource,
+      String? selectedId,
+      dynamic selectedKanjiTest});
 }
 
 /// @nodoc
@@ -75,6 +81,7 @@ class _$KanjiTestStateCopyWithImpl<$Res>
     Object? tags = freezed,
     Object? kanjiTestSource = freezed,
     Object? selectedId = freezed,
+    Object? selectedKanjiTest = freezed,
   }) {
     return _then(_value.copyWith(
       tags: tags == freezed
@@ -89,6 +96,10 @@ class _$KanjiTestStateCopyWithImpl<$Res>
           ? _value.selectedId
           : selectedId // ignore: cast_nullable_to_non_nullable
               as String?,
+      selectedKanjiTest: selectedKanjiTest == freezed
+          ? _value.selectedKanjiTest
+          : selectedKanjiTest // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
@@ -101,7 +112,10 @@ abstract class _$KanjiTestStateCopyWith<$Res>
       __$KanjiTestStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<dynamic> tags, List<dynamic> kanjiTestSource, String? selectedId});
+      {List<dynamic> tags,
+      List<dynamic> kanjiTestSource,
+      String? selectedId,
+      dynamic selectedKanjiTest});
 }
 
 /// @nodoc
@@ -120,6 +134,7 @@ class __$KanjiTestStateCopyWithImpl<$Res>
     Object? tags = freezed,
     Object? kanjiTestSource = freezed,
     Object? selectedId = freezed,
+    Object? selectedKanjiTest = freezed,
   }) {
     return _then(_KanjiTestState(
       tags: tags == freezed
@@ -134,6 +149,10 @@ class __$KanjiTestStateCopyWithImpl<$Res>
           ? _value.selectedId
           : selectedId // ignore: cast_nullable_to_non_nullable
               as String?,
+      selectedKanjiTest: selectedKanjiTest == freezed
+          ? _value.selectedKanjiTest
+          : selectedKanjiTest // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
@@ -144,7 +163,8 @@ class _$_KanjiTestState implements _KanjiTestState {
   const _$_KanjiTestState(
       {this.tags = const [],
       this.kanjiTestSource = const [],
-      this.selectedId = null});
+      this.selectedId = null,
+      this.selectedKanjiTest = null});
 
   factory _$_KanjiTestState.fromJson(Map<String, dynamic> json) =>
       _$$_KanjiTestStateFromJson(json);
@@ -158,10 +178,13 @@ class _$_KanjiTestState implements _KanjiTestState {
   @JsonKey(defaultValue: null)
   @override
   final String? selectedId;
+  @JsonKey(defaultValue: null)
+  @override
+  final dynamic selectedKanjiTest;
 
   @override
   String toString() {
-    return 'KanjiTestState(tags: $tags, kanjiTestSource: $kanjiTestSource, selectedId: $selectedId)';
+    return 'KanjiTestState(tags: $tags, kanjiTestSource: $kanjiTestSource, selectedId: $selectedId, selectedKanjiTest: $selectedKanjiTest)';
   }
 
   @override
@@ -175,7 +198,10 @@ class _$_KanjiTestState implements _KanjiTestState {
                     .equals(other.kanjiTestSource, kanjiTestSource)) &&
             (identical(other.selectedId, selectedId) ||
                 const DeepCollectionEquality()
-                    .equals(other.selectedId, selectedId)));
+                    .equals(other.selectedId, selectedId)) &&
+            (identical(other.selectedKanjiTest, selectedKanjiTest) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectedKanjiTest, selectedKanjiTest)));
   }
 
   @override
@@ -183,7 +209,8 @@ class _$_KanjiTestState implements _KanjiTestState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(tags) ^
       const DeepCollectionEquality().hash(kanjiTestSource) ^
-      const DeepCollectionEquality().hash(selectedId);
+      const DeepCollectionEquality().hash(selectedId) ^
+      const DeepCollectionEquality().hash(selectedKanjiTest);
 
   @JsonKey(ignore: true)
   @override
@@ -200,7 +227,8 @@ abstract class _KanjiTestState implements KanjiTestState {
   const factory _KanjiTestState(
       {List<dynamic> tags,
       List<dynamic> kanjiTestSource,
-      String? selectedId}) = _$_KanjiTestState;
+      String? selectedId,
+      dynamic selectedKanjiTest}) = _$_KanjiTestState;
 
   factory _KanjiTestState.fromJson(Map<String, dynamic> json) =
       _$_KanjiTestState.fromJson;
@@ -211,6 +239,8 @@ abstract class _KanjiTestState implements KanjiTestState {
   List<dynamic> get kanjiTestSource => throw _privateConstructorUsedError;
   @override
   String? get selectedId => throw _privateConstructorUsedError;
+  @override
+  dynamic get selectedKanjiTest => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$KanjiTestStateCopyWith<_KanjiTestState> get copyWith =>
