@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:hishig_erdem/common/common_dialog.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
+import 'package:hishig_erdem/common_frame_practice/api/tes_api.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/save_button.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/notifiers/play_button_notifier.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/notifiers/progress_notifier.dart';
@@ -14,8 +17,10 @@ import 'package:hishig_erdem/common_frame_practice/listening/test/model/listenin
 import 'listening_manager.dart';
 
 class ListeningPage extends StatefulWidget {
-  const ListeningPage({required this.testItem});
-  final ListeningTest testItem;
+  // late ListeningTest testItem;
+  late List<ListeningTest> lstTestSource = [];
+  late ListeningTest? testItem = null;
+
   @override
   _ListeningPage createState() => _ListeningPage();
 }
@@ -23,11 +28,28 @@ class ListeningPage extends StatefulWidget {
 class _ListeningPage extends State<ListeningPage> {
   _ListeningPage();
   // ListeningTest? testItem;
+  Random randomVerbToExercise = Random();
   @override
   void initState() {
     super.initState();
+    // Future.delayed(Duration.zero, () async {
+    //   widget.lstTestSource = await CommonTestAPI().getListeningTest(4);
+    // });
+
     // _initImages();
-    getIt<ListeningPageManager>().init(widget.testItem.exercises);
+
+    Future(() async {
+      widget.lstTestSource = await CommonTestAPI().getListeningTest(4);
+      setState(() {
+        widget.testItem = widget.lstTestSource[
+            randomVerbToExercise.nextInt(widget.lstTestSource.length)];
+      });
+      getIt<ListeningPageManager>().init(widget.testItem!.exercises);
+    });
+
+    if (widget.lstTestSource.isNotEmpty) {
+      print("execPlayer");
+    }
   }
 
   @override
@@ -39,59 +61,61 @@ class _ListeningPage extends State<ListeningPage> {
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: ListView(
-            children: [
-              // CurrentSongTitle(),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child:
-                    Text(widget.testItem.name, style: TextStyle(fontSize: 40)),
-              ),
-              CurrentQuestion(questions: widget.testItem.exercises),
-              // Playlist(),
+    return widget.testItem == null
+        ? showEmptyDataWidget()
+        : MaterialApp(
+            home: Scaffold(
+              body: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ListView(
+                  children: [
+                    // CurrentSongTitle(),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(widget.testItem!.name,
+                          style: TextStyle(fontSize: 40)),
+                    ),
+                    CurrentQuestion(questions: widget.testItem!.exercises),
+                    // Playlist(),
 
-              // AddRemoveSongButtons(),
-              AudioProgressBar(),
-              AudioControlButtons(),
-              Visibility(
-                visible: !isChecked,
-                child: SaveButton(
-                  label: "Шалгах",
-                  onSave: () async {
-                    int allCount = widget.testItem.exercises.length;
-                    var failedQuestions = widget.testItem.exercises
-                        .where((quest) =>
-                            quest.answers
-                                .firstWhere((answer) => answer.isTrue)
-                                .answer !=
-                            quest.selectedAnswer)
-                        .toList();
-                    int failedCount = failedQuestions.length;
-                    await showWarningMessage(context, "Хариу",
-                        "$allCountасуултаас $failedCount хариулт буруу");
-                    getIt<ListeningPageManager>().stop();
-                    setState(() {
-                      isChecked = true;
-                    });
+                    // AddRemoveSongButtons(),
+                    AudioProgressBar(),
+                    AudioControlButtons(),
+                    Visibility(
+                      visible: !isChecked,
+                      child: SaveButton(
+                        label: "Шалгах",
+                        onSave: () async {
+                          int allCount = widget.testItem!.exercises.length;
+                          var failedQuestions = widget.testItem!.exercises
+                              .where((quest) =>
+                                  quest.answers
+                                      .firstWhere((answer) => answer.isTrue)
+                                      .answer !=
+                                  quest.selectedAnswer)
+                              .toList();
+                          int failedCount = failedQuestions.length;
+                          await showWarningMessage(context, "Хариу",
+                              "$allCountасуултаас $failedCount хариулт буруу");
+                          getIt<ListeningPageManager>().stop();
+                          setState(() {
+                            isChecked = true;
+                          });
 
-                    // save(controller);
-                  },
+                          // save(controller);
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    // Visibility(visible: isChecked, child: Text("Тестийн хариу")),
+                    Visibility(
+                        visible: isChecked,
+                        child: answerSheet(context, widget.testItem!.exercises))
+                  ],
                 ),
               ),
-              const SizedBox(height: 20),
-              // Visibility(visible: isChecked, child: Text("Тестийн хариу")),
-              Visibility(
-                  visible: isChecked,
-                  child: answerSheet(context, widget.testItem.exercises))
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
   }
 }
 

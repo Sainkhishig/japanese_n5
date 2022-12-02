@@ -4,8 +4,10 @@ import 'package:hishig_erdem/authentication/login.dart';
 import 'package:hishig_erdem/authentication/registration.dart';
 import 'package:hishig_erdem/common_frame_learning/common_page/common_frame.dart';
 import 'package:hishig_erdem/common_frame_practice/common_page/common_practice_page.dart';
+import 'package:hishig_erdem/common_frame_practice/grammar/test/grammar_test.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/test/listening_page.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/test/model/listening_test.dart';
+import 'package:hishig_erdem/common_frame_practice/vocabulary/test/vocabulary_test.dart';
 import 'package:hishig_erdem/common_page/student_comment.dart';
 
 import 'package:hishig_erdem/home_screen.dart';
@@ -174,7 +176,7 @@ class MainRoute {
             GoRoute(
               name: "common-kanji-test",
               // 4
-              path: ':item',
+              path: 'kanjiTest/:item',
               pageBuilder: (context, state) => MaterialPage<void>(
                 key: state.pageKey,
                 // 5
@@ -182,22 +184,40 @@ class MainRoute {
               ),
             ),
             GoRoute(
-              name: "common-listening-test",
+              name: "common-vocabulary-test",
               // 4
-              path: ':item',
+              path: 'vocabularyTest/:item',
               pageBuilder: (context, state) => MaterialPage<void>(
                 key: state.pageKey,
                 // 5
-                child: ListeningPage(
-                  testItem: state.extra as ListeningTest,
-                ),
+                child: CommonTestVocabulary(),
+              ),
+            ),
+            GoRoute(
+              name: "common-grammar-test",
+              // 4
+              path: 'grammarTest/:item',
+              pageBuilder: (context, state) => MaterialPage<void>(
+                key: state.pageKey,
+                // 5
+                child: CommonTestGrammar(),
+              ),
+            ),
+            GoRoute(
+              name: "common-listening-test",
+              // 4
+              path: 'listeningTest/:item',
+              pageBuilder: (context, state) => MaterialPage<void>(
+                key: state.pageKey,
+                // 5
+                child: ListeningPage(),
               ),
             ),
           ]),
       GoRoute(
-        name: "redirect-kanji",
+        name: "go-kanji-test",
         // 2
-        path: '/:item',
+        path: '/kanjiTest/:item',
         // 3
         redirect: (state) => state.namedLocation(
           "common-kanji-test",
@@ -205,9 +225,29 @@ class MainRoute {
         ),
       ),
       GoRoute(
-        name: "redirect-listening",
+        name: "go-vocabulary-test",
         // 2
-        path: '/redirect-listening/:item',
+        path: '/vocabularyTest/:item',
+        // 3
+        redirect: (state) => state.namedLocation(
+          "common-vocabulary-test",
+          params: {'tab': 'vocabulary', 'item': state.params['item']!},
+        ),
+      ),
+      GoRoute(
+        name: "go-grammar-test",
+        // 2
+        path: '/grammarTest/:item',
+        // 3
+        redirect: (state) => state.namedLocation(
+          "common-grammar-test",
+          params: {'tab': 'grammar', 'item': state.params['item']!},
+        ),
+      ),
+      GoRoute(
+        name: "go-listening-test",
+        // 2
+        path: '/listeningTest/:item',
         // 3
         redirect: (state) => state.namedLocation(
           "common-listening-test",

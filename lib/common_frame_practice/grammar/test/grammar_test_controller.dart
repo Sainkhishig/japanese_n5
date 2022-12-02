@@ -1,19 +1,19 @@
 import 'dart:math';
 
 import 'package:hishig_erdem/common_frame_practice/api/tes_api.dart';
+import 'package:hishig_erdem/common_frame_practice/grammar/test/grammar_test_state.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 
-import 'package:hishig_erdem/n5/test/pages/kanji/list/kanji_test_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final kanjiTestController =
-    StateNotifierProvider<KanjiTestController, KanjiTestState>(
-        (ref) => KanjiTestController(ref: ref));
+final grammarTestController =
+    StateNotifierProvider<GrammarTestController, GrammarTestState>(
+        (ref) => GrammarTestController(ref: ref));
 final _database = FirebaseDatabase.instance.reference();
 
-class KanjiTestController extends StateNotifier<KanjiTestState> {
+class GrammarTestController extends StateNotifier<GrammarTestState> {
   //#region ==================== local variable ====================
   final StateNotifierProviderRef ref;
   late SharedPreferences prefs;
@@ -21,25 +21,25 @@ class KanjiTestController extends StateNotifier<KanjiTestState> {
 
   //#endregion ==================== local variable ====================
   void setModelListenable(WidgetRef ref) {
-    ref.watch(kanjiTestController);
+    ref.watch(grammarTestController);
   }
 
   //#region ==================== constructor ====================
-  KanjiTestController({required this.ref}) : super(const KanjiTestState()) {
+  GrammarTestController({required this.ref}) : super(const GrammarTestState()) {
     prefs = ref.read(sharedPreferencesProvider);
   }
 
   //#endregion ==================== constructor ====================
 
-  Future<void> setKanjiList() async {
+  Future<void> setGrammarList() async {
     print("loading data...");
-    var lstKanjiTest =
-        await CommonTestAPI().getKanjiTest(prefs.getInt("jlptLevel") ?? 5);
+    var lstGrammarTest =
+        await CommonTestAPI().getGrammarTest(prefs.getInt("jlptLevel") ?? 5);
     var randomTest =
-        lstKanjiTest[randomVerbToExercise.nextInt(lstKanjiTest.length)];
+        lstGrammarTest[randomVerbToExercise.nextInt(lstGrammarTest.length)];
 
     state = state.copyWith(
-        kanjiTestSource: lstKanjiTest, selectedKanjiTest: randomTest);
+        grammarTestSource: lstGrammarTest, selectedGrammarTest: randomTest);
   }
 
   Future<void> sendTestResult(testResult) async {
@@ -62,18 +62,18 @@ class KanjiTestController extends StateNotifier<KanjiTestState> {
   }
 
   //#region ==================== accessor ====================
-  KanjiTestState get testState => state;
+  GrammarTestState get testState => state;
 
   //#endregion ==================== accessor ====================
 
   //#region ==================== method ====================
-  clearState() => state = const KanjiTestState();
+  clearState() => state = const GrammarTestState();
 
   changeTest() {
     print("setNextTest");
-    var randomTest = state.kanjiTestSource[
-        randomVerbToExercise.nextInt(state.kanjiTestSource.length)];
-    state = state.copyWith(selectedKanjiTest: randomTest);
+    var randomTest = state.grammarTestSource[
+        randomVerbToExercise.nextInt(state.grammarTestSource.length)];
+    state = state.copyWith(selectedGrammarTest: randomTest);
   }
   //#endregion ==================== method ====================
 }

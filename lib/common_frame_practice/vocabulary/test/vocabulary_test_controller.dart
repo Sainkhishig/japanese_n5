@@ -1,19 +1,19 @@
 import 'dart:math';
 
 import 'package:hishig_erdem/common_frame_practice/api/tes_api.dart';
+import 'package:hishig_erdem/common_frame_practice/vocabulary/test/vocabulary_test_state.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 
-import 'package:hishig_erdem/n5/test/pages/kanji/list/kanji_test_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final kanjiTestController =
-    StateNotifierProvider<KanjiTestController, KanjiTestState>(
-        (ref) => KanjiTestController(ref: ref));
+final vocabularyTestController =
+    StateNotifierProvider<VocabularyTestController, VocabularyTestState>(
+        (ref) => VocabularyTestController(ref: ref));
 final _database = FirebaseDatabase.instance.reference();
 
-class KanjiTestController extends StateNotifier<KanjiTestState> {
+class VocabularyTestController extends StateNotifier<VocabularyTestState> {
   //#region ==================== local variable ====================
   final StateNotifierProviderRef ref;
   late SharedPreferences prefs;
@@ -21,32 +21,34 @@ class KanjiTestController extends StateNotifier<KanjiTestState> {
 
   //#endregion ==================== local variable ====================
   void setModelListenable(WidgetRef ref) {
-    ref.watch(kanjiTestController);
+    ref.watch(vocabularyTestController);
   }
 
   //#region ==================== constructor ====================
-  KanjiTestController({required this.ref}) : super(const KanjiTestState()) {
+  VocabularyTestController({required this.ref})
+      : super(const VocabularyTestState()) {
     prefs = ref.read(sharedPreferencesProvider);
   }
 
   //#endregion ==================== constructor ====================
 
-  Future<void> setKanjiList() async {
+  Future<void> setVocabularyList() async {
     print("loading data...");
-    var lstKanjiTest =
-        await CommonTestAPI().getKanjiTest(prefs.getInt("jlptLevel") ?? 5);
-    var randomTest =
-        lstKanjiTest[randomVerbToExercise.nextInt(lstKanjiTest.length)];
+    var lstVocabularyTest =
+        await CommonTestAPI().getVocabularyTest(prefs.getInt("jlptLevel") ?? 5);
+    var randomTest = lstVocabularyTest[
+        randomVerbToExercise.nextInt(lstVocabularyTest.length)];
 
     state = state.copyWith(
-        kanjiTestSource: lstKanjiTest, selectedKanjiTest: randomTest);
+        vocabularyTestSource: lstVocabularyTest,
+        selectedVocabularyTest: randomTest);
   }
 
   Future<void> sendTestResult(testResult) async {
     final newData = <String, dynamic>{
       'userId': prefs.getString("userId"),
       'jlptLevel': prefs.getInt("jlptLevel"),
-      'test': "KANJI",
+      'test': "VOCABULARY",
       'result': testResult,
       'testDate': DateTime.now().microsecondsSinceEpoch,
     };
@@ -62,18 +64,18 @@ class KanjiTestController extends StateNotifier<KanjiTestState> {
   }
 
   //#region ==================== accessor ====================
-  KanjiTestState get testState => state;
+  VocabularyTestState get testState => state;
 
   //#endregion ==================== accessor ====================
 
   //#region ==================== method ====================
-  clearState() => state = const KanjiTestState();
+  clearState() => state = const VocabularyTestState();
 
   changeTest() {
     print("setNextTest");
-    var randomTest = state.kanjiTestSource[
-        randomVerbToExercise.nextInt(state.kanjiTestSource.length)];
-    state = state.copyWith(selectedKanjiTest: randomTest);
+    var randomTest = state.vocabularyTestSource[
+        randomVerbToExercise.nextInt(state.vocabularyTestSource.length)];
+    state = state.copyWith(selectedVocabularyTest: randomTest);
   }
   //#endregion ==================== method ====================
 }
