@@ -172,17 +172,17 @@ class MainRoute {
           },
           routes: [
             GoRoute(
-              name: "kanji-test-list",
+              name: "common-kanji-test",
               // 4
-              path: 'details/:item',
+              path: ':item',
               pageBuilder: (context, state) => MaterialPage<void>(
                 key: state.pageKey,
                 // 5
-                child: KanjiTestPage(),
+                child: CommonTestKanji(),
               ),
             ),
             GoRoute(
-              name: "listening-test-list",
+              name: "common-listening-test",
               // 4
               path: ':item',
               pageBuilder: (context, state) => MaterialPage<void>(
@@ -197,10 +197,10 @@ class MainRoute {
       GoRoute(
         name: "redirect-kanji",
         // 2
-        path: '/redirect-kanji/:item',
+        path: '/:item',
         // 3
         redirect: (state) => state.namedLocation(
-          "kanji-test-list",
+          "common-kanji-test",
           params: {'tab': 'kanji', 'item': state.params['item']!},
         ),
       ),
@@ -210,7 +210,7 @@ class MainRoute {
         path: '/redirect-listening/:item',
         // 3
         redirect: (state) => state.namedLocation(
-          "listening-test-list",
+          "common-listening-test",
           params: {'tab': 'listening', 'item': state.params['item']!},
         ),
       ),
@@ -239,7 +239,7 @@ class MainRoute {
               pageBuilder: (context, state) => MaterialPage<void>(
                 key: state.pageKey,
                 // 5
-                child: KanjiTestPage(),
+                child: CommonTestKanji(),
               ),
             ),
             GoRoute(
@@ -261,8 +261,8 @@ class MainRoute {
         path: '/redirect-n5-kanji-test/:item',
         // 3
         redirect: (state) => state.namedLocation(
-          "kanji-test-n5",
-          params: {'tab': 'testKanjiN5', 'item': state.params['item']!},
+          "common-kanji-test",
+          params: {'tab': 'kanji', 'item': state.params['item']!},
         ),
       ),
       GoRoute(

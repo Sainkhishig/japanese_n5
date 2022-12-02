@@ -10,8 +10,9 @@ import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/list/kanji_test_list.dart';
-import 'package:hishig_erdem/n5/test/pages/kanji/test_menu/test_menu_page.dart';
+
 import 'package:hishig_erdem/n5/test/pages/listening/listening_test_list.dart';
+import 'package:hishig_erdem/n5/test/pages/test_menu/test_menu_page.dart';
 
 class Menu {
   late String name;
