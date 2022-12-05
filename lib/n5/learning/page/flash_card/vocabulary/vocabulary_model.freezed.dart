@@ -23,6 +23,8 @@ class _$VocabularyModelTearOff {
 
   _VocabularyModel call(
       {List<dynamic> lstVocabulary = const [],
+      int selectedKanjiIndex = 0,
+      dynamic selectedKanjiInfo = null,
       int selectedCardIndex = 1,
       int pageIndex = 1,
       String dbName = "N5Words",
@@ -30,6 +32,8 @@ class _$VocabularyModelTearOff {
       String searchKey = ""}) {
     return _VocabularyModel(
       lstVocabulary: lstVocabulary,
+      selectedKanjiIndex: selectedKanjiIndex,
+      selectedKanjiInfo: selectedKanjiInfo,
       selectedCardIndex: selectedCardIndex,
       pageIndex: pageIndex,
       dbName: dbName,
@@ -49,6 +53,8 @@ const $VocabularyModel = _$VocabularyModelTearOff();
 /// @nodoc
 mixin _$VocabularyModel {
   List<dynamic> get lstVocabulary => throw _privateConstructorUsedError;
+  int get selectedKanjiIndex => throw _privateConstructorUsedError;
+  dynamic get selectedKanjiInfo => throw _privateConstructorUsedError;
   int get selectedCardIndex => throw _privateConstructorUsedError;
   int get pageIndex => throw _privateConstructorUsedError;
   String get dbName => throw _privateConstructorUsedError;
@@ -68,6 +74,8 @@ abstract class $VocabularyModelCopyWith<$Res> {
       _$VocabularyModelCopyWithImpl<$Res>;
   $Res call(
       {List<dynamic> lstVocabulary,
+      int selectedKanjiIndex,
+      dynamic selectedKanjiInfo,
       int selectedCardIndex,
       int pageIndex,
       String dbName,
@@ -87,6 +95,8 @@ class _$VocabularyModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? lstVocabulary = freezed,
+    Object? selectedKanjiIndex = freezed,
+    Object? selectedKanjiInfo = freezed,
     Object? selectedCardIndex = freezed,
     Object? pageIndex = freezed,
     Object? dbName = freezed,
@@ -98,6 +108,14 @@ class _$VocabularyModelCopyWithImpl<$Res>
           ? _value.lstVocabulary
           : lstVocabulary // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
+      selectedKanjiIndex: selectedKanjiIndex == freezed
+          ? _value.selectedKanjiIndex
+          : selectedKanjiIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      selectedKanjiInfo: selectedKanjiInfo == freezed
+          ? _value.selectedKanjiInfo
+          : selectedKanjiInfo // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       selectedCardIndex: selectedCardIndex == freezed
           ? _value.selectedCardIndex
           : selectedCardIndex // ignore: cast_nullable_to_non_nullable
@@ -131,6 +149,8 @@ abstract class _$VocabularyModelCopyWith<$Res>
   @override
   $Res call(
       {List<dynamic> lstVocabulary,
+      int selectedKanjiIndex,
+      dynamic selectedKanjiInfo,
       int selectedCardIndex,
       int pageIndex,
       String dbName,
@@ -152,6 +172,8 @@ class __$VocabularyModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? lstVocabulary = freezed,
+    Object? selectedKanjiIndex = freezed,
+    Object? selectedKanjiInfo = freezed,
     Object? selectedCardIndex = freezed,
     Object? pageIndex = freezed,
     Object? dbName = freezed,
@@ -163,6 +185,14 @@ class __$VocabularyModelCopyWithImpl<$Res>
           ? _value.lstVocabulary
           : lstVocabulary // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
+      selectedKanjiIndex: selectedKanjiIndex == freezed
+          ? _value.selectedKanjiIndex
+          : selectedKanjiIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      selectedKanjiInfo: selectedKanjiInfo == freezed
+          ? _value.selectedKanjiInfo
+          : selectedKanjiInfo // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       selectedCardIndex: selectedCardIndex == freezed
           ? _value.selectedCardIndex
           : selectedCardIndex // ignore: cast_nullable_to_non_nullable
@@ -192,6 +222,8 @@ class __$VocabularyModelCopyWithImpl<$Res>
 class _$_VocabularyModel implements _VocabularyModel {
   const _$_VocabularyModel(
       {this.lstVocabulary = const [],
+      this.selectedKanjiIndex = 0,
+      this.selectedKanjiInfo = null,
       this.selectedCardIndex = 1,
       this.pageIndex = 1,
       this.dbName = "N5Words",
@@ -204,6 +236,12 @@ class _$_VocabularyModel implements _VocabularyModel {
   @JsonKey(defaultValue: const [])
   @override
   final List<dynamic> lstVocabulary;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int selectedKanjiIndex;
+  @JsonKey(defaultValue: null)
+  @override
+  final dynamic selectedKanjiInfo;
   @JsonKey(defaultValue: 1)
   @override
   final int selectedCardIndex;
@@ -222,7 +260,7 @@ class _$_VocabularyModel implements _VocabularyModel {
 
   @override
   String toString() {
-    return 'VocabularyModel(lstVocabulary: $lstVocabulary, selectedCardIndex: $selectedCardIndex, pageIndex: $pageIndex, dbName: $dbName, dbNameIndex: $dbNameIndex, searchKey: $searchKey)';
+    return 'VocabularyModel(lstVocabulary: $lstVocabulary, selectedKanjiIndex: $selectedKanjiIndex, selectedKanjiInfo: $selectedKanjiInfo, selectedCardIndex: $selectedCardIndex, pageIndex: $pageIndex, dbName: $dbName, dbNameIndex: $dbNameIndex, searchKey: $searchKey)';
   }
 
   @override
@@ -232,6 +270,12 @@ class _$_VocabularyModel implements _VocabularyModel {
             (identical(other.lstVocabulary, lstVocabulary) ||
                 const DeepCollectionEquality()
                     .equals(other.lstVocabulary, lstVocabulary)) &&
+            (identical(other.selectedKanjiIndex, selectedKanjiIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectedKanjiIndex, selectedKanjiIndex)) &&
+            (identical(other.selectedKanjiInfo, selectedKanjiInfo) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectedKanjiInfo, selectedKanjiInfo)) &&
             (identical(other.selectedCardIndex, selectedCardIndex) ||
                 const DeepCollectionEquality()
                     .equals(other.selectedCardIndex, selectedCardIndex)) &&
@@ -252,6 +296,8 @@ class _$_VocabularyModel implements _VocabularyModel {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(lstVocabulary) ^
+      const DeepCollectionEquality().hash(selectedKanjiIndex) ^
+      const DeepCollectionEquality().hash(selectedKanjiInfo) ^
       const DeepCollectionEquality().hash(selectedCardIndex) ^
       const DeepCollectionEquality().hash(pageIndex) ^
       const DeepCollectionEquality().hash(dbName) ^
@@ -272,6 +318,8 @@ class _$_VocabularyModel implements _VocabularyModel {
 abstract class _VocabularyModel implements VocabularyModel {
   const factory _VocabularyModel(
       {List<dynamic> lstVocabulary,
+      int selectedKanjiIndex,
+      dynamic selectedKanjiInfo,
       int selectedCardIndex,
       int pageIndex,
       String dbName,
@@ -283,6 +331,10 @@ abstract class _VocabularyModel implements VocabularyModel {
 
   @override
   List<dynamic> get lstVocabulary => throw _privateConstructorUsedError;
+  @override
+  int get selectedKanjiIndex => throw _privateConstructorUsedError;
+  @override
+  dynamic get selectedKanjiInfo => throw _privateConstructorUsedError;
   @override
   int get selectedCardIndex => throw _privateConstructorUsedError;
   @override

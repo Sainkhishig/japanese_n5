@@ -9,6 +9,8 @@ part of 'vocabulary_model.dart';
 _$_VocabularyModel _$$_VocabularyModelFromJson(Map<String, dynamic> json) =>
     _$_VocabularyModel(
       lstVocabulary: json['lstVocabulary'] as List<dynamic>? ?? [],
+      selectedKanjiIndex: json['selectedKanjiIndex'] as int? ?? 0,
+      selectedKanjiInfo: json['selectedKanjiInfo'] ?? null,
       selectedCardIndex: json['selectedCardIndex'] as int? ?? 1,
       pageIndex: json['pageIndex'] as int? ?? 1,
       dbName: json['dbName'] as String? ?? 'N5Words',
@@ -19,6 +21,8 @@ _$_VocabularyModel _$$_VocabularyModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_VocabularyModelToJson(_$_VocabularyModel instance) =>
     <String, dynamic>{
       'lstVocabulary': instance.lstVocabulary,
+      'selectedKanjiIndex': instance.selectedKanjiIndex,
+      'selectedKanjiInfo': instance.selectedKanjiInfo,
       'selectedCardIndex': instance.selectedCardIndex,
       'pageIndex': instance.pageIndex,
       'dbName': instance.dbName,

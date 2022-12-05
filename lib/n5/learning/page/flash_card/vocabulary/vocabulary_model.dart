@@ -8,6 +8,8 @@ part 'vocabulary_model.g.dart';
 abstract class VocabularyModel with _$VocabularyModel {
   const factory VocabularyModel({
     @Default([]) List lstVocabulary,
+    @Default(0) int selectedKanjiIndex,
+    @Default(null) dynamic selectedKanjiInfo,
     @Default(1) int selectedCardIndex,
     @Default(1) int pageIndex,
     @Default("N5Words") String dbName,

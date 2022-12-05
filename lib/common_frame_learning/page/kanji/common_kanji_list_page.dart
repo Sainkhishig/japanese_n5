@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:hishig_erdem/common/app_function.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
 import 'package:hishig_erdem/common/function/read_xl_logic.dart';
@@ -44,13 +46,16 @@ class CommonKanjiListPage extends HookConsumerWidget {
     List<Widget> lsttableServings = [];
     List<XlKanjiHiveModel> filteredGrammar =
         hiveBox.lstKanji.cast<XlKanjiHiveModel>();
-    var list = sliceList(filteredGrammar, 20);
+    var list = sliceList(filteredGrammar, 30);
     for (var partition in list) {
-      lsttableServings.add(tabCardBody(partition, context, controller));
+      lsttableServings.add(gridCardBody(partition, context, controller));
     }
     // if (filteredGrammar.isNotEmpty) {
     //   lsttableServings.add(tabCardBody(filteredGrammar, context, controller));
     // }
+    // filteredGrammar.first.kanji
+    // filteredGrammar.first.example1
+    // filteredGrammar.first.meaningMn
     return Scaffold(
       body: Scaffold(
           body: //Expanded(child: FlashCardListItem(flashcards: flashCard)),
@@ -58,6 +63,118 @@ class CommonKanjiListPage extends HookConsumerWidget {
         CustomSearchBar(onSearch: (searchKey) {
           controller.setSearchKey(searchKey);
         }),
+        controller.state.selectedKanjiInfo == null
+            ? Text(
+                "N${loginState.hiveInfo.jlptLevel} түвшний нийт: ${filteredGrammar.length} ханз",
+                style: const TextStyle(fontSize: 20),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      padding: const EdgeInsets.only(
+                        left: 30,
+                      ),
+                      // decoration: const BoxDecoration(
+                      //   border: Border(
+                      //     right: BorderSide(width: 2.0, color: Colors.grey),
+                      //   ),
+                      // ),
+                      alignment: Alignment.center,
+                      child: Expanded(
+                        flex: 1,
+                        child: Center(
+                          child: Text(
+                            "${controller.state.selectedKanjiInfo.kanji}",
+                            style: const TextStyle(
+                                fontSize: 60,
+                                // fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
+                        ),
+                      )),
+                  // const VerticalDivider(thickness: 1.0, color: Colors.black12),
+                  Container(
+                    width: 20,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        right: BorderSide(width: 2.0, color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                      flex: 3,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Expanded(
+                                flex: 1,
+                                child: Text(" он дуудлага:"),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Text(
+                                    "${controller.state.selectedKanjiInfo.onReading}"),
+                              )
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Expanded(
+                                flex: 1,
+                                child: Text(" күн дуудлага:"),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Text(
+                                    "${controller.state.selectedKanjiInfo.kunReading}"),
+                              )
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Expanded(
+                                flex: 1,
+                                child: Text(" утга:"),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Text(
+                                    "${controller.state.selectedKanjiInfo.meaningMn}"),
+                              )
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Expanded(
+                                flex: 1,
+                                child: Text(" жишээ:"),
+                              ),
+                              Expanded(
+                                  flex: 3,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          "${controller.state.selectedKanjiInfo.example1}"),
+                                      Text(
+                                          "${controller.state.selectedKanjiInfo.example1Mn}"),
+                                    ],
+                                  ))
+                            ],
+                          )
+                        ],
+                      ))
+                ],
+              ),
         lsttableServings.isEmpty
             ? showEmptyDataWidget()
             : Expanded(
@@ -121,6 +238,34 @@ class CommonKanjiListPage extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  Widget gridCardBody(List<XlKanjiHiveModel> lstKanji, context,
+      CommonKanjiListPageController controller) {
+    return GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          // childAspectRatio: 3 / 2,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
+          crossAxisCount:
+              5, // Double.parse("${MediaQuery.of(context).size.width / 100}"),
+          mainAxisExtent: MediaQuery.of(context).size.height / 12,
+        ),
+        itemCount: lstKanji.length,
+        itemBuilder: (BuildContext ctx, index) {
+          return Card(
+            elevation: 4.0,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Colors.white),
+                onPressed: () {
+                  controller.setShowKanji(index, lstKanji[index]);
+                },
+                child: Text(
+                  lstKanji[index].kanji,
+                  style: const TextStyle(color: Colors.black),
+                )),
+          );
+        });
   }
 
   Widget tabCardBody(List<XlKanjiHiveModel> lst, context, controller) {
@@ -201,15 +346,15 @@ class CommonKanjiListPage extends HookConsumerWidget {
                             ),
                             Expanded(
                               flex: 2,
-                              child: Text("${lst[index].meaningMn}"),
+                              child: Text(lst[index].meaningMn),
                             ),
                             Expanded(
                               flex: 2,
-                              child: Text("${lst[index].onReading}"),
+                              child: Text(lst[index].onReading),
                             ),
                             Expanded(
                               flex: 2,
-                              child: Text("${lst[index].kunReading}"),
+                              child: Text(lst[index].kunReading),
                             ),
                             // Expanded(
                             //   flex: 2,
