@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:hishig_erdem/common/app_function.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
 import 'package:hishig_erdem/common/function/read_xl_logic.dart';
@@ -43,26 +41,33 @@ class CommonKanjiListPage extends HookConsumerWidget {
         return const Center(child: CircularProgressIndicator());
       }
     }
+
     List<Widget> lsttableServings = [];
-    List<XlKanjiHiveModel> filteredGrammar =
-        hiveBox.lstKanji.cast<XlKanjiHiveModel>();
+    List<XlKanjiHiveModel> lstKanji = hiveBox.lstKanji.cast<XlKanjiHiveModel>();
+    var searchKey = controller.state.searchKey;
+    var filteredGrammar = lstKanji
+        .where((element) =>
+            element.kanji.contains(searchKey) ||
+            element.meaningMn.contains(searchKey))
+        .toList();
     var list = sliceList(filteredGrammar, 30);
     for (var partition in list) {
       lsttableServings.add(gridCardBody(partition, context, controller));
     }
-    // if (filteredGrammar.isNotEmpty) {
-    //   lsttableServings.add(tabCardBody(filteredGrammar, context, controller));
-    // }
-    // filteredGrammar.first.kanji
-    // filteredGrammar.first.example1
-    // filteredGrammar.first.meaningMn
     return Scaffold(
       body: Scaffold(
           body: //Expanded(child: FlashCardListItem(flashcards: flashCard)),
               Column(children: [
-        CustomSearchBar(onSearch: (searchKey) {
-          controller.setSearchKey(searchKey);
-        }),
+        CustomSearchBar(
+          hintText: "Ханз хайх: ханз, утга",
+          searchKey: controller.state.searchKey,
+          onSearch: (searchKey) {
+            controller.setSearchKey(searchKey);
+          },
+          onClear: () {
+            controller.setSearchKey("");
+          },
+        ),
         controller.state.selectedKanjiInfo == null
             ? Text(
                 "N${loginState.hiveInfo.jlptLevel} түвшний нийт: ${filteredGrammar.length} ханз",
@@ -262,7 +267,11 @@ class CommonKanjiListPage extends HookConsumerWidget {
                 },
                 child: Text(
                   lstKanji[index].kanji,
-                  style: const TextStyle(color: Colors.black),
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: controller.state.selectedKanjiIndex == index
+                          ? Colors.blue
+                          : Colors.black),
                 )),
           );
         });

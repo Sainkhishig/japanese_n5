@@ -8,12 +8,14 @@ class CustomSearchBar extends HookConsumerWidget {
     required this.onSearch,
     this.onClear,
     this.hintText,
+    this.searchKey = "",
     this.widgetKey = "",
   }) : super(key: key);
   final TextEditingController keywordController = TextEditingController();
 
   /// widget key
   final String widgetKey;
+  final String searchKey;
 
   /// 検索機能
   // final String Function() onSearch;
@@ -25,6 +27,8 @@ class CustomSearchBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    keywordController.text = searchKey;
+
     keywordController.selection = TextSelection.fromPosition(
         TextPosition(offset: keywordController.text.length));
     final FocusNode focusNodeForm = FocusNode();
@@ -42,7 +46,7 @@ class CustomSearchBar extends HookConsumerWidget {
                 textInputAction: TextInputAction.search,
                 decoration: InputDecoration(
                   isDense: true,
-                  labelText: hintText ?? "хайх үг",
+                  labelText: hintText ?? "хайх",
                   prefixIcon: const Icon(Icons.search),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.clear),
