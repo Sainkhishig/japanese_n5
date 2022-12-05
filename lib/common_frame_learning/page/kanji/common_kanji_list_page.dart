@@ -44,10 +44,13 @@ class CommonKanjiListPage extends HookConsumerWidget {
     List<Widget> lsttableServings = [];
     List<XlKanjiHiveModel> filteredGrammar =
         hiveBox.lstKanji.cast<XlKanjiHiveModel>();
-
-    if (filteredGrammar.isNotEmpty) {
-      lsttableServings.add(tabCardBody(filteredGrammar, context, controller));
+    var list = sliceList(filteredGrammar, 20);
+    for (var partition in list) {
+      lsttableServings.add(tabCardBody(partition, context, controller));
     }
+    // if (filteredGrammar.isNotEmpty) {
+    //   lsttableServings.add(tabCardBody(filteredGrammar, context, controller));
+    // }
     return Scaffold(
       body: Scaffold(
           body: //Expanded(child: FlashCardListItem(flashcards: flashCard)),

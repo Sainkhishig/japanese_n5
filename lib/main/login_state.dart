@@ -25,7 +25,7 @@ class LoginState extends ChangeNotifier {
 
   String _token = "";
   int railIndex = 0;
-  HiveInfo get hiveInfo => lstHiveInfo[(prefs.getInt("jlptLevel") ?? 5) - 1];
+  HiveInfo get hiveInfo => lstHiveInfo[(prefs.getInt("jlptLevel") ?? 5)];
 
   bool readylogin = false;
 

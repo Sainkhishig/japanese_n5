@@ -1,4 +1,5 @@
 var lstHiveInfo = <HiveInfo>[
+  HiveInfo(0, 'N4_Kanji', 'N4_Grammar', 'N4_Vocabulary'),
   HiveInfo(1, 'N4_Kanji', 'N4_Grammar', 'N4_Vocabulary'),
   HiveInfo(2, 'N4_Kanji', 'N4_Grammar', 'N4_Vocabulary'),
   HiveInfo(3, 'N4_Kanji', 'N4_Grammar', 'N4_Vocabulary'),

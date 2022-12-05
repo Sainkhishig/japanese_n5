@@ -18,12 +18,12 @@ class HomeScreen extends HookConsumerWidget {
 
   List<DropdownMenuItem<int>> getDropItems() {
     List<DropdownMenuItem<int>> lstDropItem = [];
-    for (var i = 1; i <= 5; i++) {
+    for (var i = 0; i <= 5; i++) {
       lstDropItem.add(DropdownMenuItem<int>(
           alignment: AlignmentDirectional.center,
           value: i,
           child: Text(
-            "N$i түвшин",
+            i == 0 ? "Анхан шат" : "N$i түвшин",
             textAlign: TextAlign.center,
           )));
     }
@@ -67,8 +67,6 @@ class HomeScreen extends HookConsumerWidget {
                         setState(() async {
                           selectedLevel = int.parse("$value");
                           await pref.setInt("jlptLevel", selectedLevel);
-
-                          // loginState.hiveInfo = lstHiveInfo[selectedLevel - 1];
                         });
                       },
                     )),
@@ -84,27 +82,31 @@ class HomeScreen extends HookConsumerWidget {
               );
             },
           ),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                router.goNamed("elementary-lesson",
-                    params: {"tab": elementaryLessonMenu[0].destination});
-              },
-              child: const SizedBox(
-                  width: 120,
-                  child: Text(
-                    "Үндсэн хичээл",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 30),
-                  )),
-            ),
-          ),
+          // Center(
+          //   child: ElevatedButton(
+          //     onPressed: () {
+          //       router.goNamed("elementary-lesson",
+          //           params: {"tab": elementaryLessonMenu[0].destination});
+          //     },
+          //     child: const SizedBox(
+          //         width: 120,
+          //         child: Text(
+          //           "Үндсэн хичээл",
+          //           textAlign: TextAlign.center,
+          //           style: TextStyle(fontSize: 30),
+          //         )),
+          //   ),
+          // ),
           const SizedBox(height: 24),
           Center(
             child: ElevatedButton(
               onPressed: () {
-                // loginState.hiveInfo = lstHiveInfo[selectedLevel - 1];
-                moveLearningCommonPage(context, int.parse("$selectedLevel"));
+                if (selectedLevel == 0) {
+                  router.goNamed("elementary-lesson",
+                      params: {"tab": elementaryLessonMenu[0].destination});
+                } else {
+                  moveLearningCommonPage(context, int.parse("$selectedLevel"));
+                }
               },
               child: const SizedBox(
                   width: 120,
@@ -119,8 +121,12 @@ class HomeScreen extends HookConsumerWidget {
           Center(
             child: ElevatedButton(
               onPressed: () {
-                // loginState.hiveInfo = lstHiveInfo[selectedLevel - 1];
-                movePracticeCommonPage(context, int.parse("$selectedLevel"));
+                if (selectedLevel == 0) {
+                  router.goNamed("elementary-lesson",
+                      params: {"tab": elementaryLessonMenu[0].destination});
+                } else {
+                  movePracticeCommonPage(context, int.parse("$selectedLevel"));
+                }
               },
               child: const SizedBox(
                   width: 120,
@@ -131,14 +137,14 @@ class HomeScreen extends HookConsumerWidget {
                   )),
             ),
           ),
-          MediaUploader(),
-          Center(
-            child: LoadingButton(
-              widgetKey: "readListeningPath",
-              onPressed: () {},
-              textLabel: 'readListeningPath',
-            ),
-          ),
+          // MediaUploader(),
+          // Center(
+          //   child: LoadingButton(
+          //     widgetKey: "readListeningPath",
+          //     onPressed: () {},
+          //     textLabel: 'readListeningPath',
+          //   ),
+          // ),
         ],
       ),
     );

@@ -33,12 +33,15 @@ String getTestResultForPercent(double resultPercent) {
   }
   return emotionText;
 }
-// void speak() {
-//   tts.setVolume(volume);
-//   tts.setRate(rate);
-//   if (languageCode != null) {
-//     tts.setLanguage(languageCode!);
-//   }
-//   tts.setPitch(pitch);
-//   tts.speak(text);
-// }
+
+List sliceList(List sliceList, int chunkSize) {
+  List slicedList = [];
+  int index = 0;
+  while (index < sliceList.length) {
+    var chunk = sliceList.skip(index).take(chunkSize);
+    slicedList.add(chunk.toList());
+
+    index += chunkSize;
+  }
+  return slicedList;
+}
