@@ -12,7 +12,7 @@ _$_CommonPracticePageModel _$$_CommonPracticePageModelFromJson(
       userName: json['userName'] as String? ?? '',
       title: json['title'] as String? ?? '',
       selectedIndex: json['selectedIndex'] as int? ?? 0,
-      isGameMode: json['isGameMode'] as bool? ?? false,
+      isChartMode: json['isChartMode'] as bool? ?? false,
       isShowSpeech: json['isShowSpeech'] as bool? ?? true,
     );
 
@@ -22,6 +22,6 @@ Map<String, dynamic> _$$_CommonPracticePageModelToJson(
       'userName': instance.userName,
       'title': instance.title,
       'selectedIndex': instance.selectedIndex,
-      'isGameMode': instance.isGameMode,
+      'isChartMode': instance.isChartMode,
       'isShowSpeech': instance.isShowSpeech,
     };

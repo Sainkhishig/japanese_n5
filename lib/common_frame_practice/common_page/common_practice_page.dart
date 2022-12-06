@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hishig_erdem/common/common_dialog.dart';
+import 'package:hishig_erdem/common/common_popup_menu.dart';
+import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 import 'package:hishig_erdem/main/main_route.dart';
 import 'package:hishig_erdem/n5/common/menu.dart';
 
@@ -9,7 +13,7 @@ import 'package:adaptive_navigation/adaptive_navigation.dart';
 import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'package:flutter/cupertino.dart';
 import 'common_page_controller.dart';
 
 class CommonPagePractice extends HookConsumerWidget {
@@ -19,18 +23,82 @@ class CommonPagePractice extends HookConsumerWidget {
   late N5Box lstN5;
   String? language = 'en-US';
   String? languageCode;
+  late FirebaseAuth? auth;
   late LoginState loginNotifier;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(commonPracticePageProvider.notifier);
     loginNotifier = ref.read(loginStateNotifierProvider);
+    auth = ref.read(firebaseAuthProvider);
     final router = ref.read(mainRouteProvider).router;
     lstN5 = ref.read(n5BoxDataProvider);
     controller.setModelListenable(ref);
 
     return AdaptiveNavigationScaffold(
       appBar: AdaptiveAppBar(
-        title: Text(practiceMenuCommon[controller.state.selectedIndex].name),
+        title: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: IconButton(
+                icon: Icon(Icons.home),
+                onPressed: () {
+                  router.goNamed("home");
+                },
+              ),
+            ),
+            Expanded(
+                flex: 9,
+                child: Text(
+                  practiceMenuCommon[controller.state.selectedIndex].name,
+                  textAlign: TextAlign.center,
+                ))
+          ],
+        ),
+        actions: [
+          ButtonBar(
+            children: [
+              IconButton(
+                  onPressed: () async {
+                    if (!loginNotifier.loggedIn) {
+                      var isMoveToLogin = await showConfirmationMessage(
+                          context,
+                          "Тестийн график үзүүлэлт",
+                          "Уучлаарай. Та ажилласан тестийнхээ график үзүүлэлтийг харахын тулд хэрэглэгчийн эрхээр нэвтрэх шаардлагатай. Та нэвтрэх цонх руу шилжих үү?");
+                      if (isMoveToLogin) {
+                        router.go("/login");
+                      }
+                    } else {
+                      controller.setChartMode(!controller.state.isChartMode);
+                    }
+                  },
+                  icon: Icon(!controller.state.isChartMode
+                      ? CupertinoIcons.chart_pie_fill
+                      : Icons.app_registration_rounded)),
+            ],
+          ),
+          Visibility(
+              visible: loginNotifier.loggedIn,
+              child: commonPopUpMenu(context, ref)),
+          IconButton(
+            padding: const EdgeInsets.only(bottom: 4),
+            disabledColor: Colors.grey,
+            // color: Colors.white,
+            icon: Icon(loginNotifier.loggedIn ? Icons.logout : Icons.login),
+            onPressed: () async {
+              if (!loginNotifier.loggedIn) {
+                router.go("/login");
+                // loginStateNotifier.notifyListeners();
+              } else {
+                await auth!.signOut();
+                loginNotifier.userId = "";
+                loginNotifier.loggedIn = false;
+                loginNotifier.notifyListeners();
+                // controller.refreshState(loginStateNotifier.userId);
+              }
+            },
+          ),
+        ],
       ),
       body: Scaffold(
           body: Row(
@@ -42,7 +110,7 @@ class CommonPagePractice extends HookConsumerWidget {
       )),
       selectedIndex: loginNotifier.railIndex,
       onDestinationSelected: (value) async {
-        controller.setGameMode(false);
+        controller.setChartMode(false);
         changeIndex(value, controller, context, router);
       },
       destinations: _buildDestinations2(context, controller),
@@ -51,7 +119,6 @@ class CommonPagePractice extends HookConsumerWidget {
         onTap: () {
           router.goNamed("home");
         },
-        // tileColor: Colors.black,
         title: Column(
           children: [
             Container(
@@ -81,7 +148,7 @@ class CommonPagePractice extends HookConsumerWidget {
   }
 
   getBody(CommonPracticePageController controller) {
-    var bodyPage = !controller.state.isGameMode
+    var bodyPage = !controller.state.isChartMode
         ? practiceMenuCommon[loginNotifier.railIndex].mainPage
         : practiceMenuCommon[loginNotifier.railIndex].practicePage;
 
@@ -108,7 +175,7 @@ class CommonPagePractice extends HookConsumerWidget {
     } else {
       destination = selectedDestination;
       print("index:$index");
-      controller.setGameMode(false);
+      controller.setChartMode(false);
       router.go("/test/$selectedDestination");
     }
   }

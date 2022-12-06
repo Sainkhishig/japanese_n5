@@ -28,7 +28,7 @@ class CommonPracticePageController
     state = state.copyWith(selectedIndex: index);
   }
 
-  setGameMode(bool isGameMode) async {
-    state = state.copyWith(isGameMode: isGameMode);
+  setChartMode(bool isChartMode) async {
+    state = state.copyWith(isChartMode: isChartMode);
   }
 }

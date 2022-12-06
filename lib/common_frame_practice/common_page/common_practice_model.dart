@@ -9,7 +9,7 @@ abstract class CommonPracticePageModel with _$CommonPracticePageModel {
     @Default("") String userName,
     @Default("") String title,
     @Default(0) int selectedIndex,
-    @Default(false) bool isGameMode,
+    @Default(false) bool isChartMode,
     @Default(true) bool isShowSpeech,
   }) = _CommonPracticePageModel;
   factory CommonPracticePageModel.fromJson(Map<String, dynamic> json) =>

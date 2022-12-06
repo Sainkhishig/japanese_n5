@@ -26,13 +26,13 @@ class _$CommonPracticePageModelTearOff {
       {String userName = "",
       String title = "",
       int selectedIndex = 0,
-      bool isGameMode = false,
+      bool isChartMode = false,
       bool isShowSpeech = true}) {
     return _CommonPracticePageModel(
       userName: userName,
       title: title,
       selectedIndex: selectedIndex,
-      isGameMode: isGameMode,
+      isChartMode: isChartMode,
       isShowSpeech: isShowSpeech,
     );
   }
@@ -50,7 +50,7 @@ mixin _$CommonPracticePageModel {
   String get userName => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   int get selectedIndex => throw _privateConstructorUsedError;
-  bool get isGameMode => throw _privateConstructorUsedError;
+  bool get isChartMode => throw _privateConstructorUsedError;
   bool get isShowSpeech => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -68,7 +68,7 @@ abstract class $CommonPracticePageModelCopyWith<$Res> {
       {String userName,
       String title,
       int selectedIndex,
-      bool isGameMode,
+      bool isChartMode,
       bool isShowSpeech});
 }
 
@@ -86,7 +86,7 @@ class _$CommonPracticePageModelCopyWithImpl<$Res>
     Object? userName = freezed,
     Object? title = freezed,
     Object? selectedIndex = freezed,
-    Object? isGameMode = freezed,
+    Object? isChartMode = freezed,
     Object? isShowSpeech = freezed,
   }) {
     return _then(_value.copyWith(
@@ -102,9 +102,9 @@ class _$CommonPracticePageModelCopyWithImpl<$Res>
           ? _value.selectedIndex
           : selectedIndex // ignore: cast_nullable_to_non_nullable
               as int,
-      isGameMode: isGameMode == freezed
-          ? _value.isGameMode
-          : isGameMode // ignore: cast_nullable_to_non_nullable
+      isChartMode: isChartMode == freezed
+          ? _value.isChartMode
+          : isChartMode // ignore: cast_nullable_to_non_nullable
               as bool,
       isShowSpeech: isShowSpeech == freezed
           ? _value.isShowSpeech
@@ -125,7 +125,7 @@ abstract class _$CommonPracticePageModelCopyWith<$Res>
       {String userName,
       String title,
       int selectedIndex,
-      bool isGameMode,
+      bool isChartMode,
       bool isShowSpeech});
 }
 
@@ -146,7 +146,7 @@ class __$CommonPracticePageModelCopyWithImpl<$Res>
     Object? userName = freezed,
     Object? title = freezed,
     Object? selectedIndex = freezed,
-    Object? isGameMode = freezed,
+    Object? isChartMode = freezed,
     Object? isShowSpeech = freezed,
   }) {
     return _then(_CommonPracticePageModel(
@@ -162,9 +162,9 @@ class __$CommonPracticePageModelCopyWithImpl<$Res>
           ? _value.selectedIndex
           : selectedIndex // ignore: cast_nullable_to_non_nullable
               as int,
-      isGameMode: isGameMode == freezed
-          ? _value.isGameMode
-          : isGameMode // ignore: cast_nullable_to_non_nullable
+      isChartMode: isChartMode == freezed
+          ? _value.isChartMode
+          : isChartMode // ignore: cast_nullable_to_non_nullable
               as bool,
       isShowSpeech: isShowSpeech == freezed
           ? _value.isShowSpeech
@@ -181,7 +181,7 @@ class _$_CommonPracticePageModel implements _CommonPracticePageModel {
       {this.userName = "",
       this.title = "",
       this.selectedIndex = 0,
-      this.isGameMode = false,
+      this.isChartMode = false,
       this.isShowSpeech = true});
 
   factory _$_CommonPracticePageModel.fromJson(Map<String, dynamic> json) =>
@@ -198,14 +198,14 @@ class _$_CommonPracticePageModel implements _CommonPracticePageModel {
   final int selectedIndex;
   @JsonKey(defaultValue: false)
   @override
-  final bool isGameMode;
+  final bool isChartMode;
   @JsonKey(defaultValue: true)
   @override
   final bool isShowSpeech;
 
   @override
   String toString() {
-    return 'CommonPracticePageModel(userName: $userName, title: $title, selectedIndex: $selectedIndex, isGameMode: $isGameMode, isShowSpeech: $isShowSpeech)';
+    return 'CommonPracticePageModel(userName: $userName, title: $title, selectedIndex: $selectedIndex, isChartMode: $isChartMode, isShowSpeech: $isShowSpeech)';
   }
 
   @override
@@ -220,9 +220,9 @@ class _$_CommonPracticePageModel implements _CommonPracticePageModel {
             (identical(other.selectedIndex, selectedIndex) ||
                 const DeepCollectionEquality()
                     .equals(other.selectedIndex, selectedIndex)) &&
-            (identical(other.isGameMode, isGameMode) ||
+            (identical(other.isChartMode, isChartMode) ||
                 const DeepCollectionEquality()
-                    .equals(other.isGameMode, isGameMode)) &&
+                    .equals(other.isChartMode, isChartMode)) &&
             (identical(other.isShowSpeech, isShowSpeech) ||
                 const DeepCollectionEquality()
                     .equals(other.isShowSpeech, isShowSpeech)));
@@ -234,7 +234,7 @@ class _$_CommonPracticePageModel implements _CommonPracticePageModel {
       const DeepCollectionEquality().hash(userName) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(selectedIndex) ^
-      const DeepCollectionEquality().hash(isGameMode) ^
+      const DeepCollectionEquality().hash(isChartMode) ^
       const DeepCollectionEquality().hash(isShowSpeech);
 
   @JsonKey(ignore: true)
@@ -254,7 +254,7 @@ abstract class _CommonPracticePageModel implements CommonPracticePageModel {
       {String userName,
       String title,
       int selectedIndex,
-      bool isGameMode,
+      bool isChartMode,
       bool isShowSpeech}) = _$_CommonPracticePageModel;
 
   factory _CommonPracticePageModel.fromJson(Map<String, dynamic> json) =
@@ -267,7 +267,7 @@ abstract class _CommonPracticePageModel implements CommonPracticePageModel {
   @override
   int get selectedIndex => throw _privateConstructorUsedError;
   @override
-  bool get isGameMode => throw _privateConstructorUsedError;
+  bool get isChartMode => throw _privateConstructorUsedError;
   @override
   bool get isShowSpeech => throw _privateConstructorUsedError;
   @override

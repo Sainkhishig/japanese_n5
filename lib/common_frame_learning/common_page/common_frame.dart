@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hishig_erdem/common/common_popup_menu.dart';
+import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 import 'package:hishig_erdem/main/main_route.dart';
 import 'package:hishig_erdem/n5/common/menu.dart';
 
@@ -21,29 +24,49 @@ class CommonFrameLearning extends HookConsumerWidget {
   String? language = 'en-US';
   String? languageCode;
   late LoginState loginNotifier;
+  late FirebaseAuth? auth;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(commonPageProvider.notifier);
     loginNotifier = ref.read(loginStateNotifierProvider);
+    auth = ref.read(firebaseAuthProvider);
     final router = ref.read(mainRouteProvider).router;
     lstN5 = ref.read(n5BoxDataProvider);
     controller.setModelListenable(ref);
 
     return AdaptiveNavigationScaffold(
       appBar: AdaptiveAppBar(
-        title: Text(learningMenuCommon[controller.state.selectedIndex].name),
+        title: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: IconButton(
+                icon: Icon(Icons.home),
+                onPressed: () {
+                  router.goNamed("home");
+                },
+              ),
+            ),
+            Expanded(
+                flex: 9,
+                child: Text(
+                  learningMenuCommon[controller.state.selectedIndex].name,
+                  textAlign: TextAlign.center,
+                ))
+          ],
+        ),
         actions: [
-          ButtonBar(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    controller.setSpeechVisible(!controller.state.isShowSpeech);
-                  },
-                  icon: Icon((controller.isShowPreference ?? true)
-                      ? CupertinoIcons.volume_up
-                      : CupertinoIcons.volume_off)),
-            ],
-          ),
+          // ButtonBar(
+          //   children: [
+          //     IconButton(
+          //         onPressed: () {
+          //           controller.setSpeechVisible(!controller.state.isShowSpeech);
+          //         },
+          //         icon: Icon((controller.isShowPreference ?? true)
+          //             ? CupertinoIcons.volume_up
+          //             : CupertinoIcons.volume_off)),
+          //   ],
+          // ),
           ButtonBar(
             children: [
               IconButton(
@@ -57,6 +80,27 @@ class CommonFrameLearning extends HookConsumerWidget {
                             .rectangle_fill_on_rectangle_angled_fill,
                   )),
             ],
+          ),
+          Visibility(
+              visible: loginNotifier.loggedIn,
+              child: commonPopUpMenu(context, ref)),
+          IconButton(
+            padding: const EdgeInsets.only(bottom: 4),
+            disabledColor: Colors.grey,
+            // color: Colors.white,
+            icon: Icon(loginNotifier.loggedIn ? Icons.logout : Icons.login),
+            onPressed: () async {
+              if (!loginNotifier.loggedIn) {
+                router.go("/login");
+                // loginStateNotifier.notifyListeners();
+              } else {
+                await auth!.signOut();
+                loginNotifier.userId = "";
+                loginNotifier.loggedIn = false;
+                loginNotifier.notifyListeners();
+                // controller.refreshState(loginStateNotifier.userId);
+              }
+            },
           ),
         ],
       ),

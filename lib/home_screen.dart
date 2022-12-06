@@ -1,8 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hishig_erdem/common/loading_button.dart';
-import 'package:hishig_erdem/common/widget/media_uploader.dart';
+import 'package:hishig_erdem/common/common_dialog.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 import 'package:hishig_erdem/home_screen_controller.dart';
 import 'package:hishig_erdem/main/login_state.dart';
@@ -105,7 +104,15 @@ class HomeScreen extends HookConsumerWidget {
                   router.goNamed("elementary-lesson",
                       params: {"tab": elementaryLessonMenu[0].destination});
                 } else {
-                  moveLearningCommonPage(context, int.parse("$selectedLevel"));
+                  if (selectedLevel == 3 ||
+                      selectedLevel == 2 ||
+                      selectedLevel == 1) {
+                    showWarningMessage(context, "JLPT хичээл",
+                        "Уучлаарай одоогоор N3-N1 түвшний хичээл ороогүй байна.");
+                  } else {
+                    moveLearningCommonPage(
+                        context, int.parse("$selectedLevel"));
+                  }
                 }
               },
               child: const SizedBox(

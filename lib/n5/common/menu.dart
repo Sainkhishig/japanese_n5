@@ -4,7 +4,9 @@ import 'package:hishig_erdem/common_frame_learning/page/flash_card/vocabulary/co
 import 'package:hishig_erdem/common_frame_learning/page/grammer/common_grammer_page.dart';
 import 'package:hishig_erdem/common_frame_learning/page/kanji/common_kanji_list_page.dart';
 import 'package:hishig_erdem/common_frame_learning/page/vocabulary/common_vocabulary_list_page.dart';
+import 'package:hishig_erdem/common_frame_practice/grammar/test/grammar_test.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/player/sample/player_page.dart';
+import 'package:hishig_erdem/common_frame_practice/listening/test/listening_page.dart';
 import 'package:hishig_erdem/common_frame_practice/test_menu/test_menu_page.dart';
 import 'package:hishig_erdem/common_frame_practice/vocabulary/test/vocabulary_test.dart';
 
@@ -12,6 +14,7 @@ import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/list/kanji_test_list.dart';
+import 'package:hishig_erdem/n5/test/pages/kanji/test/kanji_test.dart';
 
 import 'package:hishig_erdem/n5/test/pages/listening/listening_test_list.dart';
 
@@ -36,14 +39,14 @@ late final learningMenuCommon = <MenuPage>[
 ];
 
 late final practiceMenuCommon = <MenuPage>[
-  MenuPage("Ханз", "kanji", Icons.format_list_numbered, TestMenuList(),
-      TestMenuList()),
+  MenuPage("Ханз", "kanji", Icons.format_list_numbered, CommonTestKanji(),
+      CommonTestKanji()),
   MenuPage("Шинэ үг", "vocabulary", Icons.border_color, CommonTestVocabulary(),
       CommonTestVocabulary()),
-  MenuPage("Өгүүлбэр зүй", "grammar", Icons.school_rounded, CommonGrammerPage(),
-      CommonGrammarCardPage()),
-  MenuPage("Сонсгол", "listening", CupertinoIcons.ear, ListeningTestList(),
-      ListeningTestList()),
+  MenuPage("Өгүүлбэр зүй", "grammar", Icons.school_rounded, CommonTestGrammar(),
+      CommonTestGrammar()),
+  MenuPage("Сонсгол", "listening", CupertinoIcons.ear, ListeningPage(),
+      ListeningPage()),
 ];
 
 late final lstMasterMenu = <Menu>[
