@@ -7,6 +7,7 @@ import 'package:hishig_erdem/common_frame_practice/common_page/common_practice_p
 import 'package:hishig_erdem/common_frame_practice/grammar/test/grammar_test.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/test/listening_page.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/test/model/listening_test.dart';
+import 'package:hishig_erdem/common_frame_practice/reading/test/reaging_test.dart';
 import 'package:hishig_erdem/common_frame_practice/vocabulary/test/vocabulary_test.dart';
 import 'package:hishig_erdem/common_page/student_comment.dart';
 
@@ -204,6 +205,16 @@ class MainRoute {
               ),
             ),
             GoRoute(
+              name: "common-reading-test",
+              // 4
+              path: 'readingTest/:item',
+              pageBuilder: (context, state) => MaterialPage<void>(
+                key: state.pageKey,
+                // 5
+                child: CommonTestReading(),
+              ),
+            ),
+            GoRoute(
               name: "common-listening-test",
               // 4
               path: 'listeningTest/:item',
@@ -244,6 +255,17 @@ class MainRoute {
           params: {'tab': 'grammar', 'item': state.params['item']!},
         ),
       ),
+      GoRoute(
+        name: "go-reading-test",
+        // 2
+        path: '/readingTest/:item',
+        // 3
+        redirect: (state) => state.namedLocation(
+          "common-reading-test",
+          params: {'tab': 'reading', 'item': state.params['item']!},
+        ),
+      ),
+
       GoRoute(
         name: "go-listening-test",
         // 2

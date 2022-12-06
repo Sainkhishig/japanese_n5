@@ -3,8 +3,9 @@ import 'package:hishig_erdem/common_frame_practice/common_widget/afen_text_field
 import 'package:hishig_erdem/common_frame_practice/common_widget/save_button.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/text_add_list.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/widget_add_list.dart';
-import 'package:hishig_erdem/common_frame_practice/reading/detail/reading_detail_controller.dart';
+
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/common_frame_practice/readingentry/detail/reading_detail_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // pyfm061 : キャンセル規定編集

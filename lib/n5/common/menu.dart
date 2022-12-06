@@ -8,6 +8,7 @@ import 'package:hishig_erdem/common_frame_practice/chart/test/test_chart_page.da
 import 'package:hishig_erdem/common_frame_practice/grammar/test/grammar_test.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/player/sample/player_page.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/test/listening_page.dart';
+import 'package:hishig_erdem/common_frame_practice/reading/test/reaging_test.dart';
 import 'package:hishig_erdem/common_frame_practice/vocabulary/test/vocabulary_test.dart';
 
 import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
@@ -44,6 +45,8 @@ late final practiceMenuCommon = <MenuPage>[
   MenuPage("Шинэ үг", "vocabulary", Icons.border_color, CommonTestVocabulary(),
       CommonTestChart()),
   MenuPage("Өгүүлбэр зүй", "grammar", Icons.school_rounded, CommonTestGrammar(),
+      CommonTestChart()),
+  MenuPage("Уншлага", "reading", CupertinoIcons.ear, CommonTestReading(),
       CommonTestChart()),
   MenuPage("Сонсгол", "listening", CupertinoIcons.ear, ListeningPage(),
       CommonTestChart()),
