@@ -109,22 +109,71 @@ class CommonVocabularyListPage extends HookConsumerWidget {
               // spacing: 26,
               // direction: Axis.horizontal,
               children: [
-                const Text("хуудас: "),
-                FilterChipListSingleSelect(
-                  isSingleSelect: true,
-                  value: "${controller.state.selectedCardIndex - 1}",
-                  // initValues: DATA_SALE_PERIOD_FILTER,
-                  dataSource: lstVocabularyWidget
-                      .asMap()
-                      .entries
-                      .map((e) => CheckBoxModel("${e.key}", "${e.key + 1}",
-                          isChecked: (e.key + 1) ==
-                              controller.state.selectedPageIndex))
-                      .toList(),
-                  onChangeValue: (value) =>
-                      controller.setSelectedIndex(int.parse(value)),
-                  // controller.updateSalePeriodFilter = value,
+                IconButton(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  iconSize: 40,
+                  disabledColor: Colors.grey,
+                  color: Colors.white,
+                  icon: const Icon(Icons.chevron_left),
+                  onPressed: () {
+                    if (pageController.page!.toInt() > 0) {
+                      controller
+                          .setSelectedIndex(pageController.page!.toInt() - 1);
+                      pageController.animateToPage(
+                          pageController.page!.toInt() - 1,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.ease);
+                    }
+                  },
                 ),
+                Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(lstVocabularyWidget.isEmpty
+                        ? " 0/0"
+                        : " ${controller.state.selectedCardIndex}/${lstVocabularyWidget.length}")),
+                IconButton(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  iconSize: 40,
+                  disabledColor: Colors.grey,
+                  color: Colors.white,
+                  icon: const Icon(Icons.chevron_right),
+                  onPressed: () {
+                    if (pageController.page!.toInt() + 1 <
+                        lstVocabularyWidget.length) {
+                      controller
+                          .setSelectedIndex(pageController.page!.toInt() + 1);
+                      pageController.animateToPage(
+                          pageController.page!.toInt() + 1,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.ease);
+                    } else if (pageController.page!.toInt() != 0) {
+                      controller.setSelectedIndex(0);
+                      pageController.animateToPage(0,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.ease);
+                    }
+                  },
+                ),
+                FilterChipListSingleSelect(
+                    isSingleSelect: true,
+                    value: "${controller.state.selectedCardIndex - 1}",
+                    // initValues: DATA_SALE_PERIOD_FILTER,
+                    dataSource: lstVocabularyWidget
+                        .asMap()
+                        .entries
+                        .map((e) => CheckBoxModel("${e.key}", "${e.key + 1}",
+                            isChecked: (e.key + 1) ==
+                                controller.state.selectedPageIndex))
+                        .toList(),
+                    onChangeValue: (value) {
+                      controller.setSelectedIndex(int.parse(value));
+
+                      pageController.animateToPage(int.parse(value),
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.ease);
+                    }
+                    // controller.updateSalePeriodFilter = value,
+                    ),
                 // SizedBox(
                 //   width: MediaQuery.of(context).size.width - 100,
                 //   child:

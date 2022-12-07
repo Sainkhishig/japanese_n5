@@ -141,28 +141,31 @@ class CommonVocabularyCardPage extends HookConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(
-                    padding: const EdgeInsets.only(bottom: 4),
-                    iconSize: 40,
-                    disabledColor: Colors.grey,
-                    color: Colors.white,
-                    icon: const Icon(Icons.chevron_left),
-                    onPressed: () {
-                      if (pageController.page!.toInt() > 0) {
-                        controller
-                            .setSelectedIndex(pageController.page!.toInt() - 1);
-                        pageController.animateToPage(
-                            pageController.page!.toInt() - 1,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.ease);
-                      }
-                    },
+                  // Text("карт: "),
+                  Row(
+                    children: [
+                      IconButton(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        iconSize: 40,
+                        disabledColor: Colors.grey,
+                        color: Colors.white,
+                        icon: const Icon(Icons.chevron_left),
+                        onPressed: () {
+                          if (pageController.page!.toInt() > 0) {
+                            controller.setSelectedIndex(
+                                pageController.page!.toInt() - 1);
+                            pageController.animateToPage(
+                                pageController.page!.toInt() - 1,
+                                duration: const Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                          }
+                        },
+                      ),
+                    ],
                   ),
-                  Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(lsttableServings.isEmpty
-                          ? " 0/0"
-                          : " ${controller.state.selectedCardIndex}/${lsttableServings.length}")),
+                  Text(lsttableServings.isEmpty
+                      ? "карт: 0/0"
+                      : "карт: ${controller.state.selectedCardIndex}/${lsttableServings.length}"),
                   IconButton(
                     padding: const EdgeInsets.only(bottom: 4),
                     iconSize: 40,
@@ -189,7 +192,7 @@ class CommonVocabularyCardPage extends HookConsumerWidget {
                 ],
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text("хуудас:"),
+                Text("хуудас: "),
                 FilterChipListSingleSelect(
                   isSingleSelect: true,
                   value: "${controller.state.selectedPageIndex - 1}",

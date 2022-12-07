@@ -42,25 +42,32 @@ class CommonGrammerPage extends HookConsumerWidget {
       }
     }
 
-    List<XlGrammarHiveModel> filteredGrammar =
+    List<XlGrammarHiveModel> lstAllVocabulary =
         hiveBox.lstGrammar.cast<XlGrammarHiveModel>();
-    final DataTableSource _data = GrammarData(filteredGrammar);
-    if (controller.state.searchKey.trim().isNotEmpty) {
-      filteredGrammar = filteredGrammar
+
+    var searchKey = controller.state.searchKey.trim();
+
+    if (searchKey.isNotEmpty) {
+      lstAllVocabulary = lstAllVocabulary
           .where((element) =>
-              element.grammar.contains(controller.state.searchKey) ||
-              element.meaningMn.contains(controller.state.searchKey))
+              element.grammar.contains(searchKey) ||
+              element.meaningMn.contains(searchKey))
           .toList();
     }
-    lstGrammerPages.add(tabCardBody(filteredGrammar, context, controller));
+    lstGrammerPages.add(tabCardBody(lstAllVocabulary, context, controller));
     // }
 
     return Scaffold(
       body: Column(
         children: [
-          CustomSearchBar(onSearch: (searchKey) {
-            controller.setSearchKey(searchKey);
-          }),
+          CustomSearchBar(
+              searchKey: controller.state.searchKey,
+              onClear: () {
+                controller.setSearchKey("");
+              },
+              onSearch: (searchKey) {
+                controller.setSearchKey(searchKey);
+              }),
           // PaginatedDataTable(
           //   source: _data,
           //   header: const Text('My Products'),

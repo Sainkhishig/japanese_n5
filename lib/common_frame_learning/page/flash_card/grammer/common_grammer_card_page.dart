@@ -8,6 +8,7 @@ import 'package:hishig_erdem/common/hive_model/grammar/xl_grammar_hive_model.dar
 
 import 'package:flash_card/flash_card.dart';
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/common/widget/filter_chip_list_single_select.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -141,7 +142,27 @@ class CommonGrammarCardPage extends HookConsumerWidget {
                       curve: Curves.ease);
                 }
               },
-            )
+            ),
+            FilterChipListSingleSelect(
+              isSingleSelect: true,
+              value: "${controller.state.selectedCardIndex - 1}",
+              // initValues: DATA_SALE_PERIOD_FILTER,
+              dataSource: lsttableServings
+                  .asMap()
+                  .entries
+                  .map((e) => CheckBoxModel("${e.key}", "${e.key + 1}",
+                      isChecked:
+                          (e.key + 1) == controller.state.selectedPageIndex))
+                  .toList(),
+              onChangeValue: (value) {
+                controller.setSelectedIndex(int.parse(value));
+                pageController.animateToPage(int.parse(value),
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.ease);
+              },
+
+              // controller.updateSalePeriodFilter = value,
+            ),
           ],
         ),
       ),
