@@ -32,4 +32,8 @@ class CommonKanjiCardPageController extends StateNotifier<VocabularyModel> {
   setSelectedIndex(int index) async {
     state = state.copyWith(selectedCardIndex: index + 1);
   }
+
+  setSelectedPageIndex(int index) async {
+    state = state.copyWith(selectedPageIndex: index, selectedCardIndex: 1);
+  }
 }

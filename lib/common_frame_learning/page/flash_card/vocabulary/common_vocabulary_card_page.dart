@@ -66,8 +66,6 @@ class CommonVocabularyCardPage extends HookConsumerWidget {
     var lstVocabularyPart = [];
     if (lstXlVocabulary.isNotEmpty) {
       lstVocabularyPart = sliceList(lstXlVocabulary, pageItemCount);
-      print("cardIndex");
-      print(controller.state.selectedCardIndex);
       for (var element
           in lstVocabularyPart[controller.state.selectedPageIndex - 1]) {
         lsttableServings.add(tabCardBody(element, context, controller));

@@ -141,6 +141,7 @@ class CommonGrammerPage extends HookConsumerWidget {
                       childrenPadding: const EdgeInsets.all(8.0),
                       children: [
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Expanded(
                               flex: 1,
@@ -153,6 +154,9 @@ class CommonGrammerPage extends HookConsumerWidget {
                             ),
                             // Text(
                           ],
+                        ),
+                        const SizedBox(
+                          height: 15,
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,39 +195,6 @@ class CommonGrammerPage extends HookConsumerWidget {
                         ),
                       ] // [Text(result.conjugatedVerb), lstWidget],
                       );
-                  // Padding(
-                  //     padding: const EdgeInsets.all(2),
-                  //     child: Container(
-                  //       height: 50,
-                  //       padding: const EdgeInsets.all(5),
-                  //       alignment: Alignment.centerLeft,
-                  //       decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(5),
-                  //         border: Border.all(
-                  //           color: Colors.black,
-                  //           width: 1,
-                  //         ),
-                  //       ),
-                  //       child: Row(
-                  //         mainAxisAlignment: MainAxisAlignment.start,
-                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                  //         children: [
-                  //           Expanded(
-                  //             flex: 1,
-                  //             child: Text(
-                  //               lst[index].grammar,
-                  //             ),
-                  //           ),
-                  //           Expanded(
-                  //             flex: 2,
-                  //             child: Text(
-                  //               lst[index].meaningMn,
-                  //             ),
-                  //           ),
-                  //           // Text(
-                  //         ],
-                  //       ),
-                  //     ));
                 },
                 // separatorBuilder: (BuildContext context, int index) {},
               ))
