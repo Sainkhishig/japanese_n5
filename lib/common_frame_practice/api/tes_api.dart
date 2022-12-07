@@ -1,10 +1,10 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:hishig_erdem/common_frame_practice/common_model/test_result_model.dart';
 import 'package:hishig_erdem/common_frame_practice/grammar/model/grammar_model.dart';
 import 'package:hishig_erdem/common_frame_practice/listening/test/model/listening_test.dart';
 import 'package:hishig_erdem/common_frame_practice/reading/model/reading_test_model.dart';
 import 'package:hishig_erdem/common_frame_practice/vocabulary/model/vocabulary_model.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/model/kanji_model.dart';
-import 'package:hishig_erdem/n5/test/pages/listening/model/listening_test_model.dart';
 
 class CommonTestAPI {
   final _database = FirebaseDatabase.instance.reference();
@@ -73,13 +73,29 @@ class CommonTestAPI {
     var ref = _database.child("/ReadingTest");
     var rtdb = await ref.orderByChild("jlptLevel").equalTo(level).once();
 
-    final categoryDB = Map<String, dynamic>.from(rtdb.value);
+    final rtdbVal = Map<String, dynamic>.from(rtdb.value);
     var lstTest = [];
-    categoryDB.forEach((keyUser, value) {
+    rtdbVal.forEach((keyUser, value) {
       final grammarTest =
           ReadingTestModel.fromRTDB(Map<String, dynamic>.from(value));
       lstTest.add(grammarTest);
     });
     return lstTest;
+  }
+
+  Future<List<TestResultModel>> getReadingTestResult(userId, level) async {
+    var ref = _database.child("/UserTestResult");
+    var rtdb = await ref.orderByChild("userId").equalTo(userId).once();
+
+    final rtdbVal = Map<String, dynamic>.from(rtdb.value);
+
+    List<TestResultModel> lstTest = [];
+    rtdbVal.forEach((keyUser, value) {
+      final testResult =
+          TestResultModel.fromRTDB(Map<String, dynamic>.from(value));
+      lstTest.add(testResult);
+    });
+
+    return lstTest.where((element) => element.jlptLevel == level).toList();
   }
 }

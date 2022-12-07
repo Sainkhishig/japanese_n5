@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum PopupMenu { userInfo, planFee, commentSend, settings }
 
 extension PopupMenuExtension on PopupMenu {
@@ -61,4 +63,36 @@ extension GenderExtension on Gender {
   };
 
   String get id => typeIds[this]!;
+}
+
+enum TestType { kanji, vocabulary, grammar, listening, reading }
+
+extension TestTypeExtension on TestType {
+  static final typeNames = {
+    TestType.kanji: 'ханз',
+    TestType.vocabulary: 'шинэ үг',
+    TestType.grammar: 'өгүүлбэр зүй',
+    TestType.reading: 'уншлага',
+    TestType.listening: 'сонсгол',
+  };
+
+  String get label => typeNames[this]!;
+
+  static final typeIds = {
+    TestType.kanji: 'Kanji',
+    TestType.vocabulary: 'Vocabulary',
+    TestType.grammar: 'Grammar',
+    TestType.reading: 'Reading',
+    TestType.listening: 'Listening',
+  };
+  static const chartColors = {
+    TestType.kanji: Colors.green,
+    TestType.vocabulary: Colors.pink,
+    TestType.grammar: Colors.purple,
+    TestType.reading: Colors.blue,
+    TestType.listening: Colors.amber,
+  };
+
+  String get id => typeIds[this]!;
+  Color? get chartColor => chartColors[this]!;
 }

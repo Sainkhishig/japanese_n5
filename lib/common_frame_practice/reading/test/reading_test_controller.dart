@@ -46,7 +46,7 @@ class ReadingTestController extends StateNotifier<ReadingTestState> {
     final newData = <String, dynamic>{
       'userId': prefs.getString("userId"),
       'jlptLevel': prefs.getInt("jlptLevel"),
-      'test': "KANJI",
+      'test': "Reading",
       'result': testResult,
       'testDate': DateTime.now().microsecondsSinceEpoch,
     };

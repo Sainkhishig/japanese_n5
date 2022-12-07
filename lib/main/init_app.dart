@@ -49,7 +49,7 @@ class InitApp extends HookConsumerWidget {
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
       debugShowCheckedModeBanner: false,
-      title: 'Navigation App',
+      title: 'Япон хэл',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

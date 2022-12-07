@@ -1,7 +1,13 @@
 // чартын тусламж : https://help.syncfusion.com/flutter/cartesian-charts/axis-types
 // import 'package:fl_chart/fl_chart.dart';
 
+import 'dart:html';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hishig_erdem/common/common_enum.dart';
+import 'package:hishig_erdem/common/common_widget.dart';
 import 'package:hishig_erdem/common_frame_practice/chart/test/test_chart_controller.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,72 +15,30 @@ import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 // import 'package:syncfusion_flutter_charts/charts.dart';
 
-class SalesData {
-  SalesData(this.year, this.sales);
-  final DateTime year;
-  final double sales;
-}
-
-class ChartData {
-  ChartData(this.x, this.y);
-  final DateTime x;
-  final int y;
-}
-
-// pyfm061 : キャンセル規定編集
 class CommonTestChart extends HookConsumerWidget {
   CommonTestChart({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(testChartController.notifier);
     controller.setModelListenable(ref);
-    print("build form");
-    // useEffect(() {
-    //   WidgetsBinding.instance?.addPostFrameCallback((_) {
-    //     controller.setGrammarList();
-    //   });
-    //   // return controller.dispose;
-    // }, const []);
+    final future = useMemoized(() => controller.getTestResult());
+    final snapshot = useFuture(future, initialData: null);
+    if (snapshot.hasError) {
+      return showErrorWidget(
+          context, "Графикийн өгөдлийг авч чадсангүй", snapshot.error);
+    }
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Center(child: CircularProgressIndicator());
+    }
 
-    // if (controller.testState.grammarTestSource.isEmpty) {
-    //   return showEmptyDataWidget();
-    // }
-
-    // TestChartModel testChart = controller.state.selectedTestChart;
-    // var jlptLevel = controller.prefs.getInt("jlptLevel");
-    final List<SalesData> chartData = [
-      SalesData(DateTime.parse('2022-12-02'), 35),
-      SalesData(DateTime.parse('2022-12-03'), 28),
-      SalesData(DateTime.parse('2022-12-04'), 34),
-      SalesData(DateTime.parse('2022-12-05'), 32),
-      SalesData(DateTime.parse('2022-12-06'), 40)
-    ];
-    final List<SalesData> chartDataListening = [
-      SalesData(DateTime.parse('2022-12-01'), 60),
-      SalesData(DateTime.parse('2022-12-02'), 70),
-      SalesData(DateTime.parse('2022-12-04'), 65),
-      SalesData(DateTime.parse('2022-12-05'), 52),
-      SalesData(DateTime.parse('2022-12-06'), 40)
-    ];
-    final List<ChartData> chartDataDate = <ChartData>[
-      ChartData(DateTime(2022, 12, 1), 24),
-      ChartData(DateTime(2022, 12, 1), 20),
-      ChartData(DateTime(2022, 12, 2), 35),
-      ChartData(DateTime(2022, 12, 3), 27),
-      ChartData(DateTime(2022, 12, 4), 30)
-    ];
-    final List<ChartData> chartDataDate2 = <ChartData>[
-      ChartData(DateTime(2022, 12, 1), 60),
-      ChartData(DateTime(2022, 12, 2), 50),
-      ChartData(DateTime(2022, 12, 3), 35),
-      ChartData(DateTime(2022, 12, 3), 77),
-      ChartData(DateTime(2023, 1, 4), 100)
-    ];
     bool isChecked = false;
     return Scaffold(
         body: Center(
-      child: Container(
+            child: Row(
+      children: [
+        Expanded(
           child: SfCartesianChart(
+              title: ChartTitle(text: "Ажилласан тестийн график үзүүлэлт"),
               tooltipBehavior: TooltipBehavior(enable: true),
               primaryYAxis: NumericAxis(minimum: 0, maximum: 100),
               primaryXAxis: DateTimeAxis(
@@ -101,42 +65,75 @@ class CommonTestChart extends HookConsumerWidget {
                 //   //     level: 1),
                 // ]
               ),
-              series: <ChartSeries<ChartData, DateTime>>[
-            LineSeries<ChartData, DateTime>(
-              name: "Ханз",
-              dataLabelSettings: DataLabelSettings(isVisible: true),
-              dataSource: chartDataDate,
-              color: Colors.green,
-              width: 3,
-              markerSettings: const MarkerSettings(
-                  isVisible: true,
-                  height: 4,
-                  width: 4,
-                  shape: DataMarkerType.circle,
-                  borderWidth: 4,
-                  borderColor: Colors.green),
-              enableTooltip: true,
-              xValueMapper: (ChartData data, _) => data.x,
-              yValueMapper: (ChartData data, _) => data.y,
-            ),
-            LineSeries<ChartData, DateTime>(
-              name: "Сонсгол",
-              dataLabelSettings: DataLabelSettings(isVisible: true),
-              dataSource: chartDataDate2,
-              markerSettings: const MarkerSettings(
-                  isVisible: true,
-                  height: 4,
-                  width: 4,
-                  shape: DataMarkerType.circle,
-                  borderWidth: 4,
-                  borderColor: Colors.amber),
-              color: Colors.amber,
-              width: 3,
-              enableTooltip: true,
-              xValueMapper: (ChartData data, _) => data.x,
-              yValueMapper: (ChartData data, _) => data.y,
-            )
-          ])),
-    ));
+              series: <ChartSeries<TestChartData, DateTime>>[
+                getChartSeries(
+                    TestType.kanji, controller.getChartData(TestType.kanji.id)),
+                getChartSeries(TestType.vocabulary,
+                    controller.getChartData(TestType.vocabulary.id)),
+                getChartSeries(TestType.grammar,
+                    controller.getChartData(TestType.grammar.id)),
+                getChartSeries(TestType.reading,
+                    controller.getChartData(TestType.reading.id)),
+                getChartSeries(TestType.listening,
+                    controller.getChartData(TestType.listening.id)),
+              ]),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("―　${TestType.kanji.label}",
+                  style: TextStyle(
+                      color: TestType.kanji.chartColor,
+                      fontWeight: FontWeight.bold)),
+              Text("―　${TestType.vocabulary.label}",
+                  style: TextStyle(
+                      color: TestType.vocabulary.chartColor,
+                      fontWeight: FontWeight.bold)),
+              Text("―　${TestType.grammar.label}",
+                  style: TextStyle(
+                      color: TestType.grammar.chartColor,
+                      fontWeight: FontWeight.bold)),
+              Text("―　${TestType.reading.label}",
+                  style: TextStyle(
+                      color: TestType.reading.chartColor,
+                      fontWeight: FontWeight.bold)),
+              Text("―　${TestType.listening.label}",
+                  style: TextStyle(
+                      color: TestType.listening.chartColor,
+                      fontWeight: FontWeight.bold)),
+            ],
+          ),
+        )
+      ],
+    )));
+  }
+
+  getChartSeries(TestType testType, List<TestChartData> chartData) {
+    return LineSeries<TestChartData, DateTime>(
+      name: testType.label,
+      dataLabelSettings: const DataLabelSettings(isVisible: true),
+      dataSource: chartData,
+      markerSettings: const MarkerSettings(
+        isVisible: true,
+        height: 4,
+        width: 4,
+        shape: DataMarkerType.circle,
+        borderWidth: 4,
+      ),
+      color: testType.chartColor,
+      width: 3,
+      enableTooltip: true,
+      xValueMapper: (TestChartData data, _) => data.x,
+      yValueMapper: (TestChartData data, _) => data.y,
+    );
   }
 }
+// final List<TestChartData> chartDataDate2 = <TestChartData>[
+//       TestChartData(DateTime(2022, 12, 1), 60),
+//       TestChartData(DateTime(2022, 12, 2), 50),
+//       TestChartData(DateTime(2022, 12, 3), 35),
+//       TestChartData(DateTime(2022, 12, 3), 77),
+//       TestChartData(DateTime(2023, 1, 4), 100)
+//     ];

@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:hishig_erdem/common_frame_practice/api/tes_api.dart';
 import 'package:hishig_erdem/common_frame_practice/chart/test/test_chart_state.dart';
+import 'package:hishig_erdem/common_frame_practice/common_model/test_result_model.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,6 +18,7 @@ class TestChartController extends StateNotifier<TestChartState> {
   //#region ==================== local variable ====================
   final StateNotifierProviderRef ref;
   late SharedPreferences prefs;
+  List<TestResultModel> lstTestResult = [];
   Random randomVerbToExercise = Random();
 
   //#endregion ==================== local variable ====================
@@ -30,23 +33,20 @@ class TestChartController extends StateNotifier<TestChartState> {
 
   //#endregion ==================== constructor ====================
 
-  Future<void> sendTestResult(testResult) async {
-    final newData = <String, dynamic>{
-      'userId': prefs.getString("userId"),
-      'jlptLevel': prefs.getInt("jlptLevel"),
-      'test': "KANJI",
-      'result': testResult,
-      'testDate': DateTime.now().microsecondsSinceEpoch,
-    };
+  Future<void> getTestResult() async {
+    lstTestResult = await CommonTestAPI().getReadingTestResult(
+        prefs.getString("userId"), prefs.getInt("jlptLevel"));
 
-    await _database
-        .child('UserTestResult')
-        .push()
-        .set(newData)
-        .catchError((onError) {
-      print('could not send data');
-      throw ("aldaa garlaa");
-    });
+    var lstReadingTestResult =
+        lstTestResult.where((element) => element.test == "Reading").toList();
+    // setChartData(lstReadingTestResult);
+  }
+
+  getChartData(String testType) {
+    var testResult =
+        lstTestResult.where((element) => element.test == testType).toList();
+
+    return testResult.map((e) => TestChartData(e.testDate, e.result)).toList();
   }
 
   //#region ==================== accessor ====================
@@ -58,4 +58,10 @@ class TestChartController extends StateNotifier<TestChartState> {
   clearState() => state = const TestChartState();
 
   //#endregion ==================== method ====================
+}
+
+class TestChartData {
+  TestChartData(this.x, this.y);
+  final DateTime x;
+  final double y;
 }

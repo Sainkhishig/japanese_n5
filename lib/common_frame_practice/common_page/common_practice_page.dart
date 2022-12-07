@@ -50,7 +50,7 @@ class CommonPagePractice extends HookConsumerWidget {
             Expanded(
                 flex: 9,
                 child: Text(
-                  practiceMenuCommon[controller.state.selectedIndex].name,
+                  practiceMenuCommon[loginNotifier.railIndex].name,
                   textAlign: TextAlign.center,
                 ))
           ],

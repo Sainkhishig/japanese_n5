@@ -46,8 +46,8 @@ late final practiceMenuCommon = <MenuPage>[
       CommonTestChart()),
   MenuPage("Өгүүлбэр зүй", "grammar", Icons.school_rounded, CommonTestGrammar(),
       CommonTestChart()),
-  MenuPage("Уншлага", "reading", CupertinoIcons.ear, CommonTestReading(),
-      CommonTestChart()),
+  MenuPage("Уншлага", "reading", CupertinoIcons.book_circle,
+      CommonTestReading(), CommonTestChart()),
   MenuPage("Сонсгол", "listening", CupertinoIcons.ear, ListeningPage(),
       CommonTestChart()),
 ];
