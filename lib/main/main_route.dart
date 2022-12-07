@@ -20,6 +20,7 @@ import 'package:hishig_erdem/n5/test/n5_test_frame_page.dart';
 import 'package:hishig_erdem/n5/test/pages/kanji/test/kanji_test.dart';
 import 'package:hishig_erdem/n5/test/pages/listening/test/listening_test.dart';
 import 'package:hishig_erdem/popup_menu_pages/fee/plan_fee.dart';
+import 'package:hishig_erdem/popup_menu_pages/user_info/admin_page.dart';
 import 'package:hishig_erdem/popup_menu_pages/user_info/user_info.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -92,6 +93,14 @@ class MainRoute {
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
           child: PlanFee(),
+        ),
+      ),
+      GoRoute(
+        name: "courseFee",
+        path: '/courseFee',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: AdminPage(),
         ),
       ),
       GoRoute(

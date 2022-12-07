@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-enum PopupMenu { userInfo, planFee, commentSend, settings }
+enum PopupMenu { userInfo, courseFee, planFee, commentSend, settings }
 
 extension PopupMenuExtension on PopupMenu {
   static final typeNames = {
     PopupMenu.userInfo: 'Хэрэглэгчийн мэдээлэл',
+    PopupMenu.courseFee: 'Онлайн хичээлийн эрх авах',
     PopupMenu.planFee: 'Дасгалын эрх авах',
     PopupMenu.commentSend: 'Сэтгэгдэл, санал хүсэлт илгээх',
     PopupMenu.settings: 'Тохиргоо'
@@ -16,6 +17,7 @@ extension PopupMenuExtension on PopupMenu {
   static final typeIds = {
     PopupMenu.userInfo: 'userInfo',
     PopupMenu.planFee: 'planFee',
+    PopupMenu.courseFee: 'courseFee',
     PopupMenu.commentSend: 'commentSend',
     PopupMenu.settings: 'settings'
   };

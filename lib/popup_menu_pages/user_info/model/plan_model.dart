@@ -2,7 +2,7 @@ class PlanModel {
   late String userId;
   late String userName;
   late String level;
-  late String name;
+  late String monthInterval;
   late double price;
   late bool isApproved;
   late bool isPaid;
@@ -17,7 +17,7 @@ class PlanModel {
       this.userId,
       this.userName,
       this.level,
-      this.name,
+      this.monthInterval,
       this.price,
       this.isApproved,
       this.isPaid,
@@ -34,7 +34,7 @@ class PlanModel {
         data['userId'],
         data['userName'],
         data['level'],
-        data['name'],
+        data['monthInterval'],
         data['price'],
         data['isApproved'],
         data['isPaid'],

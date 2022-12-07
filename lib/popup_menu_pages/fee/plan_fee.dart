@@ -5,7 +5,6 @@ import 'package:hishig_erdem/common/common_widget.dart';
 import 'package:hishig_erdem/common/common_enum.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hishig_erdem/popup_menu_pages/user_info/model/plan_model.dart';
-import 'package:hishig_erdem/popup_menu_pages/user_info/user_info.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class PlanFee extends HookConsumerWidget {
@@ -63,7 +62,7 @@ class PlanFee extends HookConsumerWidget {
                                   ? Colors.blue.shade300
                                   : Colors.green.shade300),
                       child: Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Center(
                           // height: 60,
                           // padding: EdgeInsets.all(10),
@@ -119,7 +118,7 @@ class PlanFee extends HookConsumerWidget {
       'userId': plan.userId,
       'userName': plan.userName,
       'level': plan.level,
-      'name': plan.name,
+      'monthInterval': plan.monthInterval,
       'price': plan.price,
       'isApproved': false,
       'isPaid': false,

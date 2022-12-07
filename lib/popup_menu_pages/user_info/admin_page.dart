@@ -5,7 +5,7 @@ import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hishig_erdem/popup_menu_pages/user_info/model/plan_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class UserInfoPage extends HookConsumerWidget {
+class AdminPage extends HookConsumerWidget {
   // Firebase 認証
   final _database = FirebaseDatabase.instance.reference();
   late LoginState loginState;
@@ -23,7 +23,7 @@ class UserInfoPage extends HookConsumerWidget {
             title: const Text("Хэрэглэгч"),
             subtitle: Text(loginState.userName),
           ),
-          Text("Дасгалын эрх"),
+          Text("Дасгалын эрх батлах"),
           StreamBuilder(
             stream: _database.child('planRequest').orderByKey().onValue,
             builder: (context, snapshot) {
@@ -84,9 +84,17 @@ class UserInfoPage extends HookConsumerWidget {
                                 Expanded(
                                     flex: 1,
                                     child: ElevatedButton(
-                                      child: Text(
-                                          "${nextUser.isCancelled ? "Сэргээх" : "Цуцлах"}"),
-                                      onPressed: () {},
+                                      child: Text("Батлах"),
+                                      onPressed: () async {
+                                        var _todoQuery = _database
+                                            .child("/planRequest")
+                                            .child("/$keyUser");
+                                        print("keyUser");
+                                        print(keyUser);
+                                        await _todoQuery.update({
+                                          "isApproved": true,
+                                        });
+                                      },
                                     )),
                               ])
                         ],
