@@ -26,6 +26,7 @@ class _$VocabularyModelTearOff {
       int selectedKanjiIndex = 0,
       dynamic selectedKanjiInfo = null,
       int selectedCardIndex = 1,
+      int selectedPageIndex = 1,
       int pageIndex = 1,
       String dbName = "N5Words",
       int dbNameIndex = 0,
@@ -35,6 +36,7 @@ class _$VocabularyModelTearOff {
       selectedKanjiIndex: selectedKanjiIndex,
       selectedKanjiInfo: selectedKanjiInfo,
       selectedCardIndex: selectedCardIndex,
+      selectedPageIndex: selectedPageIndex,
       pageIndex: pageIndex,
       dbName: dbName,
       dbNameIndex: dbNameIndex,
@@ -56,6 +58,7 @@ mixin _$VocabularyModel {
   int get selectedKanjiIndex => throw _privateConstructorUsedError;
   dynamic get selectedKanjiInfo => throw _privateConstructorUsedError;
   int get selectedCardIndex => throw _privateConstructorUsedError;
+  int get selectedPageIndex => throw _privateConstructorUsedError;
   int get pageIndex => throw _privateConstructorUsedError;
   String get dbName => throw _privateConstructorUsedError;
   int get dbNameIndex => throw _privateConstructorUsedError;
@@ -77,6 +80,7 @@ abstract class $VocabularyModelCopyWith<$Res> {
       int selectedKanjiIndex,
       dynamic selectedKanjiInfo,
       int selectedCardIndex,
+      int selectedPageIndex,
       int pageIndex,
       String dbName,
       int dbNameIndex,
@@ -98,6 +102,7 @@ class _$VocabularyModelCopyWithImpl<$Res>
     Object? selectedKanjiIndex = freezed,
     Object? selectedKanjiInfo = freezed,
     Object? selectedCardIndex = freezed,
+    Object? selectedPageIndex = freezed,
     Object? pageIndex = freezed,
     Object? dbName = freezed,
     Object? dbNameIndex = freezed,
@@ -119,6 +124,10 @@ class _$VocabularyModelCopyWithImpl<$Res>
       selectedCardIndex: selectedCardIndex == freezed
           ? _value.selectedCardIndex
           : selectedCardIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      selectedPageIndex: selectedPageIndex == freezed
+          ? _value.selectedPageIndex
+          : selectedPageIndex // ignore: cast_nullable_to_non_nullable
               as int,
       pageIndex: pageIndex == freezed
           ? _value.pageIndex
@@ -152,6 +161,7 @@ abstract class _$VocabularyModelCopyWith<$Res>
       int selectedKanjiIndex,
       dynamic selectedKanjiInfo,
       int selectedCardIndex,
+      int selectedPageIndex,
       int pageIndex,
       String dbName,
       int dbNameIndex,
@@ -175,6 +185,7 @@ class __$VocabularyModelCopyWithImpl<$Res>
     Object? selectedKanjiIndex = freezed,
     Object? selectedKanjiInfo = freezed,
     Object? selectedCardIndex = freezed,
+    Object? selectedPageIndex = freezed,
     Object? pageIndex = freezed,
     Object? dbName = freezed,
     Object? dbNameIndex = freezed,
@@ -196,6 +207,10 @@ class __$VocabularyModelCopyWithImpl<$Res>
       selectedCardIndex: selectedCardIndex == freezed
           ? _value.selectedCardIndex
           : selectedCardIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      selectedPageIndex: selectedPageIndex == freezed
+          ? _value.selectedPageIndex
+          : selectedPageIndex // ignore: cast_nullable_to_non_nullable
               as int,
       pageIndex: pageIndex == freezed
           ? _value.pageIndex
@@ -225,6 +240,7 @@ class _$_VocabularyModel implements _VocabularyModel {
       this.selectedKanjiIndex = 0,
       this.selectedKanjiInfo = null,
       this.selectedCardIndex = 1,
+      this.selectedPageIndex = 1,
       this.pageIndex = 1,
       this.dbName = "N5Words",
       this.dbNameIndex = 0,
@@ -247,6 +263,9 @@ class _$_VocabularyModel implements _VocabularyModel {
   final int selectedCardIndex;
   @JsonKey(defaultValue: 1)
   @override
+  final int selectedPageIndex;
+  @JsonKey(defaultValue: 1)
+  @override
   final int pageIndex;
   @JsonKey(defaultValue: "N5Words")
   @override
@@ -260,7 +279,7 @@ class _$_VocabularyModel implements _VocabularyModel {
 
   @override
   String toString() {
-    return 'VocabularyModel(lstVocabulary: $lstVocabulary, selectedKanjiIndex: $selectedKanjiIndex, selectedKanjiInfo: $selectedKanjiInfo, selectedCardIndex: $selectedCardIndex, pageIndex: $pageIndex, dbName: $dbName, dbNameIndex: $dbNameIndex, searchKey: $searchKey)';
+    return 'VocabularyModel(lstVocabulary: $lstVocabulary, selectedKanjiIndex: $selectedKanjiIndex, selectedKanjiInfo: $selectedKanjiInfo, selectedCardIndex: $selectedCardIndex, selectedPageIndex: $selectedPageIndex, pageIndex: $pageIndex, dbName: $dbName, dbNameIndex: $dbNameIndex, searchKey: $searchKey)';
   }
 
   @override
@@ -279,6 +298,9 @@ class _$_VocabularyModel implements _VocabularyModel {
             (identical(other.selectedCardIndex, selectedCardIndex) ||
                 const DeepCollectionEquality()
                     .equals(other.selectedCardIndex, selectedCardIndex)) &&
+            (identical(other.selectedPageIndex, selectedPageIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectedPageIndex, selectedPageIndex)) &&
             (identical(other.pageIndex, pageIndex) ||
                 const DeepCollectionEquality()
                     .equals(other.pageIndex, pageIndex)) &&
@@ -299,6 +321,7 @@ class _$_VocabularyModel implements _VocabularyModel {
       const DeepCollectionEquality().hash(selectedKanjiIndex) ^
       const DeepCollectionEquality().hash(selectedKanjiInfo) ^
       const DeepCollectionEquality().hash(selectedCardIndex) ^
+      const DeepCollectionEquality().hash(selectedPageIndex) ^
       const DeepCollectionEquality().hash(pageIndex) ^
       const DeepCollectionEquality().hash(dbName) ^
       const DeepCollectionEquality().hash(dbNameIndex) ^
@@ -321,6 +344,7 @@ abstract class _VocabularyModel implements VocabularyModel {
       int selectedKanjiIndex,
       dynamic selectedKanjiInfo,
       int selectedCardIndex,
+      int selectedPageIndex,
       int pageIndex,
       String dbName,
       int dbNameIndex,
@@ -337,6 +361,8 @@ abstract class _VocabularyModel implements VocabularyModel {
   dynamic get selectedKanjiInfo => throw _privateConstructorUsedError;
   @override
   int get selectedCardIndex => throw _privateConstructorUsedError;
+  @override
+  int get selectedPageIndex => throw _privateConstructorUsedError;
   @override
   int get pageIndex => throw _privateConstructorUsedError;
   @override

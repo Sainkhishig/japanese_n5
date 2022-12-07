@@ -50,7 +50,7 @@ class CommonFrameLearning extends HookConsumerWidget {
             Expanded(
                 flex: 9,
                 child: Text(
-                  learningMenuCommon[controller.state.selectedIndex].name,
+                  learningMenuCommon[loginNotifier.railIndex].name,
                   textAlign: TextAlign.center,
                 ))
           ],

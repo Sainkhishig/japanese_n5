@@ -1,3 +1,4 @@
+import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
 import 'package:hishig_erdem/common/function/read_xl_logic.dart';
@@ -34,7 +35,7 @@ class CommonGrammerPage extends HookConsumerWidget {
       final future = useMemoized(() => readXlGrammar(ref));
       final snapshot = useFuture(future, initialData: null);
       if (snapshot.hasError) {
-        return showErrorWidget(context, "Error card", snapshot.error);
+        return showErrorWidget(context, "Алдаа гарлаа", snapshot.error);
       }
       if (snapshot.connectionState == ConnectionState.waiting) {
         return const Center(child: CircularProgressIndicator());
@@ -86,63 +87,6 @@ class CommonGrammerPage extends HookConsumerWidget {
                 )
         ],
       ),
-      bottomNavigationBar: Container(
-        height: lstGrammerPages.length > 1 ? 40 : 0,
-        color: Colors.grey,
-        child: Visibility(
-          visible: lstGrammerPages.length > 1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                padding: const EdgeInsets.only(bottom: 4),
-                iconSize: 40,
-                disabledColor: Colors.grey,
-                color: Colors.white,
-                icon: const Icon(Icons.chevron_left),
-                onPressed: () {
-                  if (pageController.page!.toInt() > 0) {
-                    controller
-                        .setSelectedIndex(pageController.page!.toInt() - 1);
-                    pageController.animateToPage(
-                        pageController.page!.toInt() - 1,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.ease);
-                  }
-                },
-              ),
-              Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(lstGrammerPages.isEmpty
-                      ? " 0/0"
-                      : " ${controller.state.selectedCardIndex}/${lstGrammerPages.length}")),
-              IconButton(
-                padding: const EdgeInsets.only(bottom: 4),
-                iconSize: 40,
-                disabledColor: Colors.grey,
-                color: Colors.white,
-                icon: const Icon(Icons.chevron_right),
-                onPressed: () {
-                  if (pageController.page!.toInt() + 1 <
-                      lstGrammerPages.length) {
-                    controller
-                        .setSelectedIndex(pageController.page!.toInt() + 1);
-                    pageController.animateToPage(
-                        pageController.page!.toInt() + 1,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.ease);
-                  } else if (pageController.page!.toInt() != 0) {
-                    controller.setSelectedIndex(0);
-                    pageController.animateToPage(0,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.ease);
-                  }
-                },
-              )
-            ],
-          ),
-        ),
-      ),
     );
   }
 
@@ -154,45 +98,128 @@ class CommonGrammerPage extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                  child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: lst.length,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return Padding(
-                            padding: const EdgeInsets.all(2),
-                            child: Container(
-                              height: 50,
-                              padding: const EdgeInsets.all(5),
-                              alignment: Alignment.centerLeft,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      lst[index].grammar,
+                  child: ListView.separated(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: lst.length,
+                separatorBuilder: (context, index) {
+                  return const Divider(
+                    thickness: 1,
+                    color: Colors.grey,
+                  );
+                },
+                itemBuilder: (BuildContext ctx, index) {
+                  XlGrammarHiveModel grammarData = lst[index];
+                  return ExpansionTile(
+                      tilePadding: EdgeInsets.zero,
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              "${++index}. ${grammarData.grammar}",
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              grammarData.meaningMn,
+                            ),
+                          ),
+                          // Text(
+                        ],
+                      ),
+                      childrenPadding: const EdgeInsets.all(8.0),
+                      children: [
+                        Row(
+                          children: [
+                            const Expanded(
+                              flex: 1,
+                              child: Text("Томъёо:"),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                  grammarData.formMn.replaceAll("※", "\n")),
+                            ),
+                            // Text(
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Expanded(
+                              flex: 1,
+                              child: Text("Жишээ:"),
+                            ),
+                            Expanded(
+                                flex: 2,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    EasyRichText(
+                                      grammarData.example1,
+                                      patternList: [
+                                        ///bold font
+                                        EasyRichTextPattern(
+                                          targetString: '(\\*)(.*?)(\\*)',
+                                          matchBuilder: (context, match) {
+                                            return TextSpan(
+                                              text: match![0]!
+                                                  .replaceAll('*', ''),
+                                              style: const TextStyle(
+                                                  color: Colors.blue),
+                                            );
+                                          },
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(
-                                      lst[index].meaningMn,
-                                    ),
-                                  ),
-                                  // Text(
-                                ],
-                              ),
-                            ));
-                      }))
+                                    Text(grammarData.example1Mn),
+                                  ],
+                                )),
+                            // Text(
+                          ],
+                        ),
+                      ] // [Text(result.conjugatedVerb), lstWidget],
+                      );
+                  // Padding(
+                  //     padding: const EdgeInsets.all(2),
+                  //     child: Container(
+                  //       height: 50,
+                  //       padding: const EdgeInsets.all(5),
+                  //       alignment: Alignment.centerLeft,
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(5),
+                  //         border: Border.all(
+                  //           color: Colors.black,
+                  //           width: 1,
+                  //         ),
+                  //       ),
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.start,
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         children: [
+                  //           Expanded(
+                  //             flex: 1,
+                  //             child: Text(
+                  //               lst[index].grammar,
+                  //             ),
+                  //           ),
+                  //           Expanded(
+                  //             flex: 2,
+                  //             child: Text(
+                  //               lst[index].meaningMn,
+                  //             ),
+                  //           ),
+                  //           // Text(
+                  //         ],
+                  //       ),
+                  //     ));
+                },
+                // separatorBuilder: (BuildContext context, int index) {},
+              ))
             ]));
   }
 }

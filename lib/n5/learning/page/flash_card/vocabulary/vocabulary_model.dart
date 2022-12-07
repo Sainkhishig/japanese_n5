@@ -11,6 +11,7 @@ abstract class VocabularyModel with _$VocabularyModel {
     @Default(0) int selectedKanjiIndex,
     @Default(null) dynamic selectedKanjiInfo,
     @Default(1) int selectedCardIndex,
+    @Default(1) int selectedPageIndex,
     @Default(1) int pageIndex,
     @Default("N5Words") String dbName,
     @Default(0) int dbNameIndex,
