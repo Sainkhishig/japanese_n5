@@ -23,9 +23,13 @@ class UserInfoPage extends HookConsumerWidget {
             title: const Text("Хэрэглэгч"),
             subtitle: Text(loginState.userName),
           ),
-          Text("Дасгалын эрх"),
+          const Text("Дасгалын эрх"),
           StreamBuilder(
-            stream: _database.child('planRequest').orderByKey().onValue,
+            stream: _database
+                .child('UserPlan')
+                .orderByChild("userId")
+                .equalTo(loginState.userId)
+                .onValue,
             builder: (context, snapshot) {
               final tilesList = <Widget>[];
 
@@ -56,7 +60,7 @@ class UserInfoPage extends HookConsumerWidget {
                               children: [
                                 Expanded(
                                   flex: 1,
-                                  child: Text(nextUser.level),
+                                  child: Text("${nextUser.level}"),
                                 ),
                                 Expanded(
                                   flex: 2,
@@ -148,7 +152,7 @@ class UserInfoPage extends HookConsumerWidget {
           // Padding(
           //     padding: EdgeInsets.all(10),
           //     child: StreamBuilder(
-          //       stream: _database.child('planRequest').orderByKey().onValue,
+          //       stream: _database.child('UserPlan').orderByKey().onValue,
           //       builder: (context, snapshot) {
           //         final tilesList = <Widget>[];
 
@@ -263,7 +267,7 @@ class UserInfoPage extends HookConsumerWidget {
       'writeDate': DateTime.now().microsecondsSinceEpoch,
     };
     try {
-      await _database.child('planRequest').push().set(newData);
+      await _database.child('UserPlan').push().set(newData);
       return true;
     } catch (ex) {
       print("ex");

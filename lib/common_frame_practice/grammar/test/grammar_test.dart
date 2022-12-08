@@ -6,6 +6,8 @@ import 'package:hishig_erdem/common/common_widget.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/save_button.dart';
 import 'package:hishig_erdem/common_frame_practice/grammar/model/grammar_model.dart';
 import 'package:hishig_erdem/common_frame_practice/grammar/test/grammar_test_controller.dart';
+import 'package:hishig_erdem/main/login_state.dart';
+import 'package:hishig_erdem/main/main_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // pyfm061 : キャンセル規定編集
@@ -15,11 +17,12 @@ class CommonTestGrammar extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(grammarTestController.notifier);
     controller.setModelListenable(ref);
-    print("build form");
+    final router = ref.read(mainRouteProvider).router;
+    final loginState = ref.watch(loginStateNotifierProvider);
     final future = useMemoized(() => controller.setGrammarList());
     final snapshot = useFuture(future, initialData: null);
     if (snapshot.hasError) {
-      return showErrorWidget(context, "Error card", snapshot.error);
+      return showErrorWidget(context, "Алдаа гарлаа", snapshot.error);
     }
     if (snapshot.connectionState == ConnectionState.waiting) {
       return const Center(child: CircularProgressIndicator());
@@ -112,7 +115,9 @@ class CommonTestGrammar extends HookConsumerWidget {
 
                       await showWarningMessage(context, emotionMessage,
                           "Гүйцэтгэл: $resultByPercent%");
-                      await controller.sendTestResult(resultByPercent);
+                      if (loginState.loggedIn) {
+                        await controller.sendTestResult(resultByPercent);
+                      }
                       setState(() {
                         isChecked = true;
                       });
@@ -191,11 +196,15 @@ class CommonTestGrammar extends HookConsumerWidget {
                   visible: isChecked,
                   child: SaveButton(
                     label: "Дараагийн тест ажиллах",
-                    onSave: () {
+                    onSave: () async {
                       for (var exercise in grammarTest.exercises) {
                         exercise.selectedAnswer = "";
                       }
-                      controller.changeTest();
+                      if (loginState.isUserPlanActive) {
+                        controller.changeTest();
+                      } else {
+                        showPlanFeeConfirmationMessage(context, router);
+                      }
                     },
                   ),
                 ),

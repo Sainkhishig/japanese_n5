@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:hishig_erdem/common/common_enum.dart';
 import 'package:hishig_erdem/common_frame_practice/api/tes_api.dart';
 import 'package:hishig_erdem/common_frame_practice/vocabulary/test/vocabulary_test_state.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
@@ -36,19 +37,21 @@ class VocabularyTestController extends StateNotifier<VocabularyTestState> {
     print("loading data...");
     var lstVocabularyTest =
         await CommonTestAPI().getVocabularyTest(prefs.getInt("jlptLevel") ?? 5);
-    var randomTest = lstVocabularyTest[
-        randomVerbToExercise.nextInt(lstVocabularyTest.length)];
+    if (lstVocabularyTest.isNotEmpty) {
+      var randomTest = lstVocabularyTest[
+          randomVerbToExercise.nextInt(lstVocabularyTest.length)];
 
-    state = state.copyWith(
-        vocabularyTestSource: lstVocabularyTest,
-        selectedVocabularyTest: randomTest);
+      state = state.copyWith(
+          vocabularyTestSource: lstVocabularyTest,
+          selectedVocabularyTest: randomTest);
+    }
   }
 
   Future<void> sendTestResult(testResult) async {
     final newData = <String, dynamic>{
       'userId': prefs.getString("userId"),
       'jlptLevel': prefs.getInt("jlptLevel"),
-      'test': "VOCABULARY",
+      'test': TestType.vocabulary.id,
       'result': testResult,
       'testDate': DateTime.now().microsecondsSinceEpoch,
     };

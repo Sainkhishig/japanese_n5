@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:hishig_erdem/common/common_enum.dart';
 import 'package:hishig_erdem/common_frame_practice/api/tes_api.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 
@@ -35,18 +36,19 @@ class KanjiTestController extends StateNotifier<KanjiTestState> {
     print("loading data...");
     var lstKanjiTest =
         await CommonTestAPI().getKanjiTest(prefs.getInt("jlptLevel") ?? 5);
-    var randomTest =
-        lstKanjiTest[randomVerbToExercise.nextInt(lstKanjiTest.length)];
-
-    state = state.copyWith(
-        kanjiTestSource: lstKanjiTest, selectedKanjiTest: randomTest);
+    if (lstKanjiTest.isNotEmpty) {
+      var randomTest =
+          lstKanjiTest[randomVerbToExercise.nextInt(lstKanjiTest.length)];
+      state = state.copyWith(
+          kanjiTestSource: lstKanjiTest, selectedKanjiTest: randomTest);
+    }
   }
 
   Future<void> sendTestResult(testResult) async {
     final newData = <String, dynamic>{
       'userId': prefs.getString("userId"),
       'jlptLevel': prefs.getInt("jlptLevel"),
-      'test': "KANJI",
+      'test': TestType.kanji.id,
       'result': testResult,
       'testDate': DateTime.now().microsecondsSinceEpoch,
     };

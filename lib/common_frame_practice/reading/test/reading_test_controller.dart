@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:hishig_erdem/common/common_enum.dart';
 import 'package:hishig_erdem/common_frame_practice/api/tes_api.dart';
 import 'package:hishig_erdem/common_frame_practice/reading/test/reading_test_state.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
@@ -35,18 +36,20 @@ class ReadingTestController extends StateNotifier<ReadingTestState> {
     print("loading data...");
     var lstReadingTest =
         await CommonTestAPI().getReadingTest(prefs.getInt("jlptLevel") ?? 5);
-    var randomTest =
-        lstReadingTest[randomVerbToExercise.nextInt(lstReadingTest.length)];
+    if (lstReadingTest.isNotEmpty) {
+      var randomTest =
+          lstReadingTest[randomVerbToExercise.nextInt(lstReadingTest.length)];
 
-    state = state.copyWith(
-        readingTestSource: lstReadingTest, selectedReadingTest: randomTest);
+      state = state.copyWith(
+          readingTestSource: lstReadingTest, selectedReadingTest: randomTest);
+    }
   }
 
   Future<void> sendTestResult(testResult) async {
     final newData = <String, dynamic>{
       'userId': prefs.getString("userId"),
       'jlptLevel': prefs.getInt("jlptLevel"),
-      'test': "Reading",
+      'test': TestType.reading.id,
       'result': testResult,
       'testDate': DateTime.now().microsecondsSinceEpoch,
     };

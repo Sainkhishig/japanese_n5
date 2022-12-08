@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hishig_erdem/common/common_dialog.dart';
 import 'package:hishig_erdem/common/common_popup_menu.dart';
+import 'package:hishig_erdem/common/common_widget.dart';
+import 'package:hishig_erdem/common_frame_practice/api/tes_api.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
 import 'package:hishig_erdem/main/main_route.dart';
 import 'package:hishig_erdem/n5/common/menu.dart';
@@ -10,7 +13,7 @@ import 'package:flutter/material.dart';
 
 import 'package:adaptive_navigation/adaptive_navigation.dart';
 
-import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
+// import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +23,7 @@ class CommonPagePractice extends HookConsumerWidget {
   CommonPagePractice({Key? key, required this.destination}) : super(key: key);
 
   String destination;
-  late N5Box lstN5;
+  // late N5Box lstN5;
   String? language = 'en-US';
   String? languageCode;
   late FirebaseAuth? auth;
@@ -28,11 +31,22 @@ class CommonPagePractice extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(commonPracticePageProvider.notifier);
+    controller.setModelListenable(ref);
     loginNotifier = ref.read(loginStateNotifierProvider);
+    final future =
+        useMemoized(() => CommonTestAPI().setPlanInfo(loginNotifier));
+    final snapshot = useFuture(future, initialData: null);
+    if (snapshot.hasError) {
+      return showErrorWidget(
+          context, "Хэрэглэгчийн эрх шалгахад гарлаа", snapshot.error);
+    }
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
     auth = ref.read(firebaseAuthProvider);
     final router = ref.read(mainRouteProvider).router;
-    lstN5 = ref.read(n5BoxDataProvider);
-    controller.setModelListenable(ref);
+    // lstN5 = ref.read(n5BoxDataProvider);
 
     return AdaptiveNavigationScaffold(
       appBar: AdaptiveAppBar(

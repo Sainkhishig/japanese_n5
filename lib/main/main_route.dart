@@ -96,11 +96,11 @@ class MainRoute {
         ),
       ),
       GoRoute(
-        name: "courseFee",
-        path: '/courseFee',
+        name: "adminConfirmationPage",
+        path: '/adminConfirmationPage',
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
-          child: AdminPage(),
+          child: AdminConfirmationPage(),
         ),
       ),
       GoRoute(

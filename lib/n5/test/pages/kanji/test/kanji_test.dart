@@ -19,7 +19,7 @@ class CommonTestKanji extends HookConsumerWidget {
     final future = useMemoized(() => controller.setKanjiList());
     final snapshot = useFuture(future, initialData: null);
     if (snapshot.hasError) {
-      return showErrorWidget(context, "Error card", snapshot.error);
+      return showErrorWidget(context, "Алдаа гарлаа", snapshot.error);
     }
     if (snapshot.connectionState == ConnectionState.waiting) {
       return const Center(child: CircularProgressIndicator());
@@ -32,7 +32,8 @@ class CommonTestKanji extends HookConsumerWidget {
     //   // return controller.dispose;
     // }, const []);
 
-    if (controller.testState.kanjiTestSource.isEmpty) {
+    if (controller.testState.kanjiTestSource == null ||
+        controller.testState.kanjiTestSource.isEmpty) {
       return showEmptyDataWidget();
     }
 

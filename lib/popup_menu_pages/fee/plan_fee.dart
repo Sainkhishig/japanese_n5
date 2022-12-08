@@ -6,11 +6,13 @@ import 'package:hishig_erdem/common/common_enum.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hishig_erdem/popup_menu_pages/user_info/model/plan_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class PlanFee extends HookConsumerWidget {
   // Firebase 認証
   final _database = FirebaseDatabase.instance.reference();
   late LoginState loginState;
+  final currencyFilter = (num a) => NumberFormat("#,###", "ja_JP").format(a);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     loginState = ref.read(loginStateNotifierProvider);
@@ -20,96 +22,128 @@ class PlanFee extends HookConsumerWidget {
         title: Text(PopupMenu.planFee.title),
       ),
       body: Card(
-          child: Column(children: [
-        // Text(title.substring(1)),
+          child: ListView(children: [
         const SizedBox(
           height: 5,
         ),
-        // ListView.builder(itemBuilder: (context, index) {
-        //   return Ro
-        // },)
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(""),
-            ...[1, 2, 3]
-                .map((e) => Expanded(
-                    child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text(
-                          "$e сар",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16),
-                          textAlign: TextAlign.center,
-                        ))))
-                .toList()
-          ],
-        ),
-        ...lstPlan.map((plan) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        ExpansionTile(
+            tilePadding: EdgeInsets.zero,
+            title: const Text(" Онлайн хичээлийн эрх:"),
             children: [
-              Text("${plan.level} түвшин"),
-              ...plan.levelPrice.map((levelPrice) {
-                return Expanded(
+              Column(
+                children: [
+                  getMonthHeader(),
+                  ...getPlanBody(context, lstPlan, false)
+                ],
+              )
+            ]),
+        ExpansionTile(
+            tilePadding: EdgeInsets.zero,
+            title: const Text(" Дасгал ажлын эрх:"),
+            children: [
+              Column(
+                children: [
+                  getMonthHeader(),
+                  ...getPlanBody(context, lstTestPlan, true)
+                ],
+              )
+            ])
+      ])),
+    );
+  }
+
+  getPlanBody(context, List<LevelFeeSelection> planData, isTestPlan) {
+    return planData.map((plan) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("${plan.level} түвшин"),
+          ...plan.levelPrice.map((levelPrice) {
+            var monthColor = levelPrice.month == 1
+                ? Colors.red.shade300
+                : levelPrice.month == 2
+                    ? Colors.blue.shade300
+                    : Colors.green.shade300;
+            if (isTestPlan) {
+              monthColor = levelPrice.month == 1
+                  ? Colors.yellow.shade300
+                  : levelPrice.month == 2
+                      ? Colors.indigo.shade300
+                      : Colors.lightGreen.shade300;
+            }
+            return Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(5),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: monthColor),
                   child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: levelPrice.month == 1
-                              ? Colors.red.shade300
-                              : levelPrice.month == 2
-                                  ? Colors.blue.shade300
-                                  : Colors.green.shade300),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Center(
-                          // height: 60,
-                          // padding: EdgeInsets.all(10),
-                          child: Text(
-                            "${levelPrice.price}",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                    padding: const EdgeInsets.all(10),
+                    child: Center(
+                      child: Text(
+                        '${currencyFilter(levelPrice.price)} ₮',
+                        textAlign: TextAlign.center,
                       ),
-                      onPressed: () async {
-                        var isConfirmed = await showConfirmationMessage(
-                            context,
-                            "${plan.level} дасгалын эрх авах",
-                            "Та дараах эрхийг идэвхижүүлэхдээ итгэлтэй байна уу? \n${levelPrice.month} сар: ${levelPrice.price}");
-                        if (isConfirmed) {
-                          PlanModel planDetail = PlanModel(
-                              loginState.userId,
-                              loginState.userName,
-                              plan.level,
-                              "${levelPrice.month}",
-                              levelPrice.price,
-                              false,
-                              false,
-                              false,
-                              DateTime.now(),
-                              DateTime.now(),
-                              DateTime.now(),
-                              DateTime.now(),
-                              DateTime.now());
-                          var requestSent = await sendPlanRequest(planDetail);
-                          if (requestSent) {
-                            showInfoMessage(context, "Хүсэлт илгээлээ",
-                                "Та дараах дансанд төлбөрөө шилжүүлсний дараа хэрэглэгчийн мэдээлэл цэс рүү орж төлбөр төлсөн мэдэгдлээ илгээнэ үү.");
-                          } else {
-                            showErrorToastMessage(context,
-                                "Уучлаарай хүсэлт амжилтгүй боллоо. Та манай пэйж хуудсанд холбогдоно уу.");
-                          }
-                        }
-                      },
                     ),
                   ),
-                );
-              })
-            ],
-          );
-        })
-      ])),
+                  onPressed: () async {
+                    var isConfirmed = await showConfirmationMessage(
+                        context,
+                        isTestPlan
+                            ? "Дасгал ажлын эрх"
+                            : "Онлайн хичээлийн эрх",
+                        "Эрхийг идэвхижүүлэх үү? \n   Түвшин: ${plan.level} \n   Хугацаа: ${levelPrice.month} сар \n   Төлбөр: ${currencyFilter(levelPrice.price)} ₮");
+                    if (isConfirmed) {
+                      PlanModel planDetail = PlanModel(
+                          loginState.userId,
+                          loginState.userName,
+                          plan.level,
+                          "${levelPrice.month}",
+                          levelPrice.price,
+                          false,
+                          false,
+                          false,
+                          isTestPlan,
+                          DateTime.now(),
+                          DateTime.now(),
+                          DateTime.now(),
+                          DateTime.now(),
+                          DateTime.now());
+                      var requestSent = await sendPlanRequest(planDetail);
+                      if (requestSent) {
+                        showInfoMessage(context, "Баярлалаа",
+                            "Таны эрхийг үүсгэлээ. Төлбөр төлөгдсөний дараа эрх тань идэвхижих болно. Та дараах дансанд төлбөрөө шилжүүлсний дараа хэрэглэгчийн мэдээлэл цэс рүү орж төлбөр төлсөн мэдэгдлээ илгээнэ үү.");
+                      } else {
+                        showErrorToastMessage(context,
+                            "Уучлаарай хүсэлт амжилтгүй боллоо. Та манай пэйж хуудсанд холбогдоно уу.");
+                      }
+                    }
+                  },
+                ),
+              ),
+            );
+          })
+        ],
+      );
+    });
+  }
+
+  getMonthHeader() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(""),
+        ...[1, 2, 3]
+            .map((e) => Expanded(
+                child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Text(
+                      "$e сар",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ))))
+            .toList()
+      ],
     );
   }
 
@@ -119,18 +153,19 @@ class PlanFee extends HookConsumerWidget {
       'userName': plan.userName,
       'level': plan.level,
       'monthInterval': plan.monthInterval,
+      'isTestPlan': plan.isTestPlan,
       'price': plan.price,
-      'isApproved': false,
       'isPaid': false,
       'isCancelled': false,
-      'startDate': DateTime.now().microsecondsSinceEpoch,
-      'endDate': DateTime.now().microsecondsSinceEpoch,
-      'approveDate': DateTime.now().microsecondsSinceEpoch,
       'paidDate': DateTime.now().microsecondsSinceEpoch,
       'writeDate': DateTime.now().microsecondsSinceEpoch,
+      'isApproved': false,
+      'approveDate': DateTime.now().microsecondsSinceEpoch,
+      'startDate': DateTime.now().microsecondsSinceEpoch,
+      'endDate': DateTime.now().microsecondsSinceEpoch,
     };
     try {
-      await _database.child('planRequest').push().set(newData);
+      await _database.child('UserPlan').push().set(newData);
       return true;
     } catch (ex) {
       print("ex");
@@ -182,6 +217,13 @@ class LevelPrice {
   LevelPrice(this.month, this.price);
 }
 
+class LevelPriceWithSale {
+  late int month;
+  late double price;
+  late double saleBefPrice;
+  LevelPriceWithSale(this.month, this.price, this.saleBefPrice);
+}
+
 class PlanPrice {
   late int level;
   late double price;
@@ -224,10 +266,22 @@ var lstPlan = <LevelFeeSelection>[
   LevelFeeSelection("N5", priceN5),
   LevelFeeSelection("N4", priceN4),
   LevelFeeSelection("N3", priceN3),
-  LevelFeeSelection("N5", priceN2),
-  LevelFeeSelection("N5", priceN1),
+  LevelFeeSelection("N2", priceN2),
+  LevelFeeSelection("N1", priceN1),
 ];
 
+var lstTestPlan = <LevelFeeSelection>[
+  LevelFeeSelection("N5", priceTEstPlan),
+  LevelFeeSelection("N4", priceTEstPlan),
+  LevelFeeSelection("N3", priceTEstPlan),
+  LevelFeeSelection("N2", priceTEstPlan),
+  LevelFeeSelection("N1", priceTEstPlan),
+];
+var priceTEstPlan = [
+  LevelPrice(1, 10000),
+  LevelPrice(2, 15000),
+  LevelPrice(3, 20000),
+];
 var priceN5 = [
   LevelPrice(1, 40000),
   LevelPrice(2, 60000),

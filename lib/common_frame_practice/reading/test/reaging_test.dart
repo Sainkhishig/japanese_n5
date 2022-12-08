@@ -23,7 +23,7 @@ class CommonTestReading extends HookConsumerWidget {
     final future = useMemoized(() => controller.setReadingList());
     final snapshot = useFuture(future, initialData: null);
     if (snapshot.hasError) {
-      return showErrorWidget(context, "Error card", snapshot.error);
+      return showErrorWidget(context, "Алдаа гарлаа", snapshot.error);
     }
     if (snapshot.connectionState == ConnectionState.waiting) {
       return const Center(child: CircularProgressIndicator());

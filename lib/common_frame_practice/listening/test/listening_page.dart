@@ -41,10 +41,14 @@ class _ListeningPage extends State<ListeningPage> {
     Future(() async {
       widget.lstTestSource = await CommonTestAPI().getListeningTest(4);
       setState(() {
-        widget.testItem = widget.lstTestSource[
-            randomVerbToExercise.nextInt(widget.lstTestSource.length)];
+        if (widget.lstTestSource.isNotEmpty) {
+          widget.testItem = widget.lstTestSource[
+              randomVerbToExercise.nextInt(widget.lstTestSource.length)];
+        }
       });
-      getIt<ListeningPageManager>().init(widget.testItem!.exercises);
+      if (widget.lstTestSource.isNotEmpty) {
+        getIt<ListeningPageManager>().init(widget.testItem!.exercises);
+      }
     });
 
     if (widget.lstTestSource.isNotEmpty) {

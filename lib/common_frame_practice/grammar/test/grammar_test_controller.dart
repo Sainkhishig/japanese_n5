@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:hishig_erdem/common/common_enum.dart';
 import 'package:hishig_erdem/common_frame_practice/api/tes_api.dart';
 import 'package:hishig_erdem/common_frame_practice/grammar/test/grammar_test_state.dart';
 import 'package:hishig_erdem/common_providers/shared_preferences_provider.dart';
@@ -46,7 +47,7 @@ class GrammarTestController extends StateNotifier<GrammarTestState> {
     final newData = <String, dynamic>{
       'userId': prefs.getString("userId"),
       'jlptLevel': prefs.getInt("jlptLevel"),
-      'test': "KANJI",
+      'test': TestType.grammar.id,
       'result': testResult,
       'testDate': DateTime.now().microsecondsSinceEpoch,
     };

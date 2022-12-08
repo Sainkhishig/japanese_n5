@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hishig_erdem/common/common_constant.dart';
-import 'package:hishig_erdem/n5/reference_n5_learning_pages.dart';
+import 'package:hishig_erdem/popup_menu_pages/user_info/model/plan_model.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -22,6 +22,8 @@ class LoginState extends ChangeNotifier {
   String _role = "";
   bool _validUser = false;
   String _roleName = "未設定";
+  List<PlanModel> lstUserPlan = [];
+  bool isUserPlanActive = false;
 
   String _token = "";
   int railIndex = 0;

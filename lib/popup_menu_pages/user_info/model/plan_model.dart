@@ -7,10 +7,12 @@ class PlanModel {
   late bool isApproved;
   late bool isPaid;
   late bool isCancelled;
+  late bool isTestPlan;
   late DateTime startDate;
   late DateTime endDate;
   late DateTime approveDate;
   late DateTime paidDate;
+
   late DateTime writeDate;
 
   PlanModel(
@@ -22,14 +24,13 @@ class PlanModel {
       this.isApproved,
       this.isPaid,
       this.isCancelled,
+      this.isTestPlan,
       this.startDate,
       this.endDate,
       this.approveDate,
       this.paidDate,
       this.writeDate);
   factory PlanModel.fromRTDB(Map<String, dynamic> data) {
-    // print("datakey");
-    // print((data as DataSnapshot).key);
     return PlanModel(
         data['userId'],
         data['userName'],
@@ -39,6 +40,7 @@ class PlanModel {
         data['isApproved'],
         data['isPaid'],
         data['isCancelled'],
+        data['isTestPlan'],
         DateTime.fromMicrosecondsSinceEpoch(data['startDate']),
         DateTime.fromMicrosecondsSinceEpoch(data['endDate']),
         DateTime.fromMicrosecondsSinceEpoch(data['approveDate']),
