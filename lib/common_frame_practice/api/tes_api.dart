@@ -124,6 +124,7 @@ class CommonTestAPI {
   }
 
   Future<bool> setPlanInfo(LoginState loginState) async {
+    print("uid${loginState.userId}");
     int level = loginState.hiveInfo.jlptLevel;
     var ref = _database.child("/UserPlan");
     var planData =
@@ -146,6 +147,7 @@ class CommonTestAPI {
             element.endDate.isAfter(dateLimit))
         .toList();
     loginState.isUserPlanActive = lstResult.isNotEmpty;
+    print("planState:${loginState.isUserPlanActive}");
     if (lstResult.isNotEmpty) {
       loginState.lstUserPlan = lstResult;
     }

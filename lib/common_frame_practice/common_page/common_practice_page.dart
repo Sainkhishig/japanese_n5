@@ -103,7 +103,10 @@ class CommonPagePractice extends HookConsumerWidget {
               } else {
                 await auth!.signOut();
                 loginNotifier.userId = "";
+                loginNotifier.userName = "";
                 loginNotifier.loggedIn = false;
+
+                await CommonTestAPI().setPlanInfo(loginNotifier);
                 loginNotifier.notifyListeners();
                 // controller.refreshState(loginStateNotifier.userId);
               }
