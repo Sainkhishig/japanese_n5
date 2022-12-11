@@ -36,9 +36,6 @@ class TestChartController extends StateNotifier<TestChartState> {
   Future<void> getTestResult() async {
     lstTestResult = await CommonTestAPI().getReadingTestResult(
         prefs.getString("userId"), prefs.getInt("jlptLevel"));
-
-    var lstReadingTestResult =
-        lstTestResult.where((element) => element.test == "Reading").toList();
     // setChartData(lstReadingTestResult);
   }
 

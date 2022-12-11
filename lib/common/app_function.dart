@@ -45,3 +45,9 @@ List sliceList(List sliceList, int chunkSize) {
   }
   return slicedList;
 }
+
+getSlectedTestIndex(lstTest) {
+  var todayDay = DateTime.now().day;
+  var lstndex = todayDay % lstTest.length;
+  return lstndex;
+}

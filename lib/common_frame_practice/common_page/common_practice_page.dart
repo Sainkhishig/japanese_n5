@@ -12,8 +12,6 @@ import 'package:hishig_erdem/n5/common/menu.dart';
 import 'package:flutter/material.dart';
 
 import 'package:adaptive_navigation/adaptive_navigation.dart';
-
-// import 'package:hishig_erdem/hive_db/provider/n5_box_provider.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,7 +44,6 @@ class CommonPagePractice extends HookConsumerWidget {
 
     auth = ref.read(firebaseAuthProvider);
     final router = ref.read(mainRouteProvider).router;
-    // lstN5 = ref.read(n5BoxDataProvider);
 
     return AdaptiveNavigationScaffold(
       appBar: AdaptiveAppBar(
@@ -55,7 +52,7 @@ class CommonPagePractice extends HookConsumerWidget {
             Expanded(
               flex: 1,
               child: IconButton(
-                icon: Icon(Icons.home),
+                icon: const Icon(Icons.home),
                 onPressed: () {
                   router.goNamed("home");
                 },

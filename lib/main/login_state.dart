@@ -52,9 +52,9 @@ class LoginState extends ChangeNotifier {
 
   int get jlptLevel => prefs.getInt("jlptLevel") ?? 5;
 
-  String get userId => _userId;
+  String get userId => prefs.getString("userId") ?? "";
   set userId(String value) {
-    _userId = value;
+    // _userId = value;
     prefs.setString("userId", value);
   }
 

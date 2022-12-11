@@ -25,12 +25,12 @@ class _$GrammarTestStateTearOff {
       {List<dynamic> tags = const [],
       List<dynamic> grammarTestSource = const [],
       String? selectedId = null,
-      dynamic selectedGrammarTest = null}) {
+      int selectedTestIndex = 0}) {
     return _GrammarTestState(
       tags: tags,
       grammarTestSource: grammarTestSource,
       selectedId: selectedId,
-      selectedGrammarTest: selectedGrammarTest,
+      selectedTestIndex: selectedTestIndex,
     );
   }
 
@@ -47,7 +47,7 @@ mixin _$GrammarTestState {
   List<dynamic> get tags => throw _privateConstructorUsedError;
   List<dynamic> get grammarTestSource => throw _privateConstructorUsedError;
   String? get selectedId => throw _privateConstructorUsedError;
-  dynamic get selectedGrammarTest => throw _privateConstructorUsedError;
+  int get selectedTestIndex => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -64,7 +64,7 @@ abstract class $GrammarTestStateCopyWith<$Res> {
       {List<dynamic> tags,
       List<dynamic> grammarTestSource,
       String? selectedId,
-      dynamic selectedGrammarTest});
+      int selectedTestIndex});
 }
 
 /// @nodoc
@@ -81,7 +81,7 @@ class _$GrammarTestStateCopyWithImpl<$Res>
     Object? tags = freezed,
     Object? grammarTestSource = freezed,
     Object? selectedId = freezed,
-    Object? selectedGrammarTest = freezed,
+    Object? selectedTestIndex = freezed,
   }) {
     return _then(_value.copyWith(
       tags: tags == freezed
@@ -96,10 +96,10 @@ class _$GrammarTestStateCopyWithImpl<$Res>
           ? _value.selectedId
           : selectedId // ignore: cast_nullable_to_non_nullable
               as String?,
-      selectedGrammarTest: selectedGrammarTest == freezed
-          ? _value.selectedGrammarTest
-          : selectedGrammarTest // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+      selectedTestIndex: selectedTestIndex == freezed
+          ? _value.selectedTestIndex
+          : selectedTestIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -115,7 +115,7 @@ abstract class _$GrammarTestStateCopyWith<$Res>
       {List<dynamic> tags,
       List<dynamic> grammarTestSource,
       String? selectedId,
-      dynamic selectedGrammarTest});
+      int selectedTestIndex});
 }
 
 /// @nodoc
@@ -134,7 +134,7 @@ class __$GrammarTestStateCopyWithImpl<$Res>
     Object? tags = freezed,
     Object? grammarTestSource = freezed,
     Object? selectedId = freezed,
-    Object? selectedGrammarTest = freezed,
+    Object? selectedTestIndex = freezed,
   }) {
     return _then(_GrammarTestState(
       tags: tags == freezed
@@ -149,10 +149,10 @@ class __$GrammarTestStateCopyWithImpl<$Res>
           ? _value.selectedId
           : selectedId // ignore: cast_nullable_to_non_nullable
               as String?,
-      selectedGrammarTest: selectedGrammarTest == freezed
-          ? _value.selectedGrammarTest
-          : selectedGrammarTest // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+      selectedTestIndex: selectedTestIndex == freezed
+          ? _value.selectedTestIndex
+          : selectedTestIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -164,7 +164,7 @@ class _$_GrammarTestState implements _GrammarTestState {
       {this.tags = const [],
       this.grammarTestSource = const [],
       this.selectedId = null,
-      this.selectedGrammarTest = null});
+      this.selectedTestIndex = 0});
 
   factory _$_GrammarTestState.fromJson(Map<String, dynamic> json) =>
       _$$_GrammarTestStateFromJson(json);
@@ -178,13 +178,13 @@ class _$_GrammarTestState implements _GrammarTestState {
   @JsonKey(defaultValue: null)
   @override
   final String? selectedId;
-  @JsonKey(defaultValue: null)
+  @JsonKey(defaultValue: 0)
   @override
-  final dynamic selectedGrammarTest;
+  final int selectedTestIndex;
 
   @override
   String toString() {
-    return 'GrammarTestState(tags: $tags, grammarTestSource: $grammarTestSource, selectedId: $selectedId, selectedGrammarTest: $selectedGrammarTest)';
+    return 'GrammarTestState(tags: $tags, grammarTestSource: $grammarTestSource, selectedId: $selectedId, selectedTestIndex: $selectedTestIndex)';
   }
 
   @override
@@ -199,9 +199,9 @@ class _$_GrammarTestState implements _GrammarTestState {
             (identical(other.selectedId, selectedId) ||
                 const DeepCollectionEquality()
                     .equals(other.selectedId, selectedId)) &&
-            (identical(other.selectedGrammarTest, selectedGrammarTest) ||
+            (identical(other.selectedTestIndex, selectedTestIndex) ||
                 const DeepCollectionEquality()
-                    .equals(other.selectedGrammarTest, selectedGrammarTest)));
+                    .equals(other.selectedTestIndex, selectedTestIndex)));
   }
 
   @override
@@ -210,7 +210,7 @@ class _$_GrammarTestState implements _GrammarTestState {
       const DeepCollectionEquality().hash(tags) ^
       const DeepCollectionEquality().hash(grammarTestSource) ^
       const DeepCollectionEquality().hash(selectedId) ^
-      const DeepCollectionEquality().hash(selectedGrammarTest);
+      const DeepCollectionEquality().hash(selectedTestIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -228,7 +228,7 @@ abstract class _GrammarTestState implements GrammarTestState {
       {List<dynamic> tags,
       List<dynamic> grammarTestSource,
       String? selectedId,
-      dynamic selectedGrammarTest}) = _$_GrammarTestState;
+      int selectedTestIndex}) = _$_GrammarTestState;
 
   factory _GrammarTestState.fromJson(Map<String, dynamic> json) =
       _$_GrammarTestState.fromJson;
@@ -240,7 +240,7 @@ abstract class _GrammarTestState implements GrammarTestState {
   @override
   String? get selectedId => throw _privateConstructorUsedError;
   @override
-  dynamic get selectedGrammarTest => throw _privateConstructorUsedError;
+  int get selectedTestIndex => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$GrammarTestStateCopyWith<_GrammarTestState> get copyWith =>

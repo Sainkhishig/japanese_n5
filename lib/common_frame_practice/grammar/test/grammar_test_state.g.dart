@@ -11,7 +11,7 @@ _$_GrammarTestState _$$_GrammarTestStateFromJson(Map<String, dynamic> json) =>
       tags: json['tags'] as List<dynamic>? ?? [],
       grammarTestSource: json['grammarTestSource'] as List<dynamic>? ?? [],
       selectedId: json['selectedId'] as String? ?? null,
-      selectedGrammarTest: json['selectedGrammarTest'] ?? null,
+      selectedTestIndex: json['selectedTestIndex'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$$_GrammarTestStateToJson(_$_GrammarTestState instance) =>
@@ -19,5 +19,5 @@ Map<String, dynamic> _$$_GrammarTestStateToJson(_$_GrammarTestState instance) =>
       'tags': instance.tags,
       'grammarTestSource': instance.grammarTestSource,
       'selectedId': instance.selectedId,
-      'selectedGrammarTest': instance.selectedGrammarTest,
+      'selectedTestIndex': instance.selectedTestIndex,
     };

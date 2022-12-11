@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hishig_erdem/main/login_state.dart';
 import 'package:hishig_erdem/main/main_route.dart';

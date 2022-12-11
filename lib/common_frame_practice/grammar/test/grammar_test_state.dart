@@ -9,7 +9,7 @@ abstract class GrammarTestState with _$GrammarTestState {
     @Default([]) List tags,
     @Default([]) List grammarTestSource,
     @Default(null) String? selectedId,
-    @Default(null) dynamic selectedGrammarTest,
+    @Default(0) int selectedTestIndex,
     // @Default(PlanType.lodging) PlanType planType,
     // @Default(DetailMode.none) DetailMode mode,
     // @Default(SearchStatus.none) SearchStatus searchStatus,

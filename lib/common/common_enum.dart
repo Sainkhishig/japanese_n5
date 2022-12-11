@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 enum PopupMenu {
   userInfo,
-  adminConfirmationPage,
+  // adminConfirmationPage,
   planFee,
   commentSend,
   settings
@@ -11,7 +11,7 @@ enum PopupMenu {
 extension PopupMenuExtension on PopupMenu {
   static final typeNames = {
     PopupMenu.userInfo: 'Хэрэглэгчийн мэдээлэл',
-    PopupMenu.adminConfirmationPage: 'Хэрэглэгчийн хүсэлт баталгаажуулах',
+    // PopupMenu.adminConfirmationPage: 'Хэрэглэгчийн хүсэлт баталгаажуулах',
     PopupMenu.planFee: 'Онлайн хичээл, дасгалын эрх авах',
     PopupMenu.commentSend: 'Сэтгэгдэл, санал хүсэлт илгээх',
     PopupMenu.settings: 'Тохиргоо'
@@ -23,7 +23,7 @@ extension PopupMenuExtension on PopupMenu {
   static final typeIds = {
     PopupMenu.userInfo: 'userInfo',
     PopupMenu.planFee: 'planFee',
-    PopupMenu.adminConfirmationPage: 'adminConfirmationPage',
+    // PopupMenu.adminConfirmationPage: 'adminConfirmationPage',
     PopupMenu.commentSend: 'commentSend',
     PopupMenu.settings: 'settings'
   };

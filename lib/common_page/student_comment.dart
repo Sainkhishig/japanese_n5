@@ -1,11 +1,14 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:hishig_erdem/common/common_popup_menu.dart';
 import 'package:hishig_erdem/common/common_widget.dart';
 import 'package:hishig_erdem/common/common_enum.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/afen_rich_text_field.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/afen_text_field.dart';
 import 'package:hishig_erdem/common_frame_practice/common_widget/save_button.dart';
 import 'package:hishig_erdem/common_page/student_comment_controller.dart';
+import 'package:hishig_erdem/main/login_state.dart';
+import 'package:hishig_erdem/main/main_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // pyfm061 : キャンセル規定編集
@@ -20,11 +23,28 @@ class StudentCommentPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(studentCommentPageController.notifier);
     controller.setModelListenable(ref);
-
+    var loginState = ref.read(loginStateNotifierProvider);
+    var router = ref.read(mainRouteProvider).router;
     return Scaffold(
         appBar: AppBar(
-          title: Text(PopupMenu.commentSend.title),
-        ),
+            title: Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.home),
+                  onPressed: () {
+                    router.goNamed("home");
+                  },
+                ),
+                Expanded(
+                  child: Text(PopupMenu.commentSend.title),
+                )
+              ],
+            ),
+            actions: [
+              Visibility(
+                  visible: loginState.loggedIn,
+                  child: commonPopUpMenu(context, ref)),
+            ]),
         body: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
@@ -34,7 +54,7 @@ class StudentCommentPage extends HookConsumerWidget {
                 txtUserName,
                 txtTitle,
                 Padding(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   child: Container(
                     width: 350,
                     decoration: BoxDecoration(

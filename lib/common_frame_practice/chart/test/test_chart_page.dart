@@ -1,9 +1,6 @@
 // чартын тусламж : https://help.syncfusion.com/flutter/cartesian-charts/axis-types
 // import 'package:fl_chart/fl_chart.dart';
 
-import 'dart:html';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hishig_erdem/common/common_enum.dart';
@@ -31,7 +28,6 @@ class CommonTestChart extends HookConsumerWidget {
       return const Center(child: CircularProgressIndicator());
     }
 
-    bool isChecked = false;
     return Scaffold(
         body: Center(
             child: Row(

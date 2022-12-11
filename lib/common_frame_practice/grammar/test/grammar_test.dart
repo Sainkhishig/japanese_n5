@@ -27,26 +27,15 @@ class CommonTestGrammar extends HookConsumerWidget {
     if (snapshot.connectionState == ConnectionState.waiting) {
       return const Center(child: CircularProgressIndicator());
     }
-
-    // useEffect(() {
-    //   WidgetsBinding.instance?.addPostFrameCallback((_) {
-    //     controller.setGrammarList();
-    //   });
-    //   // return controller.dispose;
-    // }, const []);
-
     if (controller.testState.grammarTestSource.isEmpty) {
       return showEmptyDataWidget();
     }
 
-    GrammarTestModel grammarTest = controller.state.selectedGrammarTest;
-    var jlptLevel = controller.prefs.getInt("jlptLevel");
+    GrammarTestModel grammarTest =
+        controller.state.grammarTestSource[controller.state.selectedTestIndex];
 
     bool isChecked = false;
     return Scaffold(
-        // appBar: AppBar(
-        //   title: Text("Ханзны тест: N$jlptLevel"),
-        // ),
         body: Padding(
       padding: const EdgeInsets.all(20),
       child: ListView(
@@ -186,8 +175,7 @@ class CommonTestGrammar extends HookConsumerWidget {
                                       );
                                     });
                                   }),
-                            ] // [Text(result.conjugatedVerb), lstWidget],
-                            ),
+                            ]),
                       ),
                     ],
                   ),

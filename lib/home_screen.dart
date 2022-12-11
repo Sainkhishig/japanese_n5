@@ -144,6 +144,25 @@ class HomeScreen extends HookConsumerWidget {
                   )),
             ),
           ),
+          const SizedBox(height: 20),
+          Visibility(
+            visible: loginState.userName == "ari.ariuka67@gmail.com",
+            child: Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  router.goNamed("adminConfirmationPage");
+                },
+                child: const SizedBox(
+                    width: 120,
+                    child: Text(
+                      "Админ№",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 30),
+                    )),
+              ),
+            ),
+          )
+
           // MediaUploader(),
           // Center(
           //   child: LoadingButton(

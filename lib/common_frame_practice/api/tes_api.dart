@@ -137,11 +137,12 @@ class CommonTestAPI {
         lstPlan.add(kanjiTest);
       }
     });
-    var dateLimit = DateTime.now().add(Duration(days: -1));
+    var dateLimit = DateTime.now().add(const Duration(days: -1));
+
     var lstResult = lstPlan
         .where((element) =>
             element.isApproved &&
-            element.level == level &&
+            element.level == "N$level" &&
             element.endDate.isAfter(dateLimit))
         .toList();
     loginState.isUserPlanActive = lstResult.isNotEmpty;

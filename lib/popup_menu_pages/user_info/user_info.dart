@@ -1,7 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hishig_erdem/common/common_enum.dart';
+import 'package:hishig_erdem/common/common_popup_menu.dart';
 import 'package:hishig_erdem/main/login_state.dart';
+import 'package:hishig_erdem/main/main_route.dart';
 import 'package:hishig_erdem/popup_menu_pages/user_info/model/plan_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,11 +14,27 @@ class UserInfoPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     loginState = ref.read(loginStateNotifierProvider);
-
+    var router = ref.read(mainRouteProvider).router;
     return Scaffold(
       appBar: AppBar(
-        title: Text(PopupMenu.planFee.title),
-      ),
+          title: Row(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.home),
+                onPressed: () {
+                  router.goNamed("home");
+                },
+              ),
+              Expanded(
+                child: Text(PopupMenu.userInfo.title),
+              )
+            ],
+          ),
+          actions: [
+            Visibility(
+                visible: loginState.loggedIn,
+                child: commonPopUpMenu(context, ref)),
+          ]),
       body: Column(
         children: [
           ListTile(
